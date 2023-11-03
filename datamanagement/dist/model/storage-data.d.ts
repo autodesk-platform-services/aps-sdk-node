@@ -1,4 +1,5 @@
 import { StorageDataRelationships } from './storage-data-relationships';
+import { Type } from './type';
 /**
  *
  * @export
@@ -7,10 +8,10 @@ import { StorageDataRelationships } from './storage-data-relationships';
 export interface StorageData {
     /**
      *
-     * @type {string}
+     * @type {Type}
      * @memberof StorageData
      */
-    'type'?: string;
+    'type'?: Type;
     /**
      *
      * @type {string}

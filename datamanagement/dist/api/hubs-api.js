@@ -173,11 +173,11 @@ class HubsApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getHub Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`getHub Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.DataManagementApiError(`getHub Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getHub Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`getHub Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.DataManagementApiError(`getHub Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -207,11 +207,11 @@ class HubsApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getHubs Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`getHubs Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.DataManagementApiError(`getHubs Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getHubs Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`getHubs Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.DataManagementApiError(`getHubs Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }

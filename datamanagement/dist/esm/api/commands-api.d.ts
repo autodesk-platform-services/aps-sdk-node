@@ -2,7 +2,7 @@ import type { AxiosPromise, AxiosInstance } from 'axios';
 import { ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse } from "autodesk-sdkmanager";
 import { RequestArgs, BaseAPI } from '../base';
 import { Command } from '../model';
-import { CreateCommand } from '../model';
+import { CommandPayload } from '../model';
 /**
  * CommandsApi - axios parameter creator
  * @export
@@ -13,12 +13,12 @@ export declare const CommandsApiAxiosParamCreator: (apsConfiguration?: IApsConfi
      * @summary Create commands
      * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
      * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {CreateCommand} [createCommand] The POST body is a JSON object with the following attributes.
+     * @param {CommandPayload} [commandPayload] The POST body is a JSON object with the following attributes.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    postCommand: (accessToken: string, projectId: string, xUserId?: string, createCommand?: CreateCommand, options?: ApsServiceRequestConfig) => Promise<RequestArgs>;
+    postCommand: (accessToken: string, projectId: string, xUserId?: string, commandPayload?: CommandPayload, options?: ApsServiceRequestConfig) => Promise<RequestArgs>;
 };
 /**
  * CommandsApi - functional programming interface
@@ -30,11 +30,11 @@ export declare const CommandsApiFp: (sdkManager?: SDKManager) => {
      * @summary Create commands
      * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
      * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {CreateCommand} [createCommand] The POST body is a JSON object with the following attributes.
+     * @param {CommandPayload} [commandPayload] The POST body is a JSON object with the following attributes.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    postCommand(accessToken: string, projectId: string, xUserId?: string, createCommand?: CreateCommand, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Command>>;
+    postCommand(accessToken: string, projectId: string, xUserId?: string, commandPayload?: CommandPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Command>>;
 };
 /**
  * CommandsApi - interface
@@ -47,13 +47,13 @@ export interface CommandsApiInterface {
      * @summary Create commands
      * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
      * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {CreateCommand} [createCommand] The POST body is a JSON object with the following attributes.
+     * @param {CommandPayload} [commandPayload] The POST body is a JSON object with the following attributes.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CommandsApiInterface
      */
-    postCommand(accessToken: string, projectId: string, xUserId?: string, createCommand?: CreateCommand, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    postCommand(accessToken: string, projectId: string, xUserId?: string, commandPayload?: CommandPayload, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 }
 /**
  * CommandsApi - object-oriented interface
@@ -68,11 +68,11 @@ export declare class CommandsApi extends BaseAPI implements CommandsApiInterface
      * @summary Create commands
      * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
      * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {CreateCommand} [createCommand] The POST body is a JSON object with the following attributes.
+     * @param {CommandPayload} [commandPayload] The POST body is a JSON object with the following attributes.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CommandsApi
      */
-    postCommand(accessToken: string, projectId: string, xUserId?: string, createCommand?: CreateCommand, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    postCommand(accessToken: string, projectId: string, xUserId?: string, commandPayload?: CommandPayload, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 }

@@ -32,5 +32,17 @@ export interface SearchDataAttributesExtensionData {
      * @memberof SearchDataAttributesExtensionData
      */
     'conformingStatus'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SearchDataAttributesExtensionData
+     */
+    'modelGuid'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SearchDataAttributesExtensionData
+     */
+    'projectGuid'?: string;
 }
 

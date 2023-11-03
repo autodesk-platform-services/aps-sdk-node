@@ -1,7 +1,7 @@
 {
-  "name": "data-management-api",
+  "name": "autodesk-data-management",
   "version": "1.0.0",
-  "description": "Client sdk for data-management-api API",
+  "description": "Client sdk for data-management API",
   "license": "",
   "publishConfig": {
     "registry": "https://npm.autodesk.com/artifactory/api/npm/autodesk-npm",
@@ -10,7 +10,7 @@
   "keywords": [
     "axios",
     "typescript",
-    "data-management-api"
+    "data-management"
   ],
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
@@ -18,12 +18,12 @@
   "sideEffects": false,
   "scripts": {
     "build": "tsc && tsc -p tsconfig.esm.json",
-    "prettier-format": "prettier --config .prettierrc \\\"./**/*.ts\\\" --write",
+    "prettier-format": "prettier --config .prettierrc \"./**/*.ts\" --write",
     "prepare": "npm run build"
   },
   "dependencies": {
     "axios": "^0.27.2",
-    "autodesk-sdkmanager": "^1.0.5-SNAPSHOT"
+    "autodesk-sdkmanager": "^1.0.6"
   },
   "devDependencies": {
     "@types/node": "^20.3.2",

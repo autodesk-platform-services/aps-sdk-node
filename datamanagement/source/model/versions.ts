@@ -3,7 +3,7 @@
 
 import { FolderContentsLinks } from './folder-contents-links';
 import { HubsJsonapi } from './hubs-jsonapi';
-import { RelationshipRefsIncluded } from './relationship-refs-included';
+import { VersionsData } from './versions-data';
 
 /**
  * Successful retrieval of the versions collection associated with a specific item.
@@ -25,9 +25,9 @@ export interface Versions {
     'links'?: FolderContentsLinks;
     /**
      * 
-     * @type {Set<RelationshipRefsIncluded>}
+     * @type {Set<VersionsData>}
      * @memberof Versions
      */
-    'data'?: Set<RelationshipRefsIncluded>;
+    'data'?: Set<VersionsData>;
 }
 

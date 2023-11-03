@@ -11,13 +11,89 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { ApiResponse } from "autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { BaseAPI, DataManagementApiApiError } from '../base';
+import { BaseAPI, DataManagementApiError } from '../base';
 /**
  * ProjectsApi - axios parameter creator
  * @export
  */
 export const ProjectsApiAxiosParamCreator = function (apsConfiguration) {
     return {
+        /**
+         * Request the creation of a new download for a specific and supported file type. The fileType specified in the POST body needs to be contained in the list of supported file types returned by the GET /data/v1/projects/:project_id/downloads endpoint for the specified version_id.
+         * @summary Request the creation of a new download for a specific and supported file type
+         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {DownloadPayload} [downloadPayload] Describe the download to be created.
+         * @param accessToken bearer access token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createDownload: (accessToken, projectId, xUserId, downloadPayload, options = {}) => __awaiter(this, void 0, void 0, function* () {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('createDownload', 'projectId', projectId);
+            const localVarPath = `/data/v1/projects/{project_id}/downloads`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
+            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
+            let baseOptions;
+            if (apsConfiguration) {
+                baseOptions = apsConfiguration.baseOptions;
+            }
+            const localVarRequestOptions = Object.assign(Object.assign({ method: 'POST' }, baseOptions), options);
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            yield setBearerAuthToObject(localVarHeaderParameter, accessToken);
+            if (xUserId != null) {
+                localVarHeaderParameter['x-user-id'] = String(xUserId);
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
+            localVarRequestOptions.data = serializeDataIfNeeded(downloadPayload, localVarRequestOptions, apsConfiguration);
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        }),
+        /**
+         * Creates a storage location in the OSS where data can be uploaded to.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
+         * @summary Creates a storage location in the OSS where data can be uploaded to
+         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {StoragePayload} [storagePayload] Describe the file the storage is created for.
+         * @param accessToken bearer access token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createStorage: (accessToken, projectId, xUserId, storagePayload, options = {}) => __awaiter(this, void 0, void 0, function* () {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('createStorage', 'projectId', projectId);
+            const localVarPath = `/data/v1/projects/{project_id}/storage`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
+            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
+            let baseOptions;
+            if (apsConfiguration) {
+                baseOptions = apsConfiguration.baseOptions;
+            }
+            const localVarRequestOptions = Object.assign(Object.assign({ method: 'POST' }, baseOptions), options);
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            yield setBearerAuthToObject(localVarHeaderParameter, accessToken);
+            if (xUserId != null) {
+                localVarHeaderParameter['x-user-id'] = String(xUserId);
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
+            localVarRequestOptions.data = serializeDataIfNeeded(storagePayload, localVarRequestOptions, apsConfiguration);
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        }),
         /**
          * Returns the details for a specific ``download``.
          * @summary Returns the details for a specific download
@@ -266,82 +342,6 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration) {
                 options: localVarRequestOptions,
             };
         }),
-        /**
-         * Request the creation of a new download for a specific and supported file type. The fileType specified in the POST body needs to be contained in the list of supported file types returned by the GET /data/v1/projects/:project_id/downloads endpoint for the specified version_id.
-         * @summary Request the creation of a new download for a specific and supported file type
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {CreateDownload} [createDownload] Describe the download to be created.
-         * @param accessToken bearer access token
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postDownload: (accessToken, projectId, xUserId, createDownload, options = {}) => __awaiter(this, void 0, void 0, function* () {
-            // verify required parameter 'projectId' is not null or undefined
-            assertParamExists('postDownload', 'projectId', projectId);
-            const localVarPath = `/data/v1/projects/{project_id}/downloads`
-                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
-            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
-            let baseOptions;
-            if (apsConfiguration) {
-                baseOptions = apsConfiguration.baseOptions;
-            }
-            const localVarRequestOptions = Object.assign(Object.assign({ method: 'POST' }, baseOptions), options);
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            yield setBearerAuthToObject(localVarHeaderParameter, accessToken);
-            if (xUserId != null) {
-                localVarHeaderParameter['x-user-id'] = String(xUserId);
-            }
-            localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/1.0.0';
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
-            localVarRequestOptions.data = serializeDataIfNeeded(createDownload, localVarRequestOptions, apsConfiguration);
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        }),
-        /**
-         * Creates a storage location in the OSS where data can be uploaded to.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Creates a storage location in the OSS where data can be uploaded to
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {StorageRequest} [storageRequest] Describe the file the storage is created for.
-         * @param accessToken bearer access token
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postStorage: (accessToken, projectId, xUserId, storageRequest, options = {}) => __awaiter(this, void 0, void 0, function* () {
-            // verify required parameter 'projectId' is not null or undefined
-            assertParamExists('postStorage', 'projectId', projectId);
-            const localVarPath = `/data/v1/projects/{project_id}/storage`
-                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
-            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
-            let baseOptions;
-            if (apsConfiguration) {
-                baseOptions = apsConfiguration.baseOptions;
-            }
-            const localVarRequestOptions = Object.assign(Object.assign({ method: 'POST' }, baseOptions), options);
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            yield setBearerAuthToObject(localVarHeaderParameter, accessToken);
-            if (xUserId != null) {
-                localVarHeaderParameter['x-user-id'] = String(xUserId);
-            }
-            localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/1.0.0';
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
-            localVarRequestOptions.data = serializeDataIfNeeded(storageRequest, localVarRequestOptions, apsConfiguration);
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        }),
     };
 };
 /**
@@ -351,6 +351,36 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration) {
 export const ProjectsApiFp = function (sdkManager) {
     const localVarAxiosParamCreator = ProjectsApiAxiosParamCreator(sdkManager.apsconfiguration);
     return {
+        /**
+         * Request the creation of a new download for a specific and supported file type. The fileType specified in the POST body needs to be contained in the list of supported file types returned by the GET /data/v1/projects/:project_id/downloads endpoint for the specified version_id.
+         * @summary Request the creation of a new download for a specific and supported file type
+         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {DownloadPayload} [downloadPayload] Describe the download to be created.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createDownload(accessToken, projectId, xUserId, downloadPayload, options) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const localVarAxiosArgs = yield localVarAxiosParamCreator.createDownload(accessToken, projectId, xUserId, downloadPayload, options);
+                return createRequestFunction(localVarAxiosArgs, sdkManager);
+            });
+        },
+        /**
+         * Creates a storage location in the OSS where data can be uploaded to.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
+         * @summary Creates a storage location in the OSS where data can be uploaded to
+         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {StoragePayload} [storagePayload] Describe the file the storage is created for.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createStorage(accessToken, projectId, xUserId, storagePayload, options) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const localVarAxiosArgs = yield localVarAxiosParamCreator.createStorage(accessToken, projectId, xUserId, storagePayload, options);
+                return createRequestFunction(localVarAxiosArgs, sdkManager);
+            });
+        },
         /**
          * Returns the details for a specific ``download``.
          * @summary Returns the details for a specific download
@@ -446,36 +476,6 @@ export const ProjectsApiFp = function (sdkManager) {
                 return createRequestFunction(localVarAxiosArgs, sdkManager);
             });
         },
-        /**
-         * Request the creation of a new download for a specific and supported file type. The fileType specified in the POST body needs to be contained in the list of supported file types returned by the GET /data/v1/projects/:project_id/downloads endpoint for the specified version_id.
-         * @summary Request the creation of a new download for a specific and supported file type
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {CreateDownload} [createDownload] Describe the download to be created.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postDownload(accessToken, projectId, xUserId, createDownload, options) {
-            return __awaiter(this, void 0, void 0, function* () {
-                const localVarAxiosArgs = yield localVarAxiosParamCreator.postDownload(accessToken, projectId, xUserId, createDownload, options);
-                return createRequestFunction(localVarAxiosArgs, sdkManager);
-            });
-        },
-        /**
-         * Creates a storage location in the OSS where data can be uploaded to.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Creates a storage location in the OSS where data can be uploaded to
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {StorageRequest} [storageRequest] Describe the file the storage is created for.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postStorage(accessToken, projectId, xUserId, storageRequest, options) {
-            return __awaiter(this, void 0, void 0, function* () {
-                const localVarAxiosArgs = yield localVarAxiosParamCreator.postStorage(accessToken, projectId, xUserId, storageRequest, options);
-                return createRequestFunction(localVarAxiosArgs, sdkManager);
-            });
-        },
     };
 };
 /**
@@ -488,6 +488,72 @@ export class ProjectsApi extends BaseAPI {
     constructor() {
         super(...arguments);
         this.logger = this.sdkManager.logger;
+    }
+    /**
+     * Request the creation of a new download for a specific and supported file type. The fileType specified in the POST body needs to be contained in the list of supported file types returned by the GET /data/v1/projects/:project_id/downloads endpoint for the specified version_id.
+     * @summary Request the creation of a new download for a specific and supported file type
+     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {DownloadPayload} [downloadPayload] Describe the download to be created.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApi
+     */
+    createDownload(accessToken, projectId, xUserId, downloadPayload, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.logger.logInfo("Entered into createDownload ");
+            try {
+                const request = yield ProjectsApiFp(this.sdkManager).createDownload(accessToken, projectId, xUserId, downloadPayload, options);
+                const response = yield request(this.axios);
+                this.logger.logInfo(`createDownload Request completed successfully with status code: ${response.status}`);
+                return new ApiResponse(response, response.data);
+            }
+            catch (error) {
+                if (error.response) {
+                    this.logger.logError(`createDownload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+                    throw new DataManagementApiError(`createDownload Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                }
+                else if (error.request) {
+                    this.logger.logError(`createDownload Request failed with no response received: ${error.request}`);
+                    throw new DataManagementApiError(`createDownload Request failed with no response received: ${error.request}`, error);
+                }
+                throw error;
+            }
+        });
+    }
+    /**
+     * Creates a storage location in the OSS where data can be uploaded to.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
+     * @summary Creates a storage location in the OSS where data can be uploaded to
+     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {StoragePayload} [storagePayload] Describe the file the storage is created for.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApi
+     */
+    createStorage(accessToken, projectId, xUserId, storagePayload, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.logger.logInfo("Entered into createStorage ");
+            try {
+                const request = yield ProjectsApiFp(this.sdkManager).createStorage(accessToken, projectId, xUserId, storagePayload, options);
+                const response = yield request(this.axios);
+                this.logger.logInfo(`createStorage Request completed successfully with status code: ${response.status}`);
+                return new ApiResponse(response, response.data);
+            }
+            catch (error) {
+                if (error.response) {
+                    this.logger.logError(`createStorage Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+                    throw new DataManagementApiError(`createStorage Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                }
+                else if (error.request) {
+                    this.logger.logError(`createStorage Request failed with no response received: ${error.request}`);
+                    throw new DataManagementApiError(`createStorage Request failed with no response received: ${error.request}`, error);
+                }
+                throw error;
+            }
+        });
     }
     /**
      * Returns the details for a specific ``download``.
@@ -512,11 +578,11 @@ export class ProjectsApi extends BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getDownload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new DataManagementApiApiError(`getDownload Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new DataManagementApiError(`getDownload Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getDownload Request failed with no response received: ${error.request}`);
-                    throw new DataManagementApiApiError(`getDownload Request failed with no response received: ${error.request}`, error);
+                    throw new DataManagementApiError(`getDownload Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -545,11 +611,11 @@ export class ProjectsApi extends BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getDownloadJob Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new DataManagementApiApiError(`getDownloadJob Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new DataManagementApiError(`getDownloadJob Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getDownloadJob Request failed with no response received: ${error.request}`);
-                    throw new DataManagementApiApiError(`getDownloadJob Request failed with no response received: ${error.request}`, error);
+                    throw new DataManagementApiError(`getDownloadJob Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -581,11 +647,11 @@ export class ProjectsApi extends BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getHubProjects Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new DataManagementApiApiError(`getHubProjects Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new DataManagementApiError(`getHubProjects Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getHubProjects Request failed with no response received: ${error.request}`);
-                    throw new DataManagementApiApiError(`getHubProjects Request failed with no response received: ${error.request}`, error);
+                    throw new DataManagementApiError(`getHubProjects Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -614,11 +680,11 @@ export class ProjectsApi extends BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getProject Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new DataManagementApiApiError(`getProject Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new DataManagementApiError(`getProject Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getProject Request failed with no response received: ${error.request}`);
-                    throw new DataManagementApiApiError(`getProject Request failed with no response received: ${error.request}`, error);
+                    throw new DataManagementApiError(`getProject Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -647,11 +713,11 @@ export class ProjectsApi extends BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getProjectHub Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new DataManagementApiApiError(`getProjectHub Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new DataManagementApiError(`getProjectHub Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getProjectHub Request failed with no response received: ${error.request}`);
-                    throw new DataManagementApiApiError(`getProjectHub Request failed with no response received: ${error.request}`, error);
+                    throw new DataManagementApiError(`getProjectHub Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -682,77 +748,11 @@ export class ProjectsApi extends BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getProjectTopFolders Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new DataManagementApiApiError(`getProjectTopFolders Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new DataManagementApiError(`getProjectTopFolders Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getProjectTopFolders Request failed with no response received: ${error.request}`);
-                    throw new DataManagementApiApiError(`getProjectTopFolders Request failed with no response received: ${error.request}`, error);
-                }
-                throw error;
-            }
-        });
-    }
-    /**
-     * Request the creation of a new download for a specific and supported file type. The fileType specified in the POST body needs to be contained in the list of supported file types returned by the GET /data/v1/projects/:project_id/downloads endpoint for the specified version_id.
-     * @summary Request the creation of a new download for a specific and supported file type
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {CreateDownload} [createDownload] Describe the download to be created.
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ProjectsApi
-     */
-    postDownload(accessToken, projectId, xUserId, createDownload, options) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.logger.logInfo("Entered into postDownload ");
-            try {
-                const request = yield ProjectsApiFp(this.sdkManager).postDownload(accessToken, projectId, xUserId, createDownload, options);
-                const response = yield request(this.axios);
-                this.logger.logInfo(`postDownload Request completed successfully with status code: ${response.status}`);
-                return new ApiResponse(response, response.data);
-            }
-            catch (error) {
-                if (error.response) {
-                    this.logger.logError(`postDownload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new DataManagementApiApiError(`postDownload Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
-                }
-                else if (error.request) {
-                    this.logger.logError(`postDownload Request failed with no response received: ${error.request}`);
-                    throw new DataManagementApiApiError(`postDownload Request failed with no response received: ${error.request}`, error);
-                }
-                throw error;
-            }
-        });
-    }
-    /**
-     * Creates a storage location in the OSS where data can be uploaded to.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Creates a storage location in the OSS where data can be uploaded to
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {StorageRequest} [storageRequest] Describe the file the storage is created for.
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ProjectsApi
-     */
-    postStorage(accessToken, projectId, xUserId, storageRequest, options) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.logger.logInfo("Entered into postStorage ");
-            try {
-                const request = yield ProjectsApiFp(this.sdkManager).postStorage(accessToken, projectId, xUserId, storageRequest, options);
-                const response = yield request(this.axios);
-                this.logger.logInfo(`postStorage Request completed successfully with status code: ${response.status}`);
-                return new ApiResponse(response, response.data);
-            }
-            catch (error) {
-                if (error.response) {
-                    this.logger.logError(`postStorage Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new DataManagementApiApiError(`postStorage Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
-                }
-                else if (error.request) {
-                    this.logger.logError(`postStorage Request failed with no response received: ${error.request}`);
-                    throw new DataManagementApiApiError(`postStorage Request failed with no response received: ${error.request}`, error);
+                    throw new DataManagementApiError(`getProjectTopFolders Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }

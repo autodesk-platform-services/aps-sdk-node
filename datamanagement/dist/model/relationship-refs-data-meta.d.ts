@@ -1,4 +1,4 @@
-import { HubsDataAttributesExtension } from './hubs-data-attributes-extension';
+import { RelationshipRefsDataMetaExtension } from './relationship-refs-data-meta-extension';
 /**
  *
  * @export
@@ -43,8 +43,8 @@ export interface RelationshipRefsDataMeta {
     'direction'?: string;
     /**
      *
-     * @type {HubsDataAttributesExtension}
+     * @type {RelationshipRefsDataMetaExtension}
      * @memberof RelationshipRefsDataMeta
      */
-    'extension'?: HubsDataAttributesExtension;
+    'extension'?: RelationshipRefsDataMetaExtension;
 }
