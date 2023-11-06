@@ -4,11 +4,8 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ModelDerivativeApiApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ModelDerivativeApiError } from '../base';
 import { Formats } from '../model';
-import { Formats400Response } from '../model';
-import { Formats401Response } from '../model';
-import { Formats403Response } from '../model';
 /**
  * InformationalApi - axios parameter creator
  * @export
@@ -24,8 +21,8 @@ export const InformationalApiAxiosParamCreator = function (apsConfiguration?: IA
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        formats: async (accessToken: string, ifModifiedSince?: string, acceptEncoding?: string,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/designdata/formats`;
+        getFormats: async (accessToken: string, ifModifiedSince?: string, acceptEncoding?: string,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/modelderivative/v2/designdata/formats`;
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
             if (apsConfiguration) {
@@ -75,8 +72,8 @@ export const InformationalApiFp = function(sdkManager?: SDKManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async formats(accessToken: string, ifModifiedSince?: string, acceptEncoding?: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Formats>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.formats(accessToken, ifModifiedSince, acceptEncoding,  options);
+        async getFormats(accessToken: string, ifModifiedSince?: string, acceptEncoding?: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Formats>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getFormats(accessToken, ifModifiedSince, acceptEncoding,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
     }
@@ -98,7 +95,7 @@ export interface InformationalApiInterface {
      * @throws {RequiredError}
      * @memberof InformationalApiInterface
      */
-    formats(accessToken: string,ifModifiedSince?: string, acceptEncoding?: string,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getFormats(accessToken: string,ifModifiedSince?: string, acceptEncoding?: string,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
 }
 
@@ -120,20 +117,20 @@ export class InformationalApi extends BaseAPI implements InformationalApiInterfa
      * @throws {RequiredError}
      * @memberof InformationalApi
      */
-    public async formats(accessToken: string, ifModifiedSince?: string, acceptEncoding?: string, options?: ApsServiceRequestConfig) {
-      this.logger.logInfo("Entered into formats ");
+    public async getFormats(accessToken: string, ifModifiedSince?: string, acceptEncoding?: string, options?: ApsServiceRequestConfig) {
+      this.logger.logInfo("Entered into getFormats ");
       try {
-        const request =  await InformationalApiFp(this.sdkManager).formats(accessToken, ifModifiedSince, acceptEncoding,  options);
+        const request =  await InformationalApiFp(this.sdkManager).getFormats(accessToken, ifModifiedSince, acceptEncoding,  options);
         const response = await request(this.axios);
-        this.logger.logInfo(`formats Request completed successfully with status code: ${response.status}`);
+        this.logger.logInfo(`getFormats Request completed successfully with status code: ${response.status}`);
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`formats Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ModelDerivativeApiApiError(`formats Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            this.logger.logError(`getFormats Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+            throw new ModelDerivativeApiError(`getFormats Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
-            this.logger.logError(`formats Request failed with no response received: ${error.request}`);
-            throw new ModelDerivativeApiApiError(`formats Request failed with no response received: ${error.request}`, error);
+            this.logger.logError(`getFormats Request failed with no response received: ${error.request}`);
+            throw new ModelDerivativeApiError(`getFormats Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }

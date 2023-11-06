@@ -1,7 +1,7 @@
-## model-derivative-api@1.0.0
+## model-derivative@1.0.0
 
 Use the Model Derivative API to translate designs from one CAD format to another.
-This is TypeScript client library for model-derivative-api
+This is TypeScript client library for model-derivative
 
 ## Building the SDK
 1. Install dependencies

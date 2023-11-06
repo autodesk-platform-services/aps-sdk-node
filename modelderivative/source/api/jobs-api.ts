@@ -4,14 +4,13 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ModelDerivativeApiApiError } from '../base';
-import { Formats400Response } from '../model';
-import { Formats401Response } from '../model';
-import { Formats403Response } from '../model';
-import { Job } from '../model';
+import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ModelDerivativeApiError } from '../base';
+import { Job, Region } from '../model';
 import { JobPayload } from '../model';
-import { PostReferences200Response } from '../model';
-import { PostReferencesRequest } from '../model';
+import { SpecifyReferences } from '../model';
+import { ReferencesPayload } from '../model';
+import { XAdsDerivativeFormat } from '../model';
+import { Utils } from '../custom-code';
 /**
  * JobsApi - axios parameter creator
  * @export
@@ -19,18 +18,20 @@ import { PostReferencesRequest } from '../model';
 export const JobsApiAxiosParamCreator = function (apsConfiguration?: IApsConfiguration) {
     return {
         /**
-         * Creates a job to translate the specified source design to another format, generating derivatives of the source design. You can optionaly:  - Extract selected parts of a design and export the set of geometries in OBJ format. - Generate different-sized thumbnails.  When the translation job runs, progress information and details of the generated derivatives are logged to a JSON file that is called a manifest. A manifest is typically created the first time you translate the source design. Thereafter the system updates the same manifest each time a translation job is executed for that source design. If necessary, you can set the ``x-ads-force`` parameter to ``true``, which deletes the existing manifest and creates a fresh manifest. However, if you do so, all derivatives generated prior to this are deleted.
-         * @summary Start Translation Job
-         * @param {string} [contentType] Must be application/json
-         * @param {boolean} [xAdsForce] - &#x60;&#x60;true&#x60;&#x60;: Deletes the existing manifest and derivatives of the source design before translation. - &#x60;&#x60;false&#x60;&#x60;: (Default) Updates existing manfest and generates derivatives only for the formats that the source design has no derivatives. 
-         * @param {boolean} [xAdsDerivativeFormat] Specifies how to interpret the &#x60;&#x60;formats.advanced.objectIds&#x60;&#x60; request body attribute for OBJ output. Possible values are:  - &#x60;&#x60;latest&#x60;&#x60;: (Default) Consider &#x60;&#x60;formats.advanced.objectIds&#x60;&#x60; to be  SVF2 Object IDs. - &#x60;&#x60;fallback&#x60;&#x60;: Consider &#x60;&#x60;formats.advanced.objectIds&#x60;&#x60; to be SVF Object IDs. 
-         * @param {JobPayload} [jobPayload] 
+         * Specifies the location of the files referenced by the specified source design.  If a source design contains references to other files, you must set  ``checkReferences`` to ``true``, when you call `Submit Translation Job </en/docs/model-derivative/v2/reference/http/job-POST>`_.  The Model Derivative service will then use the details you specify in this operation to locate and download the referenced files. 
+         * @summary Specify References
+         * @param {string} urn The Base64 (URL Safe) encoded design URN
+         * @param {ReferencesPayload} [specifyReferencesRequest] 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postJob: async (accessToken: string, contentType?: string, xAdsForce?: boolean, xAdsDerivativeFormat?: boolean, jobPayload?: JobPayload,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/designdata/job`;
+        specifyReferences: async (accessToken: string, urn: string, specifyReferencesRequest?: ReferencesPayload,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'urn' is not null or undefined
+            assertParamExists('specifyReferences', 'urn', urn)
+            const regionPath = Utils.GetPathfromRegion(specifyReferencesRequest?.region ?? Region.US);
+            const localVarPath = (regionPath + '{urn}/references')
+                .replace(`{${"urn"}}`, encodeURIComponent(String(urn)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
             if (apsConfiguration) {
@@ -43,9 +44,45 @@ export const JobsApiAxiosParamCreator = function (apsConfiguration?: IApsConfigu
 
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
-            if (contentType != null) {
-                localVarHeaderParameter['Content-Type'] = String(contentType);
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/MODEL-DERIVATIVE/TypeScript/1.0.0';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(specifyReferencesRequest, localVarRequestOptions, apsConfiguration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Creates a job to translate the specified source design to another format, generating derivatives of the source design. You can optionaly:  - Extract selected parts of a design and export the set of geometries in OBJ format. - Generate different-sized thumbnails.  When the translation job runs, progress information and details of the generated derivatives are logged to a JSON file that is called a manifest. A manifest is typically created the first time you translate the source design. Thereafter the system updates the same manifest each time a translation job is executed for that source design. If necessary, you can set the ``x-ads-force`` parameter to ``true``, which deletes the existing manifest and creates a fresh manifest. However, if you do so, all derivatives generated prior to this are deleted.
+         * @summary Submit Translation Job
+         * @param {boolean} [xAdsForce] &#x60;&#x60;true&#x60;&#x60;: Forces the system to parse property data all over again. Use this option to retrieve an object tree when previous attempts have failed.  &#x60;&#x60;false&#x60;&#x60;: (Default) Use previously parsed property data to extract the object tree. 
+         * @param {XAdsDerivativeFormat} [xAdsDerivativeFormat] Specifies what Object IDs to return, if the design has legacy SVF derivatives generated by the BIM Docs service. Possible values are:    - latest - (Default) Return SVF2 Object IDs.  - fallback - Return SVF Object IDs.    **Note**    1. This parameter applies only to designs with legacy SVF derivatives generated by the BIM 360 Docs service.  2. The BIM 360 Docs service now generates SVF2 derivatives. SVF2 Object IDs may not be compatible with the SVF Object IDs previously generated by the BIM 360 Docs service. Setting this header to fallback may resolve backward compatibility issues resulting from Object IDs of legacy SVF derivatives being retained on the client side.  3. If you use this parameter with one derivative (URN), you must use it consistently across the following operations for that derivative.     - &#x60;Submit Translation Job &lt;en/docs/model-derivative/v2/reference/http/job-POST&gt;&#x60;_ (for OBJ output)    - &#x60;Fetch Object Tree &lt;en/docs/model-derivative/v2/reference/http/urn-metadata-modelguid-GET&gt;&#x60;_   - &#x60;Fetch All Properties &lt;en/docs/model-derivative/v2/reference/http/urn-metadata-guid-properties-GET&gt;&#x60;_ 
+         * @param {JobPayload} [jobPayload] 
+         * @param accessToken bearer access token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        startJob: async (accessToken: string, xAdsForce?: boolean, xAdsDerivativeFormat?: XAdsDerivativeFormat, jobPayload?: JobPayload,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+            const regionPath = Utils.GetPathfromRegion(jobPayload.output.destination?.region ?? Region.US);
+            const localVarPath = regionPath + 'job';
+            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
+            let baseOptions;
+            if (apsConfiguration) {
+                baseOptions = apsConfiguration.baseOptions;
             }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
             if (xAdsForce != null) {
                 localVarHeaderParameter['x-ads-force'] = typeof xAdsForce === 'string'
@@ -62,58 +99,12 @@ export const JobsApiAxiosParamCreator = function (apsConfiguration?: IApsConfigu
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/MODEL-DERIVATIVE-API/TypeScript/1.0.0';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/MODEL-DERIVATIVE/TypeScript/1.0.0';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(jobPayload, localVarRequestOptions, apsConfiguration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Stores the location of the files referenced by the source design with the Model Derivative service.  When you translate the source design with `Start Translation Job </en/docs/model-derivative/v2/reference/http/job-POST>`_, and if  ``checkReferences`` is set to ``true``, the Model Derivative service uses this stored information to locate the referenced files.   Consider the following example. You have a design file like an Inventor assembly file, which contains references to the parts (part files) that make up the assembly. When the Model Derivative service translates the design to a derivative format, it needs to access the parts associated with the assembly. This operation stores information about the location of the part files with the Model Derivative service. When the assembly file is translated, the Model Derivative service uses this information to locate the referenced part files to generate the requested derivative.   
-         * @summary Specify References
-         * @param {string} urn The URL safe Base64 encoded URN of the source design.
-         * @param {string} [contentType] Must be &#x60;application/json&#x60;
-         * @param {PostReferencesRequest} [postReferencesRequest] 
-         * @param accessToken bearer access token
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postReferences: async (accessToken: string, urn: string, contentType?: string, postReferencesRequest?: PostReferencesRequest,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'urn' is not null or undefined
-            assertParamExists('postReferences', 'urn', urn)
-            const localVarPath = `/designdata/{urn}/references`
-                .replace(`{${"urn"}}`, encodeURIComponent(String(urn)));
-            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
-            let baseOptions;
-            if (apsConfiguration) {
-                baseOptions = apsConfiguration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            await setBearerAuthToObject(localVarHeaderParameter, accessToken)
-
-            if (contentType != null) {
-                localVarHeaderParameter['Content-Type'] = String(contentType);
-            }
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/MODEL-DERIVATIVE-API/TypeScript/1.0.0';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(postReferencesRequest, localVarRequestOptions, apsConfiguration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -131,30 +122,28 @@ export const JobsApiFp = function(sdkManager?: SDKManager) {
     const localVarAxiosParamCreator = JobsApiAxiosParamCreator(sdkManager.apsconfiguration)
     return {
         /**
+         * Specifies the location of the files referenced by the specified source design.  If a source design contains references to other files, you must set  ``checkReferences`` to ``true``, when you call `Submit Translation Job </en/docs/model-derivative/v2/reference/http/job-POST>`_.  The Model Derivative service will then use the details you specify in this operation to locate and download the referenced files. 
+         * @summary Specify References
+         * @param {string} urn The Base64 (URL Safe) encoded design URN
+         * @param {ReferencesPayload} [specifyReferencesRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async specifyReferences(accessToken: string, urn: string, specifyReferencesRequest?: ReferencesPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SpecifyReferences>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.specifyReferences(accessToken, urn, specifyReferencesRequest,  options);
+            return createRequestFunction(localVarAxiosArgs, sdkManager);
+        },
+        /**
          * Creates a job to translate the specified source design to another format, generating derivatives of the source design. You can optionaly:  - Extract selected parts of a design and export the set of geometries in OBJ format. - Generate different-sized thumbnails.  When the translation job runs, progress information and details of the generated derivatives are logged to a JSON file that is called a manifest. A manifest is typically created the first time you translate the source design. Thereafter the system updates the same manifest each time a translation job is executed for that source design. If necessary, you can set the ``x-ads-force`` parameter to ``true``, which deletes the existing manifest and creates a fresh manifest. However, if you do so, all derivatives generated prior to this are deleted.
-         * @summary Start Translation Job
-         * @param {string} [contentType] Must be application/json
-         * @param {boolean} [xAdsForce] - &#x60;&#x60;true&#x60;&#x60;: Deletes the existing manifest and derivatives of the source design before translation. - &#x60;&#x60;false&#x60;&#x60;: (Default) Updates existing manfest and generates derivatives only for the formats that the source design has no derivatives. 
-         * @param {boolean} [xAdsDerivativeFormat] Specifies how to interpret the &#x60;&#x60;formats.advanced.objectIds&#x60;&#x60; request body attribute for OBJ output. Possible values are:  - &#x60;&#x60;latest&#x60;&#x60;: (Default) Consider &#x60;&#x60;formats.advanced.objectIds&#x60;&#x60; to be  SVF2 Object IDs. - &#x60;&#x60;fallback&#x60;&#x60;: Consider &#x60;&#x60;formats.advanced.objectIds&#x60;&#x60; to be SVF Object IDs. 
+         * @summary Submit Translation Job
+         * @param {boolean} [xAdsForce] &#x60;&#x60;true&#x60;&#x60;: Forces the system to parse property data all over again. Use this option to retrieve an object tree when previous attempts have failed.  &#x60;&#x60;false&#x60;&#x60;: (Default) Use previously parsed property data to extract the object tree. 
+         * @param {XAdsDerivativeFormat} [xAdsDerivativeFormat] Specifies what Object IDs to return, if the design has legacy SVF derivatives generated by the BIM Docs service. Possible values are:    - latest - (Default) Return SVF2 Object IDs.  - fallback - Return SVF Object IDs.    **Note**    1. This parameter applies only to designs with legacy SVF derivatives generated by the BIM 360 Docs service.  2. The BIM 360 Docs service now generates SVF2 derivatives. SVF2 Object IDs may not be compatible with the SVF Object IDs previously generated by the BIM 360 Docs service. Setting this header to fallback may resolve backward compatibility issues resulting from Object IDs of legacy SVF derivatives being retained on the client side.  3. If you use this parameter with one derivative (URN), you must use it consistently across the following operations for that derivative.     - &#x60;Submit Translation Job &lt;en/docs/model-derivative/v2/reference/http/job-POST&gt;&#x60;_ (for OBJ output)    - &#x60;Fetch Object Tree &lt;en/docs/model-derivative/v2/reference/http/urn-metadata-modelguid-GET&gt;&#x60;_   - &#x60;Fetch All Properties &lt;en/docs/model-derivative/v2/reference/http/urn-metadata-guid-properties-GET&gt;&#x60;_ 
          * @param {JobPayload} [jobPayload] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async postJob(accessToken: string, contentType?: string, xAdsForce?: boolean, xAdsDerivativeFormat?: boolean, jobPayload?: JobPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Job>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.postJob(accessToken, contentType, xAdsForce, xAdsDerivativeFormat, jobPayload,  options);
-            return createRequestFunction(localVarAxiosArgs, sdkManager);
-        },
-        /**
-         * Stores the location of the files referenced by the source design with the Model Derivative service.  When you translate the source design with `Start Translation Job </en/docs/model-derivative/v2/reference/http/job-POST>`_, and if  ``checkReferences`` is set to ``true``, the Model Derivative service uses this stored information to locate the referenced files.   Consider the following example. You have a design file like an Inventor assembly file, which contains references to the parts (part files) that make up the assembly. When the Model Derivative service translates the design to a derivative format, it needs to access the parts associated with the assembly. This operation stores information about the location of the part files with the Model Derivative service. When the assembly file is translated, the Model Derivative service uses this information to locate the referenced part files to generate the requested derivative.   
-         * @summary Specify References
-         * @param {string} urn The URL safe Base64 encoded URN of the source design.
-         * @param {string} [contentType] Must be &#x60;application/json&#x60;
-         * @param {PostReferencesRequest} [postReferencesRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async postReferences(accessToken: string, urn: string, contentType?: string, postReferencesRequest?: PostReferencesRequest, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostReferences200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.postReferences(accessToken, urn, contentType, postReferencesRequest,  options);
+        async startJob(accessToken: string, xAdsForce?: boolean, xAdsDerivativeFormat?: XAdsDerivativeFormat, jobPayload?: JobPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Job>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.startJob(accessToken, xAdsForce, xAdsDerivativeFormat, jobPayload,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
     }
@@ -167,31 +156,29 @@ export const JobsApiFp = function(sdkManager?: SDKManager) {
  */
 export interface JobsApiInterface {
     /**
+     * Specifies the location of the files referenced by the specified source design.  If a source design contains references to other files, you must set  ``checkReferences`` to ``true``, when you call `Submit Translation Job </en/docs/model-derivative/v2/reference/http/job-POST>`_.  The Model Derivative service will then use the details you specify in this operation to locate and download the referenced files. 
+     * @summary Specify References
+     * @param {string} urn The Base64 (URL Safe) encoded design URN
+     * @param {ReferencesPayload} [specifyReferencesRequest] 
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof JobsApiInterface
+     */
+    specifyReferences(accessToken: string,urn: string, specifyReferencesRequest?: ReferencesPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+
+    /**
      * Creates a job to translate the specified source design to another format, generating derivatives of the source design. You can optionaly:  - Extract selected parts of a design and export the set of geometries in OBJ format. - Generate different-sized thumbnails.  When the translation job runs, progress information and details of the generated derivatives are logged to a JSON file that is called a manifest. A manifest is typically created the first time you translate the source design. Thereafter the system updates the same manifest each time a translation job is executed for that source design. If necessary, you can set the ``x-ads-force`` parameter to ``true``, which deletes the existing manifest and creates a fresh manifest. However, if you do so, all derivatives generated prior to this are deleted.
-     * @summary Start Translation Job
-     * @param {string} [contentType] Must be application/json
-     * @param {boolean} [xAdsForce] - &#x60;&#x60;true&#x60;&#x60;: Deletes the existing manifest and derivatives of the source design before translation. - &#x60;&#x60;false&#x60;&#x60;: (Default) Updates existing manfest and generates derivatives only for the formats that the source design has no derivatives. 
-     * @param {boolean} [xAdsDerivativeFormat] Specifies how to interpret the &#x60;&#x60;formats.advanced.objectIds&#x60;&#x60; request body attribute for OBJ output. Possible values are:  - &#x60;&#x60;latest&#x60;&#x60;: (Default) Consider &#x60;&#x60;formats.advanced.objectIds&#x60;&#x60; to be  SVF2 Object IDs. - &#x60;&#x60;fallback&#x60;&#x60;: Consider &#x60;&#x60;formats.advanced.objectIds&#x60;&#x60; to be SVF Object IDs. 
+     * @summary Submit Translation Job
+     * @param {boolean} [xAdsForce] &#x60;&#x60;true&#x60;&#x60;: Forces the system to parse property data all over again. Use this option to retrieve an object tree when previous attempts have failed.  &#x60;&#x60;false&#x60;&#x60;: (Default) Use previously parsed property data to extract the object tree. 
+     * @param {XAdsDerivativeFormat} [xAdsDerivativeFormat] Specifies what Object IDs to return, if the design has legacy SVF derivatives generated by the BIM Docs service. Possible values are:    - latest - (Default) Return SVF2 Object IDs.  - fallback - Return SVF Object IDs.    **Note**    1. This parameter applies only to designs with legacy SVF derivatives generated by the BIM 360 Docs service.  2. The BIM 360 Docs service now generates SVF2 derivatives. SVF2 Object IDs may not be compatible with the SVF Object IDs previously generated by the BIM 360 Docs service. Setting this header to fallback may resolve backward compatibility issues resulting from Object IDs of legacy SVF derivatives being retained on the client side.  3. If you use this parameter with one derivative (URN), you must use it consistently across the following operations for that derivative.     - &#x60;Submit Translation Job &lt;en/docs/model-derivative/v2/reference/http/job-POST&gt;&#x60;_ (for OBJ output)    - &#x60;Fetch Object Tree &lt;en/docs/model-derivative/v2/reference/http/urn-metadata-modelguid-GET&gt;&#x60;_   - &#x60;Fetch All Properties &lt;en/docs/model-derivative/v2/reference/http/urn-metadata-guid-properties-GET&gt;&#x60;_ 
      * @param {JobPayload} [jobPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof JobsApiInterface
      */
-    postJob(accessToken: string,contentType?: string, xAdsForce?: boolean, xAdsDerivativeFormat?: boolean, jobPayload?: JobPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
-
-    /**
-     * Stores the location of the files referenced by the source design with the Model Derivative service.  When you translate the source design with `Start Translation Job </en/docs/model-derivative/v2/reference/http/job-POST>`_, and if  ``checkReferences`` is set to ``true``, the Model Derivative service uses this stored information to locate the referenced files.   Consider the following example. You have a design file like an Inventor assembly file, which contains references to the parts (part files) that make up the assembly. When the Model Derivative service translates the design to a derivative format, it needs to access the parts associated with the assembly. This operation stores information about the location of the part files with the Model Derivative service. When the assembly file is translated, the Model Derivative service uses this information to locate the referenced part files to generate the requested derivative.   
-     * @summary Specify References
-     * @param {string} urn The URL safe Base64 encoded URN of the source design.
-     * @param {string} [contentType] Must be &#x60;application/json&#x60;
-     * @param {PostReferencesRequest} [postReferencesRequest] 
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof JobsApiInterface
-     */
-    postReferences(accessToken: string,urn: string, contentType?: string, postReferencesRequest?: PostReferencesRequest,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    startJob(accessToken: string,xAdsForce?: boolean, xAdsDerivativeFormat?: XAdsDerivativeFormat, jobPayload?: JobPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
 }
 
@@ -204,61 +191,59 @@ export interface JobsApiInterface {
 export class JobsApi extends BaseAPI implements JobsApiInterface {
     private logger = this.sdkManager.logger;
     /**
-     * Creates a job to translate the specified source design to another format, generating derivatives of the source design. You can optionaly:  - Extract selected parts of a design and export the set of geometries in OBJ format. - Generate different-sized thumbnails.  When the translation job runs, progress information and details of the generated derivatives are logged to a JSON file that is called a manifest. A manifest is typically created the first time you translate the source design. Thereafter the system updates the same manifest each time a translation job is executed for that source design. If necessary, you can set the ``x-ads-force`` parameter to ``true``, which deletes the existing manifest and creates a fresh manifest. However, if you do so, all derivatives generated prior to this are deleted.
-     * @summary Start Translation Job
-     * @param {string} [contentType] Must be application/json
-     * @param {boolean} [xAdsForce] - &#x60;&#x60;true&#x60;&#x60;: Deletes the existing manifest and derivatives of the source design before translation. - &#x60;&#x60;false&#x60;&#x60;: (Default) Updates existing manfest and generates derivatives only for the formats that the source design has no derivatives. 
-     * @param {boolean} [xAdsDerivativeFormat] Specifies how to interpret the &#x60;&#x60;formats.advanced.objectIds&#x60;&#x60; request body attribute for OBJ output. Possible values are:  - &#x60;&#x60;latest&#x60;&#x60;: (Default) Consider &#x60;&#x60;formats.advanced.objectIds&#x60;&#x60; to be  SVF2 Object IDs. - &#x60;&#x60;fallback&#x60;&#x60;: Consider &#x60;&#x60;formats.advanced.objectIds&#x60;&#x60; to be SVF Object IDs. 
-     * @param {JobPayload} [jobPayload] 
+     * Specifies the location of the files referenced by the specified source design.  If a source design contains references to other files, you must set  ``checkReferences`` to ``true``, when you call `Submit Translation Job </en/docs/model-derivative/v2/reference/http/job-POST>`_.  The Model Derivative service will then use the details you specify in this operation to locate and download the referenced files. 
+     * @summary Specify References
+     * @param {string} urn The Base64 (URL Safe) encoded design URN
+     * @param {ReferencesPayload} [specifyReferencesRequest] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof JobsApi
      */
-    public async postJob(accessToken: string, contentType?: string, xAdsForce?: boolean, xAdsDerivativeFormat?: boolean, jobPayload?: JobPayload, options?: ApsServiceRequestConfig) {
-      this.logger.logInfo("Entered into postJob ");
+    public async specifyReferences(accessToken: string, urn: string, specifyReferencesRequest?: ReferencesPayload, options?: ApsServiceRequestConfig) {
+      this.logger.logInfo("Entered into specifyReferences ");
       try {
-        const request =  await JobsApiFp(this.sdkManager).postJob(accessToken, contentType, xAdsForce, xAdsDerivativeFormat, jobPayload,  options);
+        const request =  await JobsApiFp(this.sdkManager).specifyReferences(accessToken, urn, specifyReferencesRequest,  options);
         const response = await request(this.axios);
-        this.logger.logInfo(`postJob Request completed successfully with status code: ${response.status}`);
+        this.logger.logInfo(`specifyReferences Request completed successfully with status code: ${response.status}`);
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`postJob Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ModelDerivativeApiApiError(`postJob Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            this.logger.logError(`specifyReferences Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+            throw new ModelDerivativeApiError(`specifyReferences Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
-            this.logger.logError(`postJob Request failed with no response received: ${error.request}`);
-            throw new ModelDerivativeApiApiError(`postJob Request failed with no response received: ${error.request}`, error);
+            this.logger.logError(`specifyReferences Request failed with no response received: ${error.request}`);
+            throw new ModelDerivativeApiError(`specifyReferences Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
     }
 
     /**
-     * Stores the location of the files referenced by the source design with the Model Derivative service.  When you translate the source design with `Start Translation Job </en/docs/model-derivative/v2/reference/http/job-POST>`_, and if  ``checkReferences`` is set to ``true``, the Model Derivative service uses this stored information to locate the referenced files.   Consider the following example. You have a design file like an Inventor assembly file, which contains references to the parts (part files) that make up the assembly. When the Model Derivative service translates the design to a derivative format, it needs to access the parts associated with the assembly. This operation stores information about the location of the part files with the Model Derivative service. When the assembly file is translated, the Model Derivative service uses this information to locate the referenced part files to generate the requested derivative.   
-     * @summary Specify References
-     * @param {string} urn The URL safe Base64 encoded URN of the source design.
-     * @param {string} [contentType] Must be &#x60;application/json&#x60;
-     * @param {PostReferencesRequest} [postReferencesRequest] 
+     * Creates a job to translate the specified source design to another format, generating derivatives of the source design. You can optionaly:  - Extract selected parts of a design and export the set of geometries in OBJ format. - Generate different-sized thumbnails.  When the translation job runs, progress information and details of the generated derivatives are logged to a JSON file that is called a manifest. A manifest is typically created the first time you translate the source design. Thereafter the system updates the same manifest each time a translation job is executed for that source design. If necessary, you can set the ``x-ads-force`` parameter to ``true``, which deletes the existing manifest and creates a fresh manifest. However, if you do so, all derivatives generated prior to this are deleted.
+     * @summary Submit Translation Job
+     * @param {boolean} [xAdsForce] &#x60;&#x60;true&#x60;&#x60;: Forces the system to parse property data all over again. Use this option to retrieve an object tree when previous attempts have failed.  &#x60;&#x60;false&#x60;&#x60;: (Default) Use previously parsed property data to extract the object tree. 
+     * @param {XAdsDerivativeFormat} [xAdsDerivativeFormat] Specifies what Object IDs to return, if the design has legacy SVF derivatives generated by the BIM Docs service. Possible values are:    - latest - (Default) Return SVF2 Object IDs.  - fallback - Return SVF Object IDs.    **Note**    1. This parameter applies only to designs with legacy SVF derivatives generated by the BIM 360 Docs service.  2. The BIM 360 Docs service now generates SVF2 derivatives. SVF2 Object IDs may not be compatible with the SVF Object IDs previously generated by the BIM 360 Docs service. Setting this header to fallback may resolve backward compatibility issues resulting from Object IDs of legacy SVF derivatives being retained on the client side.  3. If you use this parameter with one derivative (URN), you must use it consistently across the following operations for that derivative.     - &#x60;Submit Translation Job &lt;en/docs/model-derivative/v2/reference/http/job-POST&gt;&#x60;_ (for OBJ output)    - &#x60;Fetch Object Tree &lt;en/docs/model-derivative/v2/reference/http/urn-metadata-modelguid-GET&gt;&#x60;_   - &#x60;Fetch All Properties &lt;en/docs/model-derivative/v2/reference/http/urn-metadata-guid-properties-GET&gt;&#x60;_ 
+     * @param {JobPayload} [jobPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof JobsApi
      */
-    public async postReferences(accessToken: string, urn: string, contentType?: string, postReferencesRequest?: PostReferencesRequest, options?: ApsServiceRequestConfig) {
-      this.logger.logInfo("Entered into postReferences ");
+    public async startJob(accessToken: string, xAdsForce?: boolean, xAdsDerivativeFormat?: XAdsDerivativeFormat, jobPayload?: JobPayload, options?: ApsServiceRequestConfig) {
+      this.logger.logInfo("Entered into startJob ");
       try {
-        const request =  await JobsApiFp(this.sdkManager).postReferences(accessToken, urn, contentType, postReferencesRequest,  options);
+        const request =  await JobsApiFp(this.sdkManager).startJob(accessToken, xAdsForce, xAdsDerivativeFormat, jobPayload,  options);
         const response = await request(this.axios);
-        this.logger.logInfo(`postReferences Request completed successfully with status code: ${response.status}`);
+        this.logger.logInfo(`startJob Request completed successfully with status code: ${response.status}`);
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`postReferences Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ModelDerivativeApiApiError(`postReferences Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            this.logger.logError(`startJob Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+            throw new ModelDerivativeApiError(`startJob Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
-            this.logger.logError(`postReferences Request failed with no response received: ${error.request}`);
-            throw new ModelDerivativeApiApiError(`postReferences Request failed with no response received: ${error.request}`, error);
+            this.logger.logError(`startJob Request failed with no response received: ${error.request}`);
+            throw new ModelDerivativeApiError(`startJob Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }

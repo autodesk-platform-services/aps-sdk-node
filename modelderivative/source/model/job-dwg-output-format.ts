@@ -2,6 +2,8 @@
 /* eslint-disable */
 
 import { JobDwgOutputFormatAdvanced } from './job-dwg-output-format-advanced';
+import { Type } from './type';
+
 
 /**
  * A JSON object representing the requested output types.
@@ -11,10 +13,10 @@ import { JobDwgOutputFormatAdvanced } from './job-dwg-output-format-advanced';
 export interface JobDwgOutputFormat {
     /**
      * 
-     * @type {string}
+     * @type {Type.dwg}
      * @memberof JobDwgOutputFormat
      */
-    'type'?: string;
+    'type': typeof Type.Dwg;
     /**
      * 
      * @type {JobDwgOutputFormatAdvanced}

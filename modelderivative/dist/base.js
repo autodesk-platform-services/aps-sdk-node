@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ModelDerivativeApiApiError = exports.RequiredError = exports.BaseAPI = exports.COLLECTION_FORMATS = void 0;
+exports.ModelDerivativeApiError = exports.RequiredError = exports.BaseAPI = exports.COLLECTION_FORMATS = void 0;
 const axios_1 = require("axios");
 /**
  *
@@ -43,13 +43,17 @@ class RequiredError extends Error {
     }
 }
 exports.RequiredError = RequiredError;
-class ModelDerivativeApiApiError extends Error {
+class ModelDerivativeApiError extends Error {
     constructor(message, axiosError) {
         super(message);
         if (axiosError) {
             this.axiosError = axiosError;
         }
-        Object.setPrototypeOf(this, ModelDerivativeApiApiError.prototype);
+        Object.setPrototypeOf(this, ModelDerivativeApiError.prototype);
+    }
+    httpStatusCode() {
+        var _a, _b;
+        return (_b = (_a = this.axiosError) === null || _a === void 0 ? void 0 : _a.response) === null || _b === void 0 ? void 0 : _b.status;
     }
 }
-exports.ModelDerivativeApiApiError = ModelDerivativeApiApiError;
+exports.ModelDerivativeApiError = ModelDerivativeApiError;

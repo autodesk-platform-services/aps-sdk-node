@@ -1,3 +1,6 @@
+import { SheetType } from './sheet-type';
+import { SolidType } from './solid-type';
+import { SurfaceType } from './surface-type';
 /**
  * Advanced options for `iges` type.
  * @export
@@ -11,40 +14,21 @@ export interface JobIgesOutputFormatAdvanced {
      */
     'tolerance'?: number;
     /**
-     * Possible values are `bounded`, `trimmed` and `wireframe`. By default it is set to bounded surface.
-     * @type {string}
+     *
+     * @type {SurfaceType}
      * @memberof JobIgesOutputFormatAdvanced
      */
-    'surfaceType'?: JobIgesOutputFormatAdvancedSurfaceTypeEnum;
+    'surfaceType'?: SurfaceType;
     /**
-     * Export the sheet body to IGES. `open`, `shell`, `surface` or `wireframe`. By default, it is set to `surface`.
-     * @type {string}
+     *
+     * @type {SheetType}
      * @memberof JobIgesOutputFormatAdvanced
      */
-    'sheetType'?: JobIgesOutputFormatAdvancedSheetTypeEnum;
+    'sheetType'?: SheetType;
     /**
-     * Export the solid body to IGES `solid`, `surface` or `wireframe`. By default, it is set to `solid`.
-     * @type {string}
+     *
+     * @type {SolidType}
      * @memberof JobIgesOutputFormatAdvanced
      */
-    'solidType'?: JobIgesOutputFormatAdvancedSolidTypeEnum;
+    'solidType'?: SolidType;
 }
-export declare const JobIgesOutputFormatAdvancedSurfaceTypeEnum: {
-    readonly Bounded: "bounded";
-    readonly Trimmed: "trimmed";
-    readonly Wireframe: "wireframe";
-};
-export type JobIgesOutputFormatAdvancedSurfaceTypeEnum = typeof JobIgesOutputFormatAdvancedSurfaceTypeEnum[keyof typeof JobIgesOutputFormatAdvancedSurfaceTypeEnum];
-export declare const JobIgesOutputFormatAdvancedSheetTypeEnum: {
-    readonly Open: "open";
-    readonly Surface: "surface";
-    readonly Shell: "shell";
-    readonly Wireframe: "wireframe";
-};
-export type JobIgesOutputFormatAdvancedSheetTypeEnum = typeof JobIgesOutputFormatAdvancedSheetTypeEnum[keyof typeof JobIgesOutputFormatAdvancedSheetTypeEnum];
-export declare const JobIgesOutputFormatAdvancedSolidTypeEnum: {
-    readonly Solid: "solid";
-    readonly Surface: "surface";
-    readonly Wireframe: "wireframe";
-};
-export type JobIgesOutputFormatAdvancedSolidTypeEnum = typeof JobIgesOutputFormatAdvancedSolidTypeEnum[keyof typeof JobIgesOutputFormatAdvancedSolidTypeEnum];

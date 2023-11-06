@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 import { JobIgesOutputFormatAdvanced } from './job-iges-output-format-advanced';
-
+import { Type } from './type';
 /**
  * 
  * @export
@@ -11,10 +11,10 @@ import { JobIgesOutputFormatAdvanced } from './job-iges-output-format-advanced';
 export interface JobIgesOutputFormat {
     /**
      * 
-     * @type {string}
+     * @type {Type.Iges}
      * @memberof JobIgesOutputFormat
      */
-    'type'?: string;
+    'type': typeof Type.Iges;
     /**
      * 
      * @type {JobIgesOutputFormatAdvanced}

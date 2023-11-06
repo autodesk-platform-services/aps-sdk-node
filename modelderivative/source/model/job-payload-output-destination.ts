@@ -1,6 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { Region } from "./region";
+
 
 /**
  * Specifies where to store generated derivatives.
@@ -13,6 +15,6 @@ export interface JobPayloadOutputDestination {
      * @type {string}
      * @memberof JobPayloadOutputDestination
      */
-    'region'?: string;
+    'region'?: Region;
 }
 
