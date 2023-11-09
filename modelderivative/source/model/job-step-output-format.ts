@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 import { JobStepOutputFormatAdvanced } from './job-step-output-format-advanced';
-
+import { Type } from './type';
 /**
  * 
  * @export
@@ -11,10 +11,10 @@ import { JobStepOutputFormatAdvanced } from './job-step-output-format-advanced';
 export interface JobStepOutputFormat {
     /**
      * 
-     * @type {string}
+     * @type {Type.Step} 
      * @memberof JobStepOutputFormat
      */
-    'type'?: string;
+    'type':typeof Type.Step;
     /**
      * 
      * @type {JobStepOutputFormatAdvanced}

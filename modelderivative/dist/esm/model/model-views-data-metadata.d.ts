@@ -1,3 +1,4 @@
+import { Role } from './role';
 /**
  * An array of flat JSON objects representing metadata.
  * @export
@@ -17,11 +18,11 @@ export interface ModelViewsDataMetadata {
      */
     'guid': string;
     /**
-     * Type of Model View Possible values: ``2d``, ``3d``
-     * @type {string}
+     *
+     * @type {Role}
      * @memberof ModelViewsDataMetadata
      */
-    'role': ModelViewsDataMetadataRoleEnum;
+    'role': Role;
     /**
      * ``true``: Model View is a Master View derived from a Revit file.  ``false``: Model View is not a Master View.
      * @type {boolean}
@@ -29,8 +30,3 @@ export interface ModelViewsDataMetadata {
      */
     'isMasterView': boolean;
 }
-export declare const ModelViewsDataMetadataRoleEnum: {
-    readonly _2d: "2d";
-    readonly _3d: "3d";
-};
-export type ModelViewsDataMetadataRoleEnum = typeof ModelViewsDataMetadataRoleEnum[keyof typeof ModelViewsDataMetadataRoleEnum];

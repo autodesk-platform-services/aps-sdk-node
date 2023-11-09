@@ -2,38 +2,32 @@
 /* eslint-disable */
 
 import { JobSvfOutputFormatAdvanced } from './job-svf-output-format-advanced';
-
+import { View } from './view';
+import { Type } from './type';
 /**
  * 
  * @export
- * @interface JobSvfOutputFormat
+ * @class JobSvfOutputFormat
  */
 export interface JobSvfOutputFormat {
     /**
      * 
-     * @type {Array<string>}
+     * @type {Array<View>}
      * @memberof JobSvfOutputFormat
      */
-    'views'?: Array<JobSvfOutputFormatViewsEnum>;
+    'views': Array<View>;
     /**
      * 
-     * @type {string}
+     * @type {Type.Svf}
      * @memberof JobSvfOutputFormat
      */
-    'type'?: string;
-    /**
+    'type': typeof Type.Svf;
+     /**
      * 
      * @type {JobSvfOutputFormatAdvanced}
      * @memberof JobSvfOutputFormat
      */
     'advanced'?: JobSvfOutputFormatAdvanced;
 }
-
-export const JobSvfOutputFormatViewsEnum = {
-    _2d: '2d',
-    _3d: '3d'
-} as const;
-
-export type JobSvfOutputFormatViewsEnum = typeof JobSvfOutputFormatViewsEnum[keyof typeof JobSvfOutputFormatViewsEnum];
 
 

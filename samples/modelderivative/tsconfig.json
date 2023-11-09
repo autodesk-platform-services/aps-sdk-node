@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "CommonJS",
+        "outDir": "out",
+        "sourceMap": true,
+        "paths": {
+            "autodesk-sdkmanager":["./node_modules/model-derivative/node_modules/autodesk-sdkmanager"]
+        }
+    },
+
+}

@@ -1,6 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { ExportFileStructure } from './export-file-structure';
+import { Format } from './format';
 
 /**
  * Advanced options for `stl` type.
@@ -9,11 +11,11 @@
  */
 export interface JobStlOutputFormatAdvanced {
     /**
-     * Default format is `binary`. Possible values are `binary` or `ascii`.
-     * @type {string}
+     * 
+     * @type {Format}
      * @memberof JobStlOutputFormatAdvanced
      */
-    'format'?: JobStlOutputFormatAdvancedFormatEnum;
+    'format'?: Format;
     /**
      * Color is exported by default. If set to `true`, color is exported. If set to `false`, color is not exported.
      * @type {boolean}
@@ -21,24 +23,12 @@ export interface JobStlOutputFormatAdvanced {
      */
     'exportColor'?: boolean;
     /**
-     * `single` (default): creates one STL file for all the input files (assembly file)  `multiple`: creates a separate STL file for each object 
-     * @type {string}
+     * 
+     * @type {ExportFileStructure}
      * @memberof JobStlOutputFormatAdvanced
      */
-    'exportFileStructure'?: JobStlOutputFormatAdvancedExportFileStructureEnum;
+    'exportFileStructure'?: ExportFileStructure;
 }
 
-export const JobStlOutputFormatAdvancedFormatEnum = {
-    Binary: 'binary',
-    Ascii: 'ascii'
-} as const;
-
-export type JobStlOutputFormatAdvancedFormatEnum = typeof JobStlOutputFormatAdvancedFormatEnum[keyof typeof JobStlOutputFormatAdvancedFormatEnum];
-export const JobStlOutputFormatAdvancedExportFileStructureEnum = {
-    Single: 'single',
-    Multiple: 'multiple'
-} as const;
-
-export type JobStlOutputFormatAdvancedExportFileStructureEnum = typeof JobStlOutputFormatAdvancedExportFileStructureEnum[keyof typeof JobStlOutputFormatAdvancedExportFileStructureEnum];
 
 

@@ -1,4 +1,5 @@
 import { JobStlOutputFormatAdvanced } from './job-stl-output-format-advanced';
+import { Type } from './type';
 /**
  *
  * @export
@@ -7,10 +8,10 @@ import { JobStlOutputFormatAdvanced } from './job-stl-output-format-advanced';
 export interface JobStlOutputFormat {
     /**
      *
-     * @type {string}
+     * @type {Type.Stl}
      * @memberof JobStlOutputFormat
      */
-    'type'?: string;
+    'type': typeof Type.Stl;
     /**
      *
      * @type {JobStlOutputFormatAdvanced}

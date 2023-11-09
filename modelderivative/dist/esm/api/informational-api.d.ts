@@ -16,7 +16,7 @@ export declare const InformationalApiAxiosParamCreator: (apsConfiguration?: IAps
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    formats: (accessToken: string, ifModifiedSince?: string, acceptEncoding?: string, options?: ApsServiceRequestConfig) => Promise<RequestArgs>;
+    getFormats: (accessToken: string, ifModifiedSince?: string, acceptEncoding?: string, options?: ApsServiceRequestConfig) => Promise<RequestArgs>;
 };
 /**
  * InformationalApi - functional programming interface
@@ -31,7 +31,7 @@ export declare const InformationalApiFp: (sdkManager?: SDKManager) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    formats(accessToken: string, ifModifiedSince?: string, acceptEncoding?: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Formats>>;
+    getFormats(accessToken: string, ifModifiedSince?: string, acceptEncoding?: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Formats>>;
 };
 /**
  * InformationalApi - interface
@@ -49,7 +49,7 @@ export interface InformationalApiInterface {
      * @throws {RequiredError}
      * @memberof InformationalApiInterface
      */
-    formats(accessToken: string, ifModifiedSince?: string, acceptEncoding?: string, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getFormats(accessToken: string, ifModifiedSince?: string, acceptEncoding?: string, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 }
 /**
  * InformationalApi - object-oriented interface
@@ -69,5 +69,5 @@ export declare class InformationalApi extends BaseAPI implements InformationalAp
      * @throws {RequiredError}
      * @memberof InformationalApi
      */
-    formats(accessToken: string, ifModifiedSince?: string, acceptEncoding?: string, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getFormats(accessToken: string, ifModifiedSince?: string, acceptEncoding?: string, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 }

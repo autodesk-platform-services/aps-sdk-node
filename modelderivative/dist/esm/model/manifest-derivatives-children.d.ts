@@ -1,4 +1,3 @@
-import { ManifestDerivativesChildrenChildren } from './manifest-derivatives-children-children';
 /**
  *
  * @export
@@ -10,7 +9,7 @@ export interface ManifestDerivativesChildren {
      * @type {string}
      * @memberof ManifestDerivativesChildren
      */
-    'phaseNames'?: string;
+    'phaseNames': string;
     /**
      *
      * @type {string}
@@ -25,10 +24,10 @@ export interface ManifestDerivativesChildren {
     'hasThumbnail': string;
     /**
      * An optional array of objects, where each object (of type ``children``) represents another resource file generated for this resource.
-     * @type {Set<ManifestDerivativesChildrenChildren>}
+     * @type {Set<ManifestDerivativesChildren>}
      * @memberof ManifestDerivativesChildren
      */
-    'children'?: Set<ManifestDerivativesChildrenChildren>;
+    'children'?: Set<ManifestDerivativesChildren>;
     /**
      * The name of the resource file.
      * @type {string}
@@ -66,7 +65,7 @@ export interface ManifestDerivativesChildren {
      */
     'status': string;
     /**
-     * - ``true``: The resource file is a Model View (Viewable) of a Revit Master View. It contains room and space information.  This attribute is present only if:  - The derivative is SVF or SVF2. - The source design is a Revit file - The ``generateMasterViews``  advanced option was set to ``true`` when `Start Translation Job </en/docs/model-derivative/v2/reference/http/job-POST/>`_ was called.
+     * - ``true``: The resource file is a Model View (Viewable) of a Revit Master View. It contains room and space information.  This attribute is present only if:  - The derivative is SVF or SVF2. - The source design is a Revit file - The ``generateMasterViews``  advanced option was set to ``true`` when `Submit Translation Job </en/docs/model-derivative/v2/reference/http/job-POST/>`_ was called.
      * @type {boolean}
      * @memberof ManifestDerivativesChildren
      */

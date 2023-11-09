@@ -1,4 +1,3 @@
-import { ObjectTreeDataObjectsObjects } from './object-tree-data-objects-objects';
 /**
  *
  * @export
@@ -22,5 +21,5 @@ export interface ObjectTreeDataObjects {
      * @type {Set<ObjectTreeDataObjectsObjects>}
      * @memberof ObjectTreeDataObjects
      */
-    'objects'?: Set<ObjectTreeDataObjectsObjects>;
+    'objects'?: Set<ObjectTreeDataObjects>;
 }
