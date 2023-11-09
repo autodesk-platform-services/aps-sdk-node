@@ -1,5 +1,5 @@
 import type { AxiosInstance } from 'axios';
-import { ApsServiceRequestConfig, SDKManager } from "autodesk-sdkmanager";
+import { ApsServiceRequestConfig, ISDKError, SDKManager } from "autodesk-sdkmanager";
 /**
  *
  * @export
@@ -39,7 +39,8 @@ export declare class RequiredError extends Error {
     field: string;
     constructor(field: string, msg?: string);
 }
-export declare class WebhooksApiApiError extends Error {
+export declare class WebhooksApiError extends Error implements ISDKError {
     axiosError?: any;
     constructor(message: string, axiosError?: any);
+    httpStatusCode(): number | null;
 }
