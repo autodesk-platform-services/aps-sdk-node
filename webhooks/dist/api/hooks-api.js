@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PostSystemsSystemHooksSystemEnum = exports.PostSystemsSystemEventsEventHooksEventEnum = exports.PostSystemsSystemEventsEventHooksSystemEnum = exports.PatchSystemsSystemEventsEventHooksHookIdEventEnum = exports.PatchSystemsSystemEventsEventHooksHookIdSystemEnum = exports.GetSystemsSystemHooksSystemEnum = exports.GetSystemsSystemEventsEventHooksHookIdEventEnum = exports.GetSystemsSystemEventsEventHooksHookIdSystemEnum = exports.GetSystemsSystemEventsEventHooksEventEnum = exports.GetSystemsSystemEventsEventHooksSystemEnum = exports.DeleteSystemsSystemEventsEventHooksHookIdEventEnum = exports.DeleteSystemsSystemEventsEventHooksHookIdSystemEnum = exports.HooksApi = exports.HooksApiFp = exports.HooksApiAxiosParamCreator = void 0;
+exports.HooksApi = exports.HooksApiFp = exports.HooksApiAxiosParamCreator = void 0;
 const autodesk_sdkmanager_1 = require("autodesk-sdkmanager");
 const common_1 = require("../common");
 const base_1 = require("../base");
@@ -22,10 +22,98 @@ const base_1 = require("../base");
 const HooksApiAxiosParamCreator = function (apsConfiguration) {
     return {
         /**
+         * Add new webhook to receive the notification on a specified event.
+         * @summary Add new webhook to receive the notification on a specified event.
+         * @param {Systems} system string A system for example data for Data Management
+         * @param {Events} event string A system for example data for Data Management
+         * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
+         * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
+         * @param {HookPayload} [hookPayload]
+         * @param accessToken bearer access token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createSystemEventHook: (accessToken, system, event, xAdsRegion, region, hookPayload, options = {}) => __awaiter(this, void 0, void 0, function* () {
+            // verify required parameter 'system' is not null or undefined
+            (0, common_1.assertParamExists)('createSystemEventHook', 'system', system);
+            // verify required parameter 'event' is not null or undefined
+            (0, common_1.assertParamExists)('createSystemEventHook', 'event', event);
+            const localVarPath = `/webhooks/v1/systems/{system}/events/{event}/hooks`
+                .replace(`{${"system"}}`, encodeURIComponent(String(system)))
+                .replace(`{${"event"}}`, encodeURIComponent(String(event)));
+            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
+            let baseOptions;
+            if (apsConfiguration) {
+                baseOptions = apsConfiguration.baseOptions;
+            }
+            const localVarRequestOptions = Object.assign(Object.assign({ method: 'POST' }, baseOptions), options);
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            yield (0, common_1.setBearerAuthToObject)(localVarHeaderParameter, accessToken);
+            if (region !== undefined) {
+                localVarQueryParameter['region'] = region;
+            }
+            if (xAdsRegion != null) {
+                localVarHeaderParameter['x-ads-region'] = String(xAdsRegion);
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/WEBHOOKS/TypeScript/1.0.0';
+            (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
+            localVarRequestOptions.data = (0, common_1.serializeDataIfNeeded)(hookPayload, localVarRequestOptions, apsConfiguration);
+            return {
+                url: (0, common_1.toPathString)(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        }),
+        /**
+         * Add new webhooks to receive the notification on all the events.
+         * @summary Add new webhooks to receive the notification on all the events.
+         * @param {Systems} system string A system for example data for Data Management
+         * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
+         * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
+         * @param {HookPayload} [hookPayload]
+         * @param accessToken bearer access token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createSystemHook: (accessToken, system, xAdsRegion, region, hookPayload, options = {}) => __awaiter(this, void 0, void 0, function* () {
+            // verify required parameter 'system' is not null or undefined
+            (0, common_1.assertParamExists)('createSystemHook', 'system', system);
+            const localVarPath = `/webhooks/v1/systems/{system}/hooks`
+                .replace(`{${"system"}}`, encodeURIComponent(String(system)));
+            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
+            let baseOptions;
+            if (apsConfiguration) {
+                baseOptions = apsConfiguration.baseOptions;
+            }
+            const localVarRequestOptions = Object.assign(Object.assign({ method: 'POST' }, baseOptions), options);
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            yield (0, common_1.setBearerAuthToObject)(localVarHeaderParameter, accessToken);
+            if (region !== undefined) {
+                localVarQueryParameter['region'] = region;
+            }
+            if (xAdsRegion != null) {
+                localVarHeaderParameter['x-ads-region'] = String(xAdsRegion);
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/WEBHOOKS/TypeScript/1.0.0';
+            (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
+            localVarRequestOptions.data = (0, common_1.serializeDataIfNeeded)(hookPayload, localVarRequestOptions, apsConfiguration);
+            return {
+                url: (0, common_1.toPathString)(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        }),
+        /**
          * Deletes a webhook based on webhook ID
          * @summary Deletes a webhook based on webhook ID
-         * @param {DeleteSystemsSystemEventsEventHooksHookIdSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
-         * @param {DeleteSystemsSystemEventsEventHooksHookIdEventEnum} event Type of event. See &#x60;&#x60;Supported Events&#x60;&#x60;
+         * @param {Systems} system string A system for example data for Data Management
+         * @param {Events} event string A system for example data for Data Management
          * @param {string} hookId Id of the webhook to retrieve
          * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
          * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
@@ -33,14 +121,14 @@ const HooksApiAxiosParamCreator = function (apsConfiguration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteSystemsSystemEventsEventHooksHookId: (accessToken, system, event, hookId, xAdsRegion, region, options = {}) => __awaiter(this, void 0, void 0, function* () {
+        deleteSystemEventHook: (accessToken, system, event, hookId, xAdsRegion, region, options = {}) => __awaiter(this, void 0, void 0, function* () {
             // verify required parameter 'system' is not null or undefined
-            (0, common_1.assertParamExists)('deleteSystemsSystemEventsEventHooksHookId', 'system', system);
+            (0, common_1.assertParamExists)('deleteSystemEventHook', 'system', system);
             // verify required parameter 'event' is not null or undefined
-            (0, common_1.assertParamExists)('deleteSystemsSystemEventsEventHooksHookId', 'event', event);
+            (0, common_1.assertParamExists)('deleteSystemEventHook', 'event', event);
             // verify required parameter 'hookId' is not null or undefined
-            (0, common_1.assertParamExists)('deleteSystemsSystemEventsEventHooksHookId', 'hookId', hookId);
-            const localVarPath = `/systems/{system}/events/{event}/hooks/{hook_id}`
+            (0, common_1.assertParamExists)('deleteSystemEventHook', 'hookId', hookId);
+            const localVarPath = `/webhooks/v1/systems/{system}/events/{event}/hooks/{hook_id}`
                 .replace(`{${"system"}}`, encodeURIComponent(String(system)))
                 .replace(`{${"event"}}`, encodeURIComponent(String(event)))
                 .replace(`{${"hook_id"}}`, encodeURIComponent(String(hookId)));
@@ -80,7 +168,7 @@ const HooksApiAxiosParamCreator = function (apsConfiguration) {
          * @throws {RequiredError}
          */
         getAppHooks: (accessToken, xAdsRegion, pageState, status, sort, region, options = {}) => __awaiter(this, void 0, void 0, function* () {
-            const localVarPath = `/app/hooks`;
+            const localVarPath = `/webhooks/v1/app/hooks`;
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
             if (apsConfiguration) {
@@ -114,6 +202,52 @@ const HooksApiAxiosParamCreator = function (apsConfiguration) {
             };
         }),
         /**
+         * Get details of a webhook based on its webhook ID
+         * @summary Get details of a webhook based on its webhook ID
+         * @param {Systems} system string A system for example data for Data Management
+         * @param {Events} event string A system for example data for Data Management
+         * @param {string} hookId Id of the webhook to retrieve
+         * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
+         * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
+         * @param accessToken bearer access token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getHookDetails: (accessToken, system, event, hookId, xAdsRegion, region, options = {}) => __awaiter(this, void 0, void 0, function* () {
+            // verify required parameter 'system' is not null or undefined
+            (0, common_1.assertParamExists)('getHookDetails', 'system', system);
+            // verify required parameter 'event' is not null or undefined
+            (0, common_1.assertParamExists)('getHookDetails', 'event', event);
+            // verify required parameter 'hookId' is not null or undefined
+            (0, common_1.assertParamExists)('getHookDetails', 'hookId', hookId);
+            const localVarPath = `/webhooks/v1/systems/{system}/events/{event}/hooks/{hook_id}`
+                .replace(`{${"system"}}`, encodeURIComponent(String(system)))
+                .replace(`{${"event"}}`, encodeURIComponent(String(event)))
+                .replace(`{${"hook_id"}}`, encodeURIComponent(String(hookId)));
+            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
+            let baseOptions;
+            if (apsConfiguration) {
+                baseOptions = apsConfiguration.baseOptions;
+            }
+            const localVarRequestOptions = Object.assign(Object.assign({ method: 'GET' }, baseOptions), options);
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            yield (0, common_1.setBearerAuthToObject)(localVarHeaderParameter, accessToken);
+            if (region !== undefined) {
+                localVarQueryParameter['region'] = region;
+            }
+            if (xAdsRegion != null) {
+                localVarHeaderParameter['x-ads-region'] = String(xAdsRegion);
+            }
+            (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
+            return {
+                url: (0, common_1.toPathString)(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        }),
+        /**
          * Retrieves a paginated list of all the webhooks. If the pageState query string is not specified, the first page is returned.
          * @summary Retrieves a paginated list of all the webhooks. If the pageState query string is not specified, the first page is returned.
          * @param {string} [pageState] Base64 encoded string used to return the next page of the list of webhooks. This can be obtained from the next field of the previous page. PagingState instances are not portable and implementation is subject to change across versions. Default page size is 200.
@@ -125,7 +259,7 @@ const HooksApiAxiosParamCreator = function (apsConfiguration) {
          * @throws {RequiredError}
          */
         getHooks: (accessToken, pageState, status, region, xAdsRegion, options = {}) => __awaiter(this, void 0, void 0, function* () {
-            const localVarPath = `/hooks`;
+            const localVarPath = `/webhooks/v1/hooks`;
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
             if (apsConfiguration) {
@@ -158,8 +292,8 @@ const HooksApiAxiosParamCreator = function (apsConfiguration) {
         /**
          * Retrieves a paginated list of all the webhooks for a specified event. If the pageState query string is not specified, the first page is returned.
          * @summary Retrieves a paginated list of all the webhooks for a specified event. If the pageState query string is not specified, the first page is returned.
-         * @param {GetSystemsSystemEventsEventHooksSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
-         * @param {GetSystemsSystemEventsEventHooksEventEnum} event Type of event. See &#x60;&#x60;Supported Events&#x60;&#x60;
+         * @param {Systems} system string A system for example data for Data Management
+         * @param {Events} event string A system for example data for Data Management
          * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
          * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
          * @param {string} [scopeName] Scope name used to create hook. For example : folder
@@ -169,12 +303,12 @@ const HooksApiAxiosParamCreator = function (apsConfiguration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSystemsSystemEventsEventHooks: (accessToken, system, event, xAdsRegion, region, scopeName, pageState, status, options = {}) => __awaiter(this, void 0, void 0, function* () {
+        getSystemEventHooks: (accessToken, system, event, xAdsRegion, region, scopeName, pageState, status, options = {}) => __awaiter(this, void 0, void 0, function* () {
             // verify required parameter 'system' is not null or undefined
-            (0, common_1.assertParamExists)('getSystemsSystemEventsEventHooks', 'system', system);
+            (0, common_1.assertParamExists)('getSystemEventHooks', 'system', system);
             // verify required parameter 'event' is not null or undefined
-            (0, common_1.assertParamExists)('getSystemsSystemEventsEventHooks', 'event', event);
-            const localVarPath = `/systems/{system}/events/{event}/hooks`
+            (0, common_1.assertParamExists)('getSystemEventHooks', 'event', event);
+            const localVarPath = `/webhooks/v1/systems/{system}/events/{event}/hooks`
                 .replace(`{${"system"}}`, encodeURIComponent(String(system)))
                 .replace(`{${"event"}}`, encodeURIComponent(String(event)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
@@ -210,55 +344,9 @@ const HooksApiAxiosParamCreator = function (apsConfiguration) {
             };
         }),
         /**
-         * Get details of a webhook based on its webhook ID
-         * @summary Get details of a webhook based on its webhook ID
-         * @param {GetSystemsSystemEventsEventHooksHookIdSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
-         * @param {GetSystemsSystemEventsEventHooksHookIdEventEnum} event Type of event. See &#x60;&#x60;Supported Events&#x60;&#x60;
-         * @param {string} hookId Id of the webhook to retrieve
-         * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
-         * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
-         * @param accessToken bearer access token
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getSystemsSystemEventsEventHooksHookId: (accessToken, system, event, hookId, xAdsRegion, region, options = {}) => __awaiter(this, void 0, void 0, function* () {
-            // verify required parameter 'system' is not null or undefined
-            (0, common_1.assertParamExists)('getSystemsSystemEventsEventHooksHookId', 'system', system);
-            // verify required parameter 'event' is not null or undefined
-            (0, common_1.assertParamExists)('getSystemsSystemEventsEventHooksHookId', 'event', event);
-            // verify required parameter 'hookId' is not null or undefined
-            (0, common_1.assertParamExists)('getSystemsSystemEventsEventHooksHookId', 'hookId', hookId);
-            const localVarPath = `/systems/{system}/events/{event}/hooks/{hook_id}`
-                .replace(`{${"system"}}`, encodeURIComponent(String(system)))
-                .replace(`{${"event"}}`, encodeURIComponent(String(event)))
-                .replace(`{${"hook_id"}}`, encodeURIComponent(String(hookId)));
-            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
-            let baseOptions;
-            if (apsConfiguration) {
-                baseOptions = apsConfiguration.baseOptions;
-            }
-            const localVarRequestOptions = Object.assign(Object.assign({ method: 'GET' }, baseOptions), options);
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            yield (0, common_1.setBearerAuthToObject)(localVarHeaderParameter, accessToken);
-            if (region !== undefined) {
-                localVarQueryParameter['region'] = region;
-            }
-            if (xAdsRegion != null) {
-                localVarHeaderParameter['x-ads-region'] = String(xAdsRegion);
-            }
-            (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
-            return {
-                url: (0, common_1.toPathString)(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        }),
-        /**
          * Retrieves a paginated list of all the webhooks for a specified system. If the pageState query string is not specified, the first page is returned.
          * @summary Retrieves a paginated list of all the webhooks for a specified system. If the pageState query string is not specified, the first page is returned.
-         * @param {GetSystemsSystemHooksSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
+         * @param {Systems} system string A system for example data for Data Management
          * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
          * @param {string} [status] Status of the hooks. Options: &#x60;&#x60;active&#x60;&#x60;, &#x60;&#x60;inactive&#x60;&#x60;
          * @param {string} [pageState] Base64 encoded string used to return the next page of the list of webhooks. This can be obtained from the &#x60;&#x60;next&#x60;&#x60; field of the previous page. PagingState instances are not portable and implementation is subject to change across versions. Default page size is 200.
@@ -267,10 +355,10 @@ const HooksApiAxiosParamCreator = function (apsConfiguration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSystemsSystemHooks: (accessToken, system, xAdsRegion, status, pageState, region, options = {}) => __awaiter(this, void 0, void 0, function* () {
+        getSystemHooks: (accessToken, system, xAdsRegion, status, pageState, region, options = {}) => __awaiter(this, void 0, void 0, function* () {
             // verify required parameter 'system' is not null or undefined
-            (0, common_1.assertParamExists)('getSystemsSystemHooks', 'system', system);
-            const localVarPath = `/systems/{system}/hooks`
+            (0, common_1.assertParamExists)('getSystemHooks', 'system', system);
+            const localVarPath = `/webhooks/v1/systems/{system}/hooks`
                 .replace(`{${"system"}}`, encodeURIComponent(String(system)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
@@ -304,24 +392,24 @@ const HooksApiAxiosParamCreator = function (apsConfiguration) {
         /**
          * Partially update a webhook based on its webhook ID. The only fields that may be updated are: status, filter, hookAttribute, and hookExpiry.
          * @summary Partially update a webhook based on its webhook ID. The only fields that may be updated are: status, filter, hookAttribute, and hookExpiry.
-         * @param {PatchSystemsSystemEventsEventHooksHookIdSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
-         * @param {PatchSystemsSystemEventsEventHooksHookIdEventEnum} event Type of event. See &#x60;&#x60;Supported Events&#x60;&#x60;
+         * @param {Systems} system string A system for example data for Data Management
+         * @param {Events} event string A system for example data for Data Management
          * @param {string} hookId Id of the webhook to retrieve
          * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
          * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
-         * @param {UpdateHook} [updateHook]
+         * @param {ModifyHookPayload} [modifyHookPayload]
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        patchSystemsSystemEventsEventHooksHookId: (accessToken, system, event, hookId, xAdsRegion, region, updateHook, options = {}) => __awaiter(this, void 0, void 0, function* () {
+        patchSystemEventHook: (accessToken, system, event, hookId, xAdsRegion, region, modifyHookPayload, options = {}) => __awaiter(this, void 0, void 0, function* () {
             // verify required parameter 'system' is not null or undefined
-            (0, common_1.assertParamExists)('patchSystemsSystemEventsEventHooksHookId', 'system', system);
+            (0, common_1.assertParamExists)('patchSystemEventHook', 'system', system);
             // verify required parameter 'event' is not null or undefined
-            (0, common_1.assertParamExists)('patchSystemsSystemEventsEventHooksHookId', 'event', event);
+            (0, common_1.assertParamExists)('patchSystemEventHook', 'event', event);
             // verify required parameter 'hookId' is not null or undefined
-            (0, common_1.assertParamExists)('patchSystemsSystemEventsEventHooksHookId', 'hookId', hookId);
-            const localVarPath = `/systems/{system}/events/{event}/hooks/{hook_id}`
+            (0, common_1.assertParamExists)('patchSystemEventHook', 'hookId', hookId);
+            const localVarPath = `/webhooks/v1/systems/{system}/events/{event}/hooks/{hook_id}`
                 .replace(`{${"system"}}`, encodeURIComponent(String(system)))
                 .replace(`{${"event"}}`, encodeURIComponent(String(event)))
                 .replace(`{${"hook_id"}}`, encodeURIComponent(String(hookId)));
@@ -341,99 +429,11 @@ const HooksApiAxiosParamCreator = function (apsConfiguration) {
                 localVarHeaderParameter['x-ads-region'] = String(xAdsRegion);
             }
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/WEBHOOKS-API/TypeScript/1.0.0';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/WEBHOOKS/TypeScript/1.0.0';
             (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
-            localVarRequestOptions.data = (0, common_1.serializeDataIfNeeded)(updateHook, localVarRequestOptions, apsConfiguration);
-            return {
-                url: (0, common_1.toPathString)(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        }),
-        /**
-         * Add new webhook to receive the notification on a specified event.
-         * @summary Add new webhook to receive the notification on a specified event.
-         * @param {PostSystemsSystemEventsEventHooksSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
-         * @param {PostSystemsSystemEventsEventHooksEventEnum} event Type of event. See &#x60;&#x60;Supported Events&#x60;&#x60;
-         * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
-         * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
-         * @param {CreateHook} [createHook]
-         * @param accessToken bearer access token
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postSystemsSystemEventsEventHooks: (accessToken, system, event, xAdsRegion, region, createHook, options = {}) => __awaiter(this, void 0, void 0, function* () {
-            // verify required parameter 'system' is not null or undefined
-            (0, common_1.assertParamExists)('postSystemsSystemEventsEventHooks', 'system', system);
-            // verify required parameter 'event' is not null or undefined
-            (0, common_1.assertParamExists)('postSystemsSystemEventsEventHooks', 'event', event);
-            const localVarPath = `/systems/{system}/events/{event}/hooks`
-                .replace(`{${"system"}}`, encodeURIComponent(String(system)))
-                .replace(`{${"event"}}`, encodeURIComponent(String(event)));
-            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
-            let baseOptions;
-            if (apsConfiguration) {
-                baseOptions = apsConfiguration.baseOptions;
-            }
-            const localVarRequestOptions = Object.assign(Object.assign({ method: 'POST' }, baseOptions), options);
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            yield (0, common_1.setBearerAuthToObject)(localVarHeaderParameter, accessToken);
-            if (region !== undefined) {
-                localVarQueryParameter['region'] = region;
-            }
-            if (xAdsRegion != null) {
-                localVarHeaderParameter['x-ads-region'] = String(xAdsRegion);
-            }
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/WEBHOOKS-API/TypeScript/1.0.0';
-            (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
-            localVarRequestOptions.data = (0, common_1.serializeDataIfNeeded)(createHook, localVarRequestOptions, apsConfiguration);
-            return {
-                url: (0, common_1.toPathString)(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        }),
-        /**
-         * Add new webhooks to receive the notification on all the events.
-         * @summary Add new webhooks to receive the notification on all the events.
-         * @param {PostSystemsSystemHooksSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
-         * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
-         * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
-         * @param {CreateHook} [createHook]
-         * @param accessToken bearer access token
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postSystemsSystemHooks: (accessToken, system, xAdsRegion, region, createHook, options = {}) => __awaiter(this, void 0, void 0, function* () {
-            // verify required parameter 'system' is not null or undefined
-            (0, common_1.assertParamExists)('postSystemsSystemHooks', 'system', system);
-            const localVarPath = `/systems/{system}/hooks`
-                .replace(`{${"system"}}`, encodeURIComponent(String(system)));
-            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
-            let baseOptions;
-            if (apsConfiguration) {
-                baseOptions = apsConfiguration.baseOptions;
-            }
-            const localVarRequestOptions = Object.assign(Object.assign({ method: 'POST' }, baseOptions), options);
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            yield (0, common_1.setBearerAuthToObject)(localVarHeaderParameter, accessToken);
-            if (region !== undefined) {
-                localVarQueryParameter['region'] = region;
-            }
-            if (xAdsRegion != null) {
-                localVarHeaderParameter['x-ads-region'] = String(xAdsRegion);
-            }
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/WEBHOOKS-API/TypeScript/1.0.0';
-            (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
-            localVarRequestOptions.data = (0, common_1.serializeDataIfNeeded)(createHook, localVarRequestOptions, apsConfiguration);
+            localVarRequestOptions.data = (0, common_1.serializeDataIfNeeded)(modifyHookPayload, localVarRequestOptions, apsConfiguration);
             return {
                 url: (0, common_1.toPathString)(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -450,19 +450,52 @@ const HooksApiFp = function (sdkManager) {
     const localVarAxiosParamCreator = (0, exports.HooksApiAxiosParamCreator)(sdkManager.apsconfiguration);
     return {
         /**
+         * Add new webhook to receive the notification on a specified event.
+         * @summary Add new webhook to receive the notification on a specified event.
+         * @param {Systems} system string A system for example data for Data Management
+         * @param {Events} event string A system for example data for Data Management
+         * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
+         * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
+         * @param {HookPayload} [hookPayload]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createSystemEventHook(accessToken, system, event, xAdsRegion, region, hookPayload, options) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const localVarAxiosArgs = yield localVarAxiosParamCreator.createSystemEventHook(accessToken, system, event, xAdsRegion, region, hookPayload, options);
+                return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
+            });
+        },
+        /**
+         * Add new webhooks to receive the notification on all the events.
+         * @summary Add new webhooks to receive the notification on all the events.
+         * @param {Systems} system string A system for example data for Data Management
+         * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
+         * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
+         * @param {HookPayload} [hookPayload]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createSystemHook(accessToken, system, xAdsRegion, region, hookPayload, options) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const localVarAxiosArgs = yield localVarAxiosParamCreator.createSystemHook(accessToken, system, xAdsRegion, region, hookPayload, options);
+                return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
+            });
+        },
+        /**
          * Deletes a webhook based on webhook ID
          * @summary Deletes a webhook based on webhook ID
-         * @param {DeleteSystemsSystemEventsEventHooksHookIdSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
-         * @param {DeleteSystemsSystemEventsEventHooksHookIdEventEnum} event Type of event. See &#x60;&#x60;Supported Events&#x60;&#x60;
+         * @param {Systems} system string A system for example data for Data Management
+         * @param {Events} event string A system for example data for Data Management
          * @param {string} hookId Id of the webhook to retrieve
          * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
          * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteSystemsSystemEventsEventHooksHookId(accessToken, system, event, hookId, xAdsRegion, region, options) {
+        deleteSystemEventHook(accessToken, system, event, hookId, xAdsRegion, region, options) {
             return __awaiter(this, void 0, void 0, function* () {
-                const localVarAxiosArgs = yield localVarAxiosParamCreator.deleteSystemsSystemEventsEventHooksHookId(accessToken, system, event, hookId, xAdsRegion, region, options);
+                const localVarAxiosArgs = yield localVarAxiosParamCreator.deleteSystemEventHook(accessToken, system, event, hookId, xAdsRegion, region, options);
                 return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
             });
         },
@@ -480,6 +513,23 @@ const HooksApiFp = function (sdkManager) {
         getAppHooks(accessToken, xAdsRegion, pageState, status, sort, region, options) {
             return __awaiter(this, void 0, void 0, function* () {
                 const localVarAxiosArgs = yield localVarAxiosParamCreator.getAppHooks(accessToken, xAdsRegion, pageState, status, sort, region, options);
+                return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
+            });
+        },
+        /**
+         * Get details of a webhook based on its webhook ID
+         * @summary Get details of a webhook based on its webhook ID
+         * @param {Systems} system string A system for example data for Data Management
+         * @param {Events} event string A system for example data for Data Management
+         * @param {string} hookId Id of the webhook to retrieve
+         * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
+         * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getHookDetails(accessToken, system, event, hookId, xAdsRegion, region, options) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const localVarAxiosArgs = yield localVarAxiosParamCreator.getHookDetails(accessToken, system, event, hookId, xAdsRegion, region, options);
                 return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
             });
         },
@@ -502,8 +552,8 @@ const HooksApiFp = function (sdkManager) {
         /**
          * Retrieves a paginated list of all the webhooks for a specified event. If the pageState query string is not specified, the first page is returned.
          * @summary Retrieves a paginated list of all the webhooks for a specified event. If the pageState query string is not specified, the first page is returned.
-         * @param {GetSystemsSystemEventsEventHooksSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
-         * @param {GetSystemsSystemEventsEventHooksEventEnum} event Type of event. See &#x60;&#x60;Supported Events&#x60;&#x60;
+         * @param {Systems} system string A system for example data for Data Management
+         * @param {Events} event string A system for example data for Data Management
          * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
          * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
          * @param {string} [scopeName] Scope name used to create hook. For example : folder
@@ -512,33 +562,16 @@ const HooksApiFp = function (sdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSystemsSystemEventsEventHooks(accessToken, system, event, xAdsRegion, region, scopeName, pageState, status, options) {
+        getSystemEventHooks(accessToken, system, event, xAdsRegion, region, scopeName, pageState, status, options) {
             return __awaiter(this, void 0, void 0, function* () {
-                const localVarAxiosArgs = yield localVarAxiosParamCreator.getSystemsSystemEventsEventHooks(accessToken, system, event, xAdsRegion, region, scopeName, pageState, status, options);
-                return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
-            });
-        },
-        /**
-         * Get details of a webhook based on its webhook ID
-         * @summary Get details of a webhook based on its webhook ID
-         * @param {GetSystemsSystemEventsEventHooksHookIdSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
-         * @param {GetSystemsSystemEventsEventHooksHookIdEventEnum} event Type of event. See &#x60;&#x60;Supported Events&#x60;&#x60;
-         * @param {string} hookId Id of the webhook to retrieve
-         * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
-         * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getSystemsSystemEventsEventHooksHookId(accessToken, system, event, hookId, xAdsRegion, region, options) {
-            return __awaiter(this, void 0, void 0, function* () {
-                const localVarAxiosArgs = yield localVarAxiosParamCreator.getSystemsSystemEventsEventHooksHookId(accessToken, system, event, hookId, xAdsRegion, region, options);
+                const localVarAxiosArgs = yield localVarAxiosParamCreator.getSystemEventHooks(accessToken, system, event, xAdsRegion, region, scopeName, pageState, status, options);
                 return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
             });
         },
         /**
          * Retrieves a paginated list of all the webhooks for a specified system. If the pageState query string is not specified, the first page is returned.
          * @summary Retrieves a paginated list of all the webhooks for a specified system. If the pageState query string is not specified, the first page is returned.
-         * @param {GetSystemsSystemHooksSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
+         * @param {Systems} system string A system for example data for Data Management
          * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
          * @param {string} [status] Status of the hooks. Options: &#x60;&#x60;active&#x60;&#x60;, &#x60;&#x60;inactive&#x60;&#x60;
          * @param {string} [pageState] Base64 encoded string used to return the next page of the list of webhooks. This can be obtained from the &#x60;&#x60;next&#x60;&#x60; field of the previous page. PagingState instances are not portable and implementation is subject to change across versions. Default page size is 200.
@@ -546,60 +579,27 @@ const HooksApiFp = function (sdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSystemsSystemHooks(accessToken, system, xAdsRegion, status, pageState, region, options) {
+        getSystemHooks(accessToken, system, xAdsRegion, status, pageState, region, options) {
             return __awaiter(this, void 0, void 0, function* () {
-                const localVarAxiosArgs = yield localVarAxiosParamCreator.getSystemsSystemHooks(accessToken, system, xAdsRegion, status, pageState, region, options);
+                const localVarAxiosArgs = yield localVarAxiosParamCreator.getSystemHooks(accessToken, system, xAdsRegion, status, pageState, region, options);
                 return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
             });
         },
         /**
          * Partially update a webhook based on its webhook ID. The only fields that may be updated are: status, filter, hookAttribute, and hookExpiry.
          * @summary Partially update a webhook based on its webhook ID. The only fields that may be updated are: status, filter, hookAttribute, and hookExpiry.
-         * @param {PatchSystemsSystemEventsEventHooksHookIdSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
-         * @param {PatchSystemsSystemEventsEventHooksHookIdEventEnum} event Type of event. See &#x60;&#x60;Supported Events&#x60;&#x60;
+         * @param {Systems} system string A system for example data for Data Management
+         * @param {Events} event string A system for example data for Data Management
          * @param {string} hookId Id of the webhook to retrieve
          * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
          * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
-         * @param {UpdateHook} [updateHook]
+         * @param {ModifyHookPayload} [modifyHookPayload]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        patchSystemsSystemEventsEventHooksHookId(accessToken, system, event, hookId, xAdsRegion, region, updateHook, options) {
+        patchSystemEventHook(accessToken, system, event, hookId, xAdsRegion, region, modifyHookPayload, options) {
             return __awaiter(this, void 0, void 0, function* () {
-                const localVarAxiosArgs = yield localVarAxiosParamCreator.patchSystemsSystemEventsEventHooksHookId(accessToken, system, event, hookId, xAdsRegion, region, updateHook, options);
-                return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
-            });
-        },
-        /**
-         * Add new webhook to receive the notification on a specified event.
-         * @summary Add new webhook to receive the notification on a specified event.
-         * @param {PostSystemsSystemEventsEventHooksSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
-         * @param {PostSystemsSystemEventsEventHooksEventEnum} event Type of event. See &#x60;&#x60;Supported Events&#x60;&#x60;
-         * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
-         * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
-         * @param {CreateHook} [createHook]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postSystemsSystemEventsEventHooks(accessToken, system, event, xAdsRegion, region, createHook, options) {
-            return __awaiter(this, void 0, void 0, function* () {
-                const localVarAxiosArgs = yield localVarAxiosParamCreator.postSystemsSystemEventsEventHooks(accessToken, system, event, xAdsRegion, region, createHook, options);
-                return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
-            });
-        },
-        /**
-         * Add new webhooks to receive the notification on all the events.
-         * @summary Add new webhooks to receive the notification on all the events.
-         * @param {PostSystemsSystemHooksSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
-         * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
-         * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
-         * @param {CreateHook} [createHook]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postSystemsSystemHooks(accessToken, system, xAdsRegion, region, createHook, options) {
-            return __awaiter(this, void 0, void 0, function* () {
-                const localVarAxiosArgs = yield localVarAxiosParamCreator.postSystemsSystemHooks(accessToken, system, xAdsRegion, region, createHook, options);
+                const localVarAxiosArgs = yield localVarAxiosParamCreator.patchSystemEventHook(accessToken, system, event, hookId, xAdsRegion, region, modifyHookPayload, options);
                 return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
             });
         },
@@ -618,10 +618,79 @@ class HooksApi extends base_1.BaseAPI {
         this.logger = this.sdkManager.logger;
     }
     /**
+     * Add new webhook to receive the notification on a specified event.
+     * @summary Add new webhook to receive the notification on a specified event.
+     * @param {Systems} system string A system for example data for Data Management
+     * @param {Events} event string A system for example data for Data Management
+     * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
+     * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
+     * @param {HookPayload} [hookPayload]
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof HooksApi
+     */
+    createSystemEventHook(accessToken, system, event, xAdsRegion, region, hookPayload, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.logger.logInfo("Entered into createSystemEventHook ");
+            try {
+                const request = yield (0, exports.HooksApiFp)(this.sdkManager).createSystemEventHook(accessToken, system, event, xAdsRegion, region, hookPayload, options);
+                const response = yield request(this.axios);
+                this.logger.logInfo(`createSystemEventHook Request completed successfully with status code: ${response.status}`);
+                return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
+            }
+            catch (error) {
+                if (error.response) {
+                    this.logger.logError(`createSystemEventHook Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+                    throw new base_1.WebhooksApiError(`createSystemEventHook Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                }
+                else if (error.request) {
+                    this.logger.logError(`createSystemEventHook Request failed with no response received: ${error.request}`);
+                    throw new base_1.WebhooksApiError(`createSystemEventHook Request failed with no response received: ${error.request}`, error);
+                }
+                throw error;
+            }
+        });
+    }
+    /**
+     * Add new webhooks to receive the notification on all the events.
+     * @summary Add new webhooks to receive the notification on all the events.
+     * @param {Systems} system string A system for example data for Data Management
+     * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
+     * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
+     * @param {HookPayload} [hookPayload]
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof HooksApi
+     */
+    createSystemHook(accessToken, system, xAdsRegion, region, hookPayload, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.logger.logInfo("Entered into createSystemHook ");
+            try {
+                const request = yield (0, exports.HooksApiFp)(this.sdkManager).createSystemHook(accessToken, system, xAdsRegion, region, hookPayload, options);
+                const response = yield request(this.axios);
+                this.logger.logInfo(`createSystemHook Request completed successfully with status code: ${response.status}`);
+                return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
+            }
+            catch (error) {
+                if (error.response) {
+                    this.logger.logError(`createSystemHook Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+                    throw new base_1.WebhooksApiError(`createSystemHook Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                }
+                else if (error.request) {
+                    this.logger.logError(`createSystemHook Request failed with no response received: ${error.request}`);
+                    throw new base_1.WebhooksApiError(`createSystemHook Request failed with no response received: ${error.request}`, error);
+                }
+                throw error;
+            }
+        });
+    }
+    /**
      * Deletes a webhook based on webhook ID
      * @summary Deletes a webhook based on webhook ID
-     * @param {DeleteSystemsSystemEventsEventHooksHookIdSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
-     * @param {DeleteSystemsSystemEventsEventHooksHookIdEventEnum} event Type of event. See &#x60;&#x60;Supported Events&#x60;&#x60;
+     * @param {Systems} system string A system for example data for Data Management
+     * @param {Events} event string A system for example data for Data Management
      * @param {string} hookId Id of the webhook to retrieve
      * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
      * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
@@ -630,23 +699,23 @@ class HooksApi extends base_1.BaseAPI {
      * @throws {RequiredError}
      * @memberof HooksApi
      */
-    deleteSystemsSystemEventsEventHooksHookId(accessToken, system, event, hookId, xAdsRegion, region, options) {
+    deleteSystemEventHook(accessToken, system, event, hookId, xAdsRegion, region, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.logger.logInfo("Entered into deleteSystemsSystemEventsEventHooksHookId ");
+            this.logger.logInfo("Entered into deleteSystemEventHook ");
             try {
-                const request = yield (0, exports.HooksApiFp)(this.sdkManager).deleteSystemsSystemEventsEventHooksHookId(accessToken, system, event, hookId, xAdsRegion, region, options);
+                const request = yield (0, exports.HooksApiFp)(this.sdkManager).deleteSystemEventHook(accessToken, system, event, hookId, xAdsRegion, region, options);
                 const response = yield request(this.axios);
-                this.logger.logInfo(`deleteSystemsSystemEventsEventHooksHookId Request completed successfully with status code: ${response.status}`);
+                this.logger.logInfo(`deleteSystemEventHook Request completed successfully with status code: ${response.status}`);
                 return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
             }
             catch (error) {
                 if (error.response) {
-                    this.logger.logError(`deleteSystemsSystemEventsEventHooksHookId Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.WebhooksApiApiError(`deleteSystemsSystemEventsEventHooksHookId Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    this.logger.logError(`deleteSystemEventHook Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+                    throw new base_1.WebhooksApiError(`deleteSystemEventHook Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
-                    this.logger.logError(`deleteSystemsSystemEventsEventHooksHookId Request failed with no response received: ${error.request}`);
-                    throw new base_1.WebhooksApiApiError(`deleteSystemsSystemEventsEventHooksHookId Request failed with no response received: ${error.request}`, error);
+                    this.logger.logError(`deleteSystemEventHook Request failed with no response received: ${error.request}`);
+                    throw new base_1.WebhooksApiError(`deleteSystemEventHook Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -677,11 +746,46 @@ class HooksApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getAppHooks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.WebhooksApiApiError(`getAppHooks Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.WebhooksApiError(`getAppHooks Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getAppHooks Request failed with no response received: ${error.request}`);
-                    throw new base_1.WebhooksApiApiError(`getAppHooks Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.WebhooksApiError(`getAppHooks Request failed with no response received: ${error.request}`, error);
+                }
+                throw error;
+            }
+        });
+    }
+    /**
+     * Get details of a webhook based on its webhook ID
+     * @summary Get details of a webhook based on its webhook ID
+     * @param {Systems} system string A system for example data for Data Management
+     * @param {Events} event string A system for example data for Data Management
+     * @param {string} hookId Id of the webhook to retrieve
+     * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
+     * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof HooksApi
+     */
+    getHookDetails(accessToken, system, event, hookId, xAdsRegion, region, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.logger.logInfo("Entered into getHookDetails ");
+            try {
+                const request = yield (0, exports.HooksApiFp)(this.sdkManager).getHookDetails(accessToken, system, event, hookId, xAdsRegion, region, options);
+                const response = yield request(this.axios);
+                this.logger.logInfo(`getHookDetails Request completed successfully with status code: ${response.status}`);
+                return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
+            }
+            catch (error) {
+                if (error.response) {
+                    this.logger.logError(`getHookDetails Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+                    throw new base_1.WebhooksApiError(`getHookDetails Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                }
+                else if (error.request) {
+                    this.logger.logError(`getHookDetails Request failed with no response received: ${error.request}`);
+                    throw new base_1.WebhooksApiError(`getHookDetails Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -711,11 +815,11 @@ class HooksApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getHooks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.WebhooksApiApiError(`getHooks Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.WebhooksApiError(`getHooks Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getHooks Request failed with no response received: ${error.request}`);
-                    throw new base_1.WebhooksApiApiError(`getHooks Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.WebhooksApiError(`getHooks Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -724,8 +828,8 @@ class HooksApi extends base_1.BaseAPI {
     /**
      * Retrieves a paginated list of all the webhooks for a specified event. If the pageState query string is not specified, the first page is returned.
      * @summary Retrieves a paginated list of all the webhooks for a specified event. If the pageState query string is not specified, the first page is returned.
-     * @param {GetSystemsSystemEventsEventHooksSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
-     * @param {GetSystemsSystemEventsEventHooksEventEnum} event Type of event. See &#x60;&#x60;Supported Events&#x60;&#x60;
+     * @param {Systems} system string A system for example data for Data Management
+     * @param {Events} event string A system for example data for Data Management
      * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
      * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
      * @param {string} [scopeName] Scope name used to create hook. For example : folder
@@ -736,58 +840,23 @@ class HooksApi extends base_1.BaseAPI {
      * @throws {RequiredError}
      * @memberof HooksApi
      */
-    getSystemsSystemEventsEventHooks(accessToken, system, event, xAdsRegion, region, scopeName, pageState, status, options) {
+    getSystemEventHooks(accessToken, system, event, xAdsRegion, region, scopeName, pageState, status, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.logger.logInfo("Entered into getSystemsSystemEventsEventHooks ");
+            this.logger.logInfo("Entered into getSystemEventHooks ");
             try {
-                const request = yield (0, exports.HooksApiFp)(this.sdkManager).getSystemsSystemEventsEventHooks(accessToken, system, event, xAdsRegion, region, scopeName, pageState, status, options);
+                const request = yield (0, exports.HooksApiFp)(this.sdkManager).getSystemEventHooks(accessToken, system, event, xAdsRegion, region, scopeName, pageState, status, options);
                 const response = yield request(this.axios);
-                this.logger.logInfo(`getSystemsSystemEventsEventHooks Request completed successfully with status code: ${response.status}`);
+                this.logger.logInfo(`getSystemEventHooks Request completed successfully with status code: ${response.status}`);
                 return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
             }
             catch (error) {
                 if (error.response) {
-                    this.logger.logError(`getSystemsSystemEventsEventHooks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.WebhooksApiApiError(`getSystemsSystemEventsEventHooks Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    this.logger.logError(`getSystemEventHooks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+                    throw new base_1.WebhooksApiError(`getSystemEventHooks Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
-                    this.logger.logError(`getSystemsSystemEventsEventHooks Request failed with no response received: ${error.request}`);
-                    throw new base_1.WebhooksApiApiError(`getSystemsSystemEventsEventHooks Request failed with no response received: ${error.request}`, error);
-                }
-                throw error;
-            }
-        });
-    }
-    /**
-     * Get details of a webhook based on its webhook ID
-     * @summary Get details of a webhook based on its webhook ID
-     * @param {GetSystemsSystemEventsEventHooksHookIdSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
-     * @param {GetSystemsSystemEventsEventHooksHookIdEventEnum} event Type of event. See &#x60;&#x60;Supported Events&#x60;&#x60;
-     * @param {string} hookId Id of the webhook to retrieve
-     * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
-     * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HooksApi
-     */
-    getSystemsSystemEventsEventHooksHookId(accessToken, system, event, hookId, xAdsRegion, region, options) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.logger.logInfo("Entered into getSystemsSystemEventsEventHooksHookId ");
-            try {
-                const request = yield (0, exports.HooksApiFp)(this.sdkManager).getSystemsSystemEventsEventHooksHookId(accessToken, system, event, hookId, xAdsRegion, region, options);
-                const response = yield request(this.axios);
-                this.logger.logInfo(`getSystemsSystemEventsEventHooksHookId Request completed successfully with status code: ${response.status}`);
-                return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
-            }
-            catch (error) {
-                if (error.response) {
-                    this.logger.logError(`getSystemsSystemEventsEventHooksHookId Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.WebhooksApiApiError(`getSystemsSystemEventsEventHooksHookId Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
-                }
-                else if (error.request) {
-                    this.logger.logError(`getSystemsSystemEventsEventHooksHookId Request failed with no response received: ${error.request}`);
-                    throw new base_1.WebhooksApiApiError(`getSystemsSystemEventsEventHooksHookId Request failed with no response received: ${error.request}`, error);
+                    this.logger.logError(`getSystemEventHooks Request failed with no response received: ${error.request}`);
+                    throw new base_1.WebhooksApiError(`getSystemEventHooks Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -796,7 +865,7 @@ class HooksApi extends base_1.BaseAPI {
     /**
      * Retrieves a paginated list of all the webhooks for a specified system. If the pageState query string is not specified, the first page is returned.
      * @summary Retrieves a paginated list of all the webhooks for a specified system. If the pageState query string is not specified, the first page is returned.
-     * @param {GetSystemsSystemHooksSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
+     * @param {Systems} system string A system for example data for Data Management
      * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
      * @param {string} [status] Status of the hooks. Options: &#x60;&#x60;active&#x60;&#x60;, &#x60;&#x60;inactive&#x60;&#x60;
      * @param {string} [pageState] Base64 encoded string used to return the next page of the list of webhooks. This can be obtained from the &#x60;&#x60;next&#x60;&#x60; field of the previous page. PagingState instances are not portable and implementation is subject to change across versions. Default page size is 200.
@@ -806,23 +875,23 @@ class HooksApi extends base_1.BaseAPI {
      * @throws {RequiredError}
      * @memberof HooksApi
      */
-    getSystemsSystemHooks(accessToken, system, xAdsRegion, status, pageState, region, options) {
+    getSystemHooks(accessToken, system, xAdsRegion, status, pageState, region, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.logger.logInfo("Entered into getSystemsSystemHooks ");
+            this.logger.logInfo("Entered into getSystemHooks ");
             try {
-                const request = yield (0, exports.HooksApiFp)(this.sdkManager).getSystemsSystemHooks(accessToken, system, xAdsRegion, status, pageState, region, options);
+                const request = yield (0, exports.HooksApiFp)(this.sdkManager).getSystemHooks(accessToken, system, xAdsRegion, status, pageState, region, options);
                 const response = yield request(this.axios);
-                this.logger.logInfo(`getSystemsSystemHooks Request completed successfully with status code: ${response.status}`);
+                this.logger.logInfo(`getSystemHooks Request completed successfully with status code: ${response.status}`);
                 return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
             }
             catch (error) {
                 if (error.response) {
-                    this.logger.logError(`getSystemsSystemHooks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.WebhooksApiApiError(`getSystemsSystemHooks Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    this.logger.logError(`getSystemHooks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+                    throw new base_1.WebhooksApiError(`getSystemHooks Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
-                    this.logger.logError(`getSystemsSystemHooks Request failed with no response received: ${error.request}`);
-                    throw new base_1.WebhooksApiApiError(`getSystemsSystemHooks Request failed with no response received: ${error.request}`, error);
+                    this.logger.logError(`getSystemHooks Request failed with no response received: ${error.request}`);
+                    throw new base_1.WebhooksApiError(`getSystemHooks Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -831,103 +900,34 @@ class HooksApi extends base_1.BaseAPI {
     /**
      * Partially update a webhook based on its webhook ID. The only fields that may be updated are: status, filter, hookAttribute, and hookExpiry.
      * @summary Partially update a webhook based on its webhook ID. The only fields that may be updated are: status, filter, hookAttribute, and hookExpiry.
-     * @param {PatchSystemsSystemEventsEventHooksHookIdSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
-     * @param {PatchSystemsSystemEventsEventHooksHookIdEventEnum} event Type of event. See &#x60;&#x60;Supported Events&#x60;&#x60;
+     * @param {Systems} system string A system for example data for Data Management
+     * @param {Events} event string A system for example data for Data Management
      * @param {string} hookId Id of the webhook to retrieve
      * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
      * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
-     * @param {UpdateHook} [updateHook]
+     * @param {ModifyHookPayload} [modifyHookPayload]
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof HooksApi
      */
-    patchSystemsSystemEventsEventHooksHookId(accessToken, system, event, hookId, xAdsRegion, region, updateHook, options) {
+    patchSystemEventHook(accessToken, system, event, hookId, xAdsRegion, region, modifyHookPayload, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.logger.logInfo("Entered into patchSystemsSystemEventsEventHooksHookId ");
+            this.logger.logInfo("Entered into patchSystemEventHook ");
             try {
-                const request = yield (0, exports.HooksApiFp)(this.sdkManager).patchSystemsSystemEventsEventHooksHookId(accessToken, system, event, hookId, xAdsRegion, region, updateHook, options);
+                const request = yield (0, exports.HooksApiFp)(this.sdkManager).patchSystemEventHook(accessToken, system, event, hookId, xAdsRegion, region, modifyHookPayload, options);
                 const response = yield request(this.axios);
-                this.logger.logInfo(`patchSystemsSystemEventsEventHooksHookId Request completed successfully with status code: ${response.status}`);
+                this.logger.logInfo(`patchSystemEventHook Request completed successfully with status code: ${response.status}`);
                 return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
             }
             catch (error) {
                 if (error.response) {
-                    this.logger.logError(`patchSystemsSystemEventsEventHooksHookId Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.WebhooksApiApiError(`patchSystemsSystemEventsEventHooksHookId Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    this.logger.logError(`patchSystemEventHook Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+                    throw new base_1.WebhooksApiError(`patchSystemEventHook Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
-                    this.logger.logError(`patchSystemsSystemEventsEventHooksHookId Request failed with no response received: ${error.request}`);
-                    throw new base_1.WebhooksApiApiError(`patchSystemsSystemEventsEventHooksHookId Request failed with no response received: ${error.request}`, error);
-                }
-                throw error;
-            }
-        });
-    }
-    /**
-     * Add new webhook to receive the notification on a specified event.
-     * @summary Add new webhook to receive the notification on a specified event.
-     * @param {PostSystemsSystemEventsEventHooksSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
-     * @param {PostSystemsSystemEventsEventHooksEventEnum} event Type of event. See &#x60;&#x60;Supported Events&#x60;&#x60;
-     * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
-     * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
-     * @param {CreateHook} [createHook]
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HooksApi
-     */
-    postSystemsSystemEventsEventHooks(accessToken, system, event, xAdsRegion, region, createHook, options) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.logger.logInfo("Entered into postSystemsSystemEventsEventHooks ");
-            try {
-                const request = yield (0, exports.HooksApiFp)(this.sdkManager).postSystemsSystemEventsEventHooks(accessToken, system, event, xAdsRegion, region, createHook, options);
-                const response = yield request(this.axios);
-                this.logger.logInfo(`postSystemsSystemEventsEventHooks Request completed successfully with status code: ${response.status}`);
-                return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
-            }
-            catch (error) {
-                if (error.response) {
-                    this.logger.logError(`postSystemsSystemEventsEventHooks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.WebhooksApiApiError(`postSystemsSystemEventsEventHooks Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
-                }
-                else if (error.request) {
-                    this.logger.logError(`postSystemsSystemEventsEventHooks Request failed with no response received: ${error.request}`);
-                    throw new base_1.WebhooksApiApiError(`postSystemsSystemEventsEventHooks Request failed with no response received: ${error.request}`, error);
-                }
-                throw error;
-            }
-        });
-    }
-    /**
-     * Add new webhooks to receive the notification on all the events.
-     * @summary Add new webhooks to receive the notification on all the events.
-     * @param {PostSystemsSystemHooksSystemEnum} system A system for example: &#x60;&#x60;data&#x60;&#x60; for Data Management
-     * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
-     * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence.
-     * @param {CreateHook} [createHook]
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HooksApi
-     */
-    postSystemsSystemHooks(accessToken, system, xAdsRegion, region, createHook, options) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.logger.logInfo("Entered into postSystemsSystemHooks ");
-            try {
-                const request = yield (0, exports.HooksApiFp)(this.sdkManager).postSystemsSystemHooks(accessToken, system, xAdsRegion, region, createHook, options);
-                const response = yield request(this.axios);
-                this.logger.logInfo(`postSystemsSystemHooks Request completed successfully with status code: ${response.status}`);
-                return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
-            }
-            catch (error) {
-                if (error.response) {
-                    this.logger.logError(`postSystemsSystemHooks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.WebhooksApiApiError(`postSystemsSystemHooks Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
-                }
-                else if (error.request) {
-                    this.logger.logError(`postSystemsSystemHooks Request failed with no response received: ${error.request}`);
-                    throw new base_1.WebhooksApiApiError(`postSystemsSystemHooks Request failed with no response received: ${error.request}`, error);
+                    this.logger.logError(`patchSystemEventHook Request failed with no response received: ${error.request}`);
+                    throw new base_1.WebhooksApiError(`patchSystemEventHook Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -935,248 +935,3 @@ class HooksApi extends base_1.BaseAPI {
     }
 }
 exports.HooksApi = HooksApi;
-/**
- * @export
- */
-exports.DeleteSystemsSystemEventsEventHooksHookIdSystemEnum = {
-    Data: 'data',
-    AdskContent: 'adsk.content',
-    AdskC4r: 'adsk.c4r',
-    AdskFlcProduction: 'adsk.flc.production',
-    AutodeskConstructionCost: 'autodesk.construction.cost'
-};
-/**
- * @export
- */
-exports.DeleteSystemsSystemEventsEventHooksHookIdEventEnum = {
-    DmVersionAdded: 'dm.version.added',
-    DmVersionModified: 'dm.version.modified',
-    DmVersionDeleted: 'dm.version.deleted',
-    DmVersionMoved: 'dm.version.moved',
-    DmVersionMovedOut: 'dm.version.moved.out',
-    DmVersionCopied: 'dm.version.copied',
-    DmVersionCopiedOut: 'dm.version.copied.out',
-    DmLineageReserved: 'dm.lineage.reserved',
-    DmLineageUnreserved: 'dm.lineage.unreserved',
-    DmLineageUpdated: 'dm.lineage.updated',
-    DmFolderAdded: 'dm.folder.added',
-    DmFolderModified: 'dm.folder.modified',
-    DmFolderDeleted: 'dm.folder.deleted',
-    DmFolderMoved: 'dm.folder.moved',
-    DmFolderMovedOut: 'dm.folder.moved.out',
-    DmFolderCopied: 'dm.folder.copied',
-    DmFolderCopiedOut: 'dm.folder.copied.out',
-    DmOperationStarted: 'dm.operation.started',
-    DmOperationCompleted: 'dm.operation.completed',
-    ExtractionFinished: 'extraction.finished',
-    ExtractionUpdated: 'extraction.updated',
-    ModelSync: 'model.sync',
-    ModelPublish: 'model.publish',
-    ItemClone: 'item.clone',
-    ItemCreate: 'item.create',
-    ItemLock: 'item.lock',
-    ItemRelease: 'item.release',
-    ItemUnlock: 'item.unlock',
-    ItemUpdate: 'item.update',
-    WorkflowTransition: 'workflow.transition'
-};
-/**
- * @export
- */
-exports.GetSystemsSystemEventsEventHooksSystemEnum = {
-    Data: 'data',
-    AdskContent: 'adsk.content',
-    AdskC4r: 'adsk.c4r',
-    AdskFlcProduction: 'adsk.flc.production',
-    AutodeskConstructionCost: 'autodesk.construction.cost'
-};
-/**
- * @export
- */
-exports.GetSystemsSystemEventsEventHooksEventEnum = {
-    DmVersionAdded: 'dm.version.added',
-    DmVersionModified: 'dm.version.modified',
-    DmVersionDeleted: 'dm.version.deleted',
-    DmVersionMoved: 'dm.version.moved',
-    DmVersionMovedOut: 'dm.version.moved.out',
-    DmVersionCopied: 'dm.version.copied',
-    DmVersionCopiedOut: 'dm.version.copied.out',
-    DmLineageReserved: 'dm.lineage.reserved',
-    DmLineageUnreserved: 'dm.lineage.unreserved',
-    DmLineageUpdated: 'dm.lineage.updated',
-    DmFolderAdded: 'dm.folder.added',
-    DmFolderModified: 'dm.folder.modified',
-    DmFolderDeleted: 'dm.folder.deleted',
-    DmFolderMoved: 'dm.folder.moved',
-    DmFolderMovedOut: 'dm.folder.moved.out',
-    DmFolderCopied: 'dm.folder.copied',
-    DmFolderCopiedOut: 'dm.folder.copied.out',
-    DmOperationStarted: 'dm.operation.started',
-    DmOperationCompleted: 'dm.operation.completed',
-    ExtractionFinished: 'extraction.finished',
-    ExtractionUpdated: 'extraction.updated',
-    ModelSync: 'model.sync',
-    ModelPublish: 'model.publish',
-    ItemClone: 'item.clone',
-    ItemCreate: 'item.create',
-    ItemLock: 'item.lock',
-    ItemRelease: 'item.release',
-    ItemUnlock: 'item.unlock',
-    ItemUpdate: 'item.update',
-    WorkflowTransition: 'workflow.transition'
-};
-/**
- * @export
- */
-exports.GetSystemsSystemEventsEventHooksHookIdSystemEnum = {
-    Data: 'data',
-    AdskContent: 'adsk.content',
-    AdskC4r: 'adsk.c4r',
-    AdskFlcProduction: 'adsk.flc.production',
-    AutodeskConstructionCost: 'autodesk.construction.cost'
-};
-/**
- * @export
- */
-exports.GetSystemsSystemEventsEventHooksHookIdEventEnum = {
-    DmVersionAdded: 'dm.version.added',
-    DmVersionModified: 'dm.version.modified',
-    DmVersionDeleted: 'dm.version.deleted',
-    DmVersionMoved: 'dm.version.moved',
-    DmVersionMovedOut: 'dm.version.moved.out',
-    DmVersionCopied: 'dm.version.copied',
-    DmVersionCopiedOut: 'dm.version.copied.out',
-    DmLineageReserved: 'dm.lineage.reserved',
-    DmLineageUnreserved: 'dm.lineage.unreserved',
-    DmLineageUpdated: 'dm.lineage.updated',
-    DmFolderAdded: 'dm.folder.added',
-    DmFolderModified: 'dm.folder.modified',
-    DmFolderDeleted: 'dm.folder.deleted',
-    DmFolderMoved: 'dm.folder.moved',
-    DmFolderMovedOut: 'dm.folder.moved.out',
-    DmFolderCopied: 'dm.folder.copied',
-    DmFolderCopiedOut: 'dm.folder.copied.out',
-    DmOperationStarted: 'dm.operation.started',
-    DmOperationCompleted: 'dm.operation.completed',
-    ExtractionFinished: 'extraction.finished',
-    ExtractionUpdated: 'extraction.updated',
-    ModelSync: 'model.sync',
-    ModelPublish: 'model.publish',
-    ItemClone: 'item.clone',
-    ItemCreate: 'item.create',
-    ItemLock: 'item.lock',
-    ItemRelease: 'item.release',
-    ItemUnlock: 'item.unlock',
-    ItemUpdate: 'item.update',
-    WorkflowTransition: 'workflow.transition'
-};
-/**
- * @export
- */
-exports.GetSystemsSystemHooksSystemEnum = {
-    Data: 'data',
-    AdskContent: 'adsk.content',
-    AdskC4r: 'adsk.c4r',
-    AdskFlcProduction: 'adsk.flc.production',
-    AutodeskConstructionCost: 'autodesk.construction.cost'
-};
-/**
- * @export
- */
-exports.PatchSystemsSystemEventsEventHooksHookIdSystemEnum = {
-    Data: 'data',
-    AdskContent: 'adsk.content',
-    AdskC4r: 'adsk.c4r',
-    AdskFlcProduction: 'adsk.flc.production',
-    AutodeskConstructionCost: 'autodesk.construction.cost'
-};
-/**
- * @export
- */
-exports.PatchSystemsSystemEventsEventHooksHookIdEventEnum = {
-    DmVersionAdded: 'dm.version.added',
-    DmVersionModified: 'dm.version.modified',
-    DmVersionDeleted: 'dm.version.deleted',
-    DmVersionMoved: 'dm.version.moved',
-    DmVersionMovedOut: 'dm.version.moved.out',
-    DmVersionCopied: 'dm.version.copied',
-    DmVersionCopiedOut: 'dm.version.copied.out',
-    DmLineageReserved: 'dm.lineage.reserved',
-    DmLineageUnreserved: 'dm.lineage.unreserved',
-    DmLineageUpdated: 'dm.lineage.updated',
-    DmFolderAdded: 'dm.folder.added',
-    DmFolderModified: 'dm.folder.modified',
-    DmFolderDeleted: 'dm.folder.deleted',
-    DmFolderMoved: 'dm.folder.moved',
-    DmFolderMovedOut: 'dm.folder.moved.out',
-    DmFolderCopied: 'dm.folder.copied',
-    DmFolderCopiedOut: 'dm.folder.copied.out',
-    DmOperationStarted: 'dm.operation.started',
-    DmOperationCompleted: 'dm.operation.completed',
-    ExtractionFinished: 'extraction.finished',
-    ExtractionUpdated: 'extraction.updated',
-    ModelSync: 'model.sync',
-    ModelPublish: 'model.publish',
-    ItemClone: 'item.clone',
-    ItemCreate: 'item.create',
-    ItemLock: 'item.lock',
-    ItemRelease: 'item.release',
-    ItemUnlock: 'item.unlock',
-    ItemUpdate: 'item.update',
-    WorkflowTransition: 'workflow.transition'
-};
-/**
- * @export
- */
-exports.PostSystemsSystemEventsEventHooksSystemEnum = {
-    Data: 'data',
-    AdskContent: 'adsk.content',
-    AdskC4r: 'adsk.c4r',
-    AdskFlcProduction: 'adsk.flc.production',
-    AutodeskConstructionCost: 'autodesk.construction.cost'
-};
-/**
- * @export
- */
-exports.PostSystemsSystemEventsEventHooksEventEnum = {
-    DmVersionAdded: 'dm.version.added',
-    DmVersionModified: 'dm.version.modified',
-    DmVersionDeleted: 'dm.version.deleted',
-    DmVersionMoved: 'dm.version.moved',
-    DmVersionMovedOut: 'dm.version.moved.out',
-    DmVersionCopied: 'dm.version.copied',
-    DmVersionCopiedOut: 'dm.version.copied.out',
-    DmLineageReserved: 'dm.lineage.reserved',
-    DmLineageUnreserved: 'dm.lineage.unreserved',
-    DmLineageUpdated: 'dm.lineage.updated',
-    DmFolderAdded: 'dm.folder.added',
-    DmFolderModified: 'dm.folder.modified',
-    DmFolderDeleted: 'dm.folder.deleted',
-    DmFolderMoved: 'dm.folder.moved',
-    DmFolderMovedOut: 'dm.folder.moved.out',
-    DmFolderCopied: 'dm.folder.copied',
-    DmFolderCopiedOut: 'dm.folder.copied.out',
-    DmOperationStarted: 'dm.operation.started',
-    DmOperationCompleted: 'dm.operation.completed',
-    ExtractionFinished: 'extraction.finished',
-    ExtractionUpdated: 'extraction.updated',
-    ModelSync: 'model.sync',
-    ModelPublish: 'model.publish',
-    ItemClone: 'item.clone',
-    ItemCreate: 'item.create',
-    ItemLock: 'item.lock',
-    ItemRelease: 'item.release',
-    ItemUnlock: 'item.unlock',
-    ItemUpdate: 'item.update',
-    WorkflowTransition: 'workflow.transition'
-};
-/**
- * @export
- */
-exports.PostSystemsSystemHooksSystemEnum = {
-    Data: 'data',
-    AdskContent: 'adsk.content',
-    AdskC4r: 'adsk.c4r',
-    AdskFlcProduction: 'adsk.flc.production',
-    AutodeskConstructionCost: 'autodesk.construction.cost'
-};
