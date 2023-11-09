@@ -4,7 +4,7 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, DataManagementApiApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, DataManagementApiError } from '../base';
 import { GetHubs401Response } from '../model';
 import { Hub } from '../model';
 import { Hubs } from '../model';
@@ -208,10 +208,10 @@ export class HubsApi extends BaseAPI implements HubsApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`getHub Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new DataManagementApiApiError(`getHub Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new DataManagementApiError(`getHub Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`getHub Request failed with no response received: ${error.request}`);
-            throw new DataManagementApiApiError(`getHub Request failed with no response received: ${error.request}`, error);
+            throw new DataManagementApiError(`getHub Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -239,10 +239,10 @@ export class HubsApi extends BaseAPI implements HubsApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`getHubs Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new DataManagementApiApiError(`getHubs Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new DataManagementApiError(`getHubs Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`getHubs Request failed with no response received: ${error.request}`);
-            throw new DataManagementApiApiError(`getHubs Request failed with no response received: ${error.request}`, error);
+            throw new DataManagementApiError(`getHubs Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }

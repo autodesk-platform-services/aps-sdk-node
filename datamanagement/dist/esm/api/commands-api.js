@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { ApiResponse } from "autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { BaseAPI, DataManagementApiApiError } from '../base';
+import { BaseAPI, DataManagementApiError } from '../base';
 /**
  * CommandsApi - axios parameter creator
  * @export
@@ -23,12 +23,12 @@ export const CommandsApiAxiosParamCreator = function (apsConfiguration) {
          * @summary Create commands
          * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
          * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {CreateCommand} [createCommand] The POST body is a JSON object with the following attributes.
+         * @param {CommandPayload} [commandPayload] The POST body is a JSON object with the following attributes.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postCommand: (accessToken, projectId, xUserId, createCommand, options = {}) => __awaiter(this, void 0, void 0, function* () {
+        postCommand: (accessToken, projectId, xUserId, commandPayload, options = {}) => __awaiter(this, void 0, void 0, function* () {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('postCommand', 'projectId', projectId);
             const localVarPath = `/data/v1/projects/{project_id}/commands`
@@ -46,11 +46,11 @@ export const CommandsApiAxiosParamCreator = function (apsConfiguration) {
                 localVarHeaderParameter['x-user-id'] = String(xUserId);
             }
             localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/1.0.0';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
-            localVarRequestOptions.data = serializeDataIfNeeded(createCommand, localVarRequestOptions, apsConfiguration);
+            localVarRequestOptions.data = serializeDataIfNeeded(commandPayload, localVarRequestOptions, apsConfiguration);
             return {
                 url: toPathString(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -70,13 +70,13 @@ export const CommandsApiFp = function (sdkManager) {
          * @summary Create commands
          * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
          * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {CreateCommand} [createCommand] The POST body is a JSON object with the following attributes.
+         * @param {CommandPayload} [commandPayload] The POST body is a JSON object with the following attributes.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postCommand(accessToken, projectId, xUserId, createCommand, options) {
+        postCommand(accessToken, projectId, xUserId, commandPayload, options) {
             return __awaiter(this, void 0, void 0, function* () {
-                const localVarAxiosArgs = yield localVarAxiosParamCreator.postCommand(accessToken, projectId, xUserId, createCommand, options);
+                const localVarAxiosArgs = yield localVarAxiosParamCreator.postCommand(accessToken, projectId, xUserId, commandPayload, options);
                 return createRequestFunction(localVarAxiosArgs, sdkManager);
             });
         },
@@ -98,17 +98,17 @@ export class CommandsApi extends BaseAPI {
      * @summary Create commands
      * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
      * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {CreateCommand} [createCommand] The POST body is a JSON object with the following attributes.
+     * @param {CommandPayload} [commandPayload] The POST body is a JSON object with the following attributes.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CommandsApi
      */
-    postCommand(accessToken, projectId, xUserId, createCommand, options) {
+    postCommand(accessToken, projectId, xUserId, commandPayload, options) {
         return __awaiter(this, void 0, void 0, function* () {
             this.logger.logInfo("Entered into postCommand ");
             try {
-                const request = yield CommandsApiFp(this.sdkManager).postCommand(accessToken, projectId, xUserId, createCommand, options);
+                const request = yield CommandsApiFp(this.sdkManager).postCommand(accessToken, projectId, xUserId, commandPayload, options);
                 const response = yield request(this.axios);
                 this.logger.logInfo(`postCommand Request completed successfully with status code: ${response.status}`);
                 return new ApiResponse(response, response.data);
@@ -116,11 +116,11 @@ export class CommandsApi extends BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`postCommand Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new DataManagementApiApiError(`postCommand Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new DataManagementApiError(`postCommand Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`postCommand Request failed with no response received: ${error.request}`);
-                    throw new DataManagementApiApiError(`postCommand Request failed with no response received: ${error.request}`, error);
+                    throw new DataManagementApiError(`postCommand Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }

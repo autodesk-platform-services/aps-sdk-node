@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { CreatedDownloadData } from './created-download-data';
+import { DownloadData } from './download-data';
 import { HubsJsonapi } from './hubs-jsonapi';
 import { HubsLinks } from './hubs-links';
 
@@ -25,9 +25,9 @@ export interface Job {
     'links'?: HubsLinks;
     /**
      * 
-     * @type {CreatedDownloadData}
+     * @type {DownloadData}
      * @memberof Job
      */
-    'data'?: CreatedDownloadData;
+    'data'?: DownloadData;
 }
 

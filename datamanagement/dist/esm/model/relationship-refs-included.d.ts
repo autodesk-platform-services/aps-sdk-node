@@ -1,6 +1,6 @@
 import { ProjectsDataLinks } from './projects-data-links';
-import { RefsDataAttributes } from './refs-data-attributes';
 import { RefsDataRelationships } from './refs-data-relationships';
+import { RelationshipRefsIncludedAttributes } from './relationship-refs-included-attributes';
 /**
  *
  * @export
@@ -21,10 +21,10 @@ export interface RelationshipRefsIncluded {
     'id'?: string;
     /**
      *
-     * @type {RefsDataAttributes}
+     * @type {RelationshipRefsIncludedAttributes}
      * @memberof RelationshipRefsIncluded
      */
-    'attributes'?: RefsDataAttributes;
+    'attributes'?: RelationshipRefsIncludedAttributes;
     /**
      *
      * @type {ProjectsDataLinks}

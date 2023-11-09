@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { FolderContentsIncludedAttributesExtension } from './folder-contents-included-attributes-extension';
+import { RefsDataAttributesExtension } from './refs-data-attributes-extension';
 
 /**
  * 
@@ -71,9 +71,9 @@ export interface RefsDataAttributes {
     'mimeType'?: string;
     /**
      * 
-     * @type {FolderContentsIncludedAttributesExtension}
+     * @type {RefsDataAttributesExtension}
      * @memberof RefsDataAttributes
      */
-    'extension'?: FolderContentsIncludedAttributesExtension;
+    'extension'?: RefsDataAttributesExtension;
 }
 

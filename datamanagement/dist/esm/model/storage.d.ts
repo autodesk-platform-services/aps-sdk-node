@@ -1,6 +1,6 @@
-import { HubsJsonapi } from './hubs-jsonapi';
-import { HubsLinks } from './hubs-links';
 import { StorageData } from './storage-data';
+import { StorageJsonapi } from './storage-jsonapi';
+import { StorageLinks } from './storage-links';
 /**
  * Successful creation of a storage location.
  * @export
@@ -9,16 +9,16 @@ import { StorageData } from './storage-data';
 export interface Storage {
     /**
      *
-     * @type {HubsJsonapi}
+     * @type {StorageJsonapi}
      * @memberof Storage
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi'?: StorageJsonapi;
     /**
      *
-     * @type {HubsLinks}
+     * @type {StorageLinks}
      * @memberof Storage
      */
-    'links'?: HubsLinks;
+    'links'?: StorageLinks;
     /**
      *
      * @type {StorageData}

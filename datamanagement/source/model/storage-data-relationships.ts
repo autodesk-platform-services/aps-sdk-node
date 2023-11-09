@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { TopFoldersDataRelationshipsParent } from './top-folders-data-relationships-parent';
+import { StorageDataRelationshipsTarget } from './storage-data-relationships-target';
 
 /**
  * 
@@ -11,9 +11,9 @@ import { TopFoldersDataRelationshipsParent } from './top-folders-data-relationsh
 export interface StorageDataRelationships {
     /**
      * 
-     * @type {TopFoldersDataRelationshipsParent}
+     * @type {StorageDataRelationshipsTarget}
      * @memberof StorageDataRelationships
      */
-    'target'?: TopFoldersDataRelationshipsParent;
+    'target'?: StorageDataRelationshipsTarget;
 }
 

@@ -22,6 +22,90 @@ const base_1 = require("../base");
 const VersionsApiAxiosParamCreator = function (apsConfiguration) {
     return {
         /**
+         * Creates new versions of a file (item), except for the first version of the item. To create the first version of the item, use POST items.  Before creating each version you need to create a new storage location for the version, and upload the file to the storage object. For more details about the workflow, see the tutorial on uploading a file.  This endpoint also copies versions of items to exisitng items in other folders. The endpoint creates a new version of the existing item in the target folder. You cannot copy versions of items across different projects and accounts.  To copy versions of items to other folders and create a new item and a first version of the item in the target folder, use POST versions.  This endpoint can also be used to delete files on BIM360 Document Management. For more information, please refer to the delete and restore a file turorial.  Note that to access BIM 360 Docs files using the Data Management API you need to provision your app in the BIM 360 Account Administrator portal. For more details, see the Manage Access to Docs tutorial.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
+         * @summary Creates new versions of a file (item), except for the first version of the item
+         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {string} [copyFrom] Only relevant for copying files to BIM 360 Docs - the version ID (URN) of the file to copy. For details about finding the URN, follow the initial steps in the Download a File tutorial.  You can only copy files to the Plans folder or to subfolders of the Plans folder with an item:autodesk.bim360:Document item extension type, and you can only copy files to the Project Files folder or to subfolders of the Project Files folder with an item:autodesk.bim360:File item extension type.  To verify an item’s extension type, use GET item, and check the attributes.extension.type attribute.  Note that if you copy a file to the Plans folder or to a subfolder of the Plans folder, the copied file inherits the permissions of the source file. For example, if the end user did not have permission to download files in the source folder, but does have permission to download files in the target folder, he/she will not be able to download the copied file.  Note that you cannot copy a file if it is in the middle of being uploaded, updated, or copied. To verify the current process state of a file, call GET item, and check the attributes.extension.data.processState attribute.
+         * @param {VersionPayload} [versionPayload] Describe the version to be created.
+         * @param accessToken bearer access token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createVersion: (accessToken, projectId, xUserId, copyFrom, versionPayload, options = {}) => __awaiter(this, void 0, void 0, function* () {
+            // verify required parameter 'projectId' is not null or undefined
+            (0, common_1.assertParamExists)('createVersion', 'projectId', projectId);
+            const localVarPath = `/data/v1/projects/{project_id}/versions`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
+            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
+            let baseOptions;
+            if (apsConfiguration) {
+                baseOptions = apsConfiguration.baseOptions;
+            }
+            const localVarRequestOptions = Object.assign(Object.assign({ method: 'POST' }, baseOptions), options);
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            yield (0, common_1.setBearerAuthToObject)(localVarHeaderParameter, accessToken);
+            if (copyFrom !== undefined) {
+                localVarQueryParameter['copyFrom'] = copyFrom;
+            }
+            if (xUserId != null) {
+                localVarHeaderParameter['x-user-id'] = String(xUserId);
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
+            (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
+            localVarRequestOptions.data = (0, common_1.serializeDataIfNeeded)(versionPayload, localVarRequestOptions, apsConfiguration);
+            return {
+                url: (0, common_1.toPathString)(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        }),
+        /**
+         * Creates a custom relationship between a version and another resource within the data domain service (folder, item, or version).
+         * @summary Creates a custom relationship between a version and another resource within the data domain service (folder, item, or version)
+         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * @param {string} versionId The unique identifier of a version.
+         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {RelationshipRefsPayload} [relationshipRefsPayload] Describe the ref to be created.
+         * @param accessToken bearer access token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createVersionRelationshipsRef: (accessToken, projectId, versionId, xUserId, relationshipRefsPayload, options = {}) => __awaiter(this, void 0, void 0, function* () {
+            // verify required parameter 'projectId' is not null or undefined
+            (0, common_1.assertParamExists)('createVersionRelationshipsRef', 'projectId', projectId);
+            // verify required parameter 'versionId' is not null or undefined
+            (0, common_1.assertParamExists)('createVersionRelationshipsRef', 'versionId', versionId);
+            const localVarPath = `/data/v1/projects/{project_id}/versions/{version_id}/relationships/refs`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"version_id"}}`, encodeURIComponent(String(versionId)));
+            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
+            let baseOptions;
+            if (apsConfiguration) {
+                baseOptions = apsConfiguration.baseOptions;
+            }
+            const localVarRequestOptions = Object.assign(Object.assign({ method: 'POST' }, baseOptions), options);
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            yield (0, common_1.setBearerAuthToObject)(localVarHeaderParameter, accessToken);
+            if (xUserId != null) {
+                localVarHeaderParameter['x-user-id'] = String(xUserId);
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
+            (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
+            localVarRequestOptions.data = (0, common_1.serializeDataIfNeeded)(relationshipRefsPayload, localVarRequestOptions, apsConfiguration);
+            return {
+                url: (0, common_1.toPathString)(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        }),
+        /**
          * Returns the version with the given version_id.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
          * @summary Returns the version with the given version_id
          * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
@@ -328,12 +412,12 @@ const VersionsApiAxiosParamCreator = function (apsConfiguration) {
          * @summary Updates the properties of the given version_id object
          * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
          * @param {string} versionId The unique identifier of a version.
-         * @param {VersionRequest} [versionRequest] Describe the version to be patched.
+         * @param {ModifyVersionPayload} [modifyVersionPayload] Describe the version to be patched.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        patchVersion: (accessToken, projectId, versionId, versionRequest, options = {}) => __awaiter(this, void 0, void 0, function* () {
+        patchVersion: (accessToken, projectId, versionId, modifyVersionPayload, options = {}) => __awaiter(this, void 0, void 0, function* () {
             // verify required parameter 'projectId' is not null or undefined
             (0, common_1.assertParamExists)('patchVersion', 'projectId', projectId);
             // verify required parameter 'versionId' is not null or undefined
@@ -351,95 +435,11 @@ const VersionsApiAxiosParamCreator = function (apsConfiguration) {
             const localVarQueryParameter = {};
             yield (0, common_1.setBearerAuthToObject)(localVarHeaderParameter, accessToken);
             localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/1.0.0';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
             (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
-            localVarRequestOptions.data = (0, common_1.serializeDataIfNeeded)(versionRequest, localVarRequestOptions, apsConfiguration);
-            return {
-                url: (0, common_1.toPathString)(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        }),
-        /**
-         * Creates new versions of a file (item), except for the first version of the item. To create the first version of the item, use POST items.  Before creating each version you need to create a new storage location for the version, and upload the file to the storage object. For more details about the workflow, see the tutorial on uploading a file.  This endpoint also copies versions of items to exisitng items in other folders. The endpoint creates a new version of the existing item in the target folder. You cannot copy versions of items across different projects and accounts.  To copy versions of items to other folders and create a new item and a first version of the item in the target folder, use POST versions.  This endpoint can also be used to delete files on BIM360 Document Management. For more information, please refer to the delete and restore a file turorial.  Note that to access BIM 360 Docs files using the Data Management API you need to provision your app in the BIM 360 Account Administrator portal. For more details, see the Manage Access to Docs tutorial.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Creates new versions of a file (item), except for the first version of the item
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {string} [copyFrom] Only relevant for copying files to BIM 360 Docs - the version ID (URN) of the file to copy. For details about finding the URN, follow the initial steps in the Download a File tutorial.  You can only copy files to the Plans folder or to subfolders of the Plans folder with an item:autodesk.bim360:Document item extension type, and you can only copy files to the Project Files folder or to subfolders of the Project Files folder with an item:autodesk.bim360:File item extension type.  To verify an item’s extension type, use GET item, and check the attributes.extension.type attribute.  Note that if you copy a file to the Plans folder or to a subfolder of the Plans folder, the copied file inherits the permissions of the source file. For example, if the end user did not have permission to download files in the source folder, but does have permission to download files in the target folder, he/she will not be able to download the copied file.  Note that you cannot copy a file if it is in the middle of being uploaded, updated, or copied. To verify the current process state of a file, call GET item, and check the attributes.extension.data.processState attribute.
-         * @param {CreateVersion} [createVersion] Describe the version to be created.
-         * @param accessToken bearer access token
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postVersion: (accessToken, projectId, xUserId, copyFrom, createVersion, options = {}) => __awaiter(this, void 0, void 0, function* () {
-            // verify required parameter 'projectId' is not null or undefined
-            (0, common_1.assertParamExists)('postVersion', 'projectId', projectId);
-            const localVarPath = `/data/v1/projects/{project_id}/versions`
-                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
-            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
-            let baseOptions;
-            if (apsConfiguration) {
-                baseOptions = apsConfiguration.baseOptions;
-            }
-            const localVarRequestOptions = Object.assign(Object.assign({ method: 'POST' }, baseOptions), options);
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            yield (0, common_1.setBearerAuthToObject)(localVarHeaderParameter, accessToken);
-            if (copyFrom !== undefined) {
-                localVarQueryParameter['copyFrom'] = copyFrom;
-            }
-            if (xUserId != null) {
-                localVarHeaderParameter['x-user-id'] = String(xUserId);
-            }
-            localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/1.0.0';
-            (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
-            localVarRequestOptions.data = (0, common_1.serializeDataIfNeeded)(createVersion, localVarRequestOptions, apsConfiguration);
-            return {
-                url: (0, common_1.toPathString)(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        }),
-        /**
-         * Creates a custom relationship between a version and another resource within the data domain service (folder, item, or version).
-         * @summary Creates a custom relationship between a version and another resource within the data domain service (folder, item, or version)
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-         * @param {string} versionId The unique identifier of a version.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {RelationshipRefsRequest} [relationshipRefsRequest] Describe the ref to be created.
-         * @param accessToken bearer access token
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postVersionRelationshipsRef: (accessToken, projectId, versionId, xUserId, relationshipRefsRequest, options = {}) => __awaiter(this, void 0, void 0, function* () {
-            // verify required parameter 'projectId' is not null or undefined
-            (0, common_1.assertParamExists)('postVersionRelationshipsRef', 'projectId', projectId);
-            // verify required parameter 'versionId' is not null or undefined
-            (0, common_1.assertParamExists)('postVersionRelationshipsRef', 'versionId', versionId);
-            const localVarPath = `/data/v1/projects/{project_id}/versions/{version_id}/relationships/refs`
-                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
-                .replace(`{${"version_id"}}`, encodeURIComponent(String(versionId)));
-            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
-            let baseOptions;
-            if (apsConfiguration) {
-                baseOptions = apsConfiguration.baseOptions;
-            }
-            const localVarRequestOptions = Object.assign(Object.assign({ method: 'POST' }, baseOptions), options);
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            yield (0, common_1.setBearerAuthToObject)(localVarHeaderParameter, accessToken);
-            if (xUserId != null) {
-                localVarHeaderParameter['x-user-id'] = String(xUserId);
-            }
-            localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/1.0.0';
-            (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
-            localVarRequestOptions.data = (0, common_1.serializeDataIfNeeded)(relationshipRefsRequest, localVarRequestOptions, apsConfiguration);
+            localVarRequestOptions.data = (0, common_1.serializeDataIfNeeded)(modifyVersionPayload, localVarRequestOptions, apsConfiguration);
             return {
                 url: (0, common_1.toPathString)(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -455,6 +455,38 @@ exports.VersionsApiAxiosParamCreator = VersionsApiAxiosParamCreator;
 const VersionsApiFp = function (sdkManager) {
     const localVarAxiosParamCreator = (0, exports.VersionsApiAxiosParamCreator)(sdkManager.apsconfiguration);
     return {
+        /**
+         * Creates new versions of a file (item), except for the first version of the item. To create the first version of the item, use POST items.  Before creating each version you need to create a new storage location for the version, and upload the file to the storage object. For more details about the workflow, see the tutorial on uploading a file.  This endpoint also copies versions of items to exisitng items in other folders. The endpoint creates a new version of the existing item in the target folder. You cannot copy versions of items across different projects and accounts.  To copy versions of items to other folders and create a new item and a first version of the item in the target folder, use POST versions.  This endpoint can also be used to delete files on BIM360 Document Management. For more information, please refer to the delete and restore a file turorial.  Note that to access BIM 360 Docs files using the Data Management API you need to provision your app in the BIM 360 Account Administrator portal. For more details, see the Manage Access to Docs tutorial.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
+         * @summary Creates new versions of a file (item), except for the first version of the item
+         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {string} [copyFrom] Only relevant for copying files to BIM 360 Docs - the version ID (URN) of the file to copy. For details about finding the URN, follow the initial steps in the Download a File tutorial.  You can only copy files to the Plans folder or to subfolders of the Plans folder with an item:autodesk.bim360:Document item extension type, and you can only copy files to the Project Files folder or to subfolders of the Project Files folder with an item:autodesk.bim360:File item extension type.  To verify an item’s extension type, use GET item, and check the attributes.extension.type attribute.  Note that if you copy a file to the Plans folder or to a subfolder of the Plans folder, the copied file inherits the permissions of the source file. For example, if the end user did not have permission to download files in the source folder, but does have permission to download files in the target folder, he/she will not be able to download the copied file.  Note that you cannot copy a file if it is in the middle of being uploaded, updated, or copied. To verify the current process state of a file, call GET item, and check the attributes.extension.data.processState attribute.
+         * @param {VersionPayload} [versionPayload] Describe the version to be created.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createVersion(accessToken, projectId, xUserId, copyFrom, versionPayload, options) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const localVarAxiosArgs = yield localVarAxiosParamCreator.createVersion(accessToken, projectId, xUserId, copyFrom, versionPayload, options);
+                return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
+            });
+        },
+        /**
+         * Creates a custom relationship between a version and another resource within the data domain service (folder, item, or version).
+         * @summary Creates a custom relationship between a version and another resource within the data domain service (folder, item, or version)
+         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * @param {string} versionId The unique identifier of a version.
+         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {RelationshipRefsPayload} [relationshipRefsPayload] Describe the ref to be created.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createVersionRelationshipsRef(accessToken, projectId, versionId, xUserId, relationshipRefsPayload, options) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const localVarAxiosArgs = yield localVarAxiosParamCreator.createVersionRelationshipsRef(accessToken, projectId, versionId, xUserId, relationshipRefsPayload, options);
+                return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
+            });
+        },
         /**
          * Returns the version with the given version_id.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
          * @summary Returns the version with the given version_id
@@ -574,45 +606,13 @@ const VersionsApiFp = function (sdkManager) {
          * @summary Updates the properties of the given version_id object
          * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
          * @param {string} versionId The unique identifier of a version.
-         * @param {VersionRequest} [versionRequest] Describe the version to be patched.
+         * @param {ModifyVersionPayload} [modifyVersionPayload] Describe the version to be patched.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        patchVersion(accessToken, projectId, versionId, versionRequest, options) {
+        patchVersion(accessToken, projectId, versionId, modifyVersionPayload, options) {
             return __awaiter(this, void 0, void 0, function* () {
-                const localVarAxiosArgs = yield localVarAxiosParamCreator.patchVersion(accessToken, projectId, versionId, versionRequest, options);
-                return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
-            });
-        },
-        /**
-         * Creates new versions of a file (item), except for the first version of the item. To create the first version of the item, use POST items.  Before creating each version you need to create a new storage location for the version, and upload the file to the storage object. For more details about the workflow, see the tutorial on uploading a file.  This endpoint also copies versions of items to exisitng items in other folders. The endpoint creates a new version of the existing item in the target folder. You cannot copy versions of items across different projects and accounts.  To copy versions of items to other folders and create a new item and a first version of the item in the target folder, use POST versions.  This endpoint can also be used to delete files on BIM360 Document Management. For more information, please refer to the delete and restore a file turorial.  Note that to access BIM 360 Docs files using the Data Management API you need to provision your app in the BIM 360 Account Administrator portal. For more details, see the Manage Access to Docs tutorial.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Creates new versions of a file (item), except for the first version of the item
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {string} [copyFrom] Only relevant for copying files to BIM 360 Docs - the version ID (URN) of the file to copy. For details about finding the URN, follow the initial steps in the Download a File tutorial.  You can only copy files to the Plans folder or to subfolders of the Plans folder with an item:autodesk.bim360:Document item extension type, and you can only copy files to the Project Files folder or to subfolders of the Project Files folder with an item:autodesk.bim360:File item extension type.  To verify an item’s extension type, use GET item, and check the attributes.extension.type attribute.  Note that if you copy a file to the Plans folder or to a subfolder of the Plans folder, the copied file inherits the permissions of the source file. For example, if the end user did not have permission to download files in the source folder, but does have permission to download files in the target folder, he/she will not be able to download the copied file.  Note that you cannot copy a file if it is in the middle of being uploaded, updated, or copied. To verify the current process state of a file, call GET item, and check the attributes.extension.data.processState attribute.
-         * @param {CreateVersion} [createVersion] Describe the version to be created.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postVersion(accessToken, projectId, xUserId, copyFrom, createVersion, options) {
-            return __awaiter(this, void 0, void 0, function* () {
-                const localVarAxiosArgs = yield localVarAxiosParamCreator.postVersion(accessToken, projectId, xUserId, copyFrom, createVersion, options);
-                return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
-            });
-        },
-        /**
-         * Creates a custom relationship between a version and another resource within the data domain service (folder, item, or version).
-         * @summary Creates a custom relationship between a version and another resource within the data domain service (folder, item, or version)
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-         * @param {string} versionId The unique identifier of a version.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {RelationshipRefsRequest} [relationshipRefsRequest] Describe the ref to be created.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postVersionRelationshipsRef(accessToken, projectId, versionId, xUserId, relationshipRefsRequest, options) {
-            return __awaiter(this, void 0, void 0, function* () {
-                const localVarAxiosArgs = yield localVarAxiosParamCreator.postVersionRelationshipsRef(accessToken, projectId, versionId, xUserId, relationshipRefsRequest, options);
+                const localVarAxiosArgs = yield localVarAxiosParamCreator.patchVersion(accessToken, projectId, versionId, modifyVersionPayload, options);
                 return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
             });
         },
@@ -629,6 +629,74 @@ class VersionsApi extends base_1.BaseAPI {
     constructor() {
         super(...arguments);
         this.logger = this.sdkManager.logger;
+    }
+    /**
+     * Creates new versions of a file (item), except for the first version of the item. To create the first version of the item, use POST items.  Before creating each version you need to create a new storage location for the version, and upload the file to the storage object. For more details about the workflow, see the tutorial on uploading a file.  This endpoint also copies versions of items to exisitng items in other folders. The endpoint creates a new version of the existing item in the target folder. You cannot copy versions of items across different projects and accounts.  To copy versions of items to other folders and create a new item and a first version of the item in the target folder, use POST versions.  This endpoint can also be used to delete files on BIM360 Document Management. For more information, please refer to the delete and restore a file turorial.  Note that to access BIM 360 Docs files using the Data Management API you need to provision your app in the BIM 360 Account Administrator portal. For more details, see the Manage Access to Docs tutorial.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
+     * @summary Creates new versions of a file (item), except for the first version of the item
+     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {string} [copyFrom] Only relevant for copying files to BIM 360 Docs - the version ID (URN) of the file to copy. For details about finding the URN, follow the initial steps in the Download a File tutorial.  You can only copy files to the Plans folder or to subfolders of the Plans folder with an item:autodesk.bim360:Document item extension type, and you can only copy files to the Project Files folder or to subfolders of the Project Files folder with an item:autodesk.bim360:File item extension type.  To verify an item’s extension type, use GET item, and check the attributes.extension.type attribute.  Note that if you copy a file to the Plans folder or to a subfolder of the Plans folder, the copied file inherits the permissions of the source file. For example, if the end user did not have permission to download files in the source folder, but does have permission to download files in the target folder, he/she will not be able to download the copied file.  Note that you cannot copy a file if it is in the middle of being uploaded, updated, or copied. To verify the current process state of a file, call GET item, and check the attributes.extension.data.processState attribute.
+     * @param {VersionPayload} [versionPayload] Describe the version to be created.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VersionsApi
+     */
+    createVersion(accessToken, projectId, xUserId, copyFrom, versionPayload, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.logger.logInfo("Entered into createVersion ");
+            try {
+                const request = yield (0, exports.VersionsApiFp)(this.sdkManager).createVersion(accessToken, projectId, xUserId, copyFrom, versionPayload, options);
+                const response = yield request(this.axios);
+                this.logger.logInfo(`createVersion Request completed successfully with status code: ${response.status}`);
+                return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
+            }
+            catch (error) {
+                if (error.response) {
+                    this.logger.logError(`createVersion Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+                    throw new base_1.DataManagementApiError(`createVersion Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                }
+                else if (error.request) {
+                    this.logger.logError(`createVersion Request failed with no response received: ${error.request}`);
+                    throw new base_1.DataManagementApiError(`createVersion Request failed with no response received: ${error.request}`, error);
+                }
+                throw error;
+            }
+        });
+    }
+    /**
+     * Creates a custom relationship between a version and another resource within the data domain service (folder, item, or version).
+     * @summary Creates a custom relationship between a version and another resource within the data domain service (folder, item, or version)
+     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * @param {string} versionId The unique identifier of a version.
+     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {RelationshipRefsPayload} [relationshipRefsPayload] Describe the ref to be created.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VersionsApi
+     */
+    createVersionRelationshipsRef(accessToken, projectId, versionId, xUserId, relationshipRefsPayload, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.logger.logInfo("Entered into createVersionRelationshipsRef ");
+            try {
+                const request = yield (0, exports.VersionsApiFp)(this.sdkManager).createVersionRelationshipsRef(accessToken, projectId, versionId, xUserId, relationshipRefsPayload, options);
+                const response = yield request(this.axios);
+                this.logger.logInfo(`createVersionRelationshipsRef Request completed successfully with status code: ${response.status}`);
+                return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
+            }
+            catch (error) {
+                if (error.response) {
+                    this.logger.logError(`createVersionRelationshipsRef Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+                    throw new base_1.DataManagementApiError(`createVersionRelationshipsRef Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                }
+                else if (error.request) {
+                    this.logger.logError(`createVersionRelationshipsRef Request failed with no response received: ${error.request}`);
+                    throw new base_1.DataManagementApiError(`createVersionRelationshipsRef Request failed with no response received: ${error.request}`, error);
+                }
+                throw error;
+            }
+        });
     }
     /**
      * Returns the version with the given version_id.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
@@ -653,11 +721,11 @@ class VersionsApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getVersion Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`getVersion Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.DataManagementApiError(`getVersion Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getVersion Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`getVersion Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.DataManagementApiError(`getVersion Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -686,11 +754,11 @@ class VersionsApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getVersionDownloadFormats Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`getVersionDownloadFormats Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.DataManagementApiError(`getVersionDownloadFormats Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getVersionDownloadFormats Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`getVersionDownloadFormats Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.DataManagementApiError(`getVersionDownloadFormats Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -720,11 +788,11 @@ class VersionsApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getVersionDownloads Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`getVersionDownloads Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.DataManagementApiError(`getVersionDownloads Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getVersionDownloads Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`getVersionDownloads Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.DataManagementApiError(`getVersionDownloads Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -753,11 +821,11 @@ class VersionsApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getVersionItem Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`getVersionItem Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.DataManagementApiError(`getVersionItem Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getVersionItem Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`getVersionItem Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.DataManagementApiError(`getVersionItem Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -789,11 +857,11 @@ class VersionsApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getVersionRefs Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`getVersionRefs Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.DataManagementApiError(`getVersionRefs Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getVersionRefs Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`getVersionRefs Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.DataManagementApiError(`getVersionRefs Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -822,11 +890,11 @@ class VersionsApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getVersionRelationshipsLinks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`getVersionRelationshipsLinks Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.DataManagementApiError(`getVersionRelationshipsLinks Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getVersionRelationshipsLinks Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`getVersionRelationshipsLinks Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.DataManagementApiError(`getVersionRelationshipsLinks Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -860,11 +928,11 @@ class VersionsApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getVersionRelationshipsRefs Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`getVersionRelationshipsRefs Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.DataManagementApiError(`getVersionRelationshipsRefs Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getVersionRelationshipsRefs Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`getVersionRelationshipsRefs Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.DataManagementApiError(`getVersionRelationshipsRefs Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -875,17 +943,17 @@ class VersionsApi extends base_1.BaseAPI {
      * @summary Updates the properties of the given version_id object
      * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
      * @param {string} versionId The unique identifier of a version.
-     * @param {VersionRequest} [versionRequest] Describe the version to be patched.
+     * @param {ModifyVersionPayload} [modifyVersionPayload] Describe the version to be patched.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof VersionsApi
      */
-    patchVersion(accessToken, projectId, versionId, versionRequest, options) {
+    patchVersion(accessToken, projectId, versionId, modifyVersionPayload, options) {
         return __awaiter(this, void 0, void 0, function* () {
             this.logger.logInfo("Entered into patchVersion ");
             try {
-                const request = yield (0, exports.VersionsApiFp)(this.sdkManager).patchVersion(accessToken, projectId, versionId, versionRequest, options);
+                const request = yield (0, exports.VersionsApiFp)(this.sdkManager).patchVersion(accessToken, projectId, versionId, modifyVersionPayload, options);
                 const response = yield request(this.axios);
                 this.logger.logInfo(`patchVersion Request completed successfully with status code: ${response.status}`);
                 return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
@@ -893,79 +961,11 @@ class VersionsApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`patchVersion Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`patchVersion Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.DataManagementApiError(`patchVersion Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`patchVersion Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`patchVersion Request failed with no response received: ${error.request}`, error);
-                }
-                throw error;
-            }
-        });
-    }
-    /**
-     * Creates new versions of a file (item), except for the first version of the item. To create the first version of the item, use POST items.  Before creating each version you need to create a new storage location for the version, and upload the file to the storage object. For more details about the workflow, see the tutorial on uploading a file.  This endpoint also copies versions of items to exisitng items in other folders. The endpoint creates a new version of the existing item in the target folder. You cannot copy versions of items across different projects and accounts.  To copy versions of items to other folders and create a new item and a first version of the item in the target folder, use POST versions.  This endpoint can also be used to delete files on BIM360 Document Management. For more information, please refer to the delete and restore a file turorial.  Note that to access BIM 360 Docs files using the Data Management API you need to provision your app in the BIM 360 Account Administrator portal. For more details, see the Manage Access to Docs tutorial.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Creates new versions of a file (item), except for the first version of the item
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {string} [copyFrom] Only relevant for copying files to BIM 360 Docs - the version ID (URN) of the file to copy. For details about finding the URN, follow the initial steps in the Download a File tutorial.  You can only copy files to the Plans folder or to subfolders of the Plans folder with an item:autodesk.bim360:Document item extension type, and you can only copy files to the Project Files folder or to subfolders of the Project Files folder with an item:autodesk.bim360:File item extension type.  To verify an item’s extension type, use GET item, and check the attributes.extension.type attribute.  Note that if you copy a file to the Plans folder or to a subfolder of the Plans folder, the copied file inherits the permissions of the source file. For example, if the end user did not have permission to download files in the source folder, but does have permission to download files in the target folder, he/she will not be able to download the copied file.  Note that you cannot copy a file if it is in the middle of being uploaded, updated, or copied. To verify the current process state of a file, call GET item, and check the attributes.extension.data.processState attribute.
-     * @param {CreateVersion} [createVersion] Describe the version to be created.
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof VersionsApi
-     */
-    postVersion(accessToken, projectId, xUserId, copyFrom, createVersion, options) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.logger.logInfo("Entered into postVersion ");
-            try {
-                const request = yield (0, exports.VersionsApiFp)(this.sdkManager).postVersion(accessToken, projectId, xUserId, copyFrom, createVersion, options);
-                const response = yield request(this.axios);
-                this.logger.logInfo(`postVersion Request completed successfully with status code: ${response.status}`);
-                return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
-            }
-            catch (error) {
-                if (error.response) {
-                    this.logger.logError(`postVersion Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`postVersion Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
-                }
-                else if (error.request) {
-                    this.logger.logError(`postVersion Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`postVersion Request failed with no response received: ${error.request}`, error);
-                }
-                throw error;
-            }
-        });
-    }
-    /**
-     * Creates a custom relationship between a version and another resource within the data domain service (folder, item, or version).
-     * @summary Creates a custom relationship between a version and another resource within the data domain service (folder, item, or version)
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-     * @param {string} versionId The unique identifier of a version.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {RelationshipRefsRequest} [relationshipRefsRequest] Describe the ref to be created.
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof VersionsApi
-     */
-    postVersionRelationshipsRef(accessToken, projectId, versionId, xUserId, relationshipRefsRequest, options) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.logger.logInfo("Entered into postVersionRelationshipsRef ");
-            try {
-                const request = yield (0, exports.VersionsApiFp)(this.sdkManager).postVersionRelationshipsRef(accessToken, projectId, versionId, xUserId, relationshipRefsRequest, options);
-                const response = yield request(this.axios);
-                this.logger.logInfo(`postVersionRelationshipsRef Request completed successfully with status code: ${response.status}`);
-                return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
-            }
-            catch (error) {
-                if (error.response) {
-                    this.logger.logError(`postVersionRelationshipsRef Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`postVersionRelationshipsRef Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
-                }
-                else if (error.request) {
-                    this.logger.logError(`postVersionRelationshipsRef Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`postVersionRelationshipsRef Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.DataManagementApiError(`patchVersion Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }

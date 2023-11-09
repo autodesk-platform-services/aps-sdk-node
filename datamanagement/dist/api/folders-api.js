@@ -22,6 +22,86 @@ const base_1 = require("../base");
 const FoldersApiAxiosParamCreator = function (apsConfiguration) {
     return {
         /**
+         * Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint.  BIM 360 and ACC  To access Docs folders using the Data Management API you need to provision your app in the Account Administrator portal. For more details, see the Manage Access to Docs tutorial. The number of subfolder levels is limited to 25. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
+         * @summary Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint
+         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {FolderPayload} [folderPayload] Describe the folder to be created.
+         * @param accessToken bearer access token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createFolder: (accessToken, projectId, xUserId, folderPayload, options = {}) => __awaiter(this, void 0, void 0, function* () {
+            // verify required parameter 'projectId' is not null or undefined
+            (0, common_1.assertParamExists)('createFolder', 'projectId', projectId);
+            const localVarPath = `/data/v1/projects/{project_id}/folders`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
+            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
+            let baseOptions;
+            if (apsConfiguration) {
+                baseOptions = apsConfiguration.baseOptions;
+            }
+            const localVarRequestOptions = Object.assign(Object.assign({ method: 'POST' }, baseOptions), options);
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            yield (0, common_1.setBearerAuthToObject)(localVarHeaderParameter, accessToken);
+            if (xUserId != null) {
+                localVarHeaderParameter['x-user-id'] = String(xUserId);
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
+            (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
+            localVarRequestOptions.data = (0, common_1.serializeDataIfNeeded)(folderPayload, localVarRequestOptions, apsConfiguration);
+            return {
+                url: (0, common_1.toPathString)(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        }),
+        /**
+         * Creates a custom relationship between a folder and another resource within the data domain service (folder, item, or version).
+         * @summary Creates a custom relationship between a folder and another resource within the data
+         * @param {string} folderId The unique identifier of a folder.
+         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {RelationshipRefsPayload} [relationshipRefsPayload] Describe the ref to be created.
+         * @param accessToken bearer access token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createFolderRelationshipsRef: (accessToken, folderId, projectId, xUserId, relationshipRefsPayload, options = {}) => __awaiter(this, void 0, void 0, function* () {
+            // verify required parameter 'folderId' is not null or undefined
+            (0, common_1.assertParamExists)('createFolderRelationshipsRef', 'folderId', folderId);
+            // verify required parameter 'projectId' is not null or undefined
+            (0, common_1.assertParamExists)('createFolderRelationshipsRef', 'projectId', projectId);
+            const localVarPath = `/data/v1/projects/{project_id}/folders/{folder_id}/relationships/refs`
+                .replace(`{${"folder_id"}}`, encodeURIComponent(String(folderId)))
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
+            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
+            let baseOptions;
+            if (apsConfiguration) {
+                baseOptions = apsConfiguration.baseOptions;
+            }
+            const localVarRequestOptions = Object.assign(Object.assign({ method: 'POST' }, baseOptions), options);
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            yield (0, common_1.setBearerAuthToObject)(localVarHeaderParameter, accessToken);
+            if (xUserId != null) {
+                localVarHeaderParameter['x-user-id'] = String(xUserId);
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
+            (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
+            localVarRequestOptions.data = (0, common_1.serializeDataIfNeeded)(relationshipRefsPayload, localVarRequestOptions, apsConfiguration);
+            return {
+                url: (0, common_1.toPathString)(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        }),
+        /**
          * Returns the folder by ID for any folder within a given project. All folders or sub-folders within a project are associated with their own unique ID, including the root folder.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
          * @summary Returns the folder by ID for any folder within a given project
          * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
@@ -361,12 +441,12 @@ const FoldersApiAxiosParamCreator = function (apsConfiguration) {
          * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
          * @param {string} folderId The unique identifier of a folder.
          * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {ModifyFolder} [modifyFolder] Describe the folder to be patched.
+         * @param {ModifyFolderPayload} [modifyFolderPayload] Describe the folder to be patched.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        patchFolder: (accessToken, projectId, folderId, xUserId, modifyFolder, options = {}) => __awaiter(this, void 0, void 0, function* () {
+        patchFolder: (accessToken, projectId, folderId, xUserId, modifyFolderPayload, options = {}) => __awaiter(this, void 0, void 0, function* () {
             // verify required parameter 'projectId' is not null or undefined
             (0, common_1.assertParamExists)('patchFolder', 'projectId', projectId);
             // verify required parameter 'folderId' is not null or undefined
@@ -387,91 +467,11 @@ const FoldersApiAxiosParamCreator = function (apsConfiguration) {
                 localVarHeaderParameter['x-user-id'] = String(xUserId);
             }
             localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/1.0.0';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
             (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
-            localVarRequestOptions.data = (0, common_1.serializeDataIfNeeded)(modifyFolder, localVarRequestOptions, apsConfiguration);
-            return {
-                url: (0, common_1.toPathString)(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        }),
-        /**
-         * Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint.  BIM 360 and ACC  To access Docs folders using the Data Management API you need to provision your app in the Account Administrator portal. For more details, see the Manage Access to Docs tutorial. The number of subfolder levels is limited to 25. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {CreateFolder} [createFolder] Describe the folder to be created.
-         * @param accessToken bearer access token
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postFolder: (accessToken, projectId, xUserId, createFolder, options = {}) => __awaiter(this, void 0, void 0, function* () {
-            // verify required parameter 'projectId' is not null or undefined
-            (0, common_1.assertParamExists)('postFolder', 'projectId', projectId);
-            const localVarPath = `/data/v1/projects/{project_id}/folders`
-                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
-            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
-            let baseOptions;
-            if (apsConfiguration) {
-                baseOptions = apsConfiguration.baseOptions;
-            }
-            const localVarRequestOptions = Object.assign(Object.assign({ method: 'POST' }, baseOptions), options);
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            yield (0, common_1.setBearerAuthToObject)(localVarHeaderParameter, accessToken);
-            if (xUserId != null) {
-                localVarHeaderParameter['x-user-id'] = String(xUserId);
-            }
-            localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/1.0.0';
-            (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
-            localVarRequestOptions.data = (0, common_1.serializeDataIfNeeded)(createFolder, localVarRequestOptions, apsConfiguration);
-            return {
-                url: (0, common_1.toPathString)(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        }),
-        /**
-         * Creates a custom relationship between a folder and another resource within the data domain service (folder, item, or version).
-         * @summary Creates a custom relationship between a folder and another resource within the data
-         * @param {string} folderId The unique identifier of a folder.
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {RelationshipRefsRequest} [relationshipRefsRequest] Describe the ref to be created.
-         * @param accessToken bearer access token
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postFolderRelationshipsRef: (accessToken, folderId, projectId, xUserId, relationshipRefsRequest, options = {}) => __awaiter(this, void 0, void 0, function* () {
-            // verify required parameter 'folderId' is not null or undefined
-            (0, common_1.assertParamExists)('postFolderRelationshipsRef', 'folderId', folderId);
-            // verify required parameter 'projectId' is not null or undefined
-            (0, common_1.assertParamExists)('postFolderRelationshipsRef', 'projectId', projectId);
-            const localVarPath = `/data/v1/projects/{project_id}/folders/{folder_id}/relationships/refs`
-                .replace(`{${"folder_id"}}`, encodeURIComponent(String(folderId)))
-                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
-            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
-            let baseOptions;
-            if (apsConfiguration) {
-                baseOptions = apsConfiguration.baseOptions;
-            }
-            const localVarRequestOptions = Object.assign(Object.assign({ method: 'POST' }, baseOptions), options);
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            yield (0, common_1.setBearerAuthToObject)(localVarHeaderParameter, accessToken);
-            if (xUserId != null) {
-                localVarHeaderParameter['x-user-id'] = String(xUserId);
-            }
-            localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/1.0.0';
-            (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
-            localVarRequestOptions.data = (0, common_1.serializeDataIfNeeded)(relationshipRefsRequest, localVarRequestOptions, apsConfiguration);
+            localVarRequestOptions.data = (0, common_1.serializeDataIfNeeded)(modifyFolderPayload, localVarRequestOptions, apsConfiguration);
             return {
                 url: (0, common_1.toPathString)(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -487,6 +487,37 @@ exports.FoldersApiAxiosParamCreator = FoldersApiAxiosParamCreator;
 const FoldersApiFp = function (sdkManager) {
     const localVarAxiosParamCreator = (0, exports.FoldersApiAxiosParamCreator)(sdkManager.apsconfiguration);
     return {
+        /**
+         * Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint.  BIM 360 and ACC  To access Docs folders using the Data Management API you need to provision your app in the Account Administrator portal. For more details, see the Manage Access to Docs tutorial. The number of subfolder levels is limited to 25. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
+         * @summary Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint
+         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {FolderPayload} [folderPayload] Describe the folder to be created.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createFolder(accessToken, projectId, xUserId, folderPayload, options) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const localVarAxiosArgs = yield localVarAxiosParamCreator.createFolder(accessToken, projectId, xUserId, folderPayload, options);
+                return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
+            });
+        },
+        /**
+         * Creates a custom relationship between a folder and another resource within the data domain service (folder, item, or version).
+         * @summary Creates a custom relationship between a folder and another resource within the data
+         * @param {string} folderId The unique identifier of a folder.
+         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {RelationshipRefsPayload} [relationshipRefsPayload] Describe the ref to be created.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createFolderRelationshipsRef(accessToken, folderId, projectId, xUserId, relationshipRefsPayload, options) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const localVarAxiosArgs = yield localVarAxiosParamCreator.createFolderRelationshipsRef(accessToken, folderId, projectId, xUserId, relationshipRefsPayload, options);
+                return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
+            });
+        },
         /**
          * Returns the folder by ID for any folder within a given project. All folders or sub-folders within a project are associated with their own unique ID, including the root folder.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
          * @summary Returns the folder by ID for any folder within a given project
@@ -615,44 +646,13 @@ const FoldersApiFp = function (sdkManager) {
          * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
          * @param {string} folderId The unique identifier of a folder.
          * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {ModifyFolder} [modifyFolder] Describe the folder to be patched.
+         * @param {ModifyFolderPayload} [modifyFolderPayload] Describe the folder to be patched.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        patchFolder(accessToken, projectId, folderId, xUserId, modifyFolder, options) {
+        patchFolder(accessToken, projectId, folderId, xUserId, modifyFolderPayload, options) {
             return __awaiter(this, void 0, void 0, function* () {
-                const localVarAxiosArgs = yield localVarAxiosParamCreator.patchFolder(accessToken, projectId, folderId, xUserId, modifyFolder, options);
-                return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
-            });
-        },
-        /**
-         * Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint.  BIM 360 and ACC  To access Docs folders using the Data Management API you need to provision your app in the Account Administrator portal. For more details, see the Manage Access to Docs tutorial. The number of subfolder levels is limited to 25. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {CreateFolder} [createFolder] Describe the folder to be created.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postFolder(accessToken, projectId, xUserId, createFolder, options) {
-            return __awaiter(this, void 0, void 0, function* () {
-                const localVarAxiosArgs = yield localVarAxiosParamCreator.postFolder(accessToken, projectId, xUserId, createFolder, options);
-                return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
-            });
-        },
-        /**
-         * Creates a custom relationship between a folder and another resource within the data domain service (folder, item, or version).
-         * @summary Creates a custom relationship between a folder and another resource within the data
-         * @param {string} folderId The unique identifier of a folder.
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {RelationshipRefsRequest} [relationshipRefsRequest] Describe the ref to be created.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postFolderRelationshipsRef(accessToken, folderId, projectId, xUserId, relationshipRefsRequest, options) {
-            return __awaiter(this, void 0, void 0, function* () {
-                const localVarAxiosArgs = yield localVarAxiosParamCreator.postFolderRelationshipsRef(accessToken, folderId, projectId, xUserId, relationshipRefsRequest, options);
+                const localVarAxiosArgs = yield localVarAxiosParamCreator.patchFolder(accessToken, projectId, folderId, xUserId, modifyFolderPayload, options);
                 return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
             });
         },
@@ -669,6 +669,73 @@ class FoldersApi extends base_1.BaseAPI {
     constructor() {
         super(...arguments);
         this.logger = this.sdkManager.logger;
+    }
+    /**
+     * Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint.  BIM 360 and ACC  To access Docs folders using the Data Management API you need to provision your app in the Account Administrator portal. For more details, see the Manage Access to Docs tutorial. The number of subfolder levels is limited to 25. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
+     * @summary Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint
+     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {FolderPayload} [folderPayload] Describe the folder to be created.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FoldersApi
+     */
+    createFolder(accessToken, projectId, xUserId, folderPayload, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.logger.logInfo("Entered into createFolder ");
+            try {
+                const request = yield (0, exports.FoldersApiFp)(this.sdkManager).createFolder(accessToken, projectId, xUserId, folderPayload, options);
+                const response = yield request(this.axios);
+                this.logger.logInfo(`createFolder Request completed successfully with status code: ${response.status}`);
+                return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
+            }
+            catch (error) {
+                if (error.response) {
+                    this.logger.logError(`createFolder Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+                    throw new base_1.DataManagementApiError(`createFolder Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                }
+                else if (error.request) {
+                    this.logger.logError(`createFolder Request failed with no response received: ${error.request}`);
+                    throw new base_1.DataManagementApiError(`createFolder Request failed with no response received: ${error.request}`, error);
+                }
+                throw error;
+            }
+        });
+    }
+    /**
+     * Creates a custom relationship between a folder and another resource within the data domain service (folder, item, or version).
+     * @summary Creates a custom relationship between a folder and another resource within the data
+     * @param {string} folderId The unique identifier of a folder.
+     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {RelationshipRefsPayload} [relationshipRefsPayload] Describe the ref to be created.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FoldersApi
+     */
+    createFolderRelationshipsRef(accessToken, folderId, projectId, xUserId, relationshipRefsPayload, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.logger.logInfo("Entered into createFolderRelationshipsRef ");
+            try {
+                const request = yield (0, exports.FoldersApiFp)(this.sdkManager).createFolderRelationshipsRef(accessToken, folderId, projectId, xUserId, relationshipRefsPayload, options);
+                const response = yield request(this.axios);
+                this.logger.logInfo(`createFolderRelationshipsRef Request completed successfully with status code: ${response.status}`);
+                return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
+            }
+            catch (error) {
+                if (error.response) {
+                    this.logger.logError(`createFolderRelationshipsRef Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+                    throw new base_1.DataManagementApiError(`createFolderRelationshipsRef Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                }
+                else if (error.request) {
+                    this.logger.logError(`createFolderRelationshipsRef Request failed with no response received: ${error.request}`);
+                    throw new base_1.DataManagementApiError(`createFolderRelationshipsRef Request failed with no response received: ${error.request}`, error);
+                }
+                throw error;
+            }
+        });
     }
     /**
      * Returns the folder by ID for any folder within a given project. All folders or sub-folders within a project are associated with their own unique ID, including the root folder.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
@@ -694,11 +761,11 @@ class FoldersApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getFolder Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`getFolder Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.DataManagementApiError(`getFolder Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getFolder Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`getFolder Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.DataManagementApiError(`getFolder Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -734,11 +801,11 @@ class FoldersApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getFolderContents Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`getFolderContents Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.DataManagementApiError(`getFolderContents Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getFolderContents Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`getFolderContents Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.DataManagementApiError(`getFolderContents Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -767,11 +834,11 @@ class FoldersApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getFolderParent Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`getFolderParent Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.DataManagementApiError(`getFolderParent Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getFolderParent Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`getFolderParent Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.DataManagementApiError(`getFolderParent Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -803,11 +870,11 @@ class FoldersApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getFolderRefs Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`getFolderRefs Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.DataManagementApiError(`getFolderRefs Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getFolderRefs Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`getFolderRefs Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.DataManagementApiError(`getFolderRefs Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -836,11 +903,11 @@ class FoldersApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getFolderRelationshipsLinks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`getFolderRelationshipsLinks Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.DataManagementApiError(`getFolderRelationshipsLinks Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getFolderRelationshipsLinks Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`getFolderRelationshipsLinks Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.DataManagementApiError(`getFolderRelationshipsLinks Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -874,11 +941,11 @@ class FoldersApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getFolderRelationshipsRefs Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`getFolderRelationshipsRefs Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.DataManagementApiError(`getFolderRelationshipsRefs Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getFolderRelationshipsRefs Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`getFolderRelationshipsRefs Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.DataManagementApiError(`getFolderRelationshipsRefs Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -908,11 +975,11 @@ class FoldersApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getFolderSearch Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`getFolderSearch Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.DataManagementApiError(`getFolderSearch Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getFolderSearch Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`getFolderSearch Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.DataManagementApiError(`getFolderSearch Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -924,17 +991,17 @@ class FoldersApi extends base_1.BaseAPI {
      * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
      * @param {string} folderId The unique identifier of a folder.
      * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {ModifyFolder} [modifyFolder] Describe the folder to be patched.
+     * @param {ModifyFolderPayload} [modifyFolderPayload] Describe the folder to be patched.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FoldersApi
      */
-    patchFolder(accessToken, projectId, folderId, xUserId, modifyFolder, options) {
+    patchFolder(accessToken, projectId, folderId, xUserId, modifyFolderPayload, options) {
         return __awaiter(this, void 0, void 0, function* () {
             this.logger.logInfo("Entered into patchFolder ");
             try {
-                const request = yield (0, exports.FoldersApiFp)(this.sdkManager).patchFolder(accessToken, projectId, folderId, xUserId, modifyFolder, options);
+                const request = yield (0, exports.FoldersApiFp)(this.sdkManager).patchFolder(accessToken, projectId, folderId, xUserId, modifyFolderPayload, options);
                 const response = yield request(this.axios);
                 this.logger.logInfo(`patchFolder Request completed successfully with status code: ${response.status}`);
                 return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
@@ -942,78 +1009,11 @@ class FoldersApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`patchFolder Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`patchFolder Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.DataManagementApiError(`patchFolder Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`patchFolder Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`patchFolder Request failed with no response received: ${error.request}`, error);
-                }
-                throw error;
-            }
-        });
-    }
-    /**
-     * Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint.  BIM 360 and ACC  To access Docs folders using the Data Management API you need to provision your app in the Account Administrator portal. For more details, see the Manage Access to Docs tutorial. The number of subfolder levels is limited to 25. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {CreateFolder} [createFolder] Describe the folder to be created.
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof FoldersApi
-     */
-    postFolder(accessToken, projectId, xUserId, createFolder, options) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.logger.logInfo("Entered into postFolder ");
-            try {
-                const request = yield (0, exports.FoldersApiFp)(this.sdkManager).postFolder(accessToken, projectId, xUserId, createFolder, options);
-                const response = yield request(this.axios);
-                this.logger.logInfo(`postFolder Request completed successfully with status code: ${response.status}`);
-                return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
-            }
-            catch (error) {
-                if (error.response) {
-                    this.logger.logError(`postFolder Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`postFolder Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
-                }
-                else if (error.request) {
-                    this.logger.logError(`postFolder Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`postFolder Request failed with no response received: ${error.request}`, error);
-                }
-                throw error;
-            }
-        });
-    }
-    /**
-     * Creates a custom relationship between a folder and another resource within the data domain service (folder, item, or version).
-     * @summary Creates a custom relationship between a folder and another resource within the data
-     * @param {string} folderId The unique identifier of a folder.
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {RelationshipRefsRequest} [relationshipRefsRequest] Describe the ref to be created.
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof FoldersApi
-     */
-    postFolderRelationshipsRef(accessToken, folderId, projectId, xUserId, relationshipRefsRequest, options) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.logger.logInfo("Entered into postFolderRelationshipsRef ");
-            try {
-                const request = yield (0, exports.FoldersApiFp)(this.sdkManager).postFolderRelationshipsRef(accessToken, folderId, projectId, xUserId, relationshipRefsRequest, options);
-                const response = yield request(this.axios);
-                this.logger.logInfo(`postFolderRelationshipsRef Request completed successfully with status code: ${response.status}`);
-                return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
-            }
-            catch (error) {
-                if (error.response) {
-                    this.logger.logError(`postFolderRelationshipsRef Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.DataManagementApiApiError(`postFolderRelationshipsRef Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
-                }
-                else if (error.request) {
-                    this.logger.logError(`postFolderRelationshipsRef Request failed with no response received: ${error.request}`);
-                    throw new base_1.DataManagementApiApiError(`postFolderRelationshipsRef Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.DataManagementApiError(`patchFolder Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }

@@ -10,4 +10,16 @@ export interface ItemDataAttributesExtensionData {
      * @memberof ItemDataAttributesExtensionData
      */
     'sourceFileName'?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ItemDataAttributesExtensionData
+     */
+    'projectGuid'?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ItemDataAttributesExtensionData
+     */
+    'modelGuid'?: string;
 }

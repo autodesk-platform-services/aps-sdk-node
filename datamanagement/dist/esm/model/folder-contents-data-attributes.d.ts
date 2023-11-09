@@ -1,4 +1,4 @@
-import { FolderDataAttributesExtension } from './folder-data-attributes-extension';
+import { FolderContentsDataAttributesExtension } from './folder-contents-data-attributes-extension';
 /**
  *
  * @export
@@ -79,8 +79,8 @@ export interface FolderContentsDataAttributes {
     'hidden'?: boolean;
     /**
      *
-     * @type {FolderDataAttributesExtension}
+     * @type {FolderContentsDataAttributesExtension}
      * @memberof FolderContentsDataAttributes
      */
-    'extension'?: FolderDataAttributesExtension;
+    'extension'?: FolderContentsDataAttributesExtension;
 }
