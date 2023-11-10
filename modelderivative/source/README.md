@@ -1,18 +1,16 @@
-## model-derivative@1.0.0
+# APS SDK for Model Derivative
 
-Use the Model Derivative API to translate designs from one CAD format to another.
-This is TypeScript client library for model-derivative
+[![npm](https://img.shields.io/badge/npm-8.11-blue.svg)](https://www.npmjs.com/)
+[![License Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-## Building the SDK
-1. Install dependencies
+Derive outputs viewable by the Viewer from more than 60 CAD file formats and extract metadata about the model as well as the individual objects within the model.  
+For further information see [Documentation](https://aps.autodesk.com/en/docs/model-derivative/v2/developers_guide/overview)
+
+## Installation 
 ```
-npm install
+npm i @aps_sdk/model-derivative
 ```
-2. Format code using prettier
-```
-npm run prettier-format
-```
-3. Build the sdk
-```
-npm run build
-```
+## Example
+
+For usage, see [Model Derivative sample](https://github.com/autodesk-platform-services/aps-sdk-node/blob/development/samples/modelderivative.ts)
+

@@ -1,17 +1,14 @@
 {
-  "name": "model-derivative",
-  "version": "1.0.0",
+  "name": "@aps_sdk/model-derivative",
+  "version": "0.0.7-beta.1",
   "description": "Client sdk for model-derivative API",
-  "license": "",
-  "publishConfig": {
-    "registry": "https://npm.autodesk.com/artifactory/api/npm/autodesk-npm",
-    "access": "public"
-  },
+  "license": "Apache-2.0",
   "keywords": [
-    "axios",
-    "typescript",
-    "model-derivative"
+    "Autodesk Platform Services",
+    "Typescript",
+    "Model Derivative"
   ],
+  "files": ["/dist"],
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "module": "./dist/esm/index.js",
@@ -22,12 +19,13 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "axios": "^0.27.2",
-    "autodesk-sdkmanager": "^1.0.6"
+    "axios": "^1.6.1",
+    "@aps_sdk/autodesk-sdkmanager": "^0.0.4-beta.1",
+    "@types/node": "^20.9.0"
   },
   "devDependencies": {
-    "@types/node": "^20.3.2",
     "prettier": "^2.8.8",
     "typescript": "^5.1.5"
-  }
+  },
+  "author": "Autodesk Platform Services"
 }

@@ -4,7 +4,7 @@
 import type { RequestArgs } from "./base";
 import type { AxiosInstance, AxiosResponse } from 'axios';
 import { RequiredError } from "./base";
-import {IApsConfiguration, SDKManager} from "autodesk-sdkmanager";
+import {IApsConfiguration, SDKManager} from "@aps_sdk/autodesk-sdkmanager";
 
 /**
  *

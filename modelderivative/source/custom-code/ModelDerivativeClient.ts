@@ -1,4 +1,4 @@
-import { ApsServiceRequestConfig, SDKManager } from "autodesk-sdkmanager";
+import { ApsServiceRequestConfig, SDKManager } from  "@aps_sdk/autodesk-sdkmanager";
 import { DerivativesApi, GetThumbnailHeightEnum, GetThumbnailWidthEnum, InformationalApi, JobsApi, ManifestApi, MetadataApi, ThumbnailsApi } from "../api";
 import { AllProperties, DeleteManifest, DerivativeDownload, DerivativeHead, Formats, Job, JobPayload, Manifest, ModelViews, ObjectTree, ReferencesPayload, Region, SpecificProperties, SpecificPropertiesPayload, SpecifyReferences, XAdsDerivativeFormat } from "../model";
 import { Stream } from "stream";

@@ -1,16 +1,16 @@
 {
-  "name": "autodesk-data-management",
-  "version": "1.0.0",
+  "name": "@aps_sdk/data-management",
+  "version": "0.0.3-beta.1",
   "description": "Client sdk for data-management API",
-  "license": "",
-  "publishConfig": {
-    "registry": "https://npm.autodesk.com/artifactory/api/npm/autodesk-npm",
-    "access": "public"
-  },
+  "author": "Autodesk Platform Services",
+  "license": "Apache-2.0",
   "keywords": [
-    "axios",
-    "typescript",
-    "data-management"
+    "Autodesk Platform Services",
+    "Typescript",
+    "Data Management"
+  ],
+  "files": [
+    "/dist"
   ],
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
@@ -22,11 +22,11 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "axios": "^0.27.2",
-    "autodesk-sdkmanager": "^1.0.6"
+    "axios": "^1.6.1",
+    "@aps_sdk/autodesk-sdkmanager": "^0.0.4-beta.1",
+    "@types/node": "^20.9.0"
   },
   "devDependencies": {
-    "@types/node": "^20.3.2",
     "prettier": "^2.8.8",
     "typescript": "^5.1.5"
   }

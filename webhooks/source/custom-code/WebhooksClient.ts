@@ -10,7 +10,7 @@ import {
   TokenPayload,
   Token
 } from '../model';
-import { SDKManager, ApsServiceRequestConfig } from 'autodesk-sdkmanager'; // Assuming a default export
+import { SDKManager, ApsServiceRequestConfig } from '@aps_sdk/autodesk-sdkmanager'; // Assuming a default export
 
 export class WebhooksClient {
   public hooksApi: HooksApi;

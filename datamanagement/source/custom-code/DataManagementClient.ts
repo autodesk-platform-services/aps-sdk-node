@@ -1,4 +1,4 @@
-import { SDKManager } from "autodesk-sdkmanager"; 
+import { SDKManager } from "@aps_sdk/autodesk-sdkmanager"; 
 import {CommandsApi,HubsApi,ItemsApi,ProjectsApi,FoldersApi,VersionsApi, GetFolderRelationshipsRefsFilterRefTypeEnum, GetFolderRelationshipsRefsFilterDirectionEnum, GetItemRelationshipsRefsFilterRefTypeEnum, GetItemRelationshipsRefsFilterDirectionEnum, GetVersionRelationshipsRefsFilterRefTypeEnum, GetVersionRelationshipsRefsFilterDirectionEnum} from "../api";
 import { Command, CommandPayload, Download, DownloadDetails, DownloadFormats, DownloadPayload, Downloads, Folder, FolderContents, FolderPayload, FolderRefs, Hub, Hubs, Item, ItemPayload, ItemTip, Job, ModifyFolderPayload, ModifyItemPayload, ModifyVersionPayload, Project, Projects, Refs, RelationshipLinks, RelationshipRefs, RelationshipRefsPayload, Search, StoragePayload, TopFolders, Version, VersionDetails, VersionPayload, Versions} from "../model";
 
