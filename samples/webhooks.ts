@@ -1,14 +1,14 @@
 
-import { SdkManagerBuilder } from "autodesk-sdkmanager"; // Assuming a default export
-import { Systems, Events, Scopes, HookPayload } from "../model";
-import { WebhooksClient } from "../custom-code/WebhooksClient";
-import { setScope } from "../../custom-code/utils";
+import { SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager"; // Assuming a default export
+import { Systems, Events, Scopes, HookPayload } from "@aps_sdk/webhooks";
+import { WebhooksClient } from "@aps_sdk/webhooks";
+import { setScope } from "@aps_sdk/webhooks";
 
 const sdkManager = SdkManagerBuilder.Create().build(); // Initialize the SDKManager as needed
 const webhooksClient = new WebhooksClient(sdkManager);
 
 // Define your access token and other required parameters
-const accessToken = ""; // Replace with your actual access token
+const accessToken = "<token>"; // Replace with your actual access token
 const system = Systems.Derivative; // Replace with the desired system from the Systems enum
 const event = Events.ExtractionFinished; // Replace with the desired event from the Events enum
 

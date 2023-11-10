@@ -1,15 +1,15 @@
-import { SDKManager, SdkManagerBuilder } from "autodesk-sdkmanager";
-import { ModelDerivativeClient } from "model-derivative";
-import { InformationalApi, Formats, JobThumbnailOutputFormat, ExtractorVersion, JobSvf2OutputFormatAdvancedRVT, Model2dView, JobSvf2OutputFormatAdvancedIFC, BuildingStoreys, Width, Height, JobSvfOutputFormatAdvancedRVT, Job, XAdsDerivativeFormat, Region, Type, Manifest, ModelViews, ObjectTree, ModelViewsDataMetadata, AllProperties, SpecificPropertiesPayload, SpecificPropertiesPayloadQuery, Payload, SpecificProperties } from "model-derivative";   //"../MDClient/node_modules/model-derivative/dist/api";
-import { JobThumbnailOutputFormatAdvanced, JobPayloadOutputDestination, JobsApi, JobPayload, JobPayloadOutput, JobPayloadInput, JobPayloadFormat, JobSvf2OutputFormat, JobSvfOutputFormat, View } from "model-derivative";
+import { SDKManager, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
+import { ModelDerivativeClient } from "@aps_sdk/model-derivative";
+import { InformationalApi, Formats, JobThumbnailOutputFormat, ExtractorVersion, JobSvf2OutputFormatAdvancedRVT, Model2dView, JobSvf2OutputFormatAdvancedIFC, BuildingStoreys, Width, Height, JobSvfOutputFormatAdvancedRVT, Job, XAdsDerivativeFormat, Region, Type, Manifest, ModelViews, ObjectTree, ModelViewsDataMetadata, AllProperties, SpecificPropertiesPayload, SpecificPropertiesPayloadQuery, Payload, SpecificProperties } from "@aps_sdk/model-derivative";   
+import { JobThumbnailOutputFormatAdvanced, JobPayloadOutputDestination, JobsApi, JobPayload, JobPayloadOutput, JobPayloadInput, JobPayloadFormat, JobSvf2OutputFormat, JobSvfOutputFormat, View } from "@aps_sdk/model-derivative";
 
 
 
 const sdkmanager: SDKManager = SdkManagerBuilder.Create().build();
 const modelDerivativeClient = new ModelDerivativeClient(sdkmanager);
 
-const token: string = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjY0RE9XMnJoOE9tbjNpdk1NU0xlNGQ2VHEwUSIsInBpLmF0bSI6ImFzc2MifQ.eyJzY29wZSI6WyJkYXRhOnJlYWQiLCJkYXRhOndyaXRlIiwiZGF0YTpjcmVhdGUiLCJidWNrZXQ6cmVhZCIsImJ1Y2tldDp1cGRhdGUiLCJidWNrZXQ6ZGVsZXRlIiwiYnVja2V0OmNyZWF0ZSIsInZpZXdhYmxlczpyZWFkIiwiY29kZTphbGwiXSwiY2xpZW50X2lkIjoiQnZ5TVFwZ3UyNjFVUnd5dm9GOTVwU0Z6QmUyOUt2U1IiLCJpc3MiOiJodHRwczovL2RldmVsb3Blci5hcGkuYXV0b2Rlc2suY29tIiwiYXVkIjoiaHR0cHM6Ly9hdXRvZGVzay5jb20iLCJqdGkiOiJ3TENFQjkzSWdQSTJxb25JWmQ5N1FmNWN3dld5bHNCN29pQTVhdHFaSkRvQ0x4VWZxdUNaRHdhSUhDRnlVUjEzIiwiZXhwIjoxNjk4ODQ3Mzg5fQ.qgQ0uk8WzzmvvF9n4wK63fQzKrHs7tT5x5FhMEIjeULsWfc01trcXX5mCNgnsSl9-Wx9qwU_9pol1GC_l86rFz4jCiX0NQTUqIDU4bILWn-k4Kii-JN2MqIg49QXBoiC-xm1YEsCEVoPEu4WZCDiiJxQ_YfR5ji6g6ZLj9eYJEhmbk4P_-WlJwhHLfolNcWyO8pudHisni0twBYokpINcU0xeg286WV6XJqSCzZJmGFZJsRmg4fD-JK2b6ZDZ9GekT0-JMS5GrSIUQVKUZhMU-zTMen2f44-ML4G-H1Y7ozFICs8PUKUqWzGV9WaXZD6fWbP6FJnFJBgE1uKxpTRfA";
-const urn: string = "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dHN0YnVja2V0MTIzL09mZmljZS5ydnQ";
+const token: string = "<token>";
+const urn: string = "<urn>";
 
 /**
  * Function to fetch all supported formats

@@ -1,11 +1,11 @@
-import { SDKManager, SdkManagerBuilder } from "./node_modules/data-management/node_modules/autodesk-sdkmanager";
-import {DataManagementClient, Folder, FolderContents, FolderContentsData, FolderData, FolderDataAttributes, FolderDataAttributesExtension, FolderDataAttributesExtensionData, FolderPayload, FolderPayloadData, FolderPayloadDataAttributes, FolderPayloadDataRelationships, FolderPayloadDataRelationshipsParent, FolderPayloadDataRelationshipsParentData, Hub, HubData, HubDataAttributes, HubDataAttributesExtension, Hubs, HubsData, HubsDataAttributes, HubsDataAttributesExtension, HubsLinksSelf, Item, ItemPayload, ItemPayloadIncluded, ItemPayloadIncludedAttributes, ModifyFolderPayloadJsonapi, Project, Projects, ProjectsData, ProjectsDataAttributes, ProjectsDataAttributesExtension, RelationshipRefsPayloadDataMetaExtension,StorageDataRelationshipsTarget, StorageDataRelationshipsTargetData, TopFolders, TopFoldersData, Type, VersionDetails, VersionNumber, VersionPayload} from "data-management";
+import { SDKManager, SdkManagerBuilder } from  "@aps_sdk/autodesk-sdkmanager"
+import {DataManagementClient, Folder, FolderContents, FolderContentsData, FolderData, FolderDataAttributes, FolderDataAttributesExtension, FolderDataAttributesExtensionData, FolderPayload, FolderPayloadData, FolderPayloadDataAttributes, FolderPayloadDataRelationships, FolderPayloadDataRelationshipsParent, FolderPayloadDataRelationshipsParentData, Hub, HubData, HubDataAttributes, HubDataAttributesExtension, Hubs, HubsData, HubsDataAttributes, HubsDataAttributesExtension, HubsLinksSelf, Item, ItemPayload, ItemPayloadIncluded, ItemPayloadIncludedAttributes, ModifyFolderPayloadJsonapi, Project, Projects, ProjectsData, ProjectsDataAttributes, ProjectsDataAttributesExtension, RelationshipRefsPayloadDataMetaExtension,StorageDataRelationshipsTarget, StorageDataRelationshipsTargetData, TopFolders, TopFoldersData, Type, VersionDetails, VersionNumber, VersionPayload} from "@aps_sdk/data-management";
 
-const token: string = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjY0RE9XMnJoOE9tbjNpdk1NU0xlNGQ2VHEwUSIsInBpLmF0bSI6Ijd6M2gifQ.eyJzY29wZSI6WyJkYXRhOnJlYWQiLCJkYXRhOndyaXRlIiwiZGF0YTpjcmVhdGUiLCJkYXRhOnNlYXJjaCIsImJ1Y2tldDpjcmVhdGUiLCJidWNrZXQ6cmVhZCIsImJ1Y2tldDp1cGRhdGUiLCJidWNrZXQ6ZGVsZXRlIiwiYWNjb3VudDpyZWFkIiwiYWNjb3VudDp3cml0ZSIsImNvZGU6YWxsIl0sImNsaWVudF9pZCI6Ikp1enlEQWlmMjVjSUFYZlpuMHJBd2ltSUFaVEdMeEFRIiwiYXVkIjoiaHR0cHM6Ly9hdXRvZGVzay5jb20vYXVkL2Fqd3RleHA2MCIsImp0aSI6IkV4ajc2Z1c0TjQ5aU5qMXBYcWpXN3oyRVprNzdCOERyenJ0THNuOWoyMWZZWVAwU0xteXc3d2EyMVNnUnRvZzAiLCJ1c2VyaWQiOiJKMlEyRUw0RktQS1JIVEtGIiwiZXhwIjoxNjk5NTA3Mjc2fQ.g79acoUnLcLLAuZW9omKE919o286fDAL7bTkbJAO5qnJW5rdnKVSGq4blf6Xza1-4dXDU03hY1MAfki6UKZkBdENrvMl6CT0wvLAfu1x1d4M8oGvX36vLoTED_2gzWiCJ6GX8_a50hi3_npPdc8ubTuFZpD-JbQr700jmBlXL4yDVawKnshtPeSP6x0EgJm1-ZZ3owBLayWrgXWm7Z_ry6dLMdQXAiBH9tSe-QwUwLmm3WgMLfNh92A_FU0kM9pPOFanBsYzx9pBc9rrC93_YuU-TV1X1km7WgILnHF1Nj-Sv_SzOhEXOVIFMewVBHY1Wp2G3gjArSKlXvLsWqnz_w";
+const token: string = "<token>";
 
-let hub_id : string="a.YnVzaW5lc3M6YXV0b2Rlc2s3MDgw";
-let project_id :string="a.YnVzaW5lc3M6YXV0b2Rlc2s3MDgwI0QyMDIzMDYyNjY1MTQxNjUyNg";
-let folder_id:string="urn:adsk.wipprod:fs.folder:co.DSMqf-tKRuKWSaeafkZHIg";
+let hub_id : string="<hubId>";
+let project_id :string="<projectId>";
+let folder_id:string="<folderId>>";
 
 const sdkmanager: SDKManager = SdkManagerBuilder
     .Create() 
