@@ -23,7 +23,6 @@ The Developer Portal has everything APS:
 
 ## Node Packages
 
-- [Data Management](/datamanagement)
-- [OSS](/oss)
-- [Model Derivative](/modelderivative)
-- [Webhooks](/webhooks)
+- [Data Management](datamanagement/source/README.md)
+- [Model Derivative](modelderivative/source/README.md)
+- [Webhooks](webhooks/source/README.md)
