@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { CreatedVersionIncludedAttributesExtension } from './created-version-included-attributes-extension';
+import { VersionIncludedAttributesExtension } from './version-included-attributes-extension';
 
 /**
  * 
@@ -17,9 +17,9 @@ export interface CommandDataAttributes {
     'status'?: string;
     /**
      * 
-     * @type {CreatedVersionIncludedAttributesExtension}
+     * @type {VersionIncludedAttributesExtension}
      * @memberof CommandDataAttributes
      */
-    'extension'?: CreatedVersionIncludedAttributesExtension;
+    'extension'?: VersionIncludedAttributesExtension;
 }
 

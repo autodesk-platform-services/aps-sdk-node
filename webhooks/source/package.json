@@ -1,16 +1,16 @@
 {
-  "name": "webhooks-api",
-  "version": "1.0.0",
-  "description": "Client sdk for webhooks-api API",
-  "license": "",
-  "publishConfig": {
-    "registry": "https://npm.autodesk.com/artifactory/api/npm/autodesk-npm",
-    "access": "public"
-  },
+  "name": "@aps_sdk/webhooks",
+  "version": "0.0.4-beta.1",
+  "description": "Client sdk for webhooks API",
+  "author": "Autodesk Platform Services",
+  "license": "Apache-2.0",
   "keywords": [
-    "axios",
-    "typescript",
-    "webhooks-api"
+    "Autodesk Platform Services",
+    "Typescript",
+    "WebHooks"
+  ],
+  "files": [
+    "/dist"
   ],
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
@@ -18,15 +18,15 @@
   "sideEffects": false,
   "scripts": {
     "build": "tsc && tsc -p tsconfig.esm.json",
-    "prettier-format": "prettier --config .prettierrc \\\"./**/*.ts\\\" --write",
+    "prettier-format": "prettier --config .prettierrc \"./**/*.ts\" --write",
     "prepare": "npm run build"
   },
   "dependencies": {
-    "axios": "^0.27.2",
-    "autodesk-sdkmanager": "^1.0.5-SNAPSHOT"
+    "axios": "^1.6.1",
+    "@aps_sdk/autodesk-sdkmanager": "^0.0.4-beta.1",
+    "@types/node": "^20.9.0"
   },
   "devDependencies": {
-    "@types/node": "^20.3.2",
     "prettier": "^2.8.8",
     "typescript": "^5.1.5"
   }

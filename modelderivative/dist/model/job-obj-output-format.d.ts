@@ -1,4 +1,5 @@
 import { JobObjOutputFormatAdvanced } from './job-obj-output-format-advanced';
+import { Type } from './type';
 /**
  *
  * @export
@@ -10,7 +11,7 @@ export interface JobObjOutputFormat {
      * @type {string}
      * @memberof JobObjOutputFormat
      */
-    'type'?: string;
+    'type': typeof Type.Obj;
     /**
      *
      * @type {JobObjOutputFormatAdvanced}

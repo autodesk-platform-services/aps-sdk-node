@@ -1,7 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ObjectTreeDataObjectsObjects } from './object-tree-data-objects-objects';
 
 /**
  * 
@@ -26,6 +25,6 @@ export interface ObjectTreeDataObjects {
      * @type {Set<ObjectTreeDataObjectsObjects>}
      * @memberof ObjectTreeDataObjects
      */
-    'objects'?: Set<ObjectTreeDataObjectsObjects>;
+    'objects'?: Set<ObjectTreeDataObjects>;
 }
 

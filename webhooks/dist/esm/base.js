@@ -38,12 +38,16 @@ export class RequiredError extends Error {
         this.name = "RequiredError";
     }
 }
-export class WebhooksApiApiError extends Error {
+export class WebhooksApiError extends Error {
     constructor(message, axiosError) {
         super(message);
         if (axiosError) {
             this.axiosError = axiosError;
         }
-        Object.setPrototypeOf(this, WebhooksApiApiError.prototype);
+        Object.setPrototypeOf(this, WebhooksApiError.prototype);
+    }
+    httpStatusCode() {
+        var _a, _b;
+        return (_b = (_a = this.axiosError) === null || _a === void 0 ? void 0 : _a.response) === null || _b === void 0 ? void 0 : _b.status;
     }
 }

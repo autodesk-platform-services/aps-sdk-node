@@ -1,31 +1,28 @@
 import { JobSvfOutputFormatAdvanced } from './job-svf-output-format-advanced';
+import { View } from './view';
+import { Type } from './type';
 /**
  *
  * @export
- * @interface JobSvfOutputFormat
+ * @class JobSvfOutputFormat
  */
 export interface JobSvfOutputFormat {
     /**
      *
-     * @type {Array<string>}
+     * @type {Array<View>}
      * @memberof JobSvfOutputFormat
      */
-    'views'?: Array<JobSvfOutputFormatViewsEnum>;
+    'views': Array<View>;
     /**
      *
-     * @type {string}
+     * @type {Type.Svf}
      * @memberof JobSvfOutputFormat
      */
-    'type'?: string;
+    'type': typeof Type.Svf;
     /**
-     *
-     * @type {JobSvfOutputFormatAdvanced}
-     * @memberof JobSvfOutputFormat
-     */
+    *
+    * @type {JobSvfOutputFormatAdvanced}
+    * @memberof JobSvfOutputFormat
+    */
     'advanced'?: JobSvfOutputFormatAdvanced;
 }
-export declare const JobSvfOutputFormatViewsEnum: {
-    readonly _2d: "2d";
-    readonly _3d: "3d";
-};
-export type JobSvfOutputFormatViewsEnum = typeof JobSvfOutputFormatViewsEnum[keyof typeof JobSvfOutputFormatViewsEnum];

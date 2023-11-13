@@ -1,18 +1,16 @@
-## webhooks-api@1.0.0
+# APS SDK for WebHooks
 
-The Webhooks API enables applications to listen to APS events and receive notifications when they occur. When an event is triggered, the Webhooks service sends a notification to a callback URL you have defined.  You can customize the types of events and resources for which you receive notifications. For example, you can set up a webhook to send notifications when files are modified or deleted in a specified hub or project.  Below is quick summary of this workflow:  1. Identify the data for which you want to receive notifications. 2. Use the Webhooks API to create one or more hooks. 3. The Webhooks service will notify the webhook when there is a change in the data. 
-This is TypeScript client library for webhooks-api
+[![npm](https://img.shields.io/badge/npm-8.11-blue.svg)](https://www.npmjs.com/)
+[![License Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-## Building the SDK
-1. Install dependencies
+Subscribe to and receive notification of the occurrence of events within the Autodesk ecosystem.
+For further information see [Documentation](https://aps.autodesk.com/en/docs/webhooks/v1/developers_guide/overview)
+
+## Installation 
 ```
-npm install
+npm i @aps_sdk/webhooks
 ```
-2. Format code using prettier
-```
-npm run prettier-format
-```
-3. Build the sdk
-```
-npm run build
-```
+## Example
+
+For usage, see [WebHooks sample](https://github.com/autodesk-platform-services/aps-sdk-node/blob/development/samples/webhooks.ts)
+

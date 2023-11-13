@@ -12,4 +12,4 @@ import { JobThumbnailOutputFormat } from './job-thumbnail-output-format';
  * Output description object, depends of the type
  * @export
  */
-export type JobPayloadFormat = JobDwgOutputFormat & JobIfcOutputFormat & JobIgesOutputFormat & JobObjOutputFormat & JobStepOutputFormat & JobStlOutputFormat & JobSvf2OutputFormat & JobSvfOutputFormat & JobThumbnailOutputFormat;
+export type JobPayloadFormat = JobDwgOutputFormat | JobIfcOutputFormat | JobIgesOutputFormat | JobObjOutputFormat | JobStepOutputFormat | JobStlOutputFormat | JobSvf2OutputFormat | JobSvfOutputFormat | JobThumbnailOutputFormat;

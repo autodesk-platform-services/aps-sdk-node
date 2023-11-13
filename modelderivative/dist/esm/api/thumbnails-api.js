@@ -11,7 +11,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { ApiResponse } from "autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, toPathString, createRequestFunction } from '../common';
-import { BaseAPI, ModelDerivativeApiApiError } from '../base';
+import { BaseAPI, ModelDerivativeApiError } from '../base';
+import { Region } from '../model';
+import { Utils } from '../custom-code';
 /**
  * ThumbnailsApi - axios parameter creator
  * @export
@@ -21,17 +23,18 @@ export const ThumbnailsApiAxiosParamCreator = function (apsConfiguration) {
         /**
          * Downloads a thumbnail of the specified source design.
          * @summary Fetch Thumbnail
-         * @param {string} urn The URL safe Base64 encoded URN of the source design.
-         * @param {GetUrnThumbnailWidthEnum} [width] Width of thumbnail.    Possible values: 100, 200, 400    If &#x60;&#x60;width&#x60;&#x60; is omitted, but &#x60;&#x60;height&#x60;&#x60; is specified, &#x60;&#x60;width&#x60;&#x60; defaults to &#x60;&#x60;height&#x60;&#x60;. If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available.
-         * @param {GetUrnThumbnailHeightEnum} [height] Height of thumbnails.  Possible values: &#x60;&#x60;100&#x60;&#x60;, &#x60;&#x60;200&#x60;&#x60;, &#x60;&#x60;400&#x60;&#x60;.  If &#x60;&#x60;height&#x60;&#x60; is omitted, but &#x60;&#x60;width&#x60;&#x60; is specified, &#x60;&#x60;height&#x60;&#x60; defaults to &#x60;&#x60;width&#x60;&#x60;.  If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available.
+         * @param {string} urn The Base64 (URL Safe) encoded design URN
+         * @param {GetThumbnailWidthEnum} [width] Width of thumbnail.    Possible values: 100, 200, 400    If &#x60;&#x60;width&#x60;&#x60; is omitted, but &#x60;&#x60;height&#x60;&#x60; is specified, &#x60;&#x60;width&#x60;&#x60; defaults to &#x60;&#x60;height&#x60;&#x60;. If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available.
+         * @param {GetThumbnailHeightEnum} [height] Height of thumbnails.  Possible values: &#x60;&#x60;100&#x60;&#x60;, &#x60;&#x60;200&#x60;&#x60;, &#x60;&#x60;400&#x60;&#x60;.  If &#x60;&#x60;height&#x60;&#x60; is omitted, but &#x60;&#x60;width&#x60;&#x60; is specified, &#x60;&#x60;height&#x60;&#x60; defaults to &#x60;&#x60;width&#x60;&#x60;.  If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUrnThumbnail: (accessToken, urn, width, height, options = {}) => __awaiter(this, void 0, void 0, function* () {
+        getThumbnail: (accessToken, urn, width, height, region, options = {}) => __awaiter(this, void 0, void 0, function* () {
             // verify required parameter 'urn' is not null or undefined
-            assertParamExists('getUrnThumbnail', 'urn', urn);
-            const localVarPath = `/designdata/{urn}/thumbnail`
+            assertParamExists('getThumbnail', 'urn', urn);
+            const regionPath = Utils.GetPathfromRegion(region !== null && region !== void 0 ? region : Region.US);
+            const localVarPath = (regionPath + `{urn}/thumbnail`)
                 .replace(`{${"urn"}}`, encodeURIComponent(String(urn)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
@@ -68,15 +71,15 @@ export const ThumbnailsApiFp = function (sdkManager) {
         /**
          * Downloads a thumbnail of the specified source design.
          * @summary Fetch Thumbnail
-         * @param {string} urn The URL safe Base64 encoded URN of the source design.
-         * @param {GetUrnThumbnailWidthEnum} [width] Width of thumbnail.    Possible values: 100, 200, 400    If &#x60;&#x60;width&#x60;&#x60; is omitted, but &#x60;&#x60;height&#x60;&#x60; is specified, &#x60;&#x60;width&#x60;&#x60; defaults to &#x60;&#x60;height&#x60;&#x60;. If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available.
-         * @param {GetUrnThumbnailHeightEnum} [height] Height of thumbnails.  Possible values: &#x60;&#x60;100&#x60;&#x60;, &#x60;&#x60;200&#x60;&#x60;, &#x60;&#x60;400&#x60;&#x60;.  If &#x60;&#x60;height&#x60;&#x60; is omitted, but &#x60;&#x60;width&#x60;&#x60; is specified, &#x60;&#x60;height&#x60;&#x60; defaults to &#x60;&#x60;width&#x60;&#x60;.  If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available.
+         * @param {string} urn The Base64 (URL Safe) encoded design URN
+         * @param {GetThumbnailWidthEnum} [width] Width of thumbnail.    Possible values: 100, 200, 400    If &#x60;&#x60;width&#x60;&#x60; is omitted, but &#x60;&#x60;height&#x60;&#x60; is specified, &#x60;&#x60;width&#x60;&#x60; defaults to &#x60;&#x60;height&#x60;&#x60;. If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available.
+         * @param {GetThumbnailHeightEnum} [height] Height of thumbnails.  Possible values: &#x60;&#x60;100&#x60;&#x60;, &#x60;&#x60;200&#x60;&#x60;, &#x60;&#x60;400&#x60;&#x60;.  If &#x60;&#x60;height&#x60;&#x60; is omitted, but &#x60;&#x60;width&#x60;&#x60; is specified, &#x60;&#x60;height&#x60;&#x60; defaults to &#x60;&#x60;width&#x60;&#x60;.  If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUrnThumbnail(accessToken, urn, width, height, options) {
+        getThumbnail(accessToken, urn, width, height, region, options) {
             return __awaiter(this, void 0, void 0, function* () {
-                const localVarAxiosArgs = yield localVarAxiosParamCreator.getUrnThumbnail(accessToken, urn, width, height, options);
+                const localVarAxiosArgs = yield localVarAxiosParamCreator.getThumbnail(accessToken, urn, width, height, region, options);
                 return createRequestFunction(localVarAxiosArgs, sdkManager);
             });
         },
@@ -96,31 +99,31 @@ export class ThumbnailsApi extends BaseAPI {
     /**
      * Downloads a thumbnail of the specified source design.
      * @summary Fetch Thumbnail
-     * @param {string} urn The URL safe Base64 encoded URN of the source design.
-     * @param {GetUrnThumbnailWidthEnum} [width] Width of thumbnail.    Possible values: 100, 200, 400    If &#x60;&#x60;width&#x60;&#x60; is omitted, but &#x60;&#x60;height&#x60;&#x60; is specified, &#x60;&#x60;width&#x60;&#x60; defaults to &#x60;&#x60;height&#x60;&#x60;. If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available.
-     * @param {GetUrnThumbnailHeightEnum} [height] Height of thumbnails.  Possible values: &#x60;&#x60;100&#x60;&#x60;, &#x60;&#x60;200&#x60;&#x60;, &#x60;&#x60;400&#x60;&#x60;.  If &#x60;&#x60;height&#x60;&#x60; is omitted, but &#x60;&#x60;width&#x60;&#x60; is specified, &#x60;&#x60;height&#x60;&#x60; defaults to &#x60;&#x60;width&#x60;&#x60;.  If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available.
+     * @param {string} urn The Base64 (URL Safe) encoded design URN
+     * @param {GetThumbnailWidthEnum} [width] Width of thumbnail.    Possible values: 100, 200, 400    If &#x60;&#x60;width&#x60;&#x60; is omitted, but &#x60;&#x60;height&#x60;&#x60; is specified, &#x60;&#x60;width&#x60;&#x60; defaults to &#x60;&#x60;height&#x60;&#x60;. If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available.
+     * @param {GetThumbnailHeightEnum} [height] Height of thumbnails.  Possible values: &#x60;&#x60;100&#x60;&#x60;, &#x60;&#x60;200&#x60;&#x60;, &#x60;&#x60;400&#x60;&#x60;.  If &#x60;&#x60;height&#x60;&#x60; is omitted, but &#x60;&#x60;width&#x60;&#x60; is specified, &#x60;&#x60;height&#x60;&#x60; defaults to &#x60;&#x60;width&#x60;&#x60;.  If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ThumbnailsApi
      */
-    getUrnThumbnail(accessToken, urn, width, height, options) {
+    getThumbnail(accessToken, urn, width, height, region, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.logger.logInfo("Entered into getUrnThumbnail ");
+            this.logger.logInfo("Entered into getThumbnail ");
             try {
-                const request = yield ThumbnailsApiFp(this.sdkManager).getUrnThumbnail(accessToken, urn, width, height, options);
+                const request = yield ThumbnailsApiFp(this.sdkManager).getThumbnail(accessToken, urn, width, height, region, options);
                 const response = yield request(this.axios);
-                this.logger.logInfo(`getUrnThumbnail Request completed successfully with status code: ${response.status}`);
+                this.logger.logInfo(`getThumbnail Request completed successfully with status code: ${response.status}`);
                 return new ApiResponse(response, response.data);
             }
             catch (error) {
                 if (error.response) {
-                    this.logger.logError(`getUrnThumbnail Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new ModelDerivativeApiApiError(`getUrnThumbnail Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    this.logger.logError(`getThumbnail Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+                    throw new ModelDerivativeApiError(`getThumbnail Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
-                    this.logger.logError(`getUrnThumbnail Request failed with no response received: ${error.request}`);
-                    throw new ModelDerivativeApiApiError(`getUrnThumbnail Request failed with no response received: ${error.request}`, error);
+                    this.logger.logError(`getThumbnail Request failed with no response received: ${error.request}`);
+                    throw new ModelDerivativeApiError(`getThumbnail Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -130,7 +133,7 @@ export class ThumbnailsApi extends BaseAPI {
 /**
  * @export
  */
-export const GetUrnThumbnailWidthEnum = {
+export const GetThumbnailWidthEnum = {
     NUMBER_100: 100,
     NUMBER_200: 200,
     NUMBER_400: 400
@@ -138,7 +141,7 @@ export const GetUrnThumbnailWidthEnum = {
 /**
  * @export
  */
-export const GetUrnThumbnailHeightEnum = {
+export const GetThumbnailHeightEnum = {
     NUMBER_100: 100,
     NUMBER_200: 200,
     NUMBER_400: 400

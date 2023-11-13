@@ -1,8 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JobSvfOutputFormatAdvanced } from './job-svf-output-format-advanced';
-
+import { JobSvf2OutputFormatAdvanced } from './job-svf2-output-format-advanced';
+import { View } from './view';
+import { Type } from './type';
 /**
  * 
  * @export
@@ -11,29 +12,21 @@ import { JobSvfOutputFormatAdvanced } from './job-svf-output-format-advanced';
 export interface JobSvf2OutputFormat {
     /**
      * 
-     * @type {Array<string>}
+     * @type {Array<View>}
      * @memberof JobSvf2OutputFormat
      */
-    'views'?: Array<JobSvf2OutputFormatViewsEnum>;
+    'views': Array<View>;
     /**
      * 
-     * @type {string}
+     * @type {Type.Svf2}
      * @memberof JobSvf2OutputFormat
      */
-    'type'?: string;
+    'type': typeof Type.Svf2;
     /**
      * 
      * @type {JobSvfOutputFormatAdvanced}
      * @memberof JobSvf2OutputFormat
      */
-    'advanced'?: JobSvfOutputFormatAdvanced;
+    'advanced'?: JobSvf2OutputFormatAdvanced;
 }
-
-export const JobSvf2OutputFormatViewsEnum = {
-    _2d: '2d',
-    _3d: '3d'
-} as const;
-
-export type JobSvf2OutputFormatViewsEnum = typeof JobSvf2OutputFormatViewsEnum[keyof typeof JobSvf2OutputFormatViewsEnum];
-
 

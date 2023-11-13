@@ -1,18 +1,16 @@
-## data-management-api@1.0.0
+# APS SDK for Data Management
 
-The Data Management API provides a unified and consistent way to access data across BIM 360 Team, Fusion Team (formerly known as A360 Team), BIM 360 Docs, A360 Personal, and the Object Storage Service.  With this API, you can accomplish a number of workflows, including accessing a Fusion model in Fusion Team and getting an ordered structure of items, IDs, and properties for generating a bill of materials in a 3rd-party process. Or, you might want to superimpose a Fusion model and a building model to use in the Viewer.
-This is TypeScript client library for data-management-api
+[![npm](https://img.shields.io/badge/npm-8.11-blue.svg)](https://www.npmjs.com/)
+[![License Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-## Building the SDK
-1. Install dependencies
+Access data across BIM 360 team, Fusion Team, BIM 360 Docs and the Object Storage Service to build apps to display and extend your data in ways that add value to your users.
+For further information see [Documentation](https://aps.autodesk.com/en/docs/data/v2/developers_guide/overview)
+
+## Installation 
 ```
-npm install
+npm i @aps_sdk/data-management
 ```
-2. Format code using prettier
-```
-npm run prettier-format
-```
-3. Build the sdk
-```
-npm run build
-```
+## Example
+
+For usage, see [Data Management sample](https://github.com/autodesk-platform-services/aps-sdk-node/blob/development/samples/datamanagement.ts)
+

@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { StorageDataRelationships } from './storage-data-relationships';
+import { Type } from './type';
 
 /**
  * 
@@ -11,10 +12,10 @@ import { StorageDataRelationships } from './storage-data-relationships';
 export interface StorageData {
     /**
      * 
-     * @type {string}
+     * @type {Type}
      * @memberof StorageData
      */
-    'type'?: string;
+    'type'?: Type;
     /**
      * 
      * @type {string}
@@ -28,4 +29,6 @@ export interface StorageData {
      */
     'relationships'?: StorageDataRelationships;
 }
+
+
 

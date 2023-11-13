@@ -1,20 +1,43 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import { ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse } from "autodesk-sdkmanager";
 import { RequestArgs, BaseAPI } from '../base';
-import { CreateFolder } from '../model';
 import { Folder } from '../model';
 import { FolderContents } from '../model';
+import { FolderPayload } from '../model';
 import { FolderRefs } from '../model';
-import { ModifyFolder } from '../model';
+import { ModifyFolderPayload } from '../model';
 import { RelationshipLinks } from '../model';
 import { RelationshipRefs } from '../model';
-import { RelationshipRefsRequest } from '../model';
+import { RelationshipRefsPayload } from '../model';
 import { Search } from '../model';
 /**
  * FoldersApi - axios parameter creator
  * @export
  */
 export declare const FoldersApiAxiosParamCreator: (apsConfiguration?: IApsConfiguration) => {
+    /**
+     * Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint.  BIM 360 and ACC  To access Docs folders using the Data Management API you need to provision your app in the Account Administrator portal. For more details, see the Manage Access to Docs tutorial. The number of subfolder levels is limited to 25. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
+     * @summary Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint
+     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {FolderPayload} [folderPayload] Describe the folder to be created.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createFolder: (accessToken: string, projectId: string, xUserId?: string, folderPayload?: FolderPayload, options?: ApsServiceRequestConfig) => Promise<RequestArgs>;
+    /**
+     * Creates a custom relationship between a folder and another resource within the data domain service (folder, item, or version).
+     * @summary Creates a custom relationship between a folder and another resource within the data
+     * @param {string} folderId The unique identifier of a folder.
+     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {RelationshipRefsPayload} [relationshipRefsPayload] Describe the ref to be created.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createFolderRelationshipsRef: (accessToken: string, folderId: string, projectId: string, xUserId?: string, relationshipRefsPayload?: RelationshipRefsPayload, options?: ApsServiceRequestConfig) => Promise<RequestArgs>;
     /**
      * Returns the folder by ID for any folder within a given project. All folders or sub-folders within a project are associated with their own unique ID, including the root folder.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
      * @summary Returns the folder by ID for any folder within a given project
@@ -115,41 +138,39 @@ export declare const FoldersApiAxiosParamCreator: (apsConfiguration?: IApsConfig
      * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
      * @param {string} folderId The unique identifier of a folder.
      * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {ModifyFolder} [modifyFolder] Describe the folder to be patched.
+     * @param {ModifyFolderPayload} [modifyFolderPayload] Describe the folder to be patched.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    patchFolder: (accessToken: string, projectId: string, folderId: string, xUserId?: string, modifyFolder?: ModifyFolder, options?: ApsServiceRequestConfig) => Promise<RequestArgs>;
-    /**
-     * Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint.  BIM 360 and ACC  To access Docs folders using the Data Management API you need to provision your app in the Account Administrator portal. For more details, see the Manage Access to Docs tutorial. The number of subfolder levels is limited to 25. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {CreateFolder} [createFolder] Describe the folder to be created.
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    postFolder: (accessToken: string, projectId: string, xUserId?: string, createFolder?: CreateFolder, options?: ApsServiceRequestConfig) => Promise<RequestArgs>;
-    /**
-     * Creates a custom relationship between a folder and another resource within the data domain service (folder, item, or version).
-     * @summary Creates a custom relationship between a folder and another resource within the data
-     * @param {string} folderId The unique identifier of a folder.
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {RelationshipRefsRequest} [relationshipRefsRequest] Describe the ref to be created.
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    postFolderRelationshipsRef: (accessToken: string, folderId: string, projectId: string, xUserId?: string, relationshipRefsRequest?: RelationshipRefsRequest, options?: ApsServiceRequestConfig) => Promise<RequestArgs>;
+    patchFolder: (accessToken: string, projectId: string, folderId: string, xUserId?: string, modifyFolderPayload?: ModifyFolderPayload, options?: ApsServiceRequestConfig) => Promise<RequestArgs>;
 };
 /**
  * FoldersApi - functional programming interface
  * @export
  */
 export declare const FoldersApiFp: (sdkManager?: SDKManager) => {
+    /**
+     * Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint.  BIM 360 and ACC  To access Docs folders using the Data Management API you need to provision your app in the Account Administrator portal. For more details, see the Manage Access to Docs tutorial. The number of subfolder levels is limited to 25. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
+     * @summary Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint
+     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {FolderPayload} [folderPayload] Describe the folder to be created.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createFolder(accessToken: string, projectId: string, xUserId?: string, folderPayload?: FolderPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Folder>>;
+    /**
+     * Creates a custom relationship between a folder and another resource within the data domain service (folder, item, or version).
+     * @summary Creates a custom relationship between a folder and another resource within the data
+     * @param {string} folderId The unique identifier of a folder.
+     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {RelationshipRefsPayload} [relationshipRefsPayload] Describe the ref to be created.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createFolderRelationshipsRef(accessToken: string, folderId: string, projectId: string, xUserId?: string, relationshipRefsPayload?: RelationshipRefsPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>>;
     /**
      * Returns the folder by ID for any folder within a given project. All folders or sub-folders within a project are associated with their own unique ID, including the root folder.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
      * @summary Returns the folder by ID for any folder within a given project
@@ -243,32 +264,11 @@ export declare const FoldersApiFp: (sdkManager?: SDKManager) => {
      * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
      * @param {string} folderId The unique identifier of a folder.
      * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {ModifyFolder} [modifyFolder] Describe the folder to be patched.
+     * @param {ModifyFolderPayload} [modifyFolderPayload] Describe the folder to be patched.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    patchFolder(accessToken: string, projectId: string, folderId: string, xUserId?: string, modifyFolder?: ModifyFolder, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Folder>>;
-    /**
-     * Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint.  BIM 360 and ACC  To access Docs folders using the Data Management API you need to provision your app in the Account Administrator portal. For more details, see the Manage Access to Docs tutorial. The number of subfolder levels is limited to 25. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {CreateFolder} [createFolder] Describe the folder to be created.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    postFolder(accessToken: string, projectId: string, xUserId?: string, createFolder?: CreateFolder, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Folder>>;
-    /**
-     * Creates a custom relationship between a folder and another resource within the data domain service (folder, item, or version).
-     * @summary Creates a custom relationship between a folder and another resource within the data
-     * @param {string} folderId The unique identifier of a folder.
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {RelationshipRefsRequest} [relationshipRefsRequest] Describe the ref to be created.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    postFolderRelationshipsRef(accessToken: string, folderId: string, projectId: string, xUserId?: string, relationshipRefsRequest?: RelationshipRefsRequest, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>>;
+    patchFolder(accessToken: string, projectId: string, folderId: string, xUserId?: string, modifyFolderPayload?: ModifyFolderPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Folder>>;
 };
 /**
  * FoldersApi - interface
@@ -276,6 +276,31 @@ export declare const FoldersApiFp: (sdkManager?: SDKManager) => {
  * @interface FoldersApi
  */
 export interface FoldersApiInterface {
+    /**
+     * Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint.  BIM 360 and ACC  To access Docs folders using the Data Management API you need to provision your app in the Account Administrator portal. For more details, see the Manage Access to Docs tutorial. The number of subfolder levels is limited to 25. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
+     * @summary Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint
+     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {FolderPayload} [folderPayload] Describe the folder to be created.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FoldersApiInterface
+     */
+    createFolder(accessToken: string, projectId: string, xUserId?: string, folderPayload?: FolderPayload, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    /**
+     * Creates a custom relationship between a folder and another resource within the data domain service (folder, item, or version).
+     * @summary Creates a custom relationship between a folder and another resource within the data
+     * @param {string} folderId The unique identifier of a folder.
+     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {RelationshipRefsPayload} [relationshipRefsPayload] Describe the ref to be created.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FoldersApiInterface
+     */
+    createFolderRelationshipsRef(accessToken: string, folderId: string, projectId: string, xUserId?: string, relationshipRefsPayload?: RelationshipRefsPayload, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
     /**
      * Returns the folder by ID for any folder within a given project. All folders or sub-folders within a project are associated with their own unique ID, including the root folder.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
      * @summary Returns the folder by ID for any folder within a given project
@@ -383,38 +408,13 @@ export interface FoldersApiInterface {
      * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
      * @param {string} folderId The unique identifier of a folder.
      * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {ModifyFolder} [modifyFolder] Describe the folder to be patched.
+     * @param {ModifyFolderPayload} [modifyFolderPayload] Describe the folder to be patched.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FoldersApiInterface
      */
-    patchFolder(accessToken: string, projectId: string, folderId: string, xUserId?: string, modifyFolder?: ModifyFolder, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
-    /**
-     * Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint.  BIM 360 and ACC  To access Docs folders using the Data Management API you need to provision your app in the Account Administrator portal. For more details, see the Manage Access to Docs tutorial. The number of subfolder levels is limited to 25. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {CreateFolder} [createFolder] Describe the folder to be created.
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof FoldersApiInterface
-     */
-    postFolder(accessToken: string, projectId: string, xUserId?: string, createFolder?: CreateFolder, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
-    /**
-     * Creates a custom relationship between a folder and another resource within the data domain service (folder, item, or version).
-     * @summary Creates a custom relationship between a folder and another resource within the data
-     * @param {string} folderId The unique identifier of a folder.
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {RelationshipRefsRequest} [relationshipRefsRequest] Describe the ref to be created.
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof FoldersApiInterface
-     */
-    postFolderRelationshipsRef(accessToken: string, folderId: string, projectId: string, xUserId?: string, relationshipRefsRequest?: RelationshipRefsRequest, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    patchFolder(accessToken: string, projectId: string, folderId: string, xUserId?: string, modifyFolderPayload?: ModifyFolderPayload, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 }
 /**
  * FoldersApi - object-oriented interface
@@ -425,6 +425,31 @@ export interface FoldersApiInterface {
 export declare class FoldersApi extends BaseAPI implements FoldersApiInterface {
     private logger;
     /**
+     * Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint.  BIM 360 and ACC  To access Docs folders using the Data Management API you need to provision your app in the Account Administrator portal. For more details, see the Manage Access to Docs tutorial. The number of subfolder levels is limited to 25. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
+     * @summary Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint
+     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {FolderPayload} [folderPayload] Describe the folder to be created.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FoldersApi
+     */
+    createFolder(accessToken: string, projectId: string, xUserId?: string, folderPayload?: FolderPayload, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    /**
+     * Creates a custom relationship between a folder and another resource within the data domain service (folder, item, or version).
+     * @summary Creates a custom relationship between a folder and another resource within the data
+     * @param {string} folderId The unique identifier of a folder.
+     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {RelationshipRefsPayload} [relationshipRefsPayload] Describe the ref to be created.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FoldersApi
+     */
+    createFolderRelationshipsRef(accessToken: string, folderId: string, projectId: string, xUserId?: string, relationshipRefsPayload?: RelationshipRefsPayload, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    /**
      * Returns the folder by ID for any folder within a given project. All folders or sub-folders within a project are associated with their own unique ID, including the root folder.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
      * @summary Returns the folder by ID for any folder within a given project
      * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
@@ -531,38 +556,13 @@ export declare class FoldersApi extends BaseAPI implements FoldersApiInterface {
      * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
      * @param {string} folderId The unique identifier of a folder.
      * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {ModifyFolder} [modifyFolder] Describe the folder to be patched.
+     * @param {ModifyFolderPayload} [modifyFolderPayload] Describe the folder to be patched.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FoldersApi
      */
-    patchFolder(accessToken: string, projectId: string, folderId: string, xUserId?: string, modifyFolder?: ModifyFolder, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
-    /**
-     * Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint.  BIM 360 and ACC  To access Docs folders using the Data Management API you need to provision your app in the Account Administrator portal. For more details, see the Manage Access to Docs tutorial. The number of subfolder levels is limited to 25. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {CreateFolder} [createFolder] Describe the folder to be created.
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof FoldersApi
-     */
-    postFolder(accessToken: string, projectId: string, xUserId?: string, createFolder?: CreateFolder, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
-    /**
-     * Creates a custom relationship between a folder and another resource within the data domain service (folder, item, or version).
-     * @summary Creates a custom relationship between a folder and another resource within the data
-     * @param {string} folderId The unique identifier of a folder.
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {RelationshipRefsRequest} [relationshipRefsRequest] Describe the ref to be created.
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof FoldersApi
-     */
-    postFolderRelationshipsRef(accessToken: string, folderId: string, projectId: string, xUserId?: string, relationshipRefsRequest?: RelationshipRefsRequest, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    patchFolder(accessToken: string, projectId: string, folderId: string, xUserId?: string, modifyFolderPayload?: ModifyFolderPayload, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 }
 /**
  * @export

@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 import { JobThumbnailOutputFormatAdvanced } from './job-thumbnail-output-format-advanced';
-
+import { Type } from './type';
 /**
  * 
  * @export
@@ -11,10 +11,10 @@ import { JobThumbnailOutputFormatAdvanced } from './job-thumbnail-output-format-
 export interface JobThumbnailOutputFormat {
     /**
      * 
-     * @type {string}
+     * @type {Type.thumbnail}
      * @memberof JobThumbnailOutputFormat
      */
-    'type'?: string;
+    'type': typeof Type.Thumbnail;
     /**
      * 
      * @type {JobThumbnailOutputFormatAdvanced}

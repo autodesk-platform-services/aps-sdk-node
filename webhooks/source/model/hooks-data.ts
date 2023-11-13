@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HookScope } from './hook-scope';
+import { HookDetailsScope } from './hook-details-scope';
 
 /**
  * 
@@ -83,10 +83,10 @@ export interface HooksData {
     'hookExpiry'?: string;
     /**
      * 
-     * @type {HookScope}
+     * @type {HookDetailsScope}
      * @memberof HooksData
      */
-    'scope'?: HookScope;
+    'scope'?: HookDetailsScope;
     /**
      * 
      * @type {string}

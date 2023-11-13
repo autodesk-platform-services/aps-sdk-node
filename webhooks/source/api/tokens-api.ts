@@ -2,18 +2,65 @@
 /* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "autodesk-sdkmanager";
+import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, WebhooksApiApiError } from '../base';
-import { CreateToken } from '../model';
-import { CreateTokenResponse } from '../model';
-import { GetSystemsSystemEventsEventHooksHookId400Response } from '../model';
+import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, WebhooksApiError } from '../base';
+import { GetHookDetails400Response } from '../model';
+import { Token } from '../model';
+import { TokenPayload } from '../model';
 /**
  * TokensApi - axios parameter creator
  * @export
  */
 export const TokensApiAxiosParamCreator = function (apsConfiguration?: IApsConfiguration) {
     return {
+        /**
+         * Add a new Webhook secret token
+         * @summary Add a new Webhook secret token
+         * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
+         * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence. 
+         * @param {TokenPayload} [tokenPayload] A secret token that is used to generate a hash signature, which is passed along with notification requests to the callback URL
+         * @param accessToken bearer access token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createToken: async (accessToken: string, xAdsRegion?: string, region?: string, tokenPayload?: TokenPayload,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/webhooks/v1/tokens`;
+            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
+            let baseOptions;
+            if (apsConfiguration) {
+                baseOptions = apsConfiguration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            await setBearerAuthToObject(localVarHeaderParameter, accessToken)
+
+            if (region !== undefined) {
+                localVarQueryParameter['region'] = region;
+            }
+
+            if (xAdsRegion != null) {
+                localVarHeaderParameter['x-ads-region'] = String(xAdsRegion);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/WEBHOOKS/TypeScript/1.0.0';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(tokenPayload, localVarRequestOptions, apsConfiguration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * Delete a Webhook secret token
          * @summary Delete a Webhook secret token
@@ -23,8 +70,8 @@ export const TokensApiAxiosParamCreator = function (apsConfiguration?: IApsConfi
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteTokensme: async (accessToken: string, xAdsRegion?: string, region?: string,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/tokens/@me`;
+        deleteToken: async (accessToken: string, xAdsRegion?: string, region?: string,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/webhooks/v1/tokens/@me`;
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
             if (apsConfiguration) {
@@ -57,64 +104,17 @@ export const TokensApiAxiosParamCreator = function (apsConfiguration?: IApsConfi
             };
         },
         /**
-         * Add a new Webhook secret token
-         * @summary Add a new Webhook secret token
-         * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
-         * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence. 
-         * @param {CreateToken} [createToken] A secret token that is used to generate a hash signature, which is passed along with notification requests to the callback URL
-         * @param accessToken bearer access token
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postTokens: async (accessToken: string, xAdsRegion?: string, region?: string, createToken?: CreateToken,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/tokens`;
-            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
-            let baseOptions;
-            if (apsConfiguration) {
-                baseOptions = apsConfiguration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            await setBearerAuthToObject(localVarHeaderParameter, accessToken)
-
-            if (region !== undefined) {
-                localVarQueryParameter['region'] = region;
-            }
-
-            if (xAdsRegion != null) {
-                localVarHeaderParameter['x-ads-region'] = String(xAdsRegion);
-            }
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/WEBHOOKS-API/TypeScript/1.0.0';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createToken, localVarRequestOptions, apsConfiguration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * Update an existing Webhook secret token
          * @summary Update an existing Webhook secret token
          * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
          * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence. 
-         * @param {CreateToken} [createToken] 
+         * @param {TokenPayload} [tokenPayload] 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        putTokensme: async (accessToken: string, xAdsRegion?: string, region?: string, createToken?: CreateToken,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/tokens/@me`;
+        putToken: async (accessToken: string, xAdsRegion?: string, region?: string, tokenPayload?: TokenPayload,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/webhooks/v1/tokens/@me`;
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
             if (apsConfiguration) {
@@ -138,12 +138,12 @@ export const TokensApiAxiosParamCreator = function (apsConfiguration?: IApsConfi
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/WEBHOOKS-API/TypeScript/1.0.0';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/WEBHOOKS/TypeScript/1.0.0';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createToken, localVarRequestOptions, apsConfiguration)
+            localVarRequestOptions.data = serializeDataIfNeeded(tokenPayload, localVarRequestOptions, apsConfiguration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -161,6 +161,19 @@ export const TokensApiFp = function(sdkManager?: SDKManager) {
     const localVarAxiosParamCreator = TokensApiAxiosParamCreator(sdkManager.apsconfiguration)
     return {
         /**
+         * Add a new Webhook secret token
+         * @summary Add a new Webhook secret token
+         * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
+         * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence. 
+         * @param {TokenPayload} [tokenPayload] A secret token that is used to generate a hash signature, which is passed along with notification requests to the callback URL
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createToken(accessToken: string, xAdsRegion?: string, region?: string, tokenPayload?: TokenPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Token>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createToken(accessToken, xAdsRegion, region, tokenPayload,  options);
+            return createRequestFunction(localVarAxiosArgs, sdkManager);
+        },
+        /**
          * Delete a Webhook secret token
          * @summary Delete a Webhook secret token
          * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
@@ -168,21 +181,8 @@ export const TokensApiFp = function(sdkManager?: SDKManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteTokensme(accessToken: string, xAdsRegion?: string, region?: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteTokensme(accessToken, xAdsRegion, region,  options);
-            return createRequestFunction(localVarAxiosArgs, sdkManager);
-        },
-        /**
-         * Add a new Webhook secret token
-         * @summary Add a new Webhook secret token
-         * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
-         * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence. 
-         * @param {CreateToken} [createToken] A secret token that is used to generate a hash signature, which is passed along with notification requests to the callback URL
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async postTokens(accessToken: string, xAdsRegion?: string, region?: string, createToken?: CreateToken, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateTokenResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.postTokens(accessToken, xAdsRegion, region, createToken,  options);
+        async deleteToken(accessToken: string, xAdsRegion?: string, region?: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteToken(accessToken, xAdsRegion, region,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
@@ -190,12 +190,12 @@ export const TokensApiFp = function(sdkManager?: SDKManager) {
          * @summary Update an existing Webhook secret token
          * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
          * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence. 
-         * @param {CreateToken} [createToken] 
+         * @param {TokenPayload} [tokenPayload] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async putTokensme(accessToken: string, xAdsRegion?: string, region?: string, createToken?: CreateToken, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.putTokensme(accessToken, xAdsRegion, region, createToken,  options);
+        async putToken(accessToken: string, xAdsRegion?: string, region?: string, tokenPayload?: TokenPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.putToken(accessToken, xAdsRegion, region, tokenPayload,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
     }
@@ -208,6 +208,19 @@ export const TokensApiFp = function(sdkManager?: SDKManager) {
  */
 export interface TokensApiInterface {
     /**
+     * Add a new Webhook secret token
+     * @summary Add a new Webhook secret token
+     * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
+     * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence. 
+     * @param {TokenPayload} [tokenPayload] A secret token that is used to generate a hash signature, which is passed along with notification requests to the callback URL
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokensApiInterface
+     */
+    createToken(accessToken: string,xAdsRegion?: string, region?: string, tokenPayload?: TokenPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+
+    /**
      * Delete a Webhook secret token
      * @summary Delete a Webhook secret token
      * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
@@ -217,33 +230,20 @@ export interface TokensApiInterface {
      * @throws {RequiredError}
      * @memberof TokensApiInterface
      */
-    deleteTokensme(accessToken: string,xAdsRegion?: string, region?: string,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
-
-    /**
-     * Add a new Webhook secret token
-     * @summary Add a new Webhook secret token
-     * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
-     * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence. 
-     * @param {CreateToken} [createToken] A secret token that is used to generate a hash signature, which is passed along with notification requests to the callback URL
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TokensApiInterface
-     */
-    postTokens(accessToken: string,xAdsRegion?: string, region?: string, createToken?: CreateToken,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    deleteToken(accessToken: string,xAdsRegion?: string, region?: string,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Update an existing Webhook secret token
      * @summary Update an existing Webhook secret token
      * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
      * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence. 
-     * @param {CreateToken} [createToken] 
+     * @param {TokenPayload} [tokenPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TokensApiInterface
      */
-    putTokensme(accessToken: string,xAdsRegion?: string, region?: string, createToken?: CreateToken,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    putToken(accessToken: string,xAdsRegion?: string, region?: string, tokenPayload?: TokenPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
 }
 
@@ -256,6 +256,36 @@ export interface TokensApiInterface {
 export class TokensApi extends BaseAPI implements TokensApiInterface {
     private logger = this.sdkManager.logger;
     /**
+     * Add a new Webhook secret token
+     * @summary Add a new Webhook secret token
+     * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
+     * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence. 
+     * @param {TokenPayload} [tokenPayload] A secret token that is used to generate a hash signature, which is passed along with notification requests to the callback URL
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokensApi
+     */
+    public async createToken(accessToken: string, xAdsRegion?: string, region?: string, tokenPayload?: TokenPayload, options?: ApsServiceRequestConfig) {
+      this.logger.logInfo("Entered into createToken ");
+      try {
+        const request =  await TokensApiFp(this.sdkManager).createToken(accessToken, xAdsRegion, region, tokenPayload,  options);
+        const response = await request(this.axios);
+        this.logger.logInfo(`createToken Request completed successfully with status code: ${response.status}`);
+        return new ApiResponse(response,response.data);
+      } catch (error) {
+        if (error.response) {
+            this.logger.logError(`createToken Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+            throw new WebhooksApiError(`createToken Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+        } else if (error.request) {
+            this.logger.logError(`createToken Request failed with no response received: ${error.request}`);
+            throw new WebhooksApiError(`createToken Request failed with no response received: ${error.request}`, error);
+        }
+        throw error;
+      }
+    }
+
+    /**
      * Delete a Webhook secret token
      * @summary Delete a Webhook secret token
      * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
@@ -265,50 +295,20 @@ export class TokensApi extends BaseAPI implements TokensApiInterface {
      * @throws {RequiredError}
      * @memberof TokensApi
      */
-    public async deleteTokensme(accessToken: string, xAdsRegion?: string, region?: string, options?: ApsServiceRequestConfig) {
-      this.logger.logInfo("Entered into deleteTokensme ");
+    public async deleteToken(accessToken: string, xAdsRegion?: string, region?: string, options?: ApsServiceRequestConfig) {
+      this.logger.logInfo("Entered into deleteToken ");
       try {
-        const request =  await TokensApiFp(this.sdkManager).deleteTokensme(accessToken, xAdsRegion, region,  options);
+        const request =  await TokensApiFp(this.sdkManager).deleteToken(accessToken, xAdsRegion, region,  options);
         const response = await request(this.axios);
-        this.logger.logInfo(`deleteTokensme Request completed successfully with status code: ${response.status}`);
+        this.logger.logInfo(`deleteToken Request completed successfully with status code: ${response.status}`);
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`deleteTokensme Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new WebhooksApiApiError(`deleteTokensme Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            this.logger.logError(`deleteToken Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+            throw new WebhooksApiError(`deleteToken Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
-            this.logger.logError(`deleteTokensme Request failed with no response received: ${error.request}`);
-            throw new WebhooksApiApiError(`deleteTokensme Request failed with no response received: ${error.request}`, error);
-        }
-        throw error;
-      }
-    }
-
-    /**
-     * Add a new Webhook secret token
-     * @summary Add a new Webhook secret token
-     * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
-     * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence. 
-     * @param {CreateToken} [createToken] A secret token that is used to generate a hash signature, which is passed along with notification requests to the callback URL
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TokensApi
-     */
-    public async postTokens(accessToken: string, xAdsRegion?: string, region?: string, createToken?: CreateToken, options?: ApsServiceRequestConfig) {
-      this.logger.logInfo("Entered into postTokens ");
-      try {
-        const request =  await TokensApiFp(this.sdkManager).postTokens(accessToken, xAdsRegion, region, createToken,  options);
-        const response = await request(this.axios);
-        this.logger.logInfo(`postTokens Request completed successfully with status code: ${response.status}`);
-        return new ApiResponse(response,response.data);
-      } catch (error) {
-        if (error.response) {
-            this.logger.logError(`postTokens Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new WebhooksApiApiError(`postTokens Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
-        } else if (error.request) {
-            this.logger.logError(`postTokens Request failed with no response received: ${error.request}`);
-            throw new WebhooksApiApiError(`postTokens Request failed with no response received: ${error.request}`, error);
+            this.logger.logError(`deleteToken Request failed with no response received: ${error.request}`);
+            throw new WebhooksApiError(`deleteToken Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -319,26 +319,26 @@ export class TokensApi extends BaseAPI implements TokensApiInterface {
      * @summary Update an existing Webhook secret token
      * @param {string} [xAdsRegion] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.
      * @param {string} [region] Specifies the geographical location (region) of the server that the request is executed on. Supported values are: &#x60;&#x60;EMEA&#x60;&#x60;, &#x60;&#x60;US&#x60;&#x60;. Default is &#x60;&#x60;US&#x60;&#x60;.  The &#x60;&#x60;x-ads-region&#x60;&#x60; header also specifies the region. If you specify both, &#x60;&#x60;x-ads-region&#x60;&#x60; has precedence. 
-     * @param {CreateToken} [createToken] 
+     * @param {TokenPayload} [tokenPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TokensApi
      */
-    public async putTokensme(accessToken: string, xAdsRegion?: string, region?: string, createToken?: CreateToken, options?: ApsServiceRequestConfig) {
-      this.logger.logInfo("Entered into putTokensme ");
+    public async putToken(accessToken: string, xAdsRegion?: string, region?: string, tokenPayload?: TokenPayload, options?: ApsServiceRequestConfig) {
+      this.logger.logInfo("Entered into putToken ");
       try {
-        const request =  await TokensApiFp(this.sdkManager).putTokensme(accessToken, xAdsRegion, region, createToken,  options);
+        const request =  await TokensApiFp(this.sdkManager).putToken(accessToken, xAdsRegion, region, tokenPayload,  options);
         const response = await request(this.axios);
-        this.logger.logInfo(`putTokensme Request completed successfully with status code: ${response.status}`);
+        this.logger.logInfo(`putToken Request completed successfully with status code: ${response.status}`);
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`putTokensme Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new WebhooksApiApiError(`putTokensme Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            this.logger.logError(`putToken Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+            throw new WebhooksApiError(`putToken Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
-            this.logger.logError(`putTokensme Request failed with no response received: ${error.request}`);
-            throw new WebhooksApiApiError(`putTokensme Request failed with no response received: ${error.request}`, error);
+            this.logger.logError(`putToken Request failed with no response received: ${error.request}`);
+            throw new WebhooksApiError(`putToken Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }

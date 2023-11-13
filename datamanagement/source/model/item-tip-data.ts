@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { ItemTipDataAttributes } from './item-tip-data-attributes';
 import { ItemTipDataRelationships } from './item-tip-data-relationships';
 import { ProjectsDataLinks } from './projects-data-links';
-import { RefsDataAttributes } from './refs-data-attributes';
 
 /**
  * 
@@ -25,10 +25,10 @@ export interface ItemTipData {
     'id'?: string;
     /**
      * 
-     * @type {RefsDataAttributes}
+     * @type {ItemTipDataAttributes}
      * @memberof ItemTipData
      */
-    'attributes'?: RefsDataAttributes;
+    'attributes'?: ItemTipDataAttributes;
     /**
      * 
      * @type {ProjectsDataLinks}

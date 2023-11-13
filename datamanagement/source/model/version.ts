@@ -3,10 +3,12 @@
 
 import { HubsJsonapi } from './hubs-jsonapi';
 import { HubsLinks } from './hubs-links';
-import { ItemTipData } from './item-tip-data';
+import { VersionData } from './version-data';
+import { VersionIncluded } from './version-included';
+import { VersionMeta } from './version-meta';
 
 /**
- * Successful retrieval of a specific version.
+ * Successful creation of a version.
  * @export
  * @interface Version
  */
@@ -25,9 +27,21 @@ export interface Version {
     'links'?: HubsLinks;
     /**
      * 
-     * @type {ItemTipData}
+     * @type {VersionData}
      * @memberof Version
      */
-    'data'?: ItemTipData;
+    'data'?: VersionData;
+    /**
+     * 
+     * @type {Set<VersionIncluded>}
+     * @memberof Version
+     */
+    'included'?: Set<VersionIncluded>;
+    /**
+     * 
+     * @type {VersionMeta}
+     * @memberof Version
+     */
+    'meta'?: VersionMeta;
 }
 

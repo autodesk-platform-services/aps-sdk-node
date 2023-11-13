@@ -30,8 +30,8 @@ const InformationalApiAxiosParamCreator = function (apsConfiguration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        formats: (accessToken, ifModifiedSince, acceptEncoding, options = {}) => __awaiter(this, void 0, void 0, function* () {
-            const localVarPath = `/designdata/formats`;
+        getFormats: (accessToken, ifModifiedSince, acceptEncoding, options = {}) => __awaiter(this, void 0, void 0, function* () {
+            const localVarPath = `/modelderivative/v2/designdata/formats`;
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
             if (apsConfiguration) {
@@ -73,9 +73,9 @@ const InformationalApiFp = function (sdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        formats(accessToken, ifModifiedSince, acceptEncoding, options) {
+        getFormats(accessToken, ifModifiedSince, acceptEncoding, options) {
             return __awaiter(this, void 0, void 0, function* () {
-                const localVarAxiosArgs = yield localVarAxiosParamCreator.formats(accessToken, ifModifiedSince, acceptEncoding, options);
+                const localVarAxiosArgs = yield localVarAxiosParamCreator.getFormats(accessToken, ifModifiedSince, acceptEncoding, options);
                 return (0, common_1.createRequestFunction)(localVarAxiosArgs, sdkManager);
             });
         },
@@ -103,23 +103,23 @@ class InformationalApi extends base_1.BaseAPI {
      * @throws {RequiredError}
      * @memberof InformationalApi
      */
-    formats(accessToken, ifModifiedSince, acceptEncoding, options) {
+    getFormats(accessToken, ifModifiedSince, acceptEncoding, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.logger.logInfo("Entered into formats ");
+            this.logger.logInfo("Entered into getFormats ");
             try {
-                const request = yield (0, exports.InformationalApiFp)(this.sdkManager).formats(accessToken, ifModifiedSince, acceptEncoding, options);
+                const request = yield (0, exports.InformationalApiFp)(this.sdkManager).getFormats(accessToken, ifModifiedSince, acceptEncoding, options);
                 const response = yield request(this.axios);
-                this.logger.logInfo(`formats Request completed successfully with status code: ${response.status}`);
+                this.logger.logInfo(`getFormats Request completed successfully with status code: ${response.status}`);
                 return new autodesk_sdkmanager_1.ApiResponse(response, response.data);
             }
             catch (error) {
                 if (error.response) {
-                    this.logger.logError(`formats Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.ModelDerivativeApiApiError(`formats Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    this.logger.logError(`getFormats Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+                    throw new base_1.ModelDerivativeApiError(`getFormats Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
-                    this.logger.logError(`formats Request failed with no response received: ${error.request}`);
-                    throw new base_1.ModelDerivativeApiApiError(`formats Request failed with no response received: ${error.request}`, error);
+                    this.logger.logError(`getFormats Request failed with no response received: ${error.request}`);
+                    throw new base_1.ModelDerivativeApiError(`getFormats Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
