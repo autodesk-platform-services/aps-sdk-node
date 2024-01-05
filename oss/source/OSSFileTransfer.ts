@@ -117,10 +117,17 @@ namespace Autodesk.Oss{
       }
       return numberOfChunks;
     }
-    
-    
+    private async ValidateFileSize( requestId : string,sourceToUpload:string){
+        var sizeAllowed = await this.isFileSizeAllowed(sourceToUpload);
+        if (!sizeAllowed)
+        {
+            throw new OssApiError(`${requestId} File size too big to upload. Currently max file size allowed is ${Number(this._maxChunkCountAllowed) *Number( Constants.ChunkSize)} bytes`);
+        }
+    }
+ 
 
   }
+
 }
 
 
