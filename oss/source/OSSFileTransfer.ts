@@ -3,6 +3,7 @@ import {IFileTransferConfigurations } from './FileTransferConfigurations';
 import { OSSApi } from "./api";
 import {Signeds3uploadResponse } from "./model";
 import { OssApiError } from "./base";
+import * as fs from 'fs';
 
 
 namespace Autodesk.Oss{
@@ -12,8 +13,6 @@ namespace Autodesk.Oss{
   
   }
   class Constants{
-
-
       public static readonly  MaxRetry:number = 5;
       public static readonly ChunkSize:bigint = BigInt(5* 1024 * 1024);
       public static readonly BatchSize:number = 25;  
@@ -48,8 +47,36 @@ namespace Autodesk.Oss{
         this._authentication = authentication;
         this.logger = sdkManager.logger;
       }
-
-      private async GetUploadUrlsWithRetry(bucketKey :string ,objectKey:string ,numberOfChunks:number,chunksUploaded:number,uploadKey:string, accessToken :string  ,projectScope:string ,requestId:string) : Promise<Signeds3uploadResponse|string>{
+      
+    private async isFileSizeAllowed(filePath:string):Promise<boolean>{
+        return new Promise<boolean>((resolve,reject)=>{
+          fs.open(filePath, 'r' ,(err,fd)=>{
+            if(err){
+              fs.close(fd,()=>{});
+              reject(false);
+              return ;
+            }
+            fs.fstat(fd,(err,stats)=>{
+              if(err){
+                fs.close(fd,()=>{});
+                reject(false);
+                return;
+              }
+              const fileSize: bigint= BigInt(stats.size);
+              const numberOfChunks:number = this.CalculateNumberOfChunks(BigInt(fileSize));
+              if(numberOfChunks>this._maxChunkCountAllowed){
+                fs.close(fd,()=>{});
+                reject(false);
+                return;
+              }
+              fs.close(fd,()=>{});
+              resolve(true);
+            });
+          });
+        });
+        
+      }
+    private async GetUploadUrlsWithRetry(bucketKey :string ,objectKey:string ,numberOfChunks:number,chunksUploaded:number,uploadKey:string, accessToken :string  ,projectScope:string ,requestId:string) : Promise<Signeds3uploadResponse|string>{
         
         var attemptcount:number = 0;
         var parts = Math.min(numberOfChunks-chunksUploaded,Constants.BatchSize);
@@ -74,13 +101,26 @@ namespace Autodesk.Oss{
               this.logger.logInfo(`${requestId} Error: ${e.message}`);
               throw e;
             }
-            
           }
-
         } while (attemptcount<this._maxRetryOnTokenExpiry);
-        
         throw new OssApiError(`${requestId} Error: Fail getting upload urls after maximum retry`);
     }
+    private CalculateNumberOfChunks(fileSize: BigInt): number {
+      if(fileSize==BigInt(0)){
+        return 1;
+      }
+      var numberOfChunks: number = Number(BigInt(Number(fileSize)) / BigInt(Number(Constants.ChunkSize)));
+     
+      if(Number(fileSize) % Number(Constants.ChunkSize)!=0){
+
+        numberOfChunks++;
+      }
+      return numberOfChunks;
+    }
+    
+    
 
   }
 }
+
+
