@@ -1,7 +1,7 @@
 import { AdskEnvironment, IAuthClient, SdkManagerBuilder ,SDKManager } from "autodesk-sdkmanager";
 import {IFileTransferConfigurations } from './FileTransferConfigurations'; 
 import { OSSApi } from "./api";
-import {Signeds3uploadResponse } from "./model";
+import {ObjectStatusEnum, Signeds3downloadResponse, Signeds3uploadResponse } from "./model";
 import { OssApiError } from "./base";
 import * as fs from 'fs';
 
@@ -140,6 +140,38 @@ namespace Autodesk.Oss{
     private GenerateSdkRequestId(bucketKey:string,objectKey:string):string
     {
         return bucketKey + "/" + objectKey;
+    }
+    private async GetS3SignedDownloadUrlWithRetry(bucketKey :string,objectKey:string,accessToken:string,requestId:string,projectScope:string):Promise<Signeds3downloadResponse>{
+      var attemptCount: number = 0;
+      do{
+        this.logger.logInfo(`${requestId} Get signed URL to download directly from S3 attempt: ${attemptCount}`);
+
+        try {
+          var objectStatusEnumString:string=ObjectStatusEnum.Complete;
+          var response= await this._ossApi.signedS3Download(bucketKey,objectKey,accessToken,projectScope);
+          if (response.content.status != objectStatusEnumString)
+          {
+            this.logger.logError(`${requestId} File not available for download yet.`);
+            throw new OssApiError(`${requestId} File not available for download yet.`);
+          }
+
+        } catch (error) {
+          if (error.Message.Contains(this._accessTokenExpiredMessage))
+          {
+              attemptCount++;
+              accessToken = this._authentication.getUpdatedAccessToken();
+              this.logger.logInfo(`${requestId} Token expired. Trying to refresh`);
+          }
+          else
+          {
+              this.logger.logError(`${requestId} Error: ${error.Message}`);
+              throw error;
+          }
+        }
+
+      } while(attemptCount<this._maxRetryOnTokenExpiry);
+  
+      throw new OssApiError(`${requestId} Error: Fail getting upload urls after maximum retry`);
     }
   }
 }
