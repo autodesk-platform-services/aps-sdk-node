@@ -128,7 +128,8 @@ namespace Autodesk.Oss{
         }
     }
     private HandleRequestId(parentRequestId :string ,bucketKey:string ,objectKey:string):string{
-      const requestId :string= parentRequestId && parentRequestId.trim()!=""?parentRequestId:String(Math.random());
+      var requestId :string= parentRequestId && parentRequestId.trim()!=""?parentRequestId:String(Math.random());
+      requestId = requestId + ":" + this.GenerateSdkRequestId(bucketKey, objectKey);
       const localVarHeaderParameter = {} as any;
       localVarHeaderParameter['x-ads-request-id'] = requestId;
       const localVarRequestOptions={} as any;
@@ -136,6 +137,10 @@ namespace Autodesk.Oss{
       createRequestFunction(localVarRequestOptions, this.sdkManager);
       return requestId;
     } 
+    private GenerateSdkRequestId(bucketKey:string,objectKey:string):string
+    {
+        return bucketKey + "/" + objectKey;
+    }
   }
 }
 
