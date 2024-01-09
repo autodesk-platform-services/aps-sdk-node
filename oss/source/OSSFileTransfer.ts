@@ -5,6 +5,8 @@ import {Signeds3uploadResponse } from "./model";
 import { OssApiError } from "./base";
 import * as fs from 'fs';
 
+import { createRequestFunction } from "./common";
+
 
 namespace Autodesk.Oss{
 
@@ -26,6 +28,7 @@ namespace Autodesk.Oss{
       private _maxRetryOnTokenExpiry: number;
       private _maxChunkCountAllowed: number;
       private _maxRetryOnUrlExpiry: number;
+      private sdkManager: SDKManager;
       private logger;
 
       private readonly _accessTokenExpiredMessage: string = 'Access token provided is invalid or expired.';
@@ -37,15 +40,15 @@ namespace Autodesk.Oss{
         adskEnvironment: AdskEnvironment = AdskEnvironment.Prd,     
       ) {
         
-        const sdkManager = SdkManagerBuilder
+        this.sdkManager = SdkManagerBuilder
           .Create()
           .build();
-        this._ossApi = new OSSApi(sdkManager);
+        this._ossApi = new OSSApi(this.sdkManager);
         this._maxChunkCountAllowed = this._configuration.GetMaxChunkCountAllowed();
         this._maxRetryOnUrlExpiry = this._configuration.GetMaxRetryOnUrlExpiry();
         this._maxRetryOnTokenExpiry = this._configuration.GetMaxRetryOnTokenExpiry();
         this._authentication = authentication;
-        this.logger = sdkManager.logger;
+        this.logger = this.sdkManager.logger;
       }
       
     private async isFileSizeAllowed(filePath:string):Promise<boolean>{
@@ -124,10 +127,16 @@ namespace Autodesk.Oss{
             throw new OssApiError(`${requestId} File size too big to upload. Currently max file size allowed is ${Number(this._maxChunkCountAllowed) *Number( Constants.ChunkSize)} bytes`);
         }
     }
- 
-
+    private HandleRequestId(parentRequestId :string ,bucketKey:string ,objectKey:string):string{
+      const requestId :string= parentRequestId && parentRequestId.trim()!=""?parentRequestId:String(Math.random());
+      const localVarHeaderParameter = {} as any;
+      localVarHeaderParameter['x-ads-request-id'] = requestId;
+      const localVarRequestOptions={} as any;
+      localVarRequestOptions.headers={...localVarHeaderParameter};
+      createRequestFunction(localVarRequestOptions, this.sdkManager);
+      return requestId;
+    } 
   }
-
 }
 
 
