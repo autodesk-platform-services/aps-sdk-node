@@ -1,4 +1,4 @@
-import { AdskEnvironment, IAuthClient, SdkManagerBuilder ,SDKManager, ApiResponse, ApsServiceRequestConfig,IApsConfiguration, ApsConfiguration } from "autodesk-sdkmanager";
+import { AdskEnvironment, IAuthClient, SdkManagerBuilder ,SDKManager, ApiResponse, ApsServiceRequestConfig,IApsConfiguration, ApsConfiguration } from "@aps_sdk/autodesk-sdkmanager";
 import {IFileTransferConfigurations } from './FileTransferConfigurations'; 
 import { OSSApi } from "../api";
 import {Completes3uploadBody, ObjectStatusEnum, Signeds3downloadResponse, Signeds3uploadResponse } from "../model";
