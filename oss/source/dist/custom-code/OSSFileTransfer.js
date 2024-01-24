@@ -10,12 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OSSFileTransfer = void 0;
-const autodesk_sdkmanager_1 = require("@aps_sdk/autodesk-sdkmanager");
 const api_1 = require("../api");
 const model_1 = require("../model");
 const base_1 = require("../base");
 const common_1 = require("../common");
-const base_2 = require("../base");
 const fs_1 = require("fs");
 const axios_1 = require("axios");
 class Constants {
@@ -23,28 +21,23 @@ class Constants {
 Constants.MaxRetry = 5;
 Constants.ChunkSize = 5 * 1024 * 1024;
 Constants.BatchSize = 25;
-class OSSFileTransfer extends base_2.BaseAPI {
-    constructor(configuration, 
-    // authentication: IAuthClient,
-    adskEnvironment = autodesk_sdkmanager_1.AdskEnvironment.Prd) {
-        super();
-        this._accessTokenExpiredMessage = 'Access token provided is invalid or expired.';
-        this._forbiddenMessage = '403 (Forbidden)';
-        this.sdkManager = autodesk_sdkmanager_1.SdkManagerBuilder
-            .Create()
-            .build();
-        this._configuration = configuration;
-        this._ossApi = new api_1.OSSApi(this.sdkManager);
-        this._maxChunkCountAllowed = this._configuration.GetMaxChunkCountAllowed();
-        this._maxRetryOnUrlExpiry = this._configuration.GetMaxRetryOnUrlExpiry();
-        this._maxRetryOnTokenExpiry = this._configuration.GetMaxRetryOnTokenExpiry();
+class OSSFileTransfer {
+    constructor(configuration, sdkmanager) {
+        this.accessTokenExpiredMessage = 'Access token provided is invalid or expired.';
+        this.forbiddenMessage = '403 (Forbidden)';
+        this.sdkManager = sdkmanager;
+        this.configuration = configuration;
+        this.ossApi = new api_1.OSSApi(this.sdkManager);
+        this.maxChunkCountAllowed = this.configuration.GetMaxChunkCountAllowed();
+        this.maxRetryOnUrlExpiry = this.configuration.GetMaxRetryOnUrlExpiry();
+        this.maxRetryOnTokenExpiry = this.configuration.GetMaxRetryOnTokenExpiry();
         // this._authentication = authentication;
         this.logger = this.sdkManager.logger;
     }
     Upload(bucketKey, objectKey, sourceToUpload, accessToken, cancellationToken, projectScope = '', requestIdPrefix = '', onProgress) {
         return __awaiter(this, void 0, void 0, function* () {
             const requestId = yield this.HandleRequestId(requestIdPrefix, bucketKey, objectKey);
-            const retryCount = this._configuration.GetRetryCount();
+            const retryCount = this.configuration.GetRetryCount();
             this.logger.logDebug(`${requestId} Config retry setting was: ${retryCount}`);
             yield this.ValidateFileSize(requestId, sourceToUpload);
             this.ValidateProjectScopeName(requestId, projectScope);
@@ -79,7 +72,7 @@ class OSSFileTransfer extends base_2.BaseAPI {
                         var responseBuffer = yield this.UploadToURL(currentUrl, fileBuffer, accessToken);
                         var statusCode = responseBuffer.status;
                         //Httpstatus Code Forbiden is deprecated so uing 403 
-                        if (statusCode === 403 && retryUrlExpiryCount === this._maxRetryOnUrlExpiry) {
+                        if (statusCode === 403 && retryUrlExpiryCount === this.maxRetryOnUrlExpiry) {
                             this.logger.logInfo(`${requestId} URL can not be refreshed.`);
                             throw new base_1.OssApiError(`${statusCode} URL can not be refreshed`);
                         }
@@ -104,7 +97,7 @@ class OSSFileTransfer extends base_2.BaseAPI {
                 onProgress === null || onProgress === void 0 ? void 0 : onProgress(percentCompleted);
                 this.logger.logInfo(`${requestId} Number of chunks uploaded : ${chunksUploaded}`);
             }
-            var completeResponse = yield this._ossApi.completeSignedS3Upload(accessToken, bucketKey, objectKey, "application/json", {
+            var completeResponse = yield this.ossApi.completeSignedS3Upload(accessToken, bucketKey, objectKey, "application/json", {
                 uploadKey: uploadKey
             });
             onProgress === null || onProgress === void 0 ? void 0 : onProgress(100);
@@ -146,7 +139,7 @@ class OSSFileTransfer extends base_2.BaseAPI {
                     break;
                 }
                 var attemptCount = 0;
-                while (attemptCount < this._maxRetryOnUrlExpiry) {
+                while (attemptCount < this.maxRetryOnUrlExpiry) {
                     try {
                         attemptCount++;
                         this.logger.logInfo(`${requestId} Downloading file range : ${start - end}`);
@@ -168,7 +161,7 @@ class OSSFileTransfer extends base_2.BaseAPI {
         return __awaiter(this, void 0, void 0, function* () {
             const fileSize = file.length;
             const numberOfChunks = this.CalculateNumberOfChunks(fileSize);
-            if (numberOfChunks > this._maxChunkCountAllowed) {
+            if (numberOfChunks > this.maxChunkCountAllowed) {
                 return false;
             }
             return true;
@@ -186,13 +179,13 @@ class OSSFileTransfer extends base_2.BaseAPI {
             do {
                 this.logger.logInfo(`${requestId} Refreshing URL attempt:${attemptcount}.`);
                 try {
-                    var response = yield this._ossApi.signedS3Upload(accessToken, bucketKey, objectKey, projectScope, parts, firstPart, uploadKey);
+                    var response = yield this.ossApi.signedS3Upload(accessToken, bucketKey, objectKey, projectScope, parts, firstPart, uploadKey);
                     return ([response.content, accessToken]);
                 }
                 catch (e) {
-                    if (e.message.includes(this._accessTokenExpiredMessage)) {
+                    if (e.message.includes(this.accessTokenExpiredMessage)) {
                         attemptcount++;
-                        accessToken = this._authentication.getUpdatedAccessToken();
+                        accessToken = this.authentication.getUpdatedAccessToken();
                         this.logger.logInfo(`${requestId} Token expired. Trying to refresh`);
                     }
                     else {
@@ -200,7 +193,7 @@ class OSSFileTransfer extends base_2.BaseAPI {
                         throw e;
                     }
                 }
-            } while (attemptcount < this._maxRetryOnTokenExpiry);
+            } while (attemptcount < this.maxRetryOnTokenExpiry);
             throw new base_1.OssApiError(`${requestId} Error: Fail getting upload urls after maximum retry`);
         });
     }
@@ -218,7 +211,7 @@ class OSSFileTransfer extends base_2.BaseAPI {
         return __awaiter(this, void 0, void 0, function* () {
             var sizeAllowed = yield this.isFileSizeAllowed(sourceToUpload);
             if (!sizeAllowed) {
-                throw new base_1.OssApiError(`${requestId} File size too big to upload. Currently max file size allowed is ${Number(this._maxChunkCountAllowed) * Number(Constants.ChunkSize)} bytes`);
+                throw new base_1.OssApiError(`${requestId} File size too big to upload. Currently max file size allowed is ${Number(this.maxChunkCountAllowed) * Number(Constants.ChunkSize)} bytes`);
             }
         });
     }
@@ -253,7 +246,7 @@ class OSSFileTransfer extends base_2.BaseAPI {
                 this.logger.logInfo(`${requestId} Get signed URL to download directly from S3 attempt: ${attemptCount}`);
                 try {
                     var objectStatusEnumString = model_1.ObjectStatusEnum.Complete;
-                    var response = yield this._ossApi.signedS3Download(accessToken, bucketKey, objectKey, projectScope);
+                    var response = yield this.ossApi.signedS3Download(accessToken, bucketKey, objectKey, projectScope);
                     if (response.content.status != objectStatusEnumString) {
                         this.logger.logError(`${requestId} File not available for download yet.`);
                         throw new base_1.OssApiError(`${requestId} File not available for download yet.`);
@@ -261,9 +254,9 @@ class OSSFileTransfer extends base_2.BaseAPI {
                     return response.content;
                 }
                 catch (error) {
-                    if (error.Message.Contains(this._accessTokenExpiredMessage)) {
+                    if (error.Message.Contains(this.accessTokenExpiredMessage)) {
                         attemptCount++;
-                        accessToken = this._authentication.getUpdatedAccessToken();
+                        accessToken = this.authentication.getUpdatedAccessToken();
                         this.logger.logInfo(`${requestId} Token expired. Trying to refresh`);
                     }
                     else {
@@ -271,7 +264,7 @@ class OSSFileTransfer extends base_2.BaseAPI {
                         throw error;
                     }
                 }
-            } while (attemptCount < this._maxRetryOnTokenExpiry);
+            } while (attemptCount < this.maxRetryOnTokenExpiry);
             throw new base_1.OssApiError(`${requestId} Error: Fail getting upload urls after maximum retry`);
         });
     }

@@ -14,7 +14,7 @@ import * as fs from "fs";
 export class OssClient {
     constructor(sdkManager) {
         this.ossApi = new OSSApi(sdkManager);
-        this.ossFileTransfer = new OSSFileTransfer(new FileTransferConfigurations(3), null);
+        this.ossFileTransfer = new OSSFileTransfer(new FileTransferConfigurations(3), sdkManager);
     }
     /**
      * The below helper method takes care of the complete upload process, i.e.

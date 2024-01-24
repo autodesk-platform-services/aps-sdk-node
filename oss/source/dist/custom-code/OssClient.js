@@ -17,7 +17,7 @@ const fs = require("fs");
 class OssClient {
     constructor(sdkManager) {
         this.ossApi = new api_1.OSSApi(sdkManager);
-        this.ossFileTransfer = new OSSFileTransfer_1.OSSFileTransfer(new FileTransferConfigurations_1.FileTransferConfigurations(3), null);
+        this.ossFileTransfer = new OSSFileTransfer_1.OSSFileTransfer(new FileTransferConfigurations_1.FileTransferConfigurations(3), sdkManager);
     }
     /**
      * The below helper method takes care of the complete upload process, i.e.

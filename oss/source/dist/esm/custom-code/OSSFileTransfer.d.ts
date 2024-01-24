@@ -1,24 +1,24 @@
 /// <reference types="node" />
 /// <reference types="node" />
 /// <reference types="node" />
-import { AdskEnvironment, SDKManager, ApiResponse, ApsServiceRequestConfig } from "@aps_sdk/autodesk-sdkmanager";
+import { IAuthClient, SDKManager, ApiResponse, ApsServiceRequestConfig } from "@aps_sdk/autodesk-sdkmanager";
 import { IFileTransferConfigurations } from './FileTransferConfigurations';
-import { BaseAPI } from '../base';
+import { OSSApi } from "../api";
 import { WriteStream } from "fs";
 export interface IOSSFileTransfer {
 }
-export declare class OSSFileTransfer extends BaseAPI implements IOSSFileTransfer {
-    private _configuration;
-    private _ossApi;
-    private _authentication;
-    private _maxRetryOnTokenExpiry;
-    private _maxChunkCountAllowed;
-    private _maxRetryOnUrlExpiry;
-    protected sdkManager: SDKManager;
+export declare class OSSFileTransfer implements IOSSFileTransfer {
+    configuration: IFileTransferConfigurations;
+    ossApi: OSSApi;
+    authentication: IAuthClient;
+    private maxRetryOnTokenExpiry;
+    private maxChunkCountAllowed;
+    private maxRetryOnUrlExpiry;
+    sdkManager: SDKManager;
     private logger;
-    private readonly _accessTokenExpiredMessage;
-    private readonly _forbiddenMessage;
-    constructor(configuration: IFileTransferConfigurations, adskEnvironment?: AdskEnvironment);
+    private readonly accessTokenExpiredMessage;
+    private readonly forbiddenMessage;
+    constructor(configuration: IFileTransferConfigurations, sdkmanager: SDKManager);
     Upload(bucketKey: string, objectKey: string, sourceToUpload: Buffer, accessToken: string, cancellationToken: AbortController, projectScope?: string, requestIdPrefix?: string, onProgress?: (percentCompleted: number) => void): Promise<ApiResponse>;
     protected UploadToURL(currentUrl: string, fileChunk: Buffer, accessToken: string, options?: ApsServiceRequestConfig): Promise<any>;
     Download(bucketKey: string, objectKey: string, filePath: string, accessToken: string, cancellationToken: AbortController, projectScope?: string, requestIdPrefix?: string, onProgress?: (percentCompleted: number) => void): Promise<void>;
