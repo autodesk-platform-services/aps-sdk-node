@@ -23,7 +23,7 @@ export class OssClient {
     Upload(bucketKey, filename, filepath, accessToken) {
         return __awaiter(this, void 0, void 0, function* () {
             const buffer = fs.readFileSync(filepath);
-            const response = yield this.ossFileTransfer.Upload(bucketKey, filename, buffer, accessToken, null);
+            const response = yield this.ossFileTransfer.Upload(bucketKey, filename, buffer, accessToken, new AbortController);
             return response;
         });
     }
@@ -52,7 +52,7 @@ export class OssClient {
    */
     deleteBucket(accessToken, bucketKey) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.ossApi.deleteBucket(accessToken, bucketKey, null);
+            const response = yield this.ossApi.deleteBucket(accessToken, bucketKey);
             return response;
         });
     }
@@ -70,7 +70,7 @@ export class OssClient {
   */
     deleteObject(accessToken, bucketKey, objectKey) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.ossApi.deleteObject(accessToken, bucketKey, objectKey, null, null, null, null);
+            const response = yield this.ossApi.deleteObject(accessToken, bucketKey, objectKey);
             return response;
         });
     }
@@ -84,7 +84,7 @@ export class OssClient {
      */
     getBucketDetails(accessToken, bucketKey) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.ossApi.getBucketDetails(accessToken, bucketKey, null);
+            const response = yield this.ossApi.getBucketDetails(accessToken, bucketKey);
             return response;
         });
     }
@@ -100,7 +100,7 @@ export class OssClient {
         */
     getBuckets(accessToken, region, limit, startAt) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.ossApi.getBuckets(accessToken, region, limit, startAt, null);
+            const response = yield this.ossApi.getBuckets(accessToken, region, limit, startAt);
             return response;
         });
     }

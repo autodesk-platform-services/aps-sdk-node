@@ -68,7 +68,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     var uploadUrls: string[] = [];
     var uploadKey: string = null;
     while (chunksUploaded < numberOfChunks) {
-      //Throwcancellation Token 
+      this.ThrowIfCancellationRequested(cancellationToken, requestId);
       var attempts: number = 0;
       var end: number = Math.min(Number((chunksUploaded + 1) * Constants.ChunkSize), sourceToUpload.length);
       var fileBuffer: Buffer = this.readFileBytes(sourceToUpload, start, end + 1);

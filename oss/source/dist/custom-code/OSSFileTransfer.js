@@ -49,7 +49,7 @@ class OSSFileTransfer {
             var uploadUrls = [];
             var uploadKey = null;
             while (chunksUploaded < numberOfChunks) {
-                //Throwcancellation Token 
+                this.ThrowIfCancellationRequested(cancellationToken, requestId);
                 var attempts = 0;
                 var end = Math.min(Number((chunksUploaded + 1) * Constants.ChunkSize), sourceToUpload.length);
                 var fileBuffer = this.readFileBytes(sourceToUpload, start, end + 1);

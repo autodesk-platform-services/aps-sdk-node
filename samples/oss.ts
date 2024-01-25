@@ -1,5 +1,5 @@
 import { SDKManager, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
-import { GetBucketsRegionEnum, OssClient } from "@aps_sdk/oss";
+import { OssClient } from "@aps_sdk/oss";
 
 
 const bucketkey = "<bucketkey>";
@@ -32,9 +32,9 @@ async function Upload()
 
 async function getBuckets()
 {
-    const response = await ossClient.getBuckets(access_token,GetBucketsRegionEnum.Us);
+    const response = await ossClient.getBuckets(access_token);
     console.log(response.content);
 }
 //Upload();
-getBuckets();
+//getBuckets();
 //getBucketDetails();

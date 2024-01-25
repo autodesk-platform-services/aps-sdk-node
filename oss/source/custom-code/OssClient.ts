@@ -24,7 +24,7 @@ export class OssClient {
     public async Upload(bucketKey: string, filename: string, filepath: string, accessToken: string): Promise<ApiResponse> {
 
         const buffer = fs.readFileSync(filepath);
-        const response = await this.ossFileTransfer.Upload(bucketKey, filename, buffer, accessToken, null);
+        const response = await this.ossFileTransfer.Upload(bucketKey, filename, buffer, accessToken, new AbortController);
         return response;
     }
 
@@ -54,7 +54,7 @@ export class OssClient {
    * @memberof OSSApiInterface
    */
     public async deleteBucket(accessToken: string, bucketKey: string): Promise<ApiResponse> {
-        const response = await this.ossApi.deleteBucket(accessToken, bucketKey, null);
+        const response = await this.ossApi.deleteBucket(accessToken, bucketKey);
         return response;
     }
 
@@ -72,7 +72,7 @@ export class OssClient {
   * @memberof OSSApiInterface
   */
     public async deleteObject(accessToken: string, bucketKey: string, objectKey: string): Promise<ApiResponse> {
-        const response = await this.ossApi.deleteObject(accessToken, bucketKey, objectKey, null, null, null, null);
+        const response = await this.ossApi.deleteObject(accessToken, bucketKey, objectKey);
         return response;
 
     }
@@ -88,7 +88,7 @@ export class OssClient {
      * @memberof OSSApiInterface
      */
     public async getBucketDetails(accessToken: string, bucketKey: string): Promise<ApiResponse> {
-        const response = await this.ossApi.getBucketDetails(accessToken, bucketKey,null);
+        const response = await this.ossApi.getBucketDetails(accessToken, bucketKey);
         return response;
     }
 
@@ -104,7 +104,7 @@ export class OssClient {
         * @memberof OSSApiInterface
         */
    public async getBuckets(accessToken: string, region?: GetBucketsRegionEnum, limit?: number, startAt?: string): Promise<ApiResponse>{
-    const response = await this.ossApi.getBuckets(accessToken, region, limit, startAt, null);
+    const response = await this.ossApi.getBuckets(accessToken, region, limit, startAt);
     return response;
 
    }

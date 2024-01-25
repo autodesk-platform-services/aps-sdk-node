@@ -23,10 +23,10 @@
   },
   "dependencies": {
     "@aps_sdk/autodesk-sdkmanager": "^0.0.4-beta.1",
-    "@types/node": "^20.9.0",
     "axios": "^1.6.1"
   },
   "devDependencies": {
+    "@types/node": "^20.11.6",
     "prettier": "^2.8.8",
     "typescript": "^5.1.5"
   }
