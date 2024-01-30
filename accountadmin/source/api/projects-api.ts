@@ -4,7 +4,7 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ConstructionadminApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, AccountAdminApiError } from '../base';
 import { Classification } from '../model';
 import { Fields } from '../model';
 import { FilterTextMatch } from '../model';
@@ -19,7 +19,6 @@ import { SortBy } from '../model';
 import { Status } from '../model';
 import { Type } from '../model';
 import { Utils } from '../custom-code/Utils';
-import * as fs from "fs";
 /**
  * ProjectsApi - axios parameter creator
  * @export
@@ -72,7 +71,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTIONADMIN/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -95,7 +94,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createProjectImage: async (accessToken: string, projectId: string, accountId: string, body: Buffer, region?: Region,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        createProjectImage: async (accessToken: string, projectId: string, accountId: string, body: File, region?: Region,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('createProjectImage', 'projectId', projectId)
             // verify required parameter 'accountId' is not null or undefined
@@ -116,21 +115,25 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
             const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new URLSearchParams();
+            const formData = new FormData();
 
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
+            // if (region != null) {
+            //     localVarHeaderParameter['Region'] = typeof region === 'string'
+            //         ? region
+            //         : JSON.stringify(region);
+            // }
+
+
             if (body !== undefined) { 
-                localVarFormParams.set('chunk', body as any);
+                formData.set('chunk', body);
             }
-    
-    
-            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams.toString();
+            localVarRequestOptions.data = formData;
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -353,7 +356,7 @@ export const ProjectsApiFp = function(sdkManager?: SDKManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createProjectImage(accessToken: string, projectId: string, accountId: string, body: Buffer, region?: Region, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectPatchResponse>> {
+        async createProjectImage(accessToken: string, projectId: string, accountId: string, body: File, region?: Region, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectPatchResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createProjectImage(accessToken, projectId, accountId, body, region,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -436,7 +439,7 @@ export interface ProjectsApiInterface {
      * @throws {RequiredError}
      * @memberof ProjectsApiInterface
      */
-    createProjectImage(accessToken: string,projectId: string, accountId: string, body: Buffer, region?: Region,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    createProjectImage(accessToken: string,projectId: string, accountId: string, body: File, region?: Region,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Retrieves a project specified by project ID.
@@ -514,10 +517,10 @@ export class ProjectsApi extends BaseAPI implements ProjectsApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`createProject Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionadminApiError(`createProject Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new AccountAdminApiError(`createProject Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`createProject Request failed with no response received: ${error.request}`);
-            throw new ConstructionadminApiError(`createProject Request failed with no response received: ${error.request}`, error);
+            throw new AccountAdminApiError(`createProject Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -535,7 +538,7 @@ export class ProjectsApi extends BaseAPI implements ProjectsApiInterface {
      * @throws {RequiredError}
      * @memberof ProjectsApi
      */
-    public async createProjectImage(accessToken: string, projectId: string, accountId: string, body: Buffer, region?: Region, options?: ApsServiceRequestConfig) {
+    public async createProjectImage(accessToken: string, projectId: string, accountId: string, body: File, region?: Region, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into createProjectImage ");
       try {
         const request =  await ProjectsApiFp(this.sdkManager).createProjectImage(accessToken, projectId, accountId, body, region,  options);
@@ -545,10 +548,10 @@ export class ProjectsApi extends BaseAPI implements ProjectsApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`createProjectImage Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionadminApiError(`createProjectImage Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new AccountAdminApiError(`createProjectImage Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`createProjectImage Request failed with no response received: ${error.request}`);
-            throw new ConstructionadminApiError(`createProjectImage Request failed with no response received: ${error.request}`, error);
+            throw new AccountAdminApiError(`createProjectImage Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -577,10 +580,10 @@ export class ProjectsApi extends BaseAPI implements ProjectsApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`getProject Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionadminApiError(`getProject Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new AccountAdminApiError(`getProject Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`getProject Request failed with no response received: ${error.request}`);
-            throw new ConstructionadminApiError(`getProject Request failed with no response received: ${error.request}`, error);
+            throw new AccountAdminApiError(`getProject Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -622,10 +625,10 @@ export class ProjectsApi extends BaseAPI implements ProjectsApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`getProjects Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionadminApiError(`getProjects Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new AccountAdminApiError(`getProjects Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`getProjects Request failed with no response received: ${error.request}`);
-            throw new ConstructionadminApiError(`getProjects Request failed with no response received: ${error.request}`, error);
+            throw new AccountAdminApiError(`getProjects Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }

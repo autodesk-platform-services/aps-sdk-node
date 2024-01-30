@@ -29,9 +29,9 @@ export interface ProjectUserPayload {
     'roleIds'?: Array<string>;
     /**
      * 
-     * @type {ProjectUserPayloadProducts}
+     * @type {Array<ProjectUserPayloadProducts>}
      * @memberof ProjectUserPayload
      */
-    'products': ProjectUserPayloadProducts;
+    'products': Array<ProjectUserPayloadProducts>;
 }
 

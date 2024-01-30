@@ -1,7 +1,7 @@
-## constructionadmin@1.0.0-beta1
+## account-admin@1.0.0-beta1
 
 The Account Admin API automates creating and managing projects, assigning and managing project users, and managing member and partner company directories. You can also synchronize data with external systems. 
-This is TypeScript client library for constructionadmin
+This is TypeScript client library for account-admin
 
 ## Building the SDK
 1. Install dependencies

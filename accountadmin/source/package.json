@@ -1,7 +1,7 @@
 {
-  "name": "@aps_sdk/accountadmin",
+  "name": "@aps_sdk/account-admin",
   "version": "1.0.0-beta1",
-  "description": "Client sdk for accountadmin API",
+  "description": "Client sdk for account-admin API",
   "license": "",
   "publishConfig": {
     "registry": "https://npm.autodesk.com/artifactory/api/npm/autodesk-npm",
@@ -10,7 +10,7 @@
   "keywords": [
     "axios",
     "typescript",
-    "constructionadmin"
+    "account-admin"
   ],
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",

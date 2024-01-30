@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { Trade } from './trade';
 
 /**
  * 
@@ -15,11 +16,11 @@ export interface CompanyPatchPayload {
      */
     'name'?: string;
     /**
-     * Trade type based on specialization
-     * @type {string}
+     * 
+     * @type {Trade}
      * @memberof CompanyPatchPayload
      */
-    'trade'?: string;
+    'trade'?: Trade;
     /**
      * Company address line 1
      * @type {string}
@@ -87,4 +88,6 @@ export interface CompanyPatchPayload {
      */
     'tax_id'?: string;
 }
+
+
 

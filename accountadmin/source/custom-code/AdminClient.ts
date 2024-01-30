@@ -35,7 +35,7 @@ export class AdminClient {
         const response = await this.projectsApi.createProject(accessToken, accountId, null, region, null, projectPayload);
         return response.content;
     }
-    public async CreateProjectImageAsync(accessToken: string, projectId: string, accountId: string, body: Buffer, region?: Region): Promise<ProjectPatchResponse> {
+    public async CreateProjectImageAsync(accessToken: string, projectId: string, accountId: string, body: File, region?: Region): Promise<ProjectPatchResponse> {
         const response = await this.projectsApi.createProjectImage(accessToken, projectId, accountId, body, region);
         return response.content;
     }

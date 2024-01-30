@@ -54,7 +54,7 @@ export class RequiredError extends Error {
     }
 }
 
-export class ConstructionadminApiError extends Error {
+export class AccountAdminApiError extends Error {
     /* istanbul ignore next */
     axiosError?: any;
     constructor(message: string, axiosError?: any) {
@@ -62,6 +62,6 @@ export class ConstructionadminApiError extends Error {
         if (axiosError) {
             this.axiosError = axiosError;
         }
-        Object.setPrototypeOf(this, ConstructionadminApiError.prototype);
+        Object.setPrototypeOf(this, AccountAdminApiError.prototype);
     }
 }

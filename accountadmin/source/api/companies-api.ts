@@ -4,7 +4,7 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ConstructionadminApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, AccountAdminApiError } from '../base';
 import { Company } from '../model';
 import { CompanyImportResponse } from '../model';
 import { CompanyPatchPayload } from '../model';
@@ -31,7 +31,9 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
         createCompany: async (accessToken: string, accountId: string, region?: Region, companyPayload?: CompanyPayload,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('createCompany', 'accountId', accountId)
-            const localVarPath = `/hq/v1/accounts/{account_id}/companies`
+            const regionPath = Utils.GetPathfromRegion(region ?? Region.Us);
+
+            const localVarPath = (regionPath + `{account_id}/companies`)
                 .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
@@ -45,16 +47,16 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
 
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
-            if (region != null) {
-                localVarHeaderParameter['Region'] = typeof region === 'string'
-                    ? region
-                    : JSON.stringify(region);
-            }
+            // if (region != null) {
+            //     localVarHeaderParameter['Region'] = typeof region === 'string'
+            //         ? region
+            //         : JSON.stringify(region);
+            // }
 
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTIONADMIN/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -116,9 +118,9 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
             }
 
             // if (region != null) {
-            //     localVarHeaderParameter['Region'] = typeof region === 'string'
-            //         ? region
-            //         : JSON.stringify(region);
+                //     localVarHeaderParameter['Region'] = typeof region === 'string'
+                    //         ? region
+                    //         : JSON.stringify(region);
             // }
 
 
@@ -147,7 +149,9 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
             assertParamExists('getCompany', 'companyId', companyId)
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('getCompany', 'accountId', accountId)
-            const localVarPath = `/hq/v1/accounts/{account_id}/companies/{company_id}`
+            const regionPath = Utils.GetPathfromRegion(region ?? Region.Us);
+
+            const localVarPath = (regionPath + `{account_id}/companies/{company_id}`)
                 .replace(`{${"company_id"}}`, encodeURIComponent(String(companyId)))
                 .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
@@ -162,11 +166,11 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
 
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
-            if (region != null) {
-                localVarHeaderParameter['Region'] = typeof region === 'string'
-                    ? region
-                    : JSON.stringify(region);
-            }
+            // if (region != null) {
+            //     localVarHeaderParameter['Region'] = typeof region === 'string'
+            //         ? region
+            //         : JSON.stringify(region);
+            // }
 
 
     
@@ -198,7 +202,9 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
             assertParamExists('getProjectCompanies', 'accountId', accountId)
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getProjectCompanies', 'projectId', projectId)
-            const localVarPath = `/hq/v1/accounts/{account_id}/projects/{project_id}/companies`
+            const regionPath = Utils.GetPathfromRegion(region ?? Region.Us);
+
+            const localVarPath = (regionPath + `{account_id}/projects/{project_id}/companies`)
                 .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)))
                 .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
@@ -229,11 +235,11 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
                 localVarQueryParameter['field'] = field;
             }
 
-            if (region != null) {
-                localVarHeaderParameter['Region'] = typeof region === 'string'
-                    ? region
-                    : JSON.stringify(region);
-            }
+            // if (region != null) {
+            //     localVarHeaderParameter['Region'] = typeof region === 'string'
+            //         ? region
+            //         : JSON.stringify(region);
+            // }
 
 
     
@@ -259,7 +265,9 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
         importCompanies: async (accessToken: string, accountId: string, region?: Region, companyPayload?: Array<CompanyPayload>,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('importCompanies', 'accountId', accountId)
-            const localVarPath = `/hq/v1/accounts/{account_id}/companies/import`
+            const regionPath = Utils.GetPathfromRegion(region ?? Region.Us);
+
+            const localVarPath = (regionPath + `{account_id}/companies/import`)
                 .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
@@ -273,16 +281,16 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
 
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
-            if (region != null) {
-                localVarHeaderParameter['Region'] = typeof region === 'string'
-                    ? region
-                    : JSON.stringify(region);
-            }
+            // if (region != null) {
+            //     localVarHeaderParameter['Region'] = typeof region === 'string'
+            //         ? region
+            //         : JSON.stringify(region);
+            // }
 
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTIONADMIN/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -310,7 +318,9 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
             assertParamExists('patchCompanyDetails', 'companyId', companyId)
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('patchCompanyDetails', 'accountId', accountId)
-            const localVarPath = `/hq/v1/accounts/{account_id}/companies/{company_id}`
+            const regionPath = Utils.GetPathfromRegion(region ?? Region.Us);
+
+            const localVarPath = (regionPath + `{account_id}/companies/{company_id}`)
                 .replace(`{${"company_id"}}`, encodeURIComponent(String(companyId)))
                 .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
@@ -325,16 +335,16 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
 
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
-            if (region != null) {
-                localVarHeaderParameter['Region'] = typeof region === 'string'
-                    ? region
-                    : JSON.stringify(region);
-            }
+            // if (region != null) {
+            //     localVarHeaderParameter['Region'] = typeof region === 'string'
+            //         ? region
+            //         : JSON.stringify(region);
+            // }
 
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTIONADMIN/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -364,7 +374,9 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
             assertParamExists('patchCompanyImage', 'accountId', accountId)
             // verify required parameter 'body' is not null or undefined
             assertParamExists('patchCompanyImage', 'body', body)
-            const localVarPath = `/hq/v1/accounts/{account_id}/companies/{company_id}/image`
+            const regionPath = Utils.GetPathfromRegion(region ?? Region.Us);
+
+            const localVarPath = (regionPath + `{account_id}/companies/{company_id}/image`)
                 .replace(`{${"company_id"}}`, encodeURIComponent(String(companyId)))
                 .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
@@ -376,27 +388,28 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
             const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new URLSearchParams();
+            const formData = new FormData();
 
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
-            if (region != null) {
-                localVarHeaderParameter['Region'] = typeof region === 'string'
-                    ? region
-                    : JSON.stringify(region);
-            }
+            // if (region != null) {
+            //     localVarHeaderParameter['Region'] = typeof region === 'string'
+            //         ? region
+            //         : JSON.stringify(region);
+            // }
 
 
             if (body !== undefined) { 
-                localVarFormParams.set('chunk', body as any);
+                formData.set('chunk', body);
             }
     
-            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams.toString();
+            localVarRequestOptions.data = formData;
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -423,7 +436,9 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
         searchCompanies: async (accessToken: string, accountId: string, region?: Region, name?: string, trade?: string, operator?: string, partial?: boolean, limit?: number, offset?: number, sort?: string, field?: string,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('searchCompanies', 'accountId', accountId)
-            const localVarPath = `/hq/v1/accounts/{account_id}/companies/search`
+            const regionPath = Utils.GetPathfromRegion(region ?? Region.Us);
+
+            const localVarPath = (regionPath + `{account_id}/companies/search`)
                 .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
@@ -469,11 +484,11 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
                 localVarQueryParameter['field'] = field;
             }
 
-            if (region != null) {
-                localVarHeaderParameter['Region'] = typeof region === 'string'
-                    ? region
-                    : JSON.stringify(region);
-            }
+            // if (region != null) {
+            //     localVarHeaderParameter['Region'] = typeof region === 'string'
+            //         ? region
+            //         : JSON.stringify(region);
+            // }
 
 
     
@@ -776,10 +791,10 @@ export class CompaniesApi extends BaseAPI implements CompaniesApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`createCompany Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionadminApiError(`createCompany Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new AccountAdminApiError(`createCompany Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`createCompany Request failed with no response received: ${error.request}`);
-            throw new ConstructionadminApiError(`createCompany Request failed with no response received: ${error.request}`, error);
+            throw new AccountAdminApiError(`createCompany Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -809,10 +824,10 @@ export class CompaniesApi extends BaseAPI implements CompaniesApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`getCompanies Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionadminApiError(`getCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new AccountAdminApiError(`getCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`getCompanies Request failed with no response received: ${error.request}`);
-            throw new ConstructionadminApiError(`getCompanies Request failed with no response received: ${error.request}`, error);
+            throw new AccountAdminApiError(`getCompanies Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -839,10 +854,10 @@ export class CompaniesApi extends BaseAPI implements CompaniesApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`getCompany Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionadminApiError(`getCompany Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new AccountAdminApiError(`getCompany Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`getCompany Request failed with no response received: ${error.request}`);
-            throw new ConstructionadminApiError(`getCompany Request failed with no response received: ${error.request}`, error);
+            throw new AccountAdminApiError(`getCompany Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -873,10 +888,10 @@ export class CompaniesApi extends BaseAPI implements CompaniesApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`getProjectCompanies Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionadminApiError(`getProjectCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new AccountAdminApiError(`getProjectCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`getProjectCompanies Request failed with no response received: ${error.request}`);
-            throw new ConstructionadminApiError(`getProjectCompanies Request failed with no response received: ${error.request}`, error);
+            throw new AccountAdminApiError(`getProjectCompanies Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -903,10 +918,10 @@ export class CompaniesApi extends BaseAPI implements CompaniesApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`importCompanies Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionadminApiError(`importCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new AccountAdminApiError(`importCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`importCompanies Request failed with no response received: ${error.request}`);
-            throw new ConstructionadminApiError(`importCompanies Request failed with no response received: ${error.request}`, error);
+            throw new AccountAdminApiError(`importCompanies Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -934,10 +949,10 @@ export class CompaniesApi extends BaseAPI implements CompaniesApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`patchCompanyDetails Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionadminApiError(`patchCompanyDetails Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new AccountAdminApiError(`patchCompanyDetails Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`patchCompanyDetails Request failed with no response received: ${error.request}`);
-            throw new ConstructionadminApiError(`patchCompanyDetails Request failed with no response received: ${error.request}`, error);
+            throw new AccountAdminApiError(`patchCompanyDetails Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -965,10 +980,10 @@ export class CompaniesApi extends BaseAPI implements CompaniesApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`patchCompanyImage Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionadminApiError(`patchCompanyImage Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new AccountAdminApiError(`patchCompanyImage Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`patchCompanyImage Request failed with no response received: ${error.request}`);
-            throw new ConstructionadminApiError(`patchCompanyImage Request failed with no response received: ${error.request}`, error);
+            throw new AccountAdminApiError(`patchCompanyImage Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -1002,10 +1017,10 @@ export class CompaniesApi extends BaseAPI implements CompaniesApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`searchCompanies Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionadminApiError(`searchCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new AccountAdminApiError(`searchCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`searchCompanies Request failed with no response received: ${error.request}`);
-            throw new ConstructionadminApiError(`searchCompanies Request failed with no response received: ${error.request}`, error);
+            throw new AccountAdminApiError(`searchCompanies Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }

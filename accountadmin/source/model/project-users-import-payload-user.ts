@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ProjectUserPayloadProducts } from './project-user-payload-products';
+import { ProjectUsersImportPayloadUserProducts } from './project-users-import-payload-user-products';
 
 /**
  * User data to import.
@@ -41,9 +41,9 @@ export interface ProjectUsersImportPayloadUser {
     'roleIds'?: Array<string>;
     /**
      * 
-     * @type {ProjectUserPayloadProducts}
+     * @type {Array<ProjectUsersImportPayloadUserProducts>}
      * @memberof ProjectUsersImportPayloadUser
      */
-    'products': ProjectUserPayloadProducts;
+    'products': Array<ProjectUsersImportPayloadUserProducts>;
 }
 
