@@ -3,11 +3,9 @@ import { IFileTransferConfigurations } from './FileTransferConfigurations';
 import { OSSApi } from "../api";
 import { Completes3uploadBody, ObjectStatusEnum, Signeds3downloadResponse, Signeds3uploadResponse } from "../model";
 import { OssApiError, RequestArgs } from "../base";
-import { createRequestFunction, createRequestFunctionOss, setBearerAuthToObject, setSearchParams, toPathString } from "../common";
-import { BaseAPI } from '../base';
+import {createRequestFunctionOss } from "../common";
 import { WriteStream, createWriteStream } from "fs";
 import axios, { AxiosResponse } from "axios";
-
 
 
  export interface IOSSFileTransfer {
@@ -53,15 +51,12 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     const retryCount: number = this.configuration.GetRetryCount();
     this.logger.logDebug(`${requestId} Config retry setting was: ${retryCount}`);
 
-
     await this.ValidateFileSize(requestId, sourceToUpload);
     this.ValidateProjectScopeName(requestId, projectScope);
-
 
     onProgress?.(1);
     var numberOfChunks: number = this.CalculateNumberOfChunks(sourceToUpload.length);
     var chunksUploaded: number = 0;
-
 
     //Need keep check start and end chuk size data type that it should bigint as in dotnet it is long 
     var start: number = 0;
@@ -69,10 +64,10 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     var uploadKey: string = null;
     while (chunksUploaded < numberOfChunks) {
       this.ThrowIfCancellationRequested(cancellationToken, requestId);
-      var attempts: number = 0;
-      var end: number = Math.min(Number((chunksUploaded + 1) * Constants.ChunkSize), sourceToUpload.length);
-      var fileBuffer: Buffer = this.readFileBytes(sourceToUpload, start, end + 1);
-
+      var attempts: number =  0;
+      var end: number = Math.min(start + Constants.ChunkSize, sourceToUpload.length);
+      var fileBuffer: Buffer = this.readFileBytes(sourceToUpload, start, end);
+      // console.log(fileBuffer.length);
       var retryUrlExpiryCount: number = 0;
       while (true) {
         this.ThrowIfCancellationRequested(cancellationToken, requestId);
@@ -86,11 +81,11 @@ export class OSSFileTransfer implements IOSSFileTransfer {
           uploadUrls = uploadUrlsResponse.urls;
           accessToken = currentAccessToken;
         }
-        var currentUrl: string = uploadUrls[uploadUrls.length - 1];
-        uploadUrls.pop();
+        var currentUrl:string = uploadUrls.shift();
         try {
           this.ThrowIfCancellationRequested(cancellationToken, requestId);
-          var responseBuffer = await this.UploadToURL(currentUrl, fileBuffer, accessToken);
+          var responseBuffer = await this.UploadToURL(currentUrl, fileBuffer, accessToken,requestId);
+          // console.log(responseBuffer.headers.etag);
           var statusCode: number = responseBuffer.status;
 
           //Httpstatus Code Forbiden is deprecated so uing 403 
@@ -113,7 +108,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
         }
       }
       chunksUploaded++;
-      start = end;
+      start =end+1;
       var percentCompleted: number = (chunksUploaded / numberOfChunks) * 100;
       onProgress?.(percentCompleted);
       this.logger.logInfo(`${requestId} Number of chunks uploaded : ${chunksUploaded}`);
@@ -129,13 +124,12 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     onProgress?.(100);
     return completeResponse;
   }
-  protected async UploadToURL(currentUrl: string, fileChunk: Buffer, accessToken: string, options?: ApsServiceRequestConfig): Promise<any> {
-    const localVarFormParams = new URLSearchParams();
+  protected async UploadToURL(currentUrl: string, fileChunk: Buffer, accessToken: string, requestId:string,options?: ApsServiceRequestConfig): Promise<any> {
     const localVarHeaderParameter = {} as any;
+    localVarHeaderParameter['x-ads-request-id'] = requestId;
     const localVarRequestOptions = { method: 'PUT', ...options };
     localVarRequestOptions.headers = { ...localVarHeaderParameter };
-    localVarFormParams.set('body', fileChunk as any);
-    localVarRequestOptions.data = localVarFormParams.toString();
+    localVarRequestOptions.data = fileChunk;
     const localVarAxiosArgs: RequestArgs = {
       url: currentUrl,
       options: localVarRequestOptions
@@ -250,11 +244,11 @@ export class OSSFileTransfer implements IOSSFileTransfer {
   private async HandleRequestId(parentRequestId: string, bucketKey: string, objectKey: string): Promise<string> {
     var requestId: string = parentRequestId && parentRequestId.trim() != "" ? parentRequestId : String(Math.random());
     requestId = requestId + ":" + this.GenerateSdkRequestId(bucketKey, objectKey);
-    const localVarHeaderParameter = {} as any;
-    localVarHeaderParameter['x-ads-request-id'] = requestId;
-    const localVarRequestOptions = {} as any;
-    localVarRequestOptions.headers = { ...localVarHeaderParameter };
-    createRequestFunction(localVarRequestOptions, this.sdkManager);
+    // const localVarHeaderParameter = {} as any;
+    // localVarHeaderParameter['x-ads-request-id'] = requestId;
+    // const localVarRequestOptions = {} as any;
+    // localVarRequestOptions.headers = { ...localVarHeaderParameter };
+    // createRequestFunction(localVarRequestOptions, this.sdkManager);
     return requestId;
   }
   private GenerateSdkRequestId(bucketKey: string, objectKey: string): string {
