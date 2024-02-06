@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ProjectUsersImportPayloadUser } from './project-users-import-payload-user';
+import { ProjectUsersImportPayloadUsers } from './project-users-import-payload-users';
 
 /**
  * 
@@ -10,10 +10,10 @@ import { ProjectUsersImportPayloadUser } from './project-users-import-payload-us
  */
 export interface ProjectUsersImportPayload {
     /**
-     * 
-     * @type {ProjectUsersImportPayloadUser}
+     * User data to import.
+     * @type {Array<ProjectUsersImportPayloadUsers>}
      * @memberof ProjectUsersImportPayload
      */
-    'user'?: ProjectUsersImportPayloadUser;
+    'users'?: Array<ProjectUsersImportPayloadUsers>;
 }
 

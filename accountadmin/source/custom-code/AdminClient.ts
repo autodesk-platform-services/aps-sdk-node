@@ -1,10 +1,6 @@
-import { ApsServiceRequestConfig, SDKManager, SdkManagerBuilder } from "autodesk-sdkmanager"; 
-
-
-
+import { SDKManager } from "autodesk-sdkmanager"; 
 import {CompaniesApi, ProjectsApi, ProjectUsersApi, AccountUsersApi, BusinessUnitsApi} from "../api";
-import { RequestArgs } from "../base";
-import { AccessLevels, BusinessUnitsRequestPyload, BusinessUnitsResponse, Classification, Company, CompanyImportResponse, CompanyPatchPayload, CompanyPayload, CompanyResponse, Fields, FilterTextMatch, OrFilters, Platform, Products, Project, ProjectPatchResponse, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserResponse, ProjectUsers, ProjectUsersImportPayload, ProjectUsersImportResponse, ProjectUsersUpdatePayload, Projects, Region, SortBy, Status, StatusFilter, Type, User, UserFields, UserImportResponse, UserPatchPayload, UserPayload, UserSortBy } from "../model";
+import { AccessLevels, BusinessUnitsRequestPyload, BusinessUnitsResponse, Classification, Company, CompanyImportResponse, CompanyPatchPayload, CompanyPayload, CompanyResponse, Fields, FilterTextMatch, OrFilters, Platform, Products, Project, ProjectPatchResponse, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserResponse, ProjectUsers, ProjectUsersImportPayload, ProjectUsersImportResponse, ProjectUsersUpdatePayload, Projects, Region, SortBy, Status, StatusFilter, User, UserFields, UserImportResponse, UserPatchPayload, UserPayload, UserSortBy } from "../model";
 
 export class AdminClient {
     public companiesApi: CompaniesApi;
@@ -27,12 +23,12 @@ export class AdminClient {
         const response = await this.projectsApi.getProject(accessToken, projectId, null, region, null, fields);
         return response.content;
     }
-    public async GetProjectsAsync(accessToken: string, accountId: string, region?: Region, fields?: Array<Fields>, filterClassification?: Array<Classification>, filterPlatform?: Array<Platform>, filterProducts?: Array<Products>, filterName?: string, filterType?: Array<Type>, filterStatus?: Array<Status>, filterBusinessUnitId?: string, filterJobNumber?: string, filterUpdatedAt?: string, filterTextMatch?: FilterTextMatch, sort?: Array<SortBy>, limit?: number, offset?: number): Promise<Projects> {
+    public async GetProjectsAsync(accessToken: string, accountId: string, region?: Region, fields?: Array<Fields>, filterClassification?: Array<Classification>, filterPlatform?: Array<Platform>, filterProducts?: Array<Products>, filterName?: string, filterType?: Array<string>, filterStatus?: Array<Status>, filterBusinessUnitId?: string, filterJobNumber?: string, filterUpdatedAt?: string, filterTextMatch?: FilterTextMatch, sort?: Array<SortBy>, limit?: number, offset?: number): Promise<Projects> {
         const response = await this.projectsApi.getProjects(accessToken, accountId, null, region, null, fields, filterClassification, filterPlatform, filterProducts, filterName, filterType, filterStatus, filterBusinessUnitId, filterJobNumber, filterUpdatedAt, filterTextMatch, sort, limit, offset);
         return response.content;
     }
-    public async CreateProjectAsync(accessToken: string, accountId: string, region?: Region, projectPayload?: ProjectPayload): Promise<Project> {
-        const response = await this.projectsApi.createProject(accessToken, accountId, null, region, null, projectPayload);
+    public async CreateProjectAsync(accessToken: string, accountId: string, projectPayload: ProjectPayload, region?: Region, adminUserId?: string): Promise<Project> {
+        const response = await this.projectsApi.createProject(accessToken, accountId, null, region, adminUserId, projectPayload);
         return response.content;
     }
     public async CreateProjectImageAsync(accessToken: string, projectId: string, accountId: string, body: File, region?: Region): Promise<ProjectPatchResponse> {
@@ -46,7 +42,7 @@ export class AdminClient {
         const response = await this.companiesApi.searchCompanies(accessToken, accountId, region, name, trade, operator, partial, limit, offset, sort, field);
         return response.content;
     }
-    public async patchCompanyImage(accessToken: string, companyId: string, accountId: string, body: File, region?: Region): Promise<Company> {
+    public async patchCompanyImageAsync(accessToken: string, companyId: string, accountId: string, body: File, region?: Region): Promise<Company> {
         const response = await this.companiesApi.patchCompanyImage(accessToken, companyId, accountId, body, region);
         return response.content;
     }
@@ -54,7 +50,7 @@ export class AdminClient {
         const response = await this.companiesApi.patchCompanyDetails(accessToken, companyId, accountId, region, companyPatchPayload);
         return response.content;
     }
-    public async importCompaniesAsync(accessToken: string, accountId: string, region?: Region, companyPayload?: Array<CompanyPayload>): Promise<CompanyImportResponse> {
+    public async importCompaniesAsync(accessToken: string, accountId: string, companyPayload: Array<CompanyPayload>, region?: Region): Promise<CompanyImportResponse> {
         const response = await this.companiesApi.importCompanies(accessToken, accountId, region, companyPayload);
         return response.content;
     }
@@ -70,12 +66,10 @@ export class AdminClient {
         const response = await this.companiesApi.getCompanies(accessToken, accountId, region, limit, offset, sort, field);
         return response.content;
     }
-    public async createCompanyAsync(accessToken: string, accountId: string, region?: Region, companyPayload?: CompanyPayload): Promise<Company> {
+    public async createCompanyAsync(accessToken: string, accountId: string, companyPayload: CompanyPayload, region?: Region): Promise<Company> {
         const response = await this.companiesApi.createCompany(accessToken, accountId, region, companyPayload);
         return response.content;
     }
-
-
 
     // Project-User API
 
@@ -83,30 +77,30 @@ export class AdminClient {
         const response = await this.projectUsersApi.getProjectUser(accessToken, projectId, userId, null, region, null, fields);
         return response.content;
     }
-    public async assignProjectUserAsync(accessToken: string, projectId: string, region?: Region, projectUserPayload?: ProjectUserPayload): Promise<ProjectUserResponse> {
-        const response = await this.projectUsersApi.assignProjectUser(accessToken, projectId, null, region, null, projectUserPayload);
+    public async assignProjectUserAsync(accessToken: string, projectId: string, projectUserPayload: ProjectUserPayload, region?: Region, adminUserId?: string): Promise<ProjectUserResponse> {
+        const response = await this.projectUsersApi.assignProjectUser(accessToken, projectId, null, region, adminUserId, projectUserPayload);
         return response.content;
     }
     public async getProjectUsersAsync(accessToken: string, projectId: string, region?: Region, filterProducts?: Array<Products>, filterName?: string, filterEmail?: string, filterStatus?: Array<StatusFilter>, filterAccessLevels?: Array<AccessLevels>, filterCompanyId?: string, filterCompanyName?: string, filterAutodeskId?: Array<string>, filterId?: Array<string>, filterRoleId?: string, filterRoleIds?: Array<string>, sort?: Array<UserSortBy>, fields?: Array<UserFields>, orFilters?: Array<OrFilters>, filterTextMatch?: FilterTextMatch, limit?: number, offset?: number): Promise<ProjectUsers> {
         const response = await this.projectUsersApi.getProjectUsers(accessToken, projectId, null, region, null, filterProducts, filterName, filterEmail, filterStatus, filterAccessLevels, filterCompanyId, filterCompanyName, filterAutodeskId, filterId, filterRoleId, filterRoleIds, sort, fields, orFilters, filterTextMatch, limit, offset);
         return response.content;
     }
-    public async importProjectUsersAsync(accessToken: string, projectId: string, region?: Region, projectUsersImportPayload?: ProjectUsersImportPayload): Promise<ProjectUsersImportResponse> {
-        const response = await this.projectUsersApi.importProjectUsers(accessToken, projectId, null, region, null, projectUsersImportPayload);
+    public async importProjectUsersAsync(accessToken: string, projectId: string, projectUsersImportPayload: ProjectUsersImportPayload, region?: Region, adminUserId?: string): Promise<ProjectUsersImportResponse> {
+        const response = await this.projectUsersApi.importProjectUsers(accessToken, projectId, null, region, adminUserId, projectUsersImportPayload);
         return response.content;
     }
-    public async removeProjectUserAsync(accessToken: string, projectId: string, userId: string, region?: Region): Promise<void> {
-        const response = await this.projectUsersApi.removeProjectUser(accessToken, projectId, userId, null, region, null);
+    public async removeProjectUserAsync(accessToken: string, projectId: string, userId: string, region?: Region, adminUserId?: string): Promise<void> {
+        const response = await this.projectUsersApi.removeProjectUser(accessToken, projectId, userId, null, region, adminUserId);
         return response.content;
     }
-    public async updateProjectUserAsync(accessToken: string, projectId: string, userId: string, region?: Region, projectUsersUpdatePayload?: ProjectUsersUpdatePayload): Promise<ProjectUserResponse> {
-        const response = await this.projectUsersApi.updateProjectUser(accessToken, projectId, userId, null, region, null, projectUsersUpdatePayload);
+    public async updateProjectUserAsync(accessToken: string, projectId: string, userId: string, projectUsersUpdatePayload: ProjectUsersUpdatePayload, region?: Region, adminUserId?: string): Promise<ProjectUserResponse> {
+        const response = await this.projectUsersApi.updateProjectUser(accessToken, projectId, userId, null, region, adminUserId, projectUsersUpdatePayload);
         return response.content;
     }
 
     // User API
 
-    public async createUserAsync(accessToken: string, accountId: string, region?: Region, userPayload?: UserPayload): Promise<User> {
+    public async createUserAsync(accessToken: string, accountId: string, userPayload: UserPayload, region?: Region): Promise<User> {
         const response = await this.accountUsersApi.createUser(accessToken, accountId, region, userPayload);
         return response.content;
     }
@@ -118,11 +112,11 @@ export class AdminClient {
         const response = await this.accountUsersApi.getUsers(accessToken, accountId, region, limit, offset, sort, field);
         return response.content;
     }
-    public async importUsersAsync(accessToken: string, accountId: string, region?: Region, userPayload?: Array<UserPayload>): Promise<UserImportResponse> {
+    public async importUsersAsync(accessToken: string, accountId: string, userPayload: Array<UserPayload>, region?: Region): Promise<UserImportResponse> {
         const response = await this.accountUsersApi.importUsers(accessToken, accountId, region, userPayload);
         return response.content;
     }
-    public async patchUserDetailsAsync(accessToken: string, accountId: string, userId: string, region?: Region, userPatchPayload?: UserPatchPayload): Promise<User> {
+    public async patchUserDetailsAsync(accessToken: string, accountId: string, userId: string, userPatchPayload: UserPatchPayload, region?: Region): Promise<User> {
         const response = await this.accountUsersApi.patchUserDetails(accessToken, accountId, userId, region, userPatchPayload);
         return response.content;
     }
@@ -133,12 +127,12 @@ export class AdminClient {
 
     // Business-Units API
 
-    public async getBusinessUnitsAsync(accessToken: string, accountId: string, region?: Region, options?: ApsServiceRequestConfig): Promise<BusinessUnitsResponse> {
+    public async getBusinessUnitsAsync(accessToken: string, accountId: string, region?: Region): Promise<BusinessUnitsResponse> {
         const response = await this.businessUnitAPI.getBusinessUnits(accessToken, accountId, region);
         return response.content;
     }
-    public async createBusinessUnitsAsync(accessToken: string, accountId: string, region?: Region, businessUnitsRequestPyload?: BusinessUnitsRequestPyload, options?: ApsServiceRequestConfig): Promise<BusinessUnitsResponse> {
-        const response = await this.businessUnitAPI.createBusinessUnits(accessToken, accountId, region, businessUnitsRequestPyload,  options);
+    public async createBusinessUnitsAsync(accessToken: string, accountId: string, businessUnitsRequestPyload: BusinessUnitsRequestPyload, region?: Region): Promise<BusinessUnitsResponse> {
+        const response = await this.businessUnitAPI.createBusinessUnits(accessToken, accountId, region, businessUnitsRequestPyload);
         return response.content;
     }
 }

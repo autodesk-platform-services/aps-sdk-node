@@ -17,7 +17,6 @@ import { Projects } from '../model';
 import { Region } from '../model';
 import { SortBy } from '../model';
 import { Status } from '../model';
-import { Type } from '../model';
 import { Utils } from '../custom-code/Utils';
 /**
  * ProjectsApi - axios parameter creator
@@ -120,9 +119,9 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
             // if (region != null) {
-            //     localVarHeaderParameter['Region'] = typeof region === 'string'
-            //         ? region
-            //         : JSON.stringify(region);
+                //     localVarHeaderParameter['Region'] = typeof region === 'string'
+                    //         ? region
+                    //         : JSON.stringify(region);
             // }
 
 
@@ -130,7 +129,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
                 formData.set('chunk', body);
             }
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
+                setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = formData;
@@ -210,7 +209,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
          * @param {Array<Platform>} [filterPlatform] Filter resource by platform. Possible values: acc and bim360.
          * @param {Array<Products>} [filterProducts] A comma-separated list of the products that the returned projects must use. Only projects that use one or more of the listed products are returned.
          * @param {string} [filterName] A project name or name pattern to filter projects by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]&#x3D;ABCco filterTextMatch&#x3D;startsWith.  Max length: 255
-         * @param {Array<Type>} [filterType] A list of project types to filter projects by. To exclude a project type from the response, prefix it with - (a hyphen); for example, -Bridge excludes bridge projects.
+         * @param {Array<string>} [filterType] A list of project types to filter projects by. To exclude a project type from the response, prefix it with - (a hyphen); for example, -Bridge excludes bridge projects.
          * @param {Array<Status>} [filterStatus] A list of the statuses of projects to include in the response. Possible values:  active pending archived suspended
          * @param {string} [filterBusinessUnitId] The ID of the business unit that returned projects must be associated with.
          * @param {string} [filterJobNumber] The user-defined identifier for a project to be returned. This ID was defined when the project was created. This filter accepts a partial match based on the value of filterTextMatch that you provide.
@@ -223,7 +222,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getProjects: async (accessToken: string, accountId: string, acceptLanguage?: string, region?: Region, userId?: string, fields?: Array<Fields>, filterClassification?: Array<Classification>, filterPlatform?: Array<Platform>, filterProducts?: Array<Products>, filterName?: string, filterType?: Array<Type>, filterStatus?: Array<Status>, filterBusinessUnitId?: string, filterJobNumber?: string, filterUpdatedAt?: string, filterTextMatch?: FilterTextMatch, sort?: Array<SortBy>, limit?: number, offset?: number,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        getProjects: async (accessToken: string, accountId: string, acceptLanguage?: string, region?: Region, userId?: string, fields?: Array<Fields>, filterClassification?: Array<Classification>, filterPlatform?: Array<Platform>, filterProducts?: Array<Products>, filterName?: string, filterType?: Array<string>, filterStatus?: Array<Status>, filterBusinessUnitId?: string, filterJobNumber?: string, filterUpdatedAt?: string, filterTextMatch?: FilterTextMatch, sort?: Array<SortBy>, limit?: number, offset?: number,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('getProjects', 'accountId', accountId)
             const localVarPath = `/construction/admin/v1/accounts/{accountId}/projects`
@@ -387,7 +386,7 @@ export const ProjectsApiFp = function(sdkManager?: SDKManager) {
          * @param {Array<Platform>} [filterPlatform] Filter resource by platform. Possible values: acc and bim360.
          * @param {Array<Products>} [filterProducts] A comma-separated list of the products that the returned projects must use. Only projects that use one or more of the listed products are returned.
          * @param {string} [filterName] A project name or name pattern to filter projects by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]&#x3D;ABCco filterTextMatch&#x3D;startsWith.  Max length: 255
-         * @param {Array<Type>} [filterType] A list of project types to filter projects by. To exclude a project type from the response, prefix it with - (a hyphen); for example, -Bridge excludes bridge projects.
+         * @param {Array<string>} [filterType] A list of project types to filter projects by. To exclude a project type from the response, prefix it with - (a hyphen); for example, -Bridge excludes bridge projects.
          * @param {Array<Status>} [filterStatus] A list of the statuses of projects to include in the response. Possible values:  active pending archived suspended
          * @param {string} [filterBusinessUnitId] The ID of the business unit that returned projects must be associated with.
          * @param {string} [filterJobNumber] The user-defined identifier for a project to be returned. This ID was defined when the project was created. This filter accepts a partial match based on the value of filterTextMatch that you provide.
@@ -399,7 +398,7 @@ export const ProjectsApiFp = function(sdkManager?: SDKManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getProjects(accessToken: string, accountId: string, acceptLanguage?: string, region?: Region, userId?: string, fields?: Array<Fields>, filterClassification?: Array<Classification>, filterPlatform?: Array<Platform>, filterProducts?: Array<Products>, filterName?: string, filterType?: Array<Type>, filterStatus?: Array<Status>, filterBusinessUnitId?: string, filterJobNumber?: string, filterUpdatedAt?: string, filterTextMatch?: FilterTextMatch, sort?: Array<SortBy>, limit?: number, offset?: number, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Projects>> {
+        async getProjects(accessToken: string, accountId: string, acceptLanguage?: string, region?: Region, userId?: string, fields?: Array<Fields>, filterClassification?: Array<Classification>, filterPlatform?: Array<Platform>, filterProducts?: Array<Products>, filterName?: string, filterType?: Array<string>, filterStatus?: Array<Status>, filterBusinessUnitId?: string, filterJobNumber?: string, filterUpdatedAt?: string, filterTextMatch?: FilterTextMatch, sort?: Array<SortBy>, limit?: number, offset?: number, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Projects>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getProjects(accessToken, accountId, acceptLanguage, region, userId, fields, filterClassification, filterPlatform, filterProducts, filterName, filterType, filterStatus, filterBusinessUnitId, filterJobNumber, filterUpdatedAt, filterTextMatch, sort, limit, offset,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -468,7 +467,7 @@ export interface ProjectsApiInterface {
      * @param {Array<Platform>} [filterPlatform] Filter resource by platform. Possible values: acc and bim360.
      * @param {Array<Products>} [filterProducts] A comma-separated list of the products that the returned projects must use. Only projects that use one or more of the listed products are returned.
      * @param {string} [filterName] A project name or name pattern to filter projects by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]&#x3D;ABCco filterTextMatch&#x3D;startsWith.  Max length: 255
-     * @param {Array<Type>} [filterType] A list of project types to filter projects by. To exclude a project type from the response, prefix it with - (a hyphen); for example, -Bridge excludes bridge projects.
+     * @param {Array<string>} [filterType] A list of project types to filter projects by. To exclude a project type from the response, prefix it with - (a hyphen); for example, -Bridge excludes bridge projects.
      * @param {Array<Status>} [filterStatus] A list of the statuses of projects to include in the response. Possible values:  active pending archived suspended
      * @param {string} [filterBusinessUnitId] The ID of the business unit that returned projects must be associated with.
      * @param {string} [filterJobNumber] The user-defined identifier for a project to be returned. This ID was defined when the project was created. This filter accepts a partial match based on the value of filterTextMatch that you provide.
@@ -482,7 +481,7 @@ export interface ProjectsApiInterface {
      * @throws {RequiredError}
      * @memberof ProjectsApiInterface
      */
-    getProjects(accessToken: string,accountId: string, acceptLanguage?: string, region?: Region, userId?: string, fields?: Array<Fields>, filterClassification?: Array<Classification>, filterPlatform?: Array<Platform>, filterProducts?: Array<Products>, filterName?: string, filterType?: Array<Type>, filterStatus?: Array<Status>, filterBusinessUnitId?: string, filterJobNumber?: string, filterUpdatedAt?: string, filterTextMatch?: FilterTextMatch, sort?: Array<SortBy>, limit?: number, offset?: number,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getProjects(accessToken: string,accountId: string, acceptLanguage?: string, region?: Region, userId?: string, fields?: Array<Fields>, filterClassification?: Array<Classification>, filterPlatform?: Array<Platform>, filterProducts?: Array<Products>, filterName?: string, filterType?: Array<string>, filterStatus?: Array<Status>, filterBusinessUnitId?: string, filterJobNumber?: string, filterUpdatedAt?: string, filterTextMatch?: FilterTextMatch, sort?: Array<SortBy>, limit?: number, offset?: number,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
 }
 
@@ -601,7 +600,7 @@ export class ProjectsApi extends BaseAPI implements ProjectsApiInterface {
      * @param {Array<Platform>} [filterPlatform] Filter resource by platform. Possible values: acc and bim360.
      * @param {Array<Products>} [filterProducts] A comma-separated list of the products that the returned projects must use. Only projects that use one or more of the listed products are returned.
      * @param {string} [filterName] A project name or name pattern to filter projects by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]&#x3D;ABCco filterTextMatch&#x3D;startsWith.  Max length: 255
-     * @param {Array<Type>} [filterType] A list of project types to filter projects by. To exclude a project type from the response, prefix it with - (a hyphen); for example, -Bridge excludes bridge projects.
+     * @param {Array<string>} [filterType] A list of project types to filter projects by. To exclude a project type from the response, prefix it with - (a hyphen); for example, -Bridge excludes bridge projects.
      * @param {Array<Status>} [filterStatus] A list of the statuses of projects to include in the response. Possible values:  active pending archived suspended
      * @param {string} [filterBusinessUnitId] The ID of the business unit that returned projects must be associated with.
      * @param {string} [filterJobNumber] The user-defined identifier for a project to be returned. This ID was defined when the project was created. This filter accepts a partial match based on the value of filterTextMatch that you provide.
@@ -615,7 +614,7 @@ export class ProjectsApi extends BaseAPI implements ProjectsApiInterface {
      * @throws {RequiredError}
      * @memberof ProjectsApi
      */
-    public async getProjects(accessToken: string, accountId: string, acceptLanguage?: string, region?: Region, userId?: string, fields?: Array<Fields>, filterClassification?: Array<Classification>, filterPlatform?: Array<Platform>, filterProducts?: Array<Products>, filterName?: string, filterType?: Array<Type>, filterStatus?: Array<Status>, filterBusinessUnitId?: string, filterJobNumber?: string, filterUpdatedAt?: string, filterTextMatch?: FilterTextMatch, sort?: Array<SortBy>, limit?: number, offset?: number, options?: ApsServiceRequestConfig) {
+    public async getProjects(accessToken: string, accountId: string, acceptLanguage?: string, region?: Region, userId?: string, fields?: Array<Fields>, filterClassification?: Array<Classification>, filterPlatform?: Array<Platform>, filterProducts?: Array<Products>, filterName?: string, filterType?: Array<string>, filterStatus?: Array<Status>, filterBusinessUnitId?: string, filterJobNumber?: string, filterUpdatedAt?: string, filterTextMatch?: FilterTextMatch, sort?: Array<SortBy>, limit?: number, offset?: number, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into getProjects ");
       try {
         const request =  await ProjectsApiFp(this.sdkManager).getProjects(accessToken, accountId, acceptLanguage, region, userId, fields, filterClassification, filterPlatform, filterProducts, filterName, filterType, filterStatus, filterBusinessUnitId, filterJobNumber, filterUpdatedAt, filterTextMatch, sort, limit, offset,  options);

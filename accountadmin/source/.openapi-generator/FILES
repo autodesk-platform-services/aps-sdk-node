@@ -51,8 +51,8 @@ model/project-user-products.ts
 model/project-user-response.ts
 model/project-user-roles.ts
 model/project-user.ts
-model/project-users-import-payload-user-products.ts
-model/project-users-import-payload-user.ts
+model/project-users-import-payload-users-products.ts
+model/project-users-import-payload-users.ts
 model/project-users-import-payload.ts
 model/project-users-import-response.ts
 model/project-users-update-payload-products.ts
@@ -67,7 +67,6 @@ model/status-filter.ts
 model/status.ts
 model/timezone.ts
 model/trade.ts
-model/type.ts
 model/user-fields.ts
 model/user-import-response.ts
 model/user-patch-payload.ts

@@ -7,19 +7,19 @@ import { ProductKeys } from './product-keys';
 /**
  * 
  * @export
- * @interface ProjectUsersImportPayloadUserProducts
+ * @interface ProjectUsersImportPayloadUsersProducts
  */
-export interface ProjectUsersImportPayloadUserProducts {
+export interface ProjectUsersImportPayloadUsersProducts {
     /**
      * 
      * @type {ProductKeys}
-     * @memberof ProjectUsersImportPayloadUserProducts
+     * @memberof ProjectUsersImportPayloadUsersProducts
      */
     'key': ProductKeys;
     /**
      * 
      * @type {ProductAccess}
-     * @memberof ProjectUsersImportPayloadUserProducts
+     * @memberof ProjectUsersImportPayloadUsersProducts
      */
     'access': ProductAccess;
 }
