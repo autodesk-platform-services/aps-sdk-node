@@ -1660,7 +1660,7 @@ export interface OSSApiInterface {
      * @throws {RequiredError}
      * @memberof OSSApiInterface
      */
-    createBucket(accessToken: string,xAdsRegion: CreateBucketXAdsRegionEnum, policyKey: CreateBucketsPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    createBucket(accessToken: string,xAdsRegion: CreateBucketXAdsRegionEnum, bucketPayload : CreateBucketsPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * This endpoint creates a signed URL that can be used to download an object within the specified expiration time. Be aware that if the object the signed URL points to is deleted or expires before the signed URL expires, then the signed URL will no longer be valid. A successful call to this endpoint requires bucket owner access.
@@ -2441,8 +2441,8 @@ export class OSSApi extends BaseAPI implements OSSApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`signedS3Download Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`signedS3Download Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            this.logger.logError(`signedS3Download Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.developerMessage}`);
+            throw new OssApiError(`signedS3Download Request failed with status : ${error.response.status} and error message: ${error.response.data.developerMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`signedS3Download Request failed with no response received: ${error.request}`);
             throw new OssApiError(`signedS3Download Request failed with no response received: ${error.request}`, error);
