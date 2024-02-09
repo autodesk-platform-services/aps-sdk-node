@@ -28,7 +28,6 @@ export class OssClient {
     }
     public async Download(bucketKey: string, objectKey: string, filePath: string, accessToken: string, cancellationToken: AbortController=new AbortController, projectScope: string = '', requestIdPrefix: string = '', onProgress?: (percentCompleted: number) => void): Promise<void> {
         const response = await this.ossFileTransfer.Download(bucketKey, objectKey,filePath,accessToken, cancellationToken ,projectScope, requestIdPrefix,onProgress);
-        return response;
     }
     /**
      * Instructs OSS to complete the object creation process for numerous objects after their bytes have been uploaded directly to S3. An object will not be accessible until you complete the object creation process, either with this endpoint or the single Complete Upload endpoint. This endpoint accepts batch sizes of up to 25. Any larger and the request will fail.
