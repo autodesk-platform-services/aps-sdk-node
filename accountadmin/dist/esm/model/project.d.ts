@@ -2,7 +2,6 @@ import { Classification } from './classification';
 import { Platform } from './platform';
 import { ProjectProjectValue } from './project-project-value';
 import { Status } from './status';
-import { Type } from './type';
 /**
  *
  * @export
@@ -34,11 +33,11 @@ export interface Project {
      */
     'endDate'?: string;
     /**
-     *
-     * @type {Type}
+     * The type of the project.
+     * @type {string}
      * @memberof Project
      */
-    'type'?: Type;
+    'type'?: string;
     /**
      *
      * @type {Classification}

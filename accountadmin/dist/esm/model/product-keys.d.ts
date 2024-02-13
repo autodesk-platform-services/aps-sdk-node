@@ -8,7 +8,7 @@ export declare const ProductKeys: {
     readonly Docs: "docs";
     readonly Takeoff: "takeoff";
     readonly Cost: "cost";
-    readonly Autospecs: "autospecs";
+    readonly AutoSpecs: "autoSpecs";
     readonly Financials: "financials";
     readonly BuildingConnected: "buildingConnected";
     readonly CapitalPlanning: "capitalPlanning";

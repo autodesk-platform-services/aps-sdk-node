@@ -1,5 +1,5 @@
 /**
- * A list of the role IDs and names that are associated with the user in the project.
+ *
  * @export
  * @interface ProjectUserRoles
  */

@@ -12,7 +12,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BusinessUnitsApi = exports.BusinessUnitsApiFp = exports.BusinessUnitsApiAxiosParamCreator = void 0;
-const autodesk_sdkmanager_1 = require("autodesk-sdkmanager");
+const autodesk_sdkmanager_1 = require("@aps_sdk/autodesk-sdkmanager");
 const common_1 = require("../common");
 const base_1 = require("../base");
 const model_1 = require("../model");
@@ -48,13 +48,13 @@ const BusinessUnitsApiAxiosParamCreator = function (apsConfiguration) {
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
             yield (0, common_1.setBearerAuthToObject)(localVarHeaderParameter, accessToken);
-            if (region != null) {
-                localVarHeaderParameter['Region'] = typeof region === 'string'
-                    ? region
-                    : JSON.stringify(region);
-            }
+            // if (region != null) {
+            //     localVarHeaderParameter['Region'] = typeof region === 'string'
+            //         ? region
+            //         : JSON.stringify(region);
+            // }
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTIONADMIN/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
             (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
@@ -88,11 +88,11 @@ const BusinessUnitsApiAxiosParamCreator = function (apsConfiguration) {
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
             yield (0, common_1.setBearerAuthToObject)(localVarHeaderParameter, accessToken);
-            if (region != null) {
-                localVarHeaderParameter['Region'] = typeof region === 'string'
-                    ? region
-                    : JSON.stringify(region);
-            }
+            // if (region != null) {
+            //     localVarHeaderParameter['Region'] = typeof region === 'string'
+            //         ? region
+            //         : JSON.stringify(region);
+            // }
             (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
@@ -177,11 +177,11 @@ class BusinessUnitsApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`createBusinessUnits Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.ConstructionadminApiError(`createBusinessUnits Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.AccountAdminApiError(`createBusinessUnits Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`createBusinessUnits Request failed with no response received: ${error.request}`);
-                    throw new base_1.ConstructionadminApiError(`createBusinessUnits Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.AccountAdminApiError(`createBusinessUnits Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -209,11 +209,11 @@ class BusinessUnitsApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getBusinessUnits Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.ConstructionadminApiError(`getBusinessUnits Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.AccountAdminApiError(`getBusinessUnits Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getBusinessUnits Request failed with no response received: ${error.request}`);
-                    throw new base_1.ConstructionadminApiError(`getBusinessUnits Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.AccountAdminApiError(`getBusinessUnits Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }

@@ -10,7 +10,7 @@ export const ProductKeys = {
     Docs: 'docs',
     Takeoff: 'takeoff',
     Cost: 'cost',
-    Autospecs: 'autospecs',
+    AutoSpecs: 'autoSpecs',
     Financials: 'financials',
     BuildingConnected: 'buildingConnected',
     CapitalPlanning: 'capitalPlanning',

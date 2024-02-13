@@ -9,9 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { ApiResponse } from "autodesk-sdkmanager";
+import { ApiResponse } from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { BaseAPI, ConstructionadminApiError } from '../base';
+import { BaseAPI, AccountAdminApiError } from '../base';
+import { Region } from '../model';
+import { Utils } from '../custom-code/Utils';
 /**
  * AccountUsersApi - axios parameter creator
  * @export
@@ -31,7 +33,8 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration) {
         createUser: (accessToken, accountId, region, userPayload, options = {}) => __awaiter(this, void 0, void 0, function* () {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('createUser', 'accountId', accountId);
-            const localVarPath = `/hq/v1/accounts/{account_id}/users`
+            const regionPath = Utils.GetPathfromRegion(region !== null && region !== void 0 ? region : Region.Us);
+            const localVarPath = (regionPath + `{account_id}/users`)
                 .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
@@ -42,13 +45,13 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration) {
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
             yield setBearerAuthToObject(localVarHeaderParameter, accessToken);
-            if (region != null) {
-                localVarHeaderParameter['Region'] = typeof region === 'string'
-                    ? region
-                    : JSON.stringify(region);
-            }
+            // if (region != null) {
+            //     localVarHeaderParameter['Region'] = typeof region === 'string'
+            //         ? region
+            //         : JSON.stringify(region);
+            // }
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTIONADMIN/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
@@ -73,7 +76,8 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration) {
             assertParamExists('getUser', 'accountId', accountId);
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('getUser', 'userId', userId);
-            const localVarPath = `/hq/v1/accounts/{account_id}/users/{user_id}`
+            const regionPath = Utils.GetPathfromRegion(region !== null && region !== void 0 ? region : Region.Us);
+            const localVarPath = (regionPath + `{account_id}/users/{user_id}`)
                 .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)))
                 .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
@@ -85,11 +89,11 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration) {
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
             yield setBearerAuthToObject(localVarHeaderParameter, accessToken);
-            if (region != null) {
-                localVarHeaderParameter['Region'] = typeof region === 'string'
-                    ? region
-                    : JSON.stringify(region);
-            }
+            // if (region != null) {
+            //     localVarHeaderParameter['Region'] = typeof region === 'string'
+            //         ? region
+            //         : JSON.stringify(region);
+            // }
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
@@ -114,7 +118,8 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration) {
         getUsers: (accessToken, accountId, region, limit, offset, sort, field, options = {}) => __awaiter(this, void 0, void 0, function* () {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('getUsers', 'accountId', accountId);
-            const localVarPath = `/hq/v1/accounts/{account_id}/users`
+            const regionPath = Utils.GetPathfromRegion(region !== null && region !== void 0 ? region : Region.Us);
+            const localVarPath = (regionPath + `{account_id}/users`)
                 .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
@@ -137,11 +142,11 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration) {
             if (field !== undefined) {
                 localVarQueryParameter['field'] = field;
             }
-            if (region != null) {
-                localVarHeaderParameter['Region'] = typeof region === 'string'
-                    ? region
-                    : JSON.stringify(region);
-            }
+            // if (region != null) {
+            //     localVarHeaderParameter['Region'] = typeof region === 'string'
+            //         ? region
+            //         : JSON.stringify(region);
+            // }
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
@@ -163,7 +168,8 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration) {
         importUsers: (accessToken, accountId, region, userPayload, options = {}) => __awaiter(this, void 0, void 0, function* () {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('importUsers', 'accountId', accountId);
-            const localVarPath = `/hq/v1/accounts/{account_id}/users/import`
+            const regionPath = Utils.GetPathfromRegion(region !== null && region !== void 0 ? region : Region.Us);
+            const localVarPath = (regionPath + `{account_id}/users/import`)
                 .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
@@ -174,13 +180,13 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration) {
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
             yield setBearerAuthToObject(localVarHeaderParameter, accessToken);
-            if (region != null) {
-                localVarHeaderParameter['Region'] = typeof region === 'string'
-                    ? region
-                    : JSON.stringify(region);
-            }
+            // if (region != null) {
+            //     localVarHeaderParameter['Region'] = typeof region === 'string'
+            //         ? region
+            //         : JSON.stringify(region);
+            // }
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTIONADMIN/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
@@ -206,7 +212,8 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration) {
             assertParamExists('patchUserDetails', 'accountId', accountId);
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('patchUserDetails', 'userId', userId);
-            const localVarPath = `/hq/v1/accounts/{account_id}/users/{user_id}`
+            const regionPath = Utils.GetPathfromRegion(region !== null && region !== void 0 ? region : Region.Us);
+            const localVarPath = (regionPath + `{account_id}/users/{user_id}`)
                 .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)))
                 .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
@@ -218,13 +225,13 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration) {
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
             yield setBearerAuthToObject(localVarHeaderParameter, accessToken);
-            if (region != null) {
-                localVarHeaderParameter['Region'] = typeof region === 'string'
-                    ? region
-                    : JSON.stringify(region);
-            }
+            // if (region != null) {
+            //     localVarHeaderParameter['Region'] = typeof region === 'string'
+            //         ? region
+            //         : JSON.stringify(region);
+            // }
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTIONADMIN/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
@@ -255,7 +262,8 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration) {
         searchUsers: (accessToken, accountId, region, name, email, companyName, operator, partial, limit, offset, sort, field, options = {}) => __awaiter(this, void 0, void 0, function* () {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('searchUsers', 'accountId', accountId);
-            const localVarPath = `/hq/v1/accounts/{account_id}/users/search`
+            const regionPath = Utils.GetPathfromRegion(region !== null && region !== void 0 ? region : Region.Us);
+            const localVarPath = (regionPath + `{account_id}/users/search`)
                 .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
@@ -293,11 +301,11 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration) {
             if (field !== undefined) {
                 localVarQueryParameter['field'] = field;
             }
-            if (region != null) {
-                localVarHeaderParameter['Region'] = typeof region === 'string'
-                    ? region
-                    : JSON.stringify(region);
-            }
+            // if (region != null) {
+            //     localVarHeaderParameter['Region'] = typeof region === 'string'
+            //         ? region
+            //         : JSON.stringify(region);
+            // }
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
@@ -453,11 +461,11 @@ export class AccountUsersApi extends BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`createUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new ConstructionadminApiError(`createUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new AccountAdminApiError(`createUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`createUser Request failed with no response received: ${error.request}`);
-                    throw new ConstructionadminApiError(`createUser Request failed with no response received: ${error.request}`, error);
+                    throw new AccountAdminApiError(`createUser Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -486,11 +494,11 @@ export class AccountUsersApi extends BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new ConstructionadminApiError(`getUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new AccountAdminApiError(`getUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getUser Request failed with no response received: ${error.request}`);
-                    throw new ConstructionadminApiError(`getUser Request failed with no response received: ${error.request}`, error);
+                    throw new AccountAdminApiError(`getUser Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -522,11 +530,11 @@ export class AccountUsersApi extends BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getUsers Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new ConstructionadminApiError(`getUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new AccountAdminApiError(`getUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getUsers Request failed with no response received: ${error.request}`);
-                    throw new ConstructionadminApiError(`getUsers Request failed with no response received: ${error.request}`, error);
+                    throw new AccountAdminApiError(`getUsers Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -555,11 +563,11 @@ export class AccountUsersApi extends BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`importUsers Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new ConstructionadminApiError(`importUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new AccountAdminApiError(`importUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`importUsers Request failed with no response received: ${error.request}`);
-                    throw new ConstructionadminApiError(`importUsers Request failed with no response received: ${error.request}`, error);
+                    throw new AccountAdminApiError(`importUsers Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -589,11 +597,11 @@ export class AccountUsersApi extends BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`patchUserDetails Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new ConstructionadminApiError(`patchUserDetails Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new AccountAdminApiError(`patchUserDetails Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`patchUserDetails Request failed with no response received: ${error.request}`);
-                    throw new ConstructionadminApiError(`patchUserDetails Request failed with no response received: ${error.request}`, error);
+                    throw new AccountAdminApiError(`patchUserDetails Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -630,11 +638,11 @@ export class AccountUsersApi extends BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`searchUsers Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new ConstructionadminApiError(`searchUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new AccountAdminApiError(`searchUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`searchUsers Request failed with no response received: ${error.request}`);
-                    throw new ConstructionadminApiError(`searchUsers Request failed with no response received: ${error.request}`, error);
+                    throw new AccountAdminApiError(`searchUsers Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }

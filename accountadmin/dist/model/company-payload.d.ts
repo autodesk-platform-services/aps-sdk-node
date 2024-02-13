@@ -1,3 +1,4 @@
+import { Trade } from './trade';
 /**
  *
  * @export
@@ -11,11 +12,11 @@ export interface CompanyPayload {
      */
     'name': string;
     /**
-     * Trade type based on specialization
-     * @type {string}
+     *
+     * @type {Trade}
      * @memberof CompanyPayload
      */
-    'trade': string;
+    'trade': Trade;
     /**
      * Company address line 1
      * @type {string}

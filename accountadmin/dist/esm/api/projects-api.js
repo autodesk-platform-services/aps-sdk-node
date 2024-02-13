@@ -9,12 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { ApiResponse } from "autodesk-sdkmanager";
+import { ApiResponse } from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { BaseAPI, ConstructionadminApiError } from '../base';
+import { BaseAPI, AccountAdminApiError } from '../base';
 import { Region } from '../model';
 import { Utils } from '../custom-code/Utils';
-import * as fs from "fs";
 /**
  * ProjectsApi - axios parameter creator
  * @export
@@ -59,7 +58,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration) {
                 localVarHeaderParameter['User-Id'] = String(userId);
             }
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTIONADMIN/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
@@ -99,20 +98,20 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration) {
             const localVarRequestOptions = Object.assign(Object.assign({ method: 'PATCH' }, baseOptions), options);
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
-            const localVarFormParams = new URLSearchParams();
+            const formData = new FormData();
             yield setBearerAuthToObject(localVarHeaderParameter, accessToken);
-            let buffer = fs.readFileSync("AlNU3WTK_400x400.jpg");
-            const file = new File([buffer], "file name");
-            let s = file.stream();
-            console.log(s);
+            // if (region != null) {
+            //     localVarHeaderParameter['Region'] = typeof region === 'string'
+            //         ? region
+            //         : JSON.stringify(region);
+            // }
             if (body !== undefined) {
-                localVarFormParams.set('chunk', s);
+                formData.set('chunk', body);
             }
-            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
-            localVarRequestOptions.data = localVarFormParams.toString();
+            localVarRequestOptions.data = formData;
             return {
                 url: toPathString(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -178,7 +177,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration) {
          * @param {Array<Platform>} [filterPlatform] Filter resource by platform. Possible values: acc and bim360.
          * @param {Array<Products>} [filterProducts] A comma-separated list of the products that the returned projects must use. Only projects that use one or more of the listed products are returned.
          * @param {string} [filterName] A project name or name pattern to filter projects by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]&#x3D;ABCco filterTextMatch&#x3D;startsWith.  Max length: 255
-         * @param {Array<Type>} [filterType] A list of project types to filter projects by. To exclude a project type from the response, prefix it with - (a hyphen); for example, -Bridge excludes bridge projects.
+         * @param {Array<string>} [filterType] A list of project types to filter projects by. To exclude a project type from the response, prefix it with - (a hyphen); for example, -Bridge excludes bridge projects.
          * @param {Array<Status>} [filterStatus] A list of the statuses of projects to include in the response. Possible values:  active pending archived suspended
          * @param {string} [filterBusinessUnitId] The ID of the business unit that returned projects must be associated with.
          * @param {string} [filterJobNumber] The user-defined identifier for a project to be returned. This ID was defined when the project was created. This filter accepts a partial match based on the value of filterTextMatch that you provide.
@@ -337,7 +336,7 @@ export const ProjectsApiFp = function (sdkManager) {
          * @param {Array<Platform>} [filterPlatform] Filter resource by platform. Possible values: acc and bim360.
          * @param {Array<Products>} [filterProducts] A comma-separated list of the products that the returned projects must use. Only projects that use one or more of the listed products are returned.
          * @param {string} [filterName] A project name or name pattern to filter projects by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]&#x3D;ABCco filterTextMatch&#x3D;startsWith.  Max length: 255
-         * @param {Array<Type>} [filterType] A list of project types to filter projects by. To exclude a project type from the response, prefix it with - (a hyphen); for example, -Bridge excludes bridge projects.
+         * @param {Array<string>} [filterType] A list of project types to filter projects by. To exclude a project type from the response, prefix it with - (a hyphen); for example, -Bridge excludes bridge projects.
          * @param {Array<Status>} [filterStatus] A list of the statuses of projects to include in the response. Possible values:  active pending archived suspended
          * @param {string} [filterBusinessUnitId] The ID of the business unit that returned projects must be associated with.
          * @param {string} [filterJobNumber] The user-defined identifier for a project to be returned. This ID was defined when the project was created. This filter accepts a partial match based on the value of filterTextMatch that you provide.
@@ -393,11 +392,11 @@ export class ProjectsApi extends BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`createProject Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new ConstructionadminApiError(`createProject Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new AccountAdminApiError(`createProject Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`createProject Request failed with no response received: ${error.request}`);
-                    throw new ConstructionadminApiError(`createProject Request failed with no response received: ${error.request}`, error);
+                    throw new AccountAdminApiError(`createProject Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -427,11 +426,11 @@ export class ProjectsApi extends BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`createProjectImage Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new ConstructionadminApiError(`createProjectImage Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new AccountAdminApiError(`createProjectImage Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`createProjectImage Request failed with no response received: ${error.request}`);
-                    throw new ConstructionadminApiError(`createProjectImage Request failed with no response received: ${error.request}`, error);
+                    throw new AccountAdminApiError(`createProjectImage Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -462,11 +461,11 @@ export class ProjectsApi extends BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getProject Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new ConstructionadminApiError(`getProject Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new AccountAdminApiError(`getProject Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getProject Request failed with no response received: ${error.request}`);
-                    throw new ConstructionadminApiError(`getProject Request failed with no response received: ${error.request}`, error);
+                    throw new AccountAdminApiError(`getProject Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -484,7 +483,7 @@ export class ProjectsApi extends BaseAPI {
      * @param {Array<Platform>} [filterPlatform] Filter resource by platform. Possible values: acc and bim360.
      * @param {Array<Products>} [filterProducts] A comma-separated list of the products that the returned projects must use. Only projects that use one or more of the listed products are returned.
      * @param {string} [filterName] A project name or name pattern to filter projects by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]&#x3D;ABCco filterTextMatch&#x3D;startsWith.  Max length: 255
-     * @param {Array<Type>} [filterType] A list of project types to filter projects by. To exclude a project type from the response, prefix it with - (a hyphen); for example, -Bridge excludes bridge projects.
+     * @param {Array<string>} [filterType] A list of project types to filter projects by. To exclude a project type from the response, prefix it with - (a hyphen); for example, -Bridge excludes bridge projects.
      * @param {Array<Status>} [filterStatus] A list of the statuses of projects to include in the response. Possible values:  active pending archived suspended
      * @param {string} [filterBusinessUnitId] The ID of the business unit that returned projects must be associated with.
      * @param {string} [filterJobNumber] The user-defined identifier for a project to be returned. This ID was defined when the project was created. This filter accepts a partial match based on the value of filterTextMatch that you provide.
@@ -510,11 +509,11 @@ export class ProjectsApi extends BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getProjects Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new ConstructionadminApiError(`getProjects Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new AccountAdminApiError(`getProjects Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getProjects Request failed with no response received: ${error.request}`);
-                    throw new ConstructionadminApiError(`getProjects Request failed with no response received: ${error.request}`, error);
+                    throw new AccountAdminApiError(`getProjects Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }

@@ -1,5 +1,5 @@
 import type { AxiosInstance } from 'axios';
-import { ApsServiceRequestConfig, SDKManager } from "autodesk-sdkmanager";
+import { ApsServiceRequestConfig, SDKManager } from "@aps_sdk/autodesk-sdkmanager";
 /**
  *
  * @export
@@ -39,7 +39,7 @@ export declare class RequiredError extends Error {
     field: string;
     constructor(field: string, msg?: string);
 }
-export declare class ConstructionadminApiError extends Error {
+export declare class AccountAdminApiError extends Error {
     axiosError?: any;
     constructor(message: string, axiosError?: any);
 }

@@ -1,5 +1,5 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import { ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse } from "autodesk-sdkmanager";
+import { ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse } from "@aps_sdk/autodesk-sdkmanager";
 import { RequestArgs, BaseAPI } from '../base';
 import { AccessLevels } from '../model';
 import { FilterTextMatch } from '../model';

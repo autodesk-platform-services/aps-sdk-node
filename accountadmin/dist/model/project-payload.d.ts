@@ -2,9 +2,7 @@ import { Classification } from './classification';
 import { Platform } from './platform';
 import { ProjectPayloadProjectValue } from './project-payload-project-value';
 import { ProjectPayloadTemplate } from './project-payload-template';
-import { Status } from './status';
 import { Timezone } from './timezone';
-import { Type } from './type';
 /**
  *
  * @export
@@ -30,11 +28,11 @@ export interface ProjectPayload {
      */
     'endDate'?: string;
     /**
-     *
-     * @type {Type}
+     * The type of the project.
+     * @type {string}
      * @memberof ProjectPayload
      */
-    'type': Type;
+    'type': string;
     /**
      *
      * @type {Classification}
@@ -47,12 +45,6 @@ export interface ProjectPayload {
      * @memberof ProjectPayload
      */
     'projectValue'?: ProjectPayloadProjectValue;
-    /**
-     *
-     * @type {Status}
-     * @memberof ProjectPayload
-     */
-    'status'?: Status;
     /**
      * A job identifier that’s defined for the project by the user. This ID was defined when the project was created. Max length: 100
      * @type {string}
@@ -143,54 +135,6 @@ export interface ProjectPayload {
      * @memberof ProjectPayload
      */
     'businessUnitId'?: string;
-    /**
-     * The timestamp of the last time someone signed into the project.
-     * @type {string}
-     * @memberof ProjectPayload
-     */
-    'lastSignIn'?: string;
-    /**
-     * The URL of the project image.
-     * @type {string}
-     * @memberof ProjectPayload
-     */
-    'imageUrl'?: string;
-    /**
-     * The URL of the project thumbnail image.
-     * @type {string}
-     * @memberof ProjectPayload
-     */
-    'thumbnailImageUrl'?: string;
-    /**
-     * The timestamp when the project was created, in ISO 8601 format.
-     * @type {string}
-     * @memberof ProjectPayload
-     */
-    'createdAt'?: string;
-    /**
-     * The timestamp when the project was last updated, in ISO 8601 format. This reflects only changes to the project fields and not changes to any resources in the project.
-     * @type {string}
-     * @memberof ProjectPayload
-     */
-    'updatedAt'?: string;
-    /**
-     * Not relevant
-     * @type {string}
-     * @memberof ProjectPayload
-     */
-    'memberGroupId'?: string;
-    /**
-     * Not relevant
-     * @type {string}
-     * @memberof ProjectPayload
-     */
-    'adminGroupId'?: string;
-    /**
-     * The ID of the account the project is associated with.
-     * @type {string}
-     * @memberof ProjectPayload
-     */
-    'accountId'?: string;
     /**
      * The total number of sheets associated with the project.
      * @type {number}

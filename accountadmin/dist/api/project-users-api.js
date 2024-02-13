@@ -12,7 +12,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProjectUsersApi = exports.ProjectUsersApiFp = exports.ProjectUsersApiAxiosParamCreator = void 0;
-const autodesk_sdkmanager_1 = require("autodesk-sdkmanager");
+const autodesk_sdkmanager_1 = require("@aps_sdk/autodesk-sdkmanager");
 const common_1 = require("../common");
 const base_1 = require("../base");
 /**
@@ -59,7 +59,7 @@ const ProjectUsersApiAxiosParamCreator = function (apsConfiguration) {
                 localVarHeaderParameter['User-Id'] = String(userId);
             }
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTIONADMIN/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
             (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
@@ -271,7 +271,7 @@ const ProjectUsersApiAxiosParamCreator = function (apsConfiguration) {
                 localVarHeaderParameter['User-Id'] = String(userId);
             }
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTIONADMIN/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
             (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
@@ -371,7 +371,7 @@ const ProjectUsersApiAxiosParamCreator = function (apsConfiguration) {
                 localVarHeaderParameter['User-Id'] = String(userId2);
             }
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTIONADMIN/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
             (0, common_1.setSearchParams)(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = Object.assign(Object.assign(Object.assign({}, localVarHeaderParameter), headersFromBaseOptions), options.headers);
@@ -550,11 +550,11 @@ class ProjectUsersApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`assignProjectUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.ConstructionadminApiError(`assignProjectUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.AccountAdminApiError(`assignProjectUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`assignProjectUser Request failed with no response received: ${error.request}`);
-                    throw new base_1.ConstructionadminApiError(`assignProjectUser Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.AccountAdminApiError(`assignProjectUser Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -586,11 +586,11 @@ class ProjectUsersApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getProjectUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.ConstructionadminApiError(`getProjectUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.AccountAdminApiError(`getProjectUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getProjectUser Request failed with no response received: ${error.request}`);
-                    throw new base_1.ConstructionadminApiError(`getProjectUser Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.AccountAdminApiError(`getProjectUser Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -637,11 +637,11 @@ class ProjectUsersApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`getProjectUsers Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.ConstructionadminApiError(`getProjectUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.AccountAdminApiError(`getProjectUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`getProjectUsers Request failed with no response received: ${error.request}`);
-                    throw new base_1.ConstructionadminApiError(`getProjectUsers Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.AccountAdminApiError(`getProjectUsers Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -672,11 +672,11 @@ class ProjectUsersApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`importProjectUsers Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.ConstructionadminApiError(`importProjectUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.AccountAdminApiError(`importProjectUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`importProjectUsers Request failed with no response received: ${error.request}`);
-                    throw new base_1.ConstructionadminApiError(`importProjectUsers Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.AccountAdminApiError(`importProjectUsers Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -707,11 +707,11 @@ class ProjectUsersApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`removeProjectUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.ConstructionadminApiError(`removeProjectUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.AccountAdminApiError(`removeProjectUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`removeProjectUser Request failed with no response received: ${error.request}`);
-                    throw new base_1.ConstructionadminApiError(`removeProjectUser Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.AccountAdminApiError(`removeProjectUser Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }
@@ -743,11 +743,11 @@ class ProjectUsersApi extends base_1.BaseAPI {
             catch (error) {
                 if (error.response) {
                     this.logger.logError(`updateProjectUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                    throw new base_1.ConstructionadminApiError(`updateProjectUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+                    throw new base_1.AccountAdminApiError(`updateProjectUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
                 }
                 else if (error.request) {
                     this.logger.logError(`updateProjectUser Request failed with no response received: ${error.request}`);
-                    throw new base_1.ConstructionadminApiError(`updateProjectUser Request failed with no response received: ${error.request}`, error);
+                    throw new base_1.AccountAdminApiError(`updateProjectUser Request failed with no response received: ${error.request}`, error);
                 }
                 throw error;
             }

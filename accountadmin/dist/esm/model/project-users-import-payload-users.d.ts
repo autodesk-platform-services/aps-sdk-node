@@ -1,44 +1,44 @@
-import { ProjectUserPayloadProducts } from './project-user-payload-products';
+import { ProjectUsersImportPayloadUsersProducts } from './project-users-import-payload-users-products';
 /**
- * User data to import.
+ *
  * @export
- * @interface ProjectUsersImportPayloadUser
+ * @interface ProjectUsersImportPayloadUsers
  */
-export interface ProjectUsersImportPayloadUser {
+export interface ProjectUsersImportPayloadUsers {
     /**
      * The first name of the user. Max length: 255
      * @type {string}
-     * @memberof ProjectUsersImportPayloadUser
+     * @memberof ProjectUsersImportPayloadUsers
      */
     'firstName'?: string;
     /**
      * The last name of the user. Max length: 255
      * @type {string}
-     * @memberof ProjectUsersImportPayloadUser
+     * @memberof ProjectUsersImportPayloadUsers
      */
     'lastName'?: string;
     /**
      * The email address of the user. Max length: 255
      * @type {string}
-     * @memberof ProjectUsersImportPayloadUser
+     * @memberof ProjectUsersImportPayloadUsers
      */
     'email': string;
     /**
      * The ID of the company that the user is representing in the project. To obtain a list of all company IDs associated with a project, call GET projects/:projectId/companies.
      * @type {string}
-     * @memberof ProjectUsersImportPayloadUser
+     * @memberof ProjectUsersImportPayloadUsers
      */
     'companyId'?: string;
     /**
      * A list of IDs of the roles that the user belongs to in the project.
      * @type {Array<string>}
-     * @memberof ProjectUsersImportPayloadUser
+     * @memberof ProjectUsersImportPayloadUsers
      */
     'roleIds'?: Array<string>;
     /**
      *
-     * @type {ProjectUserPayloadProducts}
-     * @memberof ProjectUsersImportPayloadUser
+     * @type {Array<ProjectUsersImportPayloadUsersProducts>}
+     * @memberof ProjectUsersImportPayloadUsers
      */
-    'products': ProjectUserPayloadProducts;
+    'products': Array<ProjectUsersImportPayloadUsersProducts>;
 }

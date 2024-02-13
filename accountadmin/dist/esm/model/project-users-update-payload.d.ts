@@ -25,8 +25,8 @@ export interface ProjectUsersUpdatePayload {
     'roleIds'?: Array<string>;
     /**
      *
-     * @type {ProjectUsersUpdatePayloadProducts}
+     * @type {Array<ProjectUsersUpdatePayloadProducts>}
      * @memberof ProjectUsersUpdatePayload
      */
-    'products'?: ProjectUsersUpdatePayloadProducts;
+    'products'?: Array<ProjectUsersUpdatePayloadProducts>;
 }

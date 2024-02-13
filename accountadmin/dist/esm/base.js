@@ -38,12 +38,12 @@ export class RequiredError extends Error {
         this.name = "RequiredError";
     }
 }
-export class ConstructionadminApiError extends Error {
+export class AccountAdminApiError extends Error {
     constructor(message, axiosError) {
         super(message);
         if (axiosError) {
             this.axiosError = axiosError;
         }
-        Object.setPrototypeOf(this, ConstructionadminApiError.prototype);
+        Object.setPrototypeOf(this, AccountAdminApiError.prototype);
     }
 }

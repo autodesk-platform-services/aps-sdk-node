@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ConstructionadminApiError = exports.RequiredError = exports.BaseAPI = exports.COLLECTION_FORMATS = void 0;
+exports.AccountAdminApiError = exports.RequiredError = exports.BaseAPI = exports.COLLECTION_FORMATS = void 0;
 const axios_1 = require("axios");
 /**
  *
@@ -43,13 +43,13 @@ class RequiredError extends Error {
     }
 }
 exports.RequiredError = RequiredError;
-class ConstructionadminApiError extends Error {
+class AccountAdminApiError extends Error {
     constructor(message, axiosError) {
         super(message);
         if (axiosError) {
             this.axiosError = axiosError;
         }
-        Object.setPrototypeOf(this, ConstructionadminApiError.prototype);
+        Object.setPrototypeOf(this, AccountAdminApiError.prototype);
     }
 }
-exports.ConstructionadminApiError = ConstructionadminApiError;
+exports.AccountAdminApiError = AccountAdminApiError;

@@ -153,11 +153,11 @@ export interface ProjectUserResponse {
      */
     'roleIds'?: string;
     /**
-     *
-     * @type {ProjectUserRoles}
+     * A list of the role IDs and names that are associated with the user in the project.
+     * @type {Array<ProjectUserRoles>}
      * @memberof ProjectUserResponse
      */
-    'roles'?: ProjectUserRoles;
+    'roles'?: Array<ProjectUserRoles>;
     /**
      * The status of the user in the project. A pending user could be waiting for their products to activate, or the user hasn’t accepted an email to create an account with Autodesk.
      * @type {string}
@@ -166,10 +166,10 @@ export interface ProjectUserResponse {
     'status'?: string;
     /**
      *
-     * @type {ProjectUserProducts}
+     * @type {Array<ProjectUserProducts>}
      * @memberof ProjectUserResponse
      */
-    'products'?: ProjectUserProducts;
+    'products'?: Array<ProjectUserProducts>;
     /**
      * Not relevant - we don’t currently support this field.
      * @type {string}
