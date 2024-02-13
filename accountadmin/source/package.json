@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
-    "autodesk-sdkmanager": "^1.0.5-SNAPSHOT"
+    "@aps_sdk/autodesk-sdkmanager": "^0.0.4-beta.1"
   },
   "devDependencies": {
     "@types/node": "^20.3.2",
