@@ -24,16 +24,14 @@ class AdminClient {
      * Retrieves a project specified by project ID.
      * @summary Get a project by ID
      * @param {string} projectId
-     * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
      * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA.
-     * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {Array<Fields>} [fields] A comma-separated list of the project fields to include in the response. Default value: all fields.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ProjectsApi
      */
-    GetProjectAsync(accessToken, projectId, region, fields, options) {
+    getProjectAsync(accessToken, projectId, region, fields, options) {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield this.projectsApi.getProject(accessToken, projectId, null, region, null, fields, options);
             return response.content;
@@ -43,9 +41,7 @@ class AdminClient {
      * Retrieves a list of the projects in the specified account.
      * @summary Get Project in account
      * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
      * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA.
-     * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {Array<Fields>} [fields] A comma-separated list of the project fields to include in the response. Default value: all fields.
      * @param {Array<Classification>} [filterClassification] A list of the classifications of projects to include in the response. Possible values: production, template, component, sample.
      * @param {Array<Platform>} [filterPlatform] Filter resource by platform. Possible values: acc and bim360.
@@ -65,7 +61,7 @@ class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectsApi
      */
-    GetProjectsAsync(accessToken, accountId, region, fields, filterClassification, filterPlatform, filterProducts, filterName, filterType, filterStatus, filterBusinessUnitId, filterJobNumber, filterUpdatedAt, filterTextMatch, sort, limit, offset, options) {
+    getProjectsAsync(accessToken, accountId, region, fields, filterClassification, filterPlatform, filterProducts, filterName, filterType, filterStatus, filterBusinessUnitId, filterJobNumber, filterUpdatedAt, filterTextMatch, sort, limit, offset, options) {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield this.projectsApi.getProjects(accessToken, accountId, null, region, null, fields, filterClassification, filterPlatform, filterProducts, filterName, filterType, filterStatus, filterBusinessUnitId, filterJobNumber, filterUpdatedAt, filterTextMatch, sort, limit, offset, options);
             return response.content;
@@ -75,16 +71,15 @@ class AdminClient {
      * Creates a new project in the specified account. You can create the project directly, or clone the project from a project template.
      * @summary Create new Project
      * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
      * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA.
-     * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
+     * @param {string} [adminUserId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {ProjectPayload} [projectPayload]
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ProjectsApi
      */
-    CreateProjectAsync(accessToken, accountId, projectPayload, region, adminUserId, options) {
+    createProjectAsync(accessToken, accountId, projectPayload, region, adminUserId, options) {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield this.projectsApi.createProject(accessToken, accountId, null, region, adminUserId, projectPayload, options);
             return response.content;
@@ -102,7 +97,7 @@ class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectsApi
      */
-    CreateProjectImageAsync(accessToken, projectId, accountId, body, region, options) {
+    createProjectImageAsync(accessToken, projectId, accountId, body, region, options) {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield this.projectsApi.createProjectImage(accessToken, projectId, accountId, body, region, options);
             return response.content;
@@ -267,9 +262,7 @@ class AdminClient {
      * @summary Get project user
      * @param {string} projectId The ID of the project. This corresponds to project ID in the Data Management API. To convert a project ID in the Data Management API into a project ID in the ACC API you need to remove the “b.” prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
      * @param {string} userId The ID of the user. You can use either the ACC ID (id) or the Autodesk ID (autodeskId).
-     * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
      * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA.
-     * @param {string} [userId2] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {Array<UserFields>} [fields] A comma-separated list of the project fields to include in the response. Default value: all fields.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -286,9 +279,8 @@ class AdminClient {
      * Assigns a user to the specified project.
      * @summary Assigns a user to the specified project
      * @param {string} projectId The ID of the project. This corresponds to project ID in the Data Management API. To convert a project ID in the Data Management API into a project ID in the ACC API you need to remove the “b.” prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
-     * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
      * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA.
-     * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
+     * @param {string} [adminUserId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {ProjectUserPayload} [projectUserPayload]
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -305,9 +297,7 @@ class AdminClient {
      * Retrieves information about a filtered subset of users in the specified project.  There are two primary reasons to do this:  To verify that all users assigned to the project have been activated as members of the project. To check other information about users, such as their project user ID, roles, and products. Note that if you want to retrieve information about users associated with a particular Autodesk account, call the GET users endpoint.
      * @summary Get project users
      * @param {string} projectId The ID of the project. This corresponds to project ID in the Data Management API. To convert a project ID in the Data Management API into a project ID in the ACC API you need to remove the “b.” prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
-     * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
      * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA.
-     * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {Array<Products>} [filterProducts] A comma-separated list of the products that the returned projects must use. Only projects that use one or more of the listed products are returned.
      * @param {string} [filterName] A user name or name pattern to filter users by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]&#x3D;ABCco filterTextMatch&#x3D;startsWith.  Max length: 255
      * @param {string} [filterEmail] A user email address or address pattern that the returned users must have. This can be a partial match based on the value of filterTextMatch that you provide. For example:  filter[email]&#x3D;sample filterTextMatch&#x3D;startsWith  Max length: 255
@@ -340,9 +330,8 @@ class AdminClient {
      * Assigns multiple users to a project at once. This endpoint can assign up to 200 users per request.
      * @summary Assigns multiple users to a project
      * @param {string} projectId The ID of the project. This corresponds to project ID in the Data Management API. To convert a project ID in the Data Management API into a project ID in the ACC API you need to remove the “b.” prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
-     * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
      * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA.
-     * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
+     * @param {string} [adminUserId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {ProjectUsersImportPayload} [projectUsersImportPayload]
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -360,9 +349,8 @@ class AdminClient {
      * @summary Remove Project User
      * @param {string} projectId The ID of the project. This corresponds to project ID in the Data Management API. To convert a project ID in the Data Management API into a project ID in the ACC API you need to remove the “b.” prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
      * @param {string} userId The ID of the user. You can use either the ACC ID (id) or the Autodesk ID (autodeskId).
-     * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
      * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA.
-     * @param {string} [userId2] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
+     * @param {string} [adminUserId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -379,9 +367,8 @@ class AdminClient {
      * @summary Update user in project
      * @param {string} projectId The ID of the project. This corresponds to project ID in the Data Management API. To convert a project ID in the Data Management API into a project ID in the ACC API you need to remove the “b.” prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
      * @param {string} userId The ID of the user. You can use either the ACC ID (id) or the Autodesk ID (autodeskId).
-     * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
      * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA.
-     * @param {string} [userId2] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
+     * @param {string} [adminUserId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {ProjectUsersUpdatePayload} [projectUsersUpdatePayload]
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
