@@ -1,0 +1,33 @@
+{
+  "name": "@aps_sdk/account-admin",
+  "version": "1.0.0-beta1",
+  "description": "Client sdk for account-admin API",
+  "license": "",
+  "publishConfig": {
+    "registry": "https://npm.autodesk.com/artifactory/api/npm/autodesk-npm",
+    "access": "public"
+  },
+  "keywords": [
+    "axios",
+    "typescript",
+    "account-admin"
+  ],
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "module": "./dist/esm/index.js",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc && tsc -p tsconfig.esm.json",
+    "prettier-format": "prettier --config .prettierrc \"./**/*.ts\" --write",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "@aps_sdk/autodesk-sdkmanager": "^0.0.4-beta.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.2",
+    "prettier": "^2.8.8",
+    "typescript": "^5.1.5"
+  }
+}

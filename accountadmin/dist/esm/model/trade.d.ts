@@ -1,0 +1,74 @@
+/**
+ *
+ * @export
+ * @enum {string}
+ */
+export declare const Trade: {
+    readonly Architecture: "Architecture";
+    readonly Communications: "Communications";
+    readonly CommunicationsData: "Communications | Data";
+    readonly Concrete: "Concrete";
+    readonly ConcreteCastInPlace: "Concrete | Cast-in-Place";
+    readonly ConcretePrecast: "Concrete | Precast";
+    readonly ConstructionManagement: "Construction Management";
+    readonly ConveyingEquipment: "Conveying Equipment";
+    readonly ConveyingEquipmentElevators: "Conveying Equipment | Elevators";
+    readonly Demolition: "Demolition";
+    readonly Earthwork: "Earthwork";
+    readonly EarthworkSiteExcavationGrading: "Earthwork | Site Excavation & Grading";
+    readonly Electrical: "Electrical";
+    readonly ElectricalPowerGeneration: "Electrical Power Generation";
+    readonly ElectronicSafetySecurity: "Electronic Safety & Security";
+    readonly Equipment: "Equipment";
+    readonly EquipmentKitchenAppliances: "Equipment | Kitchen Appliances";
+    readonly ExteriorImprovements: "Exterior Improvements";
+    readonly ExteriorFencesGates: "Exterior | Fences & Gates";
+    readonly ExteriorLandscaping: "Exterior | Landscaping";
+    readonly ExteriorIrrigation: "Exterior | Irrigation";
+    readonly Finishes: "Finishes";
+    readonly FinishesCarpeting: "Finishes | Carpeting";
+    readonly FinishesCeiling: "Finishes | Ceiling";
+    readonly FinishesDrywall: "Finishes | Drywall";
+    readonly FinishesFlooring: "Finishes | Flooring";
+    readonly FinishesPaintingCoating: "Finishes | Painting & Coating";
+    readonly FinishesTile: "Finishes | Tile";
+    readonly FireSuppression: "Fire Suppression";
+    readonly Furnishings: "Furnishings";
+    readonly FurnishingsCaseworkCabinets: "Furnishings | Casework & Cabinets";
+    readonly FurnishingsCountertops: "Furnishings | Countertops";
+    readonly FurnishingsWindowTreatments: "Furnishings | Window Treatments";
+    readonly GeneralContractor: "General Contractor";
+    readonly HvacHeatingVentilatingAirConditioning: "HVAC Heating, Ventilating, & Air Conditioning";
+    readonly IndustrySpecificManufacturingProcessing: "Industry-Specific Manufacturing Processing";
+    readonly IntegratedAutomation: "Integrated Automation";
+    readonly Masonry: "Masonry";
+    readonly MaterialProcessingHandlingEquipment: "Material Processing & Handling Equipment";
+    readonly Metals: "Metals";
+    readonly MetalsStructuralSteelFraming: "Metals | Structural Steel / Framing";
+    readonly MoistureProtection: "Moisture Protection";
+    readonly MoistureProtectionRoofing: "Moisture Protection | Roofing";
+    readonly MoistureProtectionWaterproofing: "Moisture Protection | Waterproofing";
+    readonly Openings: "Openings";
+    readonly OpeningsDoorsFrames: "Openings | Doors & Frames";
+    readonly OpeningsEntrancesStorefronts: "Openings | Entrances & Storefronts";
+    readonly OpeningsGlazing: "Openings | Glazing";
+    readonly OpeningsRoofWindowsSkylights: "Openings | Roof Windows & Skylights";
+    readonly OpeningsWindows: "Openings | Windows";
+    readonly Owner: "Owner";
+    readonly Plumbing: "Plumbing";
+    readonly PollutionWasteControlEquipment: "Pollution & Waste Control Equipment";
+    readonly ProcessGasLiquidHandlingPurificationStorageEquipment: "Process Gas & Liquid Handling, Purification, & Storage Equipment";
+    readonly ProcessHeatingCoolingDryingEquipment: "Process Heating, Cooling, & Drying Equipment";
+    readonly ProcessIntegration: "Process Integration";
+    readonly ProcessIntegrationPiping: "Process Integration | Piping";
+    readonly SpecialConstruction: "Special Construction";
+    readonly Specialties: "Specialties";
+    readonly SpecialtiesSignage: "Specialties | Signage";
+    readonly Utilities: "Utilities";
+    readonly WaterWastewaterEquipment: "Water & Wastewater Equipment";
+    readonly WaterwayMarineConstruction: "Waterway & Marine Construction";
+    readonly WoodPlastics: "Wood & Plastics";
+    readonly WoodPlasticsMillwork: "Wood & Plastics | Millwork";
+    readonly WoodPlasticsRoughCarpentry: "Wood & Plastics | Rough Carpentry";
+};
+export type Trade = typeof Trade[keyof typeof Trade];
