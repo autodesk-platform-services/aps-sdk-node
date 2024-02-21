@@ -3,7 +3,7 @@
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import globalAxios, {AxiosError} from 'axios';
-import {ApsServiceRequestConfig, SDKManager} from "autodesk-sdkmanager";
+import {ApsServiceRequestConfig, SDKManager} from "@aps_sdk/autodesk-sdkmanager";
 
 /**
  *

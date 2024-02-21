@@ -4,7 +4,7 @@
 import type { RequestArgs } from "./base";
 import type { AxiosInstance, AxiosResponse } from 'axios';
 import { RequiredError } from "./base";
-import {IApsConfiguration, SDKManager} from "autodesk-sdkmanager";
+import {IApsConfiguration, SDKManager} from "@aps_sdk/autodesk-sdkmanager";
 
 /**
  *
@@ -104,3 +104,14 @@ export const createRequestFunction = function (axiosArgs: RequestArgs, sdkManage
         return sdkManager?.apsclient?.apsService.request(config);
     };
 }
+/**
+ *
+ * @export
+ */
+export const createRequestFunctionOss = function (axiosArgs: RequestArgs, sdkManager?: SDKManager) {
+    return <T = unknown, R = AxiosResponse<T>>() => {
+        const config = {...axiosArgs.options, url: axiosArgs.url};
+        return sdkManager?.apsclient?.apsService.request(config);
+    };
+}
+
