@@ -104,14 +104,11 @@ export const createRequestFunction = function (axiosArgs: RequestArgs, sdkManage
         return sdkManager?.apsclient?.apsService.request(config);
     };
 }
-/**
- *
- * @export
- */
-export const createRequestFunctionOss = function (axiosArgs: RequestArgs, sdkManager?: SDKManager) {
+
+
+export const createRequestFunctionforUserInfo = function (axiosArgs: RequestArgs, sdkManager?: SDKManager) {
     return <T = unknown, R = AxiosResponse<T>>() => {
         const config = {...axiosArgs.options, url: axiosArgs.url};
         return sdkManager?.apsclient?.apsService.request(config);
     };
 }
-

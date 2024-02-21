@@ -3,7 +3,7 @@
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import globalAxios, {AxiosError} from 'axios';
-import {ApsServiceRequestConfig, SDKManager} from "@aps_sdk/autodesk-sdkmanager";
+import {ApsServiceRequestConfig, ISDKError, SDKManager} from "@aps_sdk/autodesk-sdkmanager";
 
 /**
  *
@@ -54,7 +54,7 @@ export class RequiredError extends Error {
     }
 }
 
-export class OssApiError extends Error {
+export class AuthenticationApiError extends Error implements ISDKError {
     /* istanbul ignore next */
     axiosError?: any;
     constructor(message: string, axiosError?: any) {
@@ -62,6 +62,9 @@ export class OssApiError extends Error {
         if (axiosError) {
             this.axiosError = axiosError;
         }
-        Object.setPrototypeOf(this, OssApiError.prototype);
+        Object.setPrototypeOf(this, AuthenticationApiError.prototype);
+    }
+    httpStatusCode(): number | null {
+      return this.axiosError?.response?.status;
     }
 }
