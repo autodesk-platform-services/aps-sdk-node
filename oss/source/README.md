@@ -1,18 +1,17 @@
-## oss@1.0.0
+## APS SDK for Data Management OSS
 
-The Object Storage Service (OSS) allows your application to download and upload raw files (such as PDF, XLS, DWG, or RVT) that are managed by the Data service.
-This is TypeScript client library for oss
+[![npm](https://img.shields.io/badge/npm-8.11-blue.svg)](https://www.npmjs.com/)
+[![License Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/autodesk-platform-services/aps-sdk-node/blob/development/LICENSE)
 
-## Building the SDK
-1. Install dependencies
+Access data using the Object Storage Service to build apps to display and extend your data in ways that add value to your users.
+For further information see [Documentation](https://aps.autodesk.com/en/docs/data/v2/developers_guide/overview)
+
+## Installation 
 ```
-npm install
+npm i @aps_sdk/oss
 ```
-2. Format code using prettier
-```
-npm run prettier-format
-```
-3. Build the sdk
-```
-npm run build
-```
+## Example
+
+For usage, see [OSS sample](https://github.com/autodesk-platform-services/aps-sdk-node/blob/development/samples/oss.ts)
+
+
