@@ -103,7 +103,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
         }
       }
       chunksUploaded++;
-      start =end+1;
+      start = end;
       var percentCompleted: number = (chunksUploaded / numberOfChunks) * 100;
       onProgress?.(percentCompleted);
       this.logger.logInfo(`${requestId} Number of chunks uploaded : ${chunksUploaded}`);
