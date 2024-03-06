@@ -46,9 +46,9 @@ export class WebhooksClient {
   public async createSystemHookAsync(
     accessToken: string,
     system: Systems,
+    hookPayload: HookPayload,
     xAdsRegion?: string,
     region?: string,
-    hookPayload?: HookPayload,
     options?: ApsServiceRequestConfig
   ): Promise<Hook> {
     const response = await this.hooksApi.createSystemHook(
@@ -195,9 +195,9 @@ export class WebhooksClient {
     system: Systems,
     event: Events,
     hookId: string,
+    modifyHookPayload: ModifyHookPayload,
     xAdsRegion?: string,
     region?: string,
-    modifyHookPayload?: ModifyHookPayload,
     options?: ApsServiceRequestConfig
   ): Promise<void> {
     const response = await this.hooksApi.patchSystemEventHook(
@@ -215,9 +215,9 @@ export class WebhooksClient {
 
   public async createTokenAsync(
     accessToken: string,
+    tokenPayload: TokenPayload,
     xAdsRegion?: string,
     region?: string,
-    tokenPayload?: TokenPayload,
     options?: ApsServiceRequestConfig
   ): Promise<Token> {
     const response = await this.tokensApi.createToken(
@@ -247,9 +247,9 @@ export class WebhooksClient {
 
   public async putTokenAsync(
     accessToken: string,
+    tokenPayload: TokenPayload,
     xAdsRegion?: string,
     region?: string,
-    tokenPayload?: TokenPayload,
     options?: ApsServiceRequestConfig
   ): Promise<void> {
     const response = await this.tokensApi.putToken(
