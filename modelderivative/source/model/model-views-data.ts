@@ -16,7 +16,7 @@ export interface ModelViewsData {
      */
     'type': string;
     /**
-     * Ann array of objects, where each object represents a Model View.
+     * An array of objects, where each object represents a Model View.
      * @type {Set<ModelViewsDataMetadata>}
      * @memberof ModelViewsData
      */

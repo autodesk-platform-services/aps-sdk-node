@@ -6,7 +6,7 @@ import { SolidType } from './solid-type';
 import { SurfaceType } from './surface-type';
 
 /**
- * Advanced options for `iges` type.
+ * Advanced options for IGES output type.
  * @export
  * @interface JobIgesOutputFormatAdvanced
  */

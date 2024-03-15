@@ -15,19 +15,19 @@ export interface JobPayloadInput {
      */
     'urn': string;
     /**
-     * - ``true``: The source design is compressed as a zip file. If set to `true`, you need to define the `rootFilename`.\' - ``false``: (Default) The source design is not compressed. 
+     * - ``true``: The source design is compressed as a zip file. If set to ``true``, you need to define the `rootFilename`.\' - ``false``: (Default) The source design is not compressed. 
      * @type {boolean}
      * @memberof JobPayloadInput
      */
     'compressedUrn'?: boolean;
     /**
-     * The file name of the top-level component of the source design.  Mandatory if  ``compressedUrn`` is set to `true`.
+     * The file name of the top-level component of the source design.  Mandatory if  ``compressedUrn`` is set to ``true``.
      * @type {string}
      * @memberof JobPayloadInput
      */
-    'rootFilename'?: string;
+    'rootFileName'?: string;
     /**
-     * - ``true`` - Instructs the server to check for references and download all referenced files. If the design consists of multiple files (as with Autodesk Inventor assemblies) the translation job fails if this attribute is not set to ``true``. - ``false`` - (Default) Does not check for any references.
+     * - ``true`` - Instructs the system to check for references, and if any exist, download all referenced files. Setting this parameter to ``true`` is mandatory when translating source designs consisting of multiple files. For example, Autodesk Inventor assemblies. - ``false`` - (Default) Instructs the system not to check for references.
      * @type {boolean}
      * @memberof JobPayloadInput
      */

@@ -19,6 +19,7 @@ export interface ReferencesPayload {
     /**
      * 
      * @type {Region}
+     * @deprecated
      * @memberof ReferencesPayload
      */
     'region'?: Region;
@@ -27,7 +28,7 @@ export interface ReferencesPayload {
      * @type {string}
      * @memberof ReferencesPayload
      */
-    'filename': string;
+    'fileName': string;
     /**
      * An array of objects, where each object represents a referenced file.
      * @type {Set<References>}

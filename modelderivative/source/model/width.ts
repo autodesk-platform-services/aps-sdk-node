@@ -3,7 +3,7 @@
 
 
 /**
- * Set the width. Possible values are `100`, `200` and `400`.
+ * Sets the width of a thumbnail output in pixels. Possible values are ``100``, ``200`` and ``400``.
  * @export
  * @enum {string}
  */

@@ -3,7 +3,7 @@
 
 
 /**
- * Default format is `binary`. Possible values are `binary` or `ascii`.
+ * Specifies the format of the file to create, when the specified output is STL.  Possible values are:  - ``ascii`` - Create derivative as an ASCII STL file. - ``binary`` - (Default) Create derivative as a binary STL file.   
  * @export
  * @enum {string}
  */

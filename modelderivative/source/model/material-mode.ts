@@ -3,7 +3,7 @@
 
 
 /**
- * Specifies the materials to apply to the generated SVF derivatives. Available options are: - auto - (Default) Use the current setting of the default view of the input file. - basic - Use basic materials. - autodesk - Use Autodesk materials.
+ * Specifies the materials to apply to the generated SVF derivatives. Applicable only when the source design is of type RVT. Possible values are:  - ``auto`` - (Default) Use the current setting of the default view of the input file. - ``basic`` - Use basic materials. - ``autodesk`` - Use Autodesk materials.
  * @export
  * @enum {string}
  */

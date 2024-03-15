@@ -10,10 +10,10 @@
 export interface ManifestDerivativesChildren {
     /**
      * The name of the phase the entity was generated from.  This attribute is present only on Model Views (Viewables) generated from a Revit source design.
-     * @type {string}
+     * @type {PhaseNames}
      * @memberof ManifestDerivativesChildren
      */
-    'phaseNames': string;
+    'phaseNames': PhaseNames;
     /**
      * 
      * @type {string}
@@ -75,4 +75,4 @@ export interface ManifestDerivativesChildren {
      */
     'isMasterView'?: boolean;
 }
-
+export type PhaseNames = Set<string> | string;

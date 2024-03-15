@@ -3,7 +3,7 @@
 
 
 /**
- * Type of model view Possible values: 2d, 3d
+ * Type of Model View. Possible values are: ``2d``, ``3d``.
  * @export
  * @enum {string}
  */
