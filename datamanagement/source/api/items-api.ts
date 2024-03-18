@@ -4,7 +4,7 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, DataManagementApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, DataManagementApiError } from '../base';
 import { Folder } from '../model';
 import { GetHubs401Response } from '../model';
 import { Item } from '../model';
@@ -566,7 +566,7 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
  * @export
  */
 export const ItemsApiFp = function(sdkManager?: SDKManager) {
-    const localVarAxiosParamCreator = ItemsApiAxiosParamCreator(sdkManager.apsconfiguration)
+    const localVarAxiosParamCreator = ItemsApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
          * Creates the first version of a file (item). To create additional versions of an item, use POST versions.  Before you create the first version you need to create a storage location for the file, and upload the file to the storage object. For more details about the workflow, see the tutorial on uploading a file.  This endpoint also copies versions of items to other folders in the same project. The endpoint creates a new item and a first version of the item in the target folder. You cannot copy versions of items across different projects and accounts.  To copy versions of items to existng items in other folders, use POST versions. POST versions creates a new version of the existing item in the target folder.  Note that to access BIM 360 Docs files using the Data Management API you need to provision your app in the BIM 360 Account Administrator portal. For more details, see the Manage Access to Docs tutorial.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
@@ -877,9 +877,9 @@ export interface ItemsApiInterface {
  * ItemsApi - object-oriented interface
  * @export
  * @class ItemsApi
- * @extends {BaseAPI}
+ * @extends {BaseApi}
  */
-export class ItemsApi extends BaseAPI implements ItemsApiInterface {
+export class ItemsApi extends BaseApi implements ItemsApiInterface {
     private logger = this.sdkManager.logger;
     /**
      * Creates the first version of a file (item). To create additional versions of an item, use POST versions.  Before you create the first version you need to create a storage location for the file, and upload the file to the storage object. For more details about the workflow, see the tutorial on uploading a file.  This endpoint also copies versions of items to other folders in the same project. The endpoint creates a new item and a first version of the item in the target folder. You cannot copy versions of items across different projects and accounts.  To copy versions of items to existng items in other folders, use POST versions. POST versions creates a new version of the existing item in the target folder.  Note that to access BIM 360 Docs files using the Data Management API you need to provision your app in the BIM 360 Account Administrator portal. For more details, see the Manage Access to Docs tutorial.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
