@@ -1,16 +1,16 @@
 {
   "name": "@aps_sdk/account-admin",
-  "version": "1.0.0-beta1",
-  "description": "Client sdk for account-admin API",
-  "license": "",
-  "publishConfig": {
-    "registry": "https://npm.autodesk.com/artifactory/api/npm/autodesk-npm",
-    "access": "public"
-  },
+  "version": "0.0.1-beta.1",
+  "description": "Client sdk for Construction Account Admin API",
+  "license": "Apache-2.0",
+  "author": "Autodesk Platform Services",
   "keywords": [
-    "axios",
-    "typescript",
-    "account-admin"
+    "Autodesk Platform Services",
+    "Typescript",
+    "Construction Account Admin"
+  ],
+  "files": [
+    "/dist"
   ],
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
@@ -22,11 +22,11 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "axios": "^0.27.2",
-    "@aps_sdk/autodesk-sdkmanager": "^0.0.4-beta.1"
+    "@aps_sdk/autodesk-sdkmanager": "^0.0.4-beta.1",
+    "axios": "^1.6.1",
+    "@types/node": "^20.9.0"
   },
   "devDependencies": {
-    "@types/node": "^20.3.2",
     "prettier": "^2.8.8",
     "typescript": "^5.1.5"
   }

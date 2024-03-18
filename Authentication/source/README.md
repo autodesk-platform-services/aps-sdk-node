@@ -1,18 +1,16 @@
-## authentication@1.0.0
+## APS SDK for Authentication
 
-OAuth2 token management APIs.
-This is TypeScript client library for authentication
+[![npm](https://img.shields.io/badge/npm-8.11-blue.svg)](https://www.npmjs.com/)
+[![License Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/autodesk-platform-services/aps-sdk-node/blob/development/LICENSE)
 
-## Building the SDK
-1. Install dependencies
+Generate tokens using the OAuth 2.0 standard to authenticate requests made to APS APIs and SDKs.
+For further information see [Documentation](https://aps.autodesk.com/en/docs/oauth/v2/developers_guide/overview)
+
+
+## Installation 
 ```
-npm install
+npm i @aps_sdk/authentication
 ```
-2. Format code using prettier
-```
-npm run prettier-format
-```
-3. Build the sdk
-```
-npm run build
-```
+## Example
+
+For usage, see [Authentication sample](https://github.com/autodesk-platform-services/aps-sdk-node/blob/development/samples/authentication.ts)
