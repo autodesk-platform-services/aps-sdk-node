@@ -29,7 +29,7 @@ export * from './buckets-items';
 export * from './buckets-namespaces';
 export * from './completes3upload-body';
 export * from './completes3upload-response200';
-// export * from './completes3upload-response400';
+export * from './completes3upload-response400';
 export * from './completes3upload-response400-parts';
 export * from './completes3upload-response400-size';
 export * from './copy-batch-results1';
