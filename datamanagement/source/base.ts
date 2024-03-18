@@ -29,9 +29,9 @@ export interface RequestArgs {
 /**
  *
  * @export
- * @class BaseAPI
+ * @class BaseApi
  */
-export class BaseAPI {
+export class BaseApi {
     protected sdkManager: SDKManager | undefined;
 
     constructor(sdkManager?: SDKManager, protected axios: AxiosInstance = globalAxios) {
