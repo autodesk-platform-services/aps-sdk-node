@@ -4,7 +4,7 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, OssApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, OssApiError } from '../base';
 import { BatchcompleteuploadObject } from '../model';
 import { BatchcompleteuploadResponse } from '../model';
 import { Batchsigneds3downloadObject } from '../model';
@@ -1269,7 +1269,7 @@ export const OSSApiAxiosParamCreator = function (apsConfiguration?: IApsConfigur
  * @export
  */
 export const OSSApiFp = function(sdkManager?: SDKManager) {
-    const localVarAxiosParamCreator = OSSApiAxiosParamCreator(sdkManager.apsconfiguration)
+    const localVarAxiosParamCreator = OSSApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
          * Instructs OSS to complete the object creation process for numerous objects after their bytes have been uploaded directly to S3. An object will not be accessible until you complete the object creation process, either with this endpoint or the single Complete Upload endpoint. This endpoint accepts batch sizes of up to 25. Any larger and the request will fail.
@@ -1888,9 +1888,9 @@ export interface OSSApiInterface {
  * OSSApi - object-oriented interface
  * @export
  * @class OSSApi
- * @extends {BaseAPI}
+ * @extends {BaseApi}
  */
-export class OSSApi extends BaseAPI implements OSSApiInterface {
+export class OSSApi extends BaseApi implements OSSApiInterface {
     private logger = this.sdkManager.logger;
     /**
      * Instructs OSS to complete the object creation process for numerous objects after their bytes have been uploaded directly to S3. An object will not be accessible until you complete the object creation process, either with this endpoint or the single Complete Upload endpoint. This endpoint accepts batch sizes of up to 25. Any larger and the request will fail.

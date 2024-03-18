@@ -3,7 +3,7 @@ import { IFileTransferConfigurations } from './FileTransferConfigurations';
 import { OSSApi } from "../api";
 import { Completes3uploadBody, ObjectStatusEnum, Signeds3downloadResponse, Signeds3uploadResponse } from "../model";
 import { OssApiError, RequestArgs } from "../base";
-import {createRequestFunctionOss } from "../common";
+import { createRequestFunctionOss } from "../common";
 import { WriteStream, createWriteStream } from "fs";
 import axios, { AxiosResponse } from "axios";
 
@@ -37,50 +37,50 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     this.sdkManager = sdkmanager;
     this.configuration = configuration;
     this.ossApi = new OSSApi(this.sdkManager);
-    this.maxChunkCountAllowed = this.configuration.GetMaxChunkCountAllowed();
-    this.maxRetryOnUrlExpiry = this.configuration.GetMaxRetryOnUrlExpiry();
-    this.maxRetryOnTokenExpiry = this.configuration.GetMaxRetryOnTokenExpiry();
+    this.maxChunkCountAllowed = this.configuration.getMaxChunkCountAllowed();
+    this.maxRetryOnUrlExpiry = this.configuration.getMaxRetryOnUrlExpiry();
+    this.maxRetryOnTokenExpiry = this.configuration.getMaxRetryOnTokenExpiry();
     // this._authentication = authentication;
     this.logger = this.sdkManager.logger;
   }
 
-  public async Upload(bucketKey: string, objectKey: string, sourceToUpload: Buffer, accessToken: string, cancellationToken: AbortController, projectScope: string = '',
+  public async upload(bucketKey: string, objectKey: string, sourceToUpload: Buffer, accessToken: string, cancellationToken: AbortController, projectScope: string = '',
     requestIdPrefix: string = '', onProgress?: (percentCompleted: number) => void): Promise<ApiResponse> {
-    const requestId: any = await this.HandleRequestId(requestIdPrefix, bucketKey, objectKey);
-    const retryCount: number = this.configuration.GetRetryCount();
+    const requestId: any = await this.handleRequestId(requestIdPrefix, bucketKey, objectKey);
+    const retryCount: number = this.configuration.getRetryCount();
     this.logger.logDebug(`${requestId} Config retry setting was: ${retryCount}`);
 
-    await this.ValidateFileSize(requestId, sourceToUpload);
-    this.ValidateProjectScopeName(requestId, projectScope);
+    await this.validateFileSize(requestId, sourceToUpload);
+    this.validateProjectScopeName(requestId, projectScope);
 
     onProgress?.(1);
-    var numberOfChunks: number = this.CalculateNumberOfChunks(sourceToUpload.length);
+    var numberOfChunks: number = this.calculateNumberOfChunks(sourceToUpload.length);
     var chunksUploaded: number = 0;
     var start: number = 0;
     var uploadUrls: string[] = [];
     var uploadKey: string = null;
     while (chunksUploaded < numberOfChunks) {
-      this.ThrowIfCancellationRequested(cancellationToken, requestId);
-      var attempts: number =  0;
+      this.throwIfCancellationRequested(cancellationToken, requestId);
+      var attempts: number = 0;
       var end: number = Math.min(start + Constants.ChunkSize, sourceToUpload.length);
       var fileBuffer: Buffer = this.readFileBytes(sourceToUpload, start, end);
       var retryUrlExpiryCount: number = 0;
       while (true) {
-        this.ThrowIfCancellationRequested(cancellationToken, requestId);
+        this.throwIfCancellationRequested(cancellationToken, requestId);
         attempts++;
         this.logger.logInfo(`${requestId} Uploading part ${chunksUploaded}, attempt ${attempts}`);
 
         if (uploadUrls.length == 0) {
           retryUrlExpiryCount++;
-          var [uploadUrlsResponse, currentAccessToken] = await this.GetUploadUrlsWithRetry(bucketKey, objectKey, numberOfChunks, chunksUploaded, uploadKey, accessToken, projectScope, requestId);
+          var [uploadUrlsResponse, currentAccessToken] = await this.getUploadUrlsWithRetry(bucketKey, objectKey, numberOfChunks, chunksUploaded, uploadKey, accessToken, projectScope, requestId);
           uploadKey = uploadUrlsResponse.uploadKey;
           uploadUrls = uploadUrlsResponse.urls;
           accessToken = currentAccessToken;
         }
-        var currentUrl:string = uploadUrls.shift();
+        var currentUrl: string = uploadUrls.shift();
         try {
-          this.ThrowIfCancellationRequested(cancellationToken, requestId);
-          var responseBuffer = await this.UploadToURL(currentUrl, fileBuffer, accessToken,requestId);
+          this.throwIfCancellationRequested(cancellationToken, requestId);
+          var responseBuffer = await this.uploadToURL(currentUrl, fileBuffer, accessToken, requestId);
 
           var statusCode: number = responseBuffer.status;
 
@@ -117,9 +117,9 @@ export class OSSFileTransfer implements IOSSFileTransfer {
         uploadKey: uploadKey
       } as Completes3uploadBody);
     onProgress?.(100);
-    return completeResponse;
+    return completeResponse.content;
   }
-  protected async UploadToURL(currentUrl: string, fileChunk: Buffer, accessToken: string, requestId:string,options?: ApsServiceRequestConfig): Promise<any> {
+  protected async uploadToURL(currentUrl: string, fileChunk: Buffer, accessToken: string, requestId: string, options?: ApsServiceRequestConfig): Promise<any> {
     const localVarHeaderParameter = {} as any;
     localVarHeaderParameter['x-ads-request-id'] = requestId;
     const localVarRequestOptions = { method: 'PUT', ...options };
@@ -133,54 +133,54 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     const response = await request();
     return response;
   }
-  public async Download(bucketKey: string, objectKey: string, filePath: string, accessToken: string, cancellationToken: AbortController, projectScope: string = '', requestIdPrefix: string = '', onProgress?: (percentCompleted: number) => void): Promise<void> {
+  public async download(bucketKey: string, objectKey: string, filePath: string, accessToken: string, cancellationToken: AbortController, projectScope: string = '', requestIdPrefix: string = '', onProgress?: (percentCompleted: number) => void): Promise<void> {
 
-    const requestId: any = await this.HandleRequestId(requestIdPrefix, bucketKey, objectKey);
-    this.ValidateProjectScopeName(requestId, projectScope);
+    const requestId: any = await this.handleRequestId(requestIdPrefix, bucketKey, objectKey);
+    this.validateProjectScopeName(requestId, projectScope);
 
     onProgress?.(1);
-    const response: Signeds3downloadResponse = await this.GetS3SignedDownloadUrlWithRetry(bucketKey, objectKey, accessToken, requestId);
+    const response: Signeds3downloadResponse = await this.getS3SignedDownloadUrlWithRetry(bucketKey, objectKey, accessToken, requestId);
     const fileSize = response.size;
-    const numberOfChunks: number = this.CalculateNumberOfChunks(fileSize);
+    const numberOfChunks: number = this.calculateNumberOfChunks(fileSize);
     let partsDownloaded: number = 0;
     let start: number = 0;
     const fileStream: WriteStream = createWriteStream(filePath, { flags: 'a' });
 
     try {
-        while (partsDownloaded < numberOfChunks) {
-            this.logger.logInfo(`${requestId} Downloading part: ${partsDownloaded}`);
-            const end: number = Math.min((partsDownloaded + 1) * Constants.ChunkSize, fileSize);
-            
-            if (start == end) {
-                break;
-            }
-
-            let attemptCount = 0;
-            while (attemptCount < this.maxRetryOnUrlExpiry) {
-                try {
-                    attemptCount++;
-                    this.logger.logInfo(`${requestId} Downloading file range: ${start}-${end}`);
-                    await this.writeToFileStreamFromUrl(fileStream, response.url, start, end, requestId);
-                    start = end + 1;
-                    partsDownloaded++;
-                    const percentCompleted = Math.floor((partsDownloaded / numberOfChunks) * 100);
-                    onProgress?.(percentCompleted);
-                    break;
-                } catch (error) {
-                    this.logger.logError(`${requestId} Error downloading part: ${partsDownloaded}. Attempt ${attemptCount}/${this.maxRetryOnUrlExpiry}. Error: ${error}`);
-                }
-            }
+      while (partsDownloaded < numberOfChunks) {
+        this.logger.logInfo(`${requestId} Downloading part: ${partsDownloaded}`);
+        const end: number = Math.min((partsDownloaded + 1) * Constants.ChunkSize, fileSize);
+        
+        if (start == end) {
+          break;
         }
+
+        let attemptCount = 0;
+        while (attemptCount < this.maxRetryOnUrlExpiry) {
+          try {
+            attemptCount++;
+            this.logger.logInfo(`${requestId} Downloading file range: ${start}-${end}`);
+            await this.writeToFileStreamFromUrl(fileStream, response.url, start, end, requestId);
+            start = end + 1;
+            partsDownloaded++;
+            const percentCompleted = Math.floor((partsDownloaded / numberOfChunks) * 100);
+            onProgress?.(percentCompleted);
+            break;
+          } catch (error) {
+            this.logger.logError(`${requestId} Error downloading part: ${partsDownloaded}. Attempt ${attemptCount}/${this.maxRetryOnUrlExpiry}. Error: ${error}`);
+          }
+        }
+      }
     } catch (error) {
-        this.logger.logError(`${requestId} Error downloading file: ${error}`);
+      this.logger.logError(`${requestId} Error downloading file: ${error}`);
     } finally {
-        fileStream.end();
+      fileStream.end();
     }
   }
   private async isFileSizeAllowed(file: Buffer): Promise<boolean> {
 
     const fileSize: number = file.length;
-    const numberOfChunks: number = this.CalculateNumberOfChunks(fileSize);
+    const numberOfChunks: number = this.calculateNumberOfChunks(fileSize);
     if (numberOfChunks > this.maxChunkCountAllowed) {
       return false;
     }
@@ -191,7 +191,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     const fileReader = file.subarray(start, end);
     return fileReader;
   }
-  private async GetUploadUrlsWithRetry(bucketKey: string, objectKey: string, numberOfChunks: number, chunksUploaded: number, uploadKey: string, accessToken: string, projectScope: string, requestId: string): Promise<[Signeds3uploadResponse, string]> {
+  private async getUploadUrlsWithRetry(bucketKey: string, objectKey: string, numberOfChunks: number, chunksUploaded: number, uploadKey: string, accessToken: string, projectScope: string, requestId: string): Promise<[Signeds3uploadResponse, string]> {
 
     var attemptcount: number = 0;
     var parts: number = (Math.min(numberOfChunks - chunksUploaded, Constants.BatchSize));
@@ -220,7 +220,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     } while (attemptcount < this.maxRetryOnTokenExpiry);
     throw new OssApiError(`${requestId} Error: Fail getting upload urls after maximum retry`);
   }
-  private CalculateNumberOfChunks(fileSize: number): number {
+  private calculateNumberOfChunks(fileSize: number): number {
     if (fileSize == 0) {
       return 1;
     }
@@ -232,13 +232,13 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     }
     return numberOfChunks;
   }
-  private async ValidateFileSize(requestId: string, sourceToUpload: Buffer) {
+  private async validateFileSize(requestId: string, sourceToUpload: Buffer) {
     var sizeAllowed = await this.isFileSizeAllowed(sourceToUpload);
     if (!sizeAllowed) {
       throw new OssApiError(`${requestId} File size too big to upload. Currently max file size allowed is ${Number(this.maxChunkCountAllowed) * Number(Constants.ChunkSize)} bytes`);
     }
   }
-  private async HandleRequestId(parentRequestId: string, bucketKey: string, objectKey: string): Promise<string> {
+  private async handleRequestId(parentRequestId: string, bucketKey: string, objectKey: string): Promise<string> {
     var requestId: string = parentRequestId && parentRequestId.trim() != "" ? parentRequestId : String(Math.random());
     requestId = requestId + ":" + this.GenerateSdkRequestId(bucketKey, objectKey);
     return requestId;
@@ -246,14 +246,14 @@ export class OSSFileTransfer implements IOSSFileTransfer {
   private GenerateSdkRequestId(bucketKey: string, objectKey: string): string {
     return bucketKey + "/" + objectKey;
   }
-  private async GetS3SignedDownloadUrlWithRetry(bucketKey: string, objectKey: string, accessToken: string, requestId: string): Promise<Signeds3downloadResponse> {
+  private async getS3SignedDownloadUrlWithRetry(bucketKey: string, objectKey: string, accessToken: string, requestId: string): Promise<Signeds3downloadResponse> {
     var attemptCount: number = 0;
     do {
       this.logger.logInfo(`${requestId} Get signed URL to download directly from S3 attempt: ${attemptCount}`);
 
       try {
         var objectStatusEnumString: string = ObjectStatusEnum.Complete;
-        var response = await this.ossApi.signedS3Download(accessToken, bucketKey, objectKey,requestId);
+        var response = await this.ossApi.signedS3Download(accessToken, bucketKey, objectKey, requestId);
         if (response.content.status != objectStatusEnumString) {
           this.logger.logError(`${requestId} File not available for download yet.`);
           throw new OssApiError(`${requestId} File not available for download yet.`);
@@ -275,19 +275,19 @@ export class OSSFileTransfer implements IOSSFileTransfer {
 
     throw new OssApiError(`${requestId} Error: Fail getting upload urls after maximum retry`);
   }
-  private ValidateProjectScopeName(requestId: string, projectScope: string) {
+  private validateProjectScopeName(requestId: string, projectScope: string) {
     const scopeRegex: RegExp = /^([a-zA-Z0-9.\\-_]{3,50}(,?)){1,20}$/;
     if (!(projectScope === '' || scopeRegex.test(projectScope))) {
       throw new OssApiError(`${requestId} Parameter 'projectScope' doesn't pass regex test - user must submit a valid scope.`);
     }
   }
-  private ThrowIfCancellationRequested(cancellationToken: AbortController, requestId: string) {
+  private throwIfCancellationRequested(cancellationToken: AbortController, requestId: string) {
     if (cancellationToken.signal.aborted) {
       this.logger.logInfo("${requestId} Cancellation requested.");
       cancellationToken.signal.throwIfAborted();
     }
   }
-  protected async writeToFileStreamFromUrl(fileStream: WriteStream, Url: string, start: number, end: number, requestId: any,options?: ApsServiceRequestConfig) {
+  protected async writeToFileStreamFromUrl(fileStream: WriteStream, Url: string, start: number, end: number, requestId: any, options?: ApsServiceRequestConfig) {
     const localVarHeaderParameter = {} as any;
     const rangeHeaderValue = `bytes=${start}-${end}`;
     localVarHeaderParameter['x-ads-request-id'] = requestId;
@@ -300,7 +300,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
       options: localVarRequestOptions
     }
     const request: () => Promise<AxiosResponse> = createRequestFunctionOss(localVarAxiosArgs, this.sdkManager);
-    const response=await request();
+    const response = await request();
     const data = response.data as ArrayBuffer;
     const chunk = Buffer.from(data);
 
@@ -309,15 +309,15 @@ export class OSSFileTransfer implements IOSSFileTransfer {
   }
   protected async writeStreamAsync(stream: NodeJS.WritableStream, chunk: Buffer): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-        stream.write(chunk, (error: Error | null) => {
-            if (error) {
-                reject(error);
-            } else {
-                resolve();
-            }
-        });
+      stream.write(chunk, (error: Error | null) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
     });
-}
+  }
 
 
 }
