@@ -4,7 +4,7 @@
 import { ApplicationProtocol } from './application-protocol';
 
 /**
- * Advanced options for `step` type.
+ * Advanced options for STEP output type.
  * @export
  * @interface JobStepOutputFormatAdvanced
  */

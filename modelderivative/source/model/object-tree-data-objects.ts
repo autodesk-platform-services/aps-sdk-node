@@ -13,7 +13,7 @@ export interface ObjectTreeDataObjects {
      * @type {number}
      * @memberof ObjectTreeDataObjects
      */
-    'objectid': number;
+    'objectId': number;
     /**
      * Name of the object.
      * @type {string}
@@ -21,8 +21,8 @@ export interface ObjectTreeDataObjects {
      */
     'name': string;
     /**
-     * Optional collection of \"children\" objects within the hierarchy.
-     * @type {Set<ObjectTreeDataObjectsObjects>}
+     * An optional array of objects of type ``object`` where each object represents a child of the current node on the object tree.
+     * @type {Set<ObjectTreeDataObjects>}
      * @memberof ObjectTreeDataObjects
      */
     'objects'?: Set<ObjectTreeDataObjects>;

@@ -10,11 +10,9 @@
 export interface Formats {
     /**
      * A dictionary object that contains a collection of key-value pairs, where each pair represents the target file format and the corresponding source file formats.
-     * @type {{ [key: string]: object; }}     * 
+     * @type {{ [key: string]: object; }}
      * @memberof Formats
-     * 
-     * 
      */
-   'formats'?: { [key: string]: object; };
+    'formats'?: { [key: string]: object; };
 }
 

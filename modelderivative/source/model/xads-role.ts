@@ -3,7 +3,7 @@
 
 
 /**
- * The source of the thumbnail:  rendered: generated pursuant to this API call extracted: obtained from the original design file
+ * The source of the thumbnail:  Possible values are:  - ``rendered`` - Generated pursuant to this API call  - ``extracted`` - Obtained from the original design file\'
  * @export
  * @enum {string}
  */

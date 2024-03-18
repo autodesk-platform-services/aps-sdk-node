@@ -3,7 +3,7 @@
 
 
 /**
- * Required options for SVF type. Possible values are `2d` and `3d`.
+ * Required options for SVF type. Possible values are ``2d`` and ``3d``.
  * @export
  * @enum {string}
  */

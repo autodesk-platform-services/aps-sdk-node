@@ -4,7 +4,7 @@
 import { JobStlOutputFormatAdvanced } from './job-stl-output-format-advanced';
 import { Type } from './type';
 /**
- * 
+ * Options for STL outputs.
  * @export
  * @interface JobStlOutputFormat
  */

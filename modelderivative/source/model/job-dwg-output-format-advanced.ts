@@ -3,13 +3,13 @@
 
 
 /**
- * Advanced options for dwg output type.
+ * Options for DWG output type.
  * @export
  * @interface JobDwgOutputFormatAdvanced
  */
 export interface JobDwgOutputFormatAdvanced {
     /**
-     * The export settings should be one of the DWG Export settings name pre-saved in the document.
+     * The export settings should be one of the DWG Export settings pre-saved in the source design.
      * @type {string}
      * @memberof JobDwgOutputFormatAdvanced
      */

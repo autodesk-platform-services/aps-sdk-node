@@ -42,6 +42,7 @@ export * from './manifest';
 export * from './manifest-derivatives';
 export * from './manifest-derivatives-children';
 export * from './material-mode';
+export * from './messages';
 export * from './model2d-view';
 export * from './model-views';
 export * from './model-views-data';

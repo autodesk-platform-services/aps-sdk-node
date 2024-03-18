@@ -25,7 +25,7 @@ export interface References {
      * @type {string}
      * @memberof References
      */
-    'filename': string;
+    'fileName': string;
     /**
      * An object to hold custom metadata.
      * @type {object}

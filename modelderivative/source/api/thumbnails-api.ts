@@ -4,10 +4,9 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from  "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ModelDerivativeApiError } from '../base';
-import { Region, XAdsJobStatus } from '../model';
+import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, ModelDerivativeApiError } from '../base';
+import { Height, Region, Width, XAdsJobStatus } from '../model';
 import { XAdsRole } from '../model';
-import { Utils } from '../custom-code';
 /**
  * ThumbnailsApi - axios parameter creator
  * @export
@@ -17,18 +16,18 @@ export const ThumbnailsApiAxiosParamCreator = function (apsConfiguration?: IApsC
         /**
          * Downloads a thumbnail of the specified source design.
          * @summary Fetch Thumbnail
-         * @param {string} urn The Base64 (URL Safe) encoded design URN
-         * @param {GetThumbnailWidthEnum} [width] Width of thumbnail.    Possible values: 100, 200, 400    If &#x60;&#x60;width&#x60;&#x60; is omitted, but &#x60;&#x60;height&#x60;&#x60; is specified, &#x60;&#x60;width&#x60;&#x60; defaults to &#x60;&#x60;height&#x60;&#x60;. If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available. 
-         * @param {GetThumbnailHeightEnum} [height] Height of thumbnails.  Possible values: &#x60;&#x60;100&#x60;&#x60;, &#x60;&#x60;200&#x60;&#x60;, &#x60;&#x60;400&#x60;&#x60;.  If &#x60;&#x60;height&#x60;&#x60; is omitted, but &#x60;&#x60;width&#x60;&#x60; is specified, &#x60;&#x60;height&#x60;&#x60; defaults to &#x60;&#x60;width&#x60;&#x60;.  If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available. 
+         * @param {string} urn The URL-safe Base64 encoded URN of the source design.
+         * @param {Width} [width] Width of thumbnail in pixels.    Possible values are: &#x60;&#x60;100&#x60;&#x60;, &#x60;&#x60;200&#x60;&#x60;, &#x60;&#x60;400&#x60;&#x60;    If &#x60;&#x60;width&#x60;&#x60; is omitted, but &#x60;&#x60;height&#x60;&#x60; is specified, &#x60;&#x60;width&#x60;&#x60; defaults to &#x60;&#x60;height&#x60;&#x60;. If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to &#x60;&#x60;200&#x60;&#x60;, if such a thumbnail is available. 
+         * @param {Height} [height] Height of thumbnails.  Possible values are: &#x60;&#x60;100&#x60;&#x60;, &#x60;&#x60;200&#x60;&#x60;, &#x60;&#x60;400&#x60;&#x60;.  If &#x60;&#x60;height&#x60;&#x60; is omitted, but &#x60;&#x60;width&#x60;&#x60; is specified, &#x60;&#x60;height&#x60;&#x60; defaults to &#x60;&#x60;width&#x60;&#x60;.  If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to &#x60;&#x60;200&#x60;&#x60;, if such a thumbnail is available. 
+         * @param {Region} [region] Specifies the data center where the manifest and derivatives of the specified source design are stored. Possible values are:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center for the US region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center for European Union, Middle East, and Africa.  
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getThumbnail: async (accessToken: string, urn: string, width?: GetThumbnailWidthEnum, height?: GetThumbnailHeightEnum, region?:Region, options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        getThumbnail: async (accessToken: string, urn: string, width?: Width, height?: Height, region?: Region,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'urn' is not null or undefined
             assertParamExists('getThumbnail', 'urn', urn)
-            const regionPath = Utils.GetPathfromRegion(region ?? Region.US);
-            const localVarPath = (regionPath + `{urn}/thumbnail`)
+            const localVarPath = `/modelderivative/v2/designdata/{urn}/thumbnail`
                 .replace(`{${"urn"}}`, encodeURIComponent(String(urn)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
@@ -50,6 +49,10 @@ export const ThumbnailsApiAxiosParamCreator = function (apsConfiguration?: IApsC
                 localVarQueryParameter['height'] = height;
             }
 
+            if (region != null) {
+                localVarHeaderParameter['region'] = String(region);
+            }
+
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -69,19 +72,20 @@ export const ThumbnailsApiAxiosParamCreator = function (apsConfiguration?: IApsC
  * @export
  */
 export const ThumbnailsApiFp = function(sdkManager?: SDKManager) {
-    const localVarAxiosParamCreator = ThumbnailsApiAxiosParamCreator(sdkManager.apsconfiguration)
+    const localVarAxiosParamCreator = ThumbnailsApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
          * Downloads a thumbnail of the specified source design.
          * @summary Fetch Thumbnail
-         * @param {string} urn The Base64 (URL Safe) encoded design URN
-         * @param {GetThumbnailWidthEnum} [width] Width of thumbnail.    Possible values: 100, 200, 400    If &#x60;&#x60;width&#x60;&#x60; is omitted, but &#x60;&#x60;height&#x60;&#x60; is specified, &#x60;&#x60;width&#x60;&#x60; defaults to &#x60;&#x60;height&#x60;&#x60;. If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available. 
-         * @param {GetThumbnailHeightEnum} [height] Height of thumbnails.  Possible values: &#x60;&#x60;100&#x60;&#x60;, &#x60;&#x60;200&#x60;&#x60;, &#x60;&#x60;400&#x60;&#x60;.  If &#x60;&#x60;height&#x60;&#x60; is omitted, but &#x60;&#x60;width&#x60;&#x60; is specified, &#x60;&#x60;height&#x60;&#x60; defaults to &#x60;&#x60;width&#x60;&#x60;.  If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available. 
+         * @param {string} urn The URL-safe Base64 encoded URN of the source design.
+         * @param {Width} [width] Width of thumbnail in pixels.    Possible values are: &#x60;&#x60;100&#x60;&#x60;, &#x60;&#x60;200&#x60;&#x60;, &#x60;&#x60;400&#x60;&#x60;    If &#x60;&#x60;width&#x60;&#x60; is omitted, but &#x60;&#x60;height&#x60;&#x60; is specified, &#x60;&#x60;width&#x60;&#x60; defaults to &#x60;&#x60;height&#x60;&#x60;. If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to &#x60;&#x60;200&#x60;&#x60;, if such a thumbnail is available. 
+         * @param {Height} [height] Height of thumbnails.  Possible values are: &#x60;&#x60;100&#x60;&#x60;, &#x60;&#x60;200&#x60;&#x60;, &#x60;&#x60;400&#x60;&#x60;.  If &#x60;&#x60;height&#x60;&#x60; is omitted, but &#x60;&#x60;width&#x60;&#x60; is specified, &#x60;&#x60;height&#x60;&#x60; defaults to &#x60;&#x60;width&#x60;&#x60;.  If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to &#x60;&#x60;200&#x60;&#x60;, if such a thumbnail is available. 
+         * @param {Region} [region] Specifies the data center where the manifest and derivatives of the specified source design are stored. Possible values are:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center for the US region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center for European Union, Middle East, and Africa.  
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getThumbnail(accessToken: string, urn: string, width?: GetThumbnailWidthEnum, height?: GetThumbnailHeightEnum, region?:Region,options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getThumbnail(accessToken, urn, width, height,region,  options);
+        async getThumbnail(accessToken: string, urn: string, width?: Width, height?: Height, region?: Region, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getThumbnail(accessToken, urn, width, height, region,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
     }
@@ -96,15 +100,16 @@ export interface ThumbnailsApiInterface {
     /**
      * Downloads a thumbnail of the specified source design.
      * @summary Fetch Thumbnail
-     * @param {string} urn The Base64 (URL Safe) encoded design URN
-     * @param {GetThumbnailWidthEnum} [width] Width of thumbnail.    Possible values: 100, 200, 400    If &#x60;&#x60;width&#x60;&#x60; is omitted, but &#x60;&#x60;height&#x60;&#x60; is specified, &#x60;&#x60;width&#x60;&#x60; defaults to &#x60;&#x60;height&#x60;&#x60;. If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available. 
-     * @param {GetThumbnailHeightEnum} [height] Height of thumbnails.  Possible values: &#x60;&#x60;100&#x60;&#x60;, &#x60;&#x60;200&#x60;&#x60;, &#x60;&#x60;400&#x60;&#x60;.  If &#x60;&#x60;height&#x60;&#x60; is omitted, but &#x60;&#x60;width&#x60;&#x60; is specified, &#x60;&#x60;height&#x60;&#x60; defaults to &#x60;&#x60;width&#x60;&#x60;.  If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available. 
+     * @param {string} urn The URL-safe Base64 encoded URN of the source design.
+     * @param {Width} [width] Width of thumbnail in pixels.    Possible values are: &#x60;&#x60;100&#x60;&#x60;, &#x60;&#x60;200&#x60;&#x60;, &#x60;&#x60;400&#x60;&#x60;    If &#x60;&#x60;width&#x60;&#x60; is omitted, but &#x60;&#x60;height&#x60;&#x60; is specified, &#x60;&#x60;width&#x60;&#x60; defaults to &#x60;&#x60;height&#x60;&#x60;. If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to &#x60;&#x60;200&#x60;&#x60;, if such a thumbnail is available. 
+     * @param {Height} [height] Height of thumbnails.  Possible values are: &#x60;&#x60;100&#x60;&#x60;, &#x60;&#x60;200&#x60;&#x60;, &#x60;&#x60;400&#x60;&#x60;.  If &#x60;&#x60;height&#x60;&#x60; is omitted, but &#x60;&#x60;width&#x60;&#x60; is specified, &#x60;&#x60;height&#x60;&#x60; defaults to &#x60;&#x60;width&#x60;&#x60;.  If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to &#x60;&#x60;200&#x60;&#x60;, if such a thumbnail is available. 
+     * @param {Region} [region] Specifies the data center where the manifest and derivatives of the specified source design are stored. Possible values are:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center for the US region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center for European Union, Middle East, and Africa.  
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ThumbnailsApiInterface
      */
-    getThumbnail(accessToken: string,urn: string, width?: GetThumbnailWidthEnum, height?: GetThumbnailHeightEnum, region?:Region, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getThumbnail(accessToken: string,urn: string, width?: Width, height?: Height, region?: Region,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
 }
 
@@ -112,25 +117,26 @@ export interface ThumbnailsApiInterface {
  * ThumbnailsApi - object-oriented interface
  * @export
  * @class ThumbnailsApi
- * @extends {BaseAPI}
+ * @extends {BaseApi}
  */
-export class ThumbnailsApi extends BaseAPI implements ThumbnailsApiInterface {
+export class ThumbnailsApi extends BaseApi implements ThumbnailsApiInterface {
     private logger = this.sdkManager.logger;
     /**
      * Downloads a thumbnail of the specified source design.
      * @summary Fetch Thumbnail
-     * @param {string} urn The Base64 (URL Safe) encoded design URN
-     * @param {GetThumbnailWidthEnum} [width] Width of thumbnail.    Possible values: 100, 200, 400    If &#x60;&#x60;width&#x60;&#x60; is omitted, but &#x60;&#x60;height&#x60;&#x60; is specified, &#x60;&#x60;width&#x60;&#x60; defaults to &#x60;&#x60;height&#x60;&#x60;. If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available. 
-     * @param {GetThumbnailHeightEnum} [height] Height of thumbnails.  Possible values: &#x60;&#x60;100&#x60;&#x60;, &#x60;&#x60;200&#x60;&#x60;, &#x60;&#x60;400&#x60;&#x60;.  If &#x60;&#x60;height&#x60;&#x60; is omitted, but &#x60;&#x60;width&#x60;&#x60; is specified, &#x60;&#x60;height&#x60;&#x60; defaults to &#x60;&#x60;width&#x60;&#x60;.  If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to 200, if such a thumbnail is available. 
+     * @param {string} urn The URL-safe Base64 encoded URN of the source design.
+     * @param {Width} [width] Width of thumbnail in pixels.    Possible values are: &#x60;&#x60;100&#x60;&#x60;, &#x60;&#x60;200&#x60;&#x60;, &#x60;&#x60;400&#x60;&#x60;    If &#x60;&#x60;width&#x60;&#x60; is omitted, but &#x60;&#x60;height&#x60;&#x60; is specified, &#x60;&#x60;width&#x60;&#x60; defaults to &#x60;&#x60;height&#x60;&#x60;. If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to &#x60;&#x60;200&#x60;&#x60;, if such a thumbnail is available. 
+     * @param {Height} [height] Height of thumbnails.  Possible values are: &#x60;&#x60;100&#x60;&#x60;, &#x60;&#x60;200&#x60;&#x60;, &#x60;&#x60;400&#x60;&#x60;.  If &#x60;&#x60;height&#x60;&#x60; is omitted, but &#x60;&#x60;width&#x60;&#x60; is specified, &#x60;&#x60;height&#x60;&#x60; defaults to &#x60;&#x60;width&#x60;&#x60;.  If both &#x60;&#x60;width&#x60;&#x60; and &#x60;&#x60;height&#x60;&#x60; are omitted, the server will return a thumbnail closest to &#x60;&#x60;200&#x60;&#x60;, if such a thumbnail is available. 
+     * @param {Region} [region] Specifies the data center where the manifest and derivatives of the specified source design are stored. Possible values are:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center for the US region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center for European Union, Middle East, and Africa.  
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ThumbnailsApi
      */
-    public async getThumbnail(accessToken: string, urn: string, width?: GetThumbnailWidthEnum, height?: GetThumbnailHeightEnum,region?:Region, options?: ApsServiceRequestConfig) {
+    public async getThumbnail(accessToken: string, urn: string, width?: Width, height?: Height, region?: Region, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into getThumbnail ");
       try {
-        const request =  await ThumbnailsApiFp(this.sdkManager).getThumbnail(accessToken, urn, width, height,region,  options);
+        const request =  await ThumbnailsApiFp(this.sdkManager).getThumbnail(accessToken, urn, width, height, region,  options);
         const response = await request(this.axios);
         this.logger.logInfo(`getThumbnail Request completed successfully with status code: ${response.status}`);
         return new ApiResponse(response,response.data);
@@ -147,21 +153,3 @@ export class ThumbnailsApi extends BaseAPI implements ThumbnailsApiInterface {
     }
 }
 
-/**
- * @export
- */
-export const GetThumbnailWidthEnum = {
-    NUMBER_100: 100,
-    NUMBER_200: 200,
-    NUMBER_400: 400
-} as const;
-export type GetThumbnailWidthEnum = typeof GetThumbnailWidthEnum[keyof typeof GetThumbnailWidthEnum];
-/**
- * @export
- */
-export const GetThumbnailHeightEnum = {
-    NUMBER_100: 100,
-    NUMBER_200: 200,
-    NUMBER_400: 400
-} as const;
-export type GetThumbnailHeightEnum = typeof GetThumbnailHeightEnum[keyof typeof GetThumbnailHeightEnum];

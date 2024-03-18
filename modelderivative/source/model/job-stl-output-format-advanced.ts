@@ -17,7 +17,7 @@ export interface JobStlOutputFormatAdvanced {
      */
     'format'?: Format;
     /**
-     * Color is exported by default. If set to `true`, color is exported. If set to `false`, color is not exported.
+     * Color is exported by default. If set to ``true``, color is exported. If set to `false`, color is not exported.
      * @type {boolean}
      * @memberof JobStlOutputFormatAdvanced
      */

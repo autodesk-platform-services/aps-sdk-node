@@ -3,7 +3,7 @@
 
 
 /**
- * The job status of current design  Possible values: inprogress, success, failed, timedout
+ * The execution status of the translation job.  Possible values are: ``inprogress``, ``success``, ``failed``, ``timedout``
  * @export
  * @enum {string}
  */

@@ -31,7 +31,7 @@ export interface DerivativeDownload {
      * @type {string}
      * @memberof DerivativeDownload
      */
-    'content-type'?: string;
+    'contentType'?: string;
     /**
      * 
      * @type {number}

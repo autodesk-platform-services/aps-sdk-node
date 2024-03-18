@@ -10,8 +10,7 @@ import { JobSvfOutputFormatAdvancedRVT } from "./job-svf-output-format-advanced-
 import { JobSvfOutputFormatAdvancedVUE } from "./job-svf-output-format-advanced-VUE"
 
 /**
- * @type JobSvfOutputFormatAdvanced
- * Output description object, depends of the type
+ * Advanced options for ``svf`` output types. The available options depend on the input type. These options are as follows:\'
  * @export
  */
 export type JobSvfOutputFormatAdvanced = JobSvfOutputFormatAdvancedVUE | JobSvfOutputFormatAdvancedRVT | JobSvfOutputFormatAdvancedNWD | JobSvfOutputFormatAdvancedIFC | JobSvfOutputFormatAdvancedDWG | JobSvfOutputFormatAdvancedDGN; 

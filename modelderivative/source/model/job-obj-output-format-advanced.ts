@@ -5,7 +5,7 @@ import { ExportFileStructure } from './export-file-structure';
 import { Unit } from './unit';
 
 /**
- * Advanced options for `obj` type.
+ * Advanced options for OBJ output type.
  * @export
  * @interface JobObjOutputFormatAdvanced
  */
@@ -23,13 +23,13 @@ export interface JobObjOutputFormatAdvanced {
      */
     'unit'?: Unit;
     /**
-     * Required for geometry extractions. The Model View ID (guid).
+     * Required for geometry extractions. Specifies the ID of the Model View that contains the geometry to extract.
      * @type {string}
      * @memberof JobObjOutputFormatAdvanced
      */
     'modelGuid'?: string;
     /**
-     * Required for geometry extractions. List object ids to be translated. -1 will extract the entire model. 
+     * Required for geometry extractions. Specifies the IDs of the objects (``objectID) to extract. -1 will extract the entire model. 
      * @type {Array<number>}
      * @memberof JobObjOutputFormatAdvanced
      */

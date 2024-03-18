@@ -3,7 +3,7 @@
 
 
 /**
- * Possible values are `bounded`, `trimmed` and `wireframe`. By default it is set to bounded surface.
+ * Specifies the surface type to export as, when the output is IGES. Possible values are   - ``bounded`` - (Default) Bounded surface - ``trimmed`` - Trimmed surface -  `wireframe`. Wireframe  surface.\' 
  * @export
  * @enum {string}
  */

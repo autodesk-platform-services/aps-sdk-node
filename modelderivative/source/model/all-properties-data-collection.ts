@@ -13,7 +13,7 @@ export interface AllPropertiesDataCollection {
      * @type {number}
      * @memberof AllPropertiesDataCollection
      */
-    'objectid': number;
+    'objectId': number;
     /**
      * Name of the object.
      * @type {string}

@@ -5,13 +5,13 @@ import { JobIfcOutputFormatAdvanced } from './job-ifc-output-format-advanced';
 import { Type } from './type';
 
 /**
- * A JSON object representing the requested output types.
+ * Options for IFC outputs.
  * @export
  * @interface JobIfcOutputFormat
  */
 export interface JobIfcOutputFormat {
     /**
-     * 
+     * The requested output type. ``ifc`` in this case.
      * @type {Type.ifc}
      * @memberof JobIfcOutputFormat
      */

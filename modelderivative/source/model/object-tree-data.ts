@@ -16,7 +16,7 @@ export interface ObjectTreeData {
      */
     'type': string;
     /**
-     * Collection of \"objects\".
+     * Collection of \"objects\" that constitute the nodes of the object tree.
      * @type {Set<ObjectTreeDataObjects>}
      * @memberof ObjectTreeData
      */

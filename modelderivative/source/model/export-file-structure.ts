@@ -3,7 +3,7 @@
 
 
 /**
- * `single` (default): creates one STL file for all the input files (assembly file)  `multiple`: creates a separate STL file for each object 
+ * Specifies the structure of the derivative, when the specified output is STL. Possible values are:   - ``single`` (Default) Create one STL file for all the input files (assembly file). - ``multiple``: Create a separate STL file for each object 
  * @export
  * @enum {string}
  */
