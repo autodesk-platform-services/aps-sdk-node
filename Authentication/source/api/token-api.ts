@@ -4,7 +4,7 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import { ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse } from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, AuthenticationApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, AuthenticationApiError } from '../base';
 import { Jwks } from '../model';
 import { GrantType } from '../model';
 import { IntrospectToken } from '../model';
@@ -42,6 +42,8 @@ export const TokenApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             assertParamExists('authorize', 'responseType', responseType)
             // verify required parameter 'redirectUri' is not null or undefined
             assertParamExists('authorize', 'redirectUri', redirectUri)
+            // verify required parameter 'state' is not null or undefined
+            assertParamExists('authorize', 'state', state)
             const localVarPath = `/authentication/v2/authorize`;
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
@@ -94,16 +96,16 @@ export const TokenApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             if (codeChallengeMethod !== undefined) {
                 localVarQueryParameter['code_challenge_method'] = codeChallengeMethod;
             }
-
+    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-          
-            return localVarUrlObj.toString();          
+            
+            return localVarUrlObj.toString();
         },
         /**
          * Token endpoint returns access token and refresh token, depending on the request parameters.  The endpoint requires Basic Authorization for confidential clients. For public clients, the Authorization Header should not be in the header and `client_id` should be included in the form body.  * If `grant_type` is `authorization_code`, it returns 3-legged access token for authorization code grant.  * If `grant_type` is `client_credentials`, it returns 2-legged access token for client credentials grant. * If `grant_type` is `refresh_token`, it returns new access token by using the refresh token provided in the request. 
          * @summary token
          * @param {string} [authorization] Must be in the form Basic ${Base64(&lt;client_id&gt;:&lt;client_secret&gt;)}
-         * @param {Granttype} [grantType] 
+         * @param {GrantType} [grantType] 
          * @param {string} [code] Required if &#x60;grant_type&#x60; is &#x60;authorization_code&#x60;
          * @param {string} [redirectUri] Required if &#x60;grant_type&#x60; is &#x60;authorization_code&#x60;
          * @param {string} [codeVerifier] Required if &#x60;grant_type&#x60; is &#x60;authorization_code&#x60; and &#x60;code_challenge&#x60; was specified in /authorize request
@@ -134,37 +136,37 @@ export const TokenApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             }
 
 
-            if (grantType !== undefined) {
+            if (grantType !== undefined) { 
                 localVarFormParams.set('grant_type', grantType as any);
             }
-
-            if (code !== undefined) {
+    
+            if (code !== undefined) { 
                 localVarFormParams.set('code', code as any);
             }
-
-            if (redirectUri !== undefined) {
+    
+            if (redirectUri !== undefined) { 
                 localVarFormParams.set('redirect_uri', redirectUri as any);
             }
-
-            if (codeVerifier !== undefined) {
+    
+            if (codeVerifier !== undefined) { 
                 localVarFormParams.set('code_verifier', codeVerifier as any);
             }
-
-            if (refreshToken !== undefined) {
+    
+            if (refreshToken !== undefined) { 
                 localVarFormParams.set('refresh_token', refreshToken as any);
             }
-
-            if (scope !== undefined) {
+    
+            if (scope !== undefined) { 
                 localVarFormParams.set('scope', scope as any);
             }
-
-            if (clientId !== undefined) {
+    
+            if (clientId !== undefined) { 
                 localVarFormParams.set('client_id', clientId as any);
             }
-
-
+    
+    
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
-
+    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
@@ -197,7 +199,7 @@ export const TokenApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             //  await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
 
-
+    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
@@ -229,7 +231,7 @@ export const TokenApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             //await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
 
-
+    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
@@ -269,17 +271,17 @@ export const TokenApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             }
 
 
-            if (token !== undefined) {
+            if (token !== undefined) { 
                 localVarFormParams.set('token', token as any);
             }
-
-            if (clientId !== undefined) {
+    
+            if (clientId !== undefined) { 
                 localVarFormParams.set('client_id', clientId as any);
             }
-
-
+    
+    
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
-
+    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
@@ -306,13 +308,13 @@ export const TokenApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
                 baseOptions = apsConfiguration.baseOptions;
             }
 
-            const localVarQueryParameter = {} as any;         
+            const localVarQueryParameter = {} as any;
 
             if (postLogoutRedirectUri !== undefined) {
                 localVarQueryParameter['post_logout_redirect_uri'] = postLogoutRedirectUri;
             }
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);        
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             return localVarUrlObj.toString();
         },
         /**
@@ -345,21 +347,21 @@ export const TokenApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             }
 
 
-            if (token !== undefined) {
+            if (token !== undefined) { 
                 localVarFormParams.set('token', token as any);
             }
-
-            if (tokenTypeHint !== undefined) {
+    
+            if (tokenTypeHint !== undefined) { 
                 localVarFormParams.set('token_type_hint', tokenTypeHint as any);
             }
-
-            if (clientId !== undefined) {
+    
+            if (clientId !== undefined) { 
                 localVarFormParams.set('client_id', clientId as any);
             }
-
-
+    
+    
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
-
+    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
@@ -378,7 +380,7 @@ export const TokenApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
  * @export
  */
 export const TokenApiFp = function (sdkManager?: SDKManager) {
-    const localVarAxiosParamCreator = TokenApiAxiosParamCreator(sdkManager.apsconfiguration)
+    const localVarAxiosParamCreator = TokenApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
          * To obtain an authorization code grant or id_token grant.  We rate limit this endpoint. When rate limit reached, then Apigee will throw HTTP 429 Too Many Requests error. See Forge docs on the rate limit: [Forge rate limit](https://forge.autodesk.com/en/docs/oauth/v2/developers_guide/rate-limiting/forge-rate-limits/)  Errors came from OKTA/PF directly.Please refer forge v2 api document for more details <Link>
@@ -399,13 +401,13 @@ export const TokenApiFp = function (sdkManager?: SDKManager) {
          */
         authorize(/* accessToken: string, */ clientId: string, responseType: string, redirectUri: string, state: string, nonce?: string, scope?: string, responseMode?: string, prompt?: string, authoptions?: string, codeChallenge?: string, codeChallengeMethod?: string, options?: ApsServiceRequestConfig): string {
             const url = localVarAxiosParamCreator.authorize(/* accessToken, */ clientId, responseType, redirectUri, state, nonce, scope, responseMode, prompt, authoptions, codeChallenge, codeChallengeMethod, options);
-            return url;    
+            return url;
         },
         /**
          * Token endpoint returns access token and refresh token, depending on the request parameters.  The endpoint requires Basic Authorization for confidential clients. For public clients, the Authorization Header should not be in the header and `client_id` should be included in the form body.  * If `grant_type` is `authorization_code`, it returns 3-legged access token for authorization code grant.  * If `grant_type` is `client_credentials`, it returns 2-legged access token for client credentials grant. * If `grant_type` is `refresh_token`, it returns new access token by using the refresh token provided in the request. 
          * @summary token
          * @param {string} [authorization] Must be in the form Basic ${Base64(&lt;client_id&gt;:&lt;client_secret&gt;)}
-         * @param {Granttype} [grantType] 
+         * @param {GrantType} [grantType] 
          * @param {string} [code] Required if &#x60;grant_type&#x60; is &#x60;authorization_code&#x60;
          * @param {string} [redirectUri] Required if &#x60;grant_type&#x60; is &#x60;authorization_code&#x60;
          * @param {string} [codeVerifier] Required if &#x60;grant_type&#x60; is &#x60;authorization_code&#x60; and &#x60;code_challenge&#x60; was specified in /authorize request
@@ -510,7 +512,7 @@ export interface TokenApiInterface {
      * Token endpoint returns access token and refresh token, depending on the request parameters.  The endpoint requires Basic Authorization for confidential clients. For public clients, the Authorization Header should not be in the header and `client_id` should be included in the form body.  * If `grant_type` is `authorization_code`, it returns 3-legged access token for authorization code grant.  * If `grant_type` is `client_credentials`, it returns 2-legged access token for client credentials grant. * If `grant_type` is `refresh_token`, it returns new access token by using the refresh token provided in the request. 
      * @summary token
      * @param {string} [authorization] Must be in the form Basic ${Base64(&lt;client_id&gt;:&lt;client_secret&gt;)}
-     * @param {Granttype} [grantType] 
+     * @param {GrantType} [grantType] 
      * @param {string} [code] Required if &#x60;grant_type&#x60; is &#x60;authorization_code&#x60;
      * @param {string} [redirectUri] Required if &#x60;grant_type&#x60; is &#x60;authorization_code&#x60;
      * @param {string} [codeVerifier] Required if &#x60;grant_type&#x60; is &#x60;authorization_code&#x60; and &#x60;code_challenge&#x60; was specified in /authorize request
@@ -589,7 +591,7 @@ export interface TokenApiInterface {
  * @class TokenApi
  * @extends {BaseAPI}
  */
-export class TokenApi extends BaseAPI implements TokenApiInterface {
+export class TokenApi extends BaseApi implements TokenApiInterface {
     private logger = this.sdkManager.logger;
     /**
      * To obtain an authorization code grant or id_token grant.  We rate limit this endpoint. When rate limit reached, then Apigee will throw HTTP 429 Too Many Requests error. See Forge docs on the rate limit: [Forge rate limit](https://forge.autodesk.com/en/docs/oauth/v2/developers_guide/rate-limiting/forge-rate-limits/)  Errors came from OKTA/PF directly.Please refer forge v2 api document for more details <Link>
@@ -611,23 +613,23 @@ export class TokenApi extends BaseAPI implements TokenApiInterface {
      * @memberof TokenApi
      */
     public authorize(/* accessToken: string, */ clientId: string, responseType: string, redirectUri: string, state: string, nonce?: string, scope?: string, responseMode?: string, prompt?: string, authoptions?: string, codeChallenge?: string, codeChallengeMethod?: string) {
-        this.logger.logInfo("Entered into authorize ");
-        try {
-            const url = TokenApiFp(this.sdkManager).authorize(/* accessToken, */ clientId, responseType, redirectUri, state, nonce, scope, responseMode, prompt, authoptions, codeChallenge, codeChallengeMethod);
-            this.logger.logInfo('authorize Request completed successfully with status code');
-            return url;
-        } catch (error) {
-            this.logger.logError(`authorize Request failed with error : ${error}`);
+      this.logger.logInfo("Entered into authorize ");
+      try {
+        const url = TokenApiFp(this.sdkManager).authorize(/* accessToken, */ clientId, responseType, redirectUri, state, nonce, scope, responseMode, prompt, authoptions, codeChallenge, codeChallengeMethod);
+        this.logger.logInfo('authorize Request completed successfully with status code');
+        return url;
+      } catch (error) {
+        this.logger.logError(`authorize Request failed with error : ${error}`);
             throw new AuthenticationApiError(`authorize  failed with error : ${error}`);
-
-        }
+        
+      }
     }
 
     /**
      * Token endpoint returns access token and refresh token, depending on the request parameters.  The endpoint requires Basic Authorization for confidential clients. For public clients, the Authorization Header should not be in the header and `client_id` should be included in the form body.  * If `grant_type` is `authorization_code`, it returns 3-legged access token for authorization code grant.  * If `grant_type` is `client_credentials`, it returns 2-legged access token for client credentials grant. * If `grant_type` is `refresh_token`, it returns new access token by using the refresh token provided in the request. 
      * @summary token
      * @param {string} [authorization] Must be in the form Basic ${Base64(&lt;client_id&gt;:&lt;client_secret&gt;)}
-     * @param {Granttype} [grantType] 
+     * @param {GrantType} [grantType] 
      * @param {string} [code] Required if &#x60;grant_type&#x60; is &#x60;authorization_code&#x60;
      * @param {string} [redirectUri] Required if &#x60;grant_type&#x60; is &#x60;authorization_code&#x60;
      * @param {string} [codeVerifier] Required if &#x60;grant_type&#x60; is &#x60;authorization_code&#x60; and &#x60;code_challenge&#x60; was specified in /authorize request
@@ -640,22 +642,22 @@ export class TokenApi extends BaseAPI implements TokenApiInterface {
      * @memberof TokenApi
      */
     public async fetchtoken(/* accessToken: string, */ authorization?: string, grantType?: GrantType, code?: string, redirectUri?: string, codeVerifier?: string, refreshToken?: string, scope?: string, clientId?: string, options?: ApsServiceRequestConfig) {
-        this.logger.logInfo("Entered into fetchtoken ");
-        try {
-            const request = await TokenApiFp(this.sdkManager).fetchtoken(/* accessToken, */ authorization, grantType, code, redirectUri, codeVerifier, refreshToken, scope, clientId, options);
-            const response = await request(this.axios);
-            this.logger.logInfo(`fetchtoken Request completed successfully with status code: ${response.status}`);
-            return new ApiResponse(response, response.data);
-        } catch (error) {
-            if (error.response) {
-                this.logger.logError(`fetchtoken Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                throw new AuthenticationApiError(`fetchtoken Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
-            } else if (error.request) {
-                this.logger.logError(`fetchtoken Request failed with no response received: ${error.request}`);
-                throw new AuthenticationApiError(`fetchtoken Request failed with no response received: ${error.request}`, error);
-            }
-            throw error;
+      this.logger.logInfo("Entered into fetchtoken ");
+      try {
+        const request = await TokenApiFp(this.sdkManager).fetchtoken(/* accessToken, */ authorization, grantType, code, redirectUri, codeVerifier, refreshToken, scope, clientId, options);
+        const response = await request(this.axios);
+        this.logger.logInfo(`fetchtoken Request completed successfully with status code: ${response.status}`);
+        return new ApiResponse(response, response.data);
+      } catch (error) {
+        if (error.response) {
+            this.logger.logError(`fetchtoken Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+            throw new AuthenticationApiError(`fetchtoken Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+        } else if (error.request) {
+            this.logger.logError(`fetchtoken Request failed with no response received: ${error.request}`);
+            throw new AuthenticationApiError(`fetchtoken Request failed with no response received: ${error.request}`, error);
         }
+        throw error;
+      }
     }
 
     /**
@@ -667,22 +669,22 @@ export class TokenApi extends BaseAPI implements TokenApiInterface {
      * @memberof TokenApi
      */
     public async getKeys(/* accessToken: string, */ options?: ApsServiceRequestConfig) {
-        this.logger.logInfo("Entered into getKeys ");
-        try {
-            const request = await TokenApiFp(this.sdkManager).getKeys(/* accessToken, */ options);
-            const response = await request(this.axios);
-            this.logger.logInfo(`getKeys Request completed successfully with status code: ${response.status}`);
-            return new ApiResponse(response, response.data);
-        } catch (error) {
-            if (error.response) {
-                this.logger.logError(`getKeys Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                throw new AuthenticationApiError(`getKeys Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
-            } else if (error.request) {
-                this.logger.logError(`getKeys Request failed with no response received: ${error.request}`);
-                throw new AuthenticationApiError(`getKeys Request failed with no response received: ${error.request}`, error);
-            }
-            throw error;
+      this.logger.logInfo("Entered into getKeys ");
+      try {
+        const request = await TokenApiFp(this.sdkManager).getKeys(/* accessToken, */ options);
+        const response = await request(this.axios);
+        this.logger.logInfo(`getKeys Request completed successfully with status code: ${response.status}`);
+        return new ApiResponse(response, response.data);
+      } catch (error) {
+        if (error.response) {
+            this.logger.logError(`getKeys Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+            throw new AuthenticationApiError(`getKeys Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+        } else if (error.request) {
+            this.logger.logError(`getKeys Request failed with no response received: ${error.request}`);
+            throw new AuthenticationApiError(`getKeys Request failed with no response received: ${error.request}`, error);
         }
+        throw error;
+      }
     }
 
     /**
@@ -694,22 +696,22 @@ export class TokenApi extends BaseAPI implements TokenApiInterface {
      * @memberof TokenApi
      */
     public async getOidcSpec(/* accessToken: string, */ options?: ApsServiceRequestConfig) {
-        this.logger.logInfo("Entered into getOidcSpec ");
-        try {
-            const request = await TokenApiFp(this.sdkManager).getOidcSpec(/* accessToken, */ options);
-            const response = await request(this.axios);
-            this.logger.logInfo(`getOidcSpec Request completed successfully with status code: ${response.status}`);
-            return new ApiResponse(response, response.data);
-        } catch (error) {
-            if (error.response) {
-                this.logger.logError(`getOidcSpec Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                throw new AuthenticationApiError(`getOidcSpec Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
-            } else if (error.request) {
-                this.logger.logError(`getOidcSpec Request failed with no response received: ${error.request}`);
-                throw new AuthenticationApiError(`getOidcSpec Request failed with no response received: ${error.request}`, error);
-            }
-            throw error;
+      this.logger.logInfo("Entered into getOidcSpec ");
+      try {
+        const request = await TokenApiFp(this.sdkManager).getOidcSpec(/* accessToken, */ options);
+        const response = await request(this.axios);
+        this.logger.logInfo(`getOidcSpec Request completed successfully with status code: ${response.status}`);
+        return new ApiResponse(response, response.data);
+      } catch (error) {
+        if (error.response) {
+            this.logger.logError(`getOidcSpec Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+            throw new AuthenticationApiError(`getOidcSpec Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+        } else if (error.request) {
+            this.logger.logError(`getOidcSpec Request failed with no response received: ${error.request}`);
+            throw new AuthenticationApiError(`getOidcSpec Request failed with no response received: ${error.request}`, error);
         }
+        throw error;
+      }
     }
 
     /**
@@ -724,22 +726,22 @@ export class TokenApi extends BaseAPI implements TokenApiInterface {
      * @memberof TokenApi
      */
     public async introspectToken(/* accessToken: string, */ authorization?: string, token?: string, clientId?: string, options?: ApsServiceRequestConfig) {
-        this.logger.logInfo("Entered into introspectToken ");
-        try {
-            const request = await TokenApiFp(this.sdkManager).introspectToken(/* accessToken, */ authorization, token, clientId, options);
-            const response = await request(this.axios);
-            this.logger.logInfo(`introspectToken Request completed successfully with status code: ${response.status}`);
-            return new ApiResponse(response, response.data);
-        } catch (error) {
-            if (error.response) {
-                this.logger.logError(`introspectToken Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                throw new AuthenticationApiError(`introspectToken Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
-            } else if (error.request) {
-                this.logger.logError(`introspectToken Request failed with no response received: ${error.request}`);
-                throw new AuthenticationApiError(`introspectToken Request failed with no response received: ${error.request}`, error);
-            }
-            throw error;
+      this.logger.logInfo("Entered into introspectToken ");
+      try {
+        const request = await TokenApiFp(this.sdkManager).introspectToken(/* accessToken, */ authorization, token, clientId, options);
+        const response = await request(this.axios);
+        this.logger.logInfo(`introspectToken Request completed successfully with status code: ${response.status}`);
+        return new ApiResponse(response, response.data);
+      } catch (error) {
+        if (error.response) {
+            this.logger.logError(`introspectToken Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+            throw new AuthenticationApiError(`introspectToken Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+        } else if (error.request) {
+            this.logger.logError(`introspectToken Request failed with no response received: ${error.request}`);
+            throw new AuthenticationApiError(`introspectToken Request failed with no response received: ${error.request}`, error);
         }
+        throw error;
+      }
     }
 
     /**
@@ -752,15 +754,15 @@ export class TokenApi extends BaseAPI implements TokenApiInterface {
      * @memberof TokenApi
      */
     public logout(/* accessToken: string,  */postLogoutRedirectUri?: string, options?: ApsServiceRequestConfig) {
-        this.logger.logInfo("Entered into logout ");
-        try {
-            const url = TokenApiFp(this.sdkManager).logout(/* accessToken, */ postLogoutRedirectUri, options);
-            this.logger.logInfo("logout Request completed successfully");
-            return url;
-        } catch (error) {
-            this.logger.logError(`logout Request failed with error ${error}`);
+      this.logger.logInfo("Entered into logout ");
+      try {
+        const url = TokenApiFp(this.sdkManager).logout(/* accessToken, */ postLogoutRedirectUri, options);
+        this.logger.logInfo("logout Request completed successfully");
+        return url;
+      } catch (error) {
+        this.logger.logError(`logout Request failed with error ${error}`);
             throw new AuthenticationApiError(`logout Request failed with error ${error}`);
-        }
+              }
     }
 
     /**
@@ -775,22 +777,22 @@ export class TokenApi extends BaseAPI implements TokenApiInterface {
      * @memberof TokenApi
      */
     public async revoke(/* accessToken: string, */ token?: string, authorization?: string, tokenTypeHint?: string, clientId?: string, options?: ApsServiceRequestConfig) {
-        this.logger.logInfo("Entered into revoke ");
-        try {
-            const request = await TokenApiFp(this.sdkManager).revoke(/* accessToken, */ token, authorization, tokenTypeHint, clientId, options);
-            const response = await request(this.axios);
-            this.logger.logInfo(`revoke Request completed successfully with status code: ${response.status}`);
-            return new ApiResponse(response, response);
-        } catch (error) {
-            if (error.response) {
-                this.logger.logError(`revoke Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                throw new AuthenticationApiError(`revoke Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
-            } else if (error.request) {
-                this.logger.logError(`revoke Request failed with no response received: ${error.request}`);
-                throw new AuthenticationApiError(`revoke Request failed with no response received: ${error.request}`, error);
-            }
-            throw error;
+      this.logger.logInfo("Entered into revoke ");
+      try {
+        const request = await TokenApiFp(this.sdkManager).revoke(/* accessToken, */ token, authorization, tokenTypeHint, clientId, options);
+        const response = await request(this.axios);
+        this.logger.logInfo(`revoke Request completed successfully with status code: ${response.status}`);
+        return new ApiResponse(response, response);
+      } catch (error) {
+        if (error.response) {
+            this.logger.logError(`revoke Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+            throw new AuthenticationApiError(`revoke Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+        } else if (error.request) {
+            this.logger.logError(`revoke Request failed with no response received: ${error.request}`);
+            throw new AuthenticationApiError(`revoke Request failed with no response received: ${error.request}`, error);
         }
+        throw error;
+      }
     }
 }
 

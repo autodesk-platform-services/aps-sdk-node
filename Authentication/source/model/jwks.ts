@@ -6,13 +6,13 @@ import { JwksKey } from './jwks-key';
 /**
  * 
  * @export
- * @interface GetKeys200Response
+ * @interface Jwks
  */
 export interface Jwks {
     /**
      * 
      * @type {Array<JwksKey>}
-     * @memberof GetKeys200Response
+     * @memberof Jwks
      */
     'keys'?: Array<JwksKey>;
 }

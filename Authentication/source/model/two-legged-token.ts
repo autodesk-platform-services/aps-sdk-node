@@ -5,25 +5,25 @@
 /**
  * Client credentials grant response body.
  * @export
- * @interface TwoleggedToken
+ * @interface TwoLeggedToken
  */
-export interface TwoleggedToken {
+export interface TwoLeggedToken {
     /**
      * 
      * @type {string}
-     * @memberof Model2leggedtoken
+     * @memberof TwoLeggedToken
      */
     'access_token'?: string;
     /**
      * 
      * @type {string}
-     * @memberof Model2leggedtoken
+     * @memberof TwoLeggedToken
      */
     'token_type'?: string;
     /**
      * 
      * @type {number}
-     * @memberof Model2leggedtoken
+     * @memberof TwoLeggedToken
      */
     'expires_in'?: number;
 }

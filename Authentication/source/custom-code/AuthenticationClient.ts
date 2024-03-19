@@ -1,6 +1,6 @@
 import { ApiResponse, ApsServiceRequestConfig, SDKManager } from "@aps_sdk/autodesk-sdkmanager";
 import { TokenApi, UsersApi } from "../api";
-import { GrantType, IntrospectToken, Jwks, OidcSpec, RefreshToken, ResponseType, Scopes, ThreeleggedToken, TokenTypeHint, TwoleggedToken, UserInfo } from "../model";
+import { GrantType, IntrospectToken, Jwks, OidcSpec, RefreshToken, ResponseType, Scopes, ThreeLeggedToken, TokenTypeHint, TwoLeggedToken, UserInfo } from "../model";
 
 
 
@@ -23,7 +23,7 @@ export class AuthenticationClient {
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
      */
-    public async getUserinfoAsync(authorization?: string): Promise<UserInfo> {
+    public async getUserInfo(authorization?: string): Promise<UserInfo> {
         const response = await this.usersApi.getUserinfo(`Bearer ${authorization}`);
         return response.content;
     }
@@ -40,7 +40,7 @@ export class AuthenticationClient {
          * @param {Scopes} [scope]         
          * @returns {TwoleggedToken} Two Legged access token
      */
-    public async getTwoLeggedTokenAsync(clientId: string, clientSecret: string, scopes: Array<Scopes>): Promise<TwoleggedToken> {
+    public async getTwoLeggedToken(clientId: string, clientSecret: string, scopes: Array<Scopes>): Promise<TwoLeggedToken> {
         const clientIDSecret = Buffer.from(`${clientId}:${clientSecret}`).toString(`base64`);
         const strscopes = scopes.join(' ');
         const response = await this.tokenApi.fetchtoken(`Basic ${clientIDSecret}`, GrantType.Client_credentials, undefined, undefined, undefined, undefined, strscopes);
@@ -86,7 +86,7 @@ export class AuthenticationClient {
       * @param {Scopes} [scope]         
       * @returns {ThreeleggedToken} Three Legged access token
     */
-    public async getThreeLeggedTokenAsync(clientId: string, clientSecret: string, code: string, redirect_uri: string, code_verifier?: string,): Promise<ThreeleggedToken> {
+    public async getThreeLeggedToken(clientId: string, clientSecret: string, code: string, redirect_uri: string, code_verifier?: string,): Promise<ThreeLeggedToken> {
         var response = null;
         if (clientSecret) {
             const clientIDSecret = Buffer.from(`${clientId}:${clientSecret}`).toString(`base64`);
@@ -112,7 +112,7 @@ export class AuthenticationClient {
       * @param {Scopes} [scope]         
       * @returns {RefreshToken} Refresh Token
     */
-    public async getRefreshTokenAsync(clientId: string, clientSecret: string, refreshToken: string, scopes?: Array<Scopes>): Promise<RefreshToken> {
+    public async getRefreshToken(clientId: string, clientSecret: string, refreshToken: string, scopes?: Array<Scopes>): Promise<RefreshToken> {
         var response = null;
         var strScopes = "";
         if (Array.isArray(scopes) && scopes.length) {
@@ -134,7 +134,7 @@ export class AuthenticationClient {
      * @summary getKeysAsync
      * @returns {Jwks} JSON Web Key Set
     */
-    public async getKeysAsync(): Promise<Jwks> {
+    public async getKeys(): Promise<Jwks> {
         const response = await this.tokenApi.getKeys();
         return response.content;
     }
@@ -148,7 +148,7 @@ export class AuthenticationClient {
         * @summary GET OIDC Specification
         * @returns {OidcSpec}      
     */
-    public async GetOidcSpecAsync(): Promise<OidcSpec> {
+    public async getOidcSpec(): Promise<OidcSpec> {
         const response = await this.tokenApi.getOidcSpec();
         return response.content;
     }
@@ -164,7 +164,7 @@ export class AuthenticationClient {
        * @param {string} [clientSecret] This field is required for client secret
        * @returns {IntrospectToken}
     */
-    public async IntrospectTokenAsync(token: string, clientId: string, clientSecret?: string): Promise<IntrospectToken> {
+    public async introspectToken(token: string, clientId: string, clientSecret?: string): Promise<IntrospectToken> {
         if (clientSecret) {
             // Private client
             const clientIDSecret = Buffer.from(`${clientId}:${clientSecret}`).toString(`base64`);
@@ -184,7 +184,7 @@ export class AuthenticationClient {
       * @summary logout
       * @param {string} [postLogoutRedirectUri] Location to redirect once the logout is performed. Note that the provided domain host should be in the allowed list. Contact #oxygen slack channel for more details.
     */
-    public Logout(postLogoutRedirectUri?: string): string {
+    public logout(postLogoutRedirectUri?: string): string {
         const response = this.tokenApi.logout(postLogoutRedirectUri);
         return response;
     }
@@ -202,7 +202,7 @@ export class AuthenticationClient {
        * @param {string} [tokenTypeHint] Should be either \\\&#39;access_token\\\&#39;, \\\&#39;refresh_token\\\&#39; or \\\&#39;device_secret\\\&#39;.
     */
 
-    public async RevokeAsync(token: string, clientId: string, clientSecret?: string, tokenTypeHint?: TokenTypeHint): Promise<ApiResponse> {
+    public async revoke(token: string, clientId: string, clientSecret?: string, tokenTypeHint?: TokenTypeHint): Promise<ApiResponse> {
         if (clientSecret) { // request is for private client 
             const clientIDSecret = Buffer.from(`${clientId}:${clientSecret}`).toString(`base64`);
             const response = await this.tokenApi.revoke(token, `Basic ${clientIDSecret}`, tokenTypeHint, undefined);

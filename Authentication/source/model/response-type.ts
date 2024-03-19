@@ -10,5 +10,3 @@ export const ResponseType = {
 } as const;
 
 export type ResponseType = typeof ResponseType[keyof typeof ResponseType];
-
-

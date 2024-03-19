@@ -11,5 +11,3 @@ export const GrantType = {
 } as const;
 
 export type GrantType = typeof GrantType[keyof typeof GrantType];
-
-

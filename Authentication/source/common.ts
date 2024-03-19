@@ -100,8 +100,8 @@ export const toPathString = function (url: URL) {
  */
 export const createRequestFunction = function (axiosArgs: RequestArgs, sdkManager?: SDKManager) {
     return <T = unknown, R = AxiosResponse<T>>() => {
-        const config = {...axiosArgs.options, url: sdkManager.apsconfiguration?.baseAddress + axiosArgs.url};
-        return sdkManager?.apsclient?.apsService.request(config);
+        const config = {...axiosArgs.options, url: sdkManager.apsConfiguration?.baseAddress + axiosArgs.url};
+        return sdkManager?.apsClient?.apsService.request(config);
     };
 }
 
@@ -109,6 +109,6 @@ export const createRequestFunction = function (axiosArgs: RequestArgs, sdkManage
 export const createRequestFunctionforUserInfo = function (axiosArgs: RequestArgs, sdkManager?: SDKManager) {
     return <T = unknown, R = AxiosResponse<T>>() => {
         const config = {...axiosArgs.options, url: axiosArgs.url};
-        return sdkManager?.apsclient?.apsService.request(config);
+        return sdkManager?.apsClient?.apsService.request(config);
     };
 }

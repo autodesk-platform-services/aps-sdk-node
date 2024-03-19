@@ -14,6 +14,3 @@ export const TokenTypeHint = {
 } as const;
 
 export type TokenTypeHint = typeof TokenTypeHint[keyof typeof TokenTypeHint];
-
-
-
