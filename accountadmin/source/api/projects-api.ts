@@ -2,9 +2,9 @@
 /* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
+import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, AccountAdminApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, AccountAdminApiError } from '../base';
 import { Classification } from '../model';
 import { Fields } from '../model';
 import { FilterTextMatch } from '../model';
@@ -327,8 +327,8 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
  * ProjectsApi - functional programming interface
  * @export
  */
-export const ProjectsApiFp = function(sdkManager?: SDKManager) {
-    const localVarAxiosParamCreator = ProjectsApiAxiosParamCreator(sdkManager.apsconfiguration)
+export const ProjectsApiFp = function(sdkManager?: SdkManager) {
+    const localVarAxiosParamCreator = ProjectsApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
          * Creates a new project in the specified account. You can create the project directly, or clone the project from a project template.
@@ -489,9 +489,9 @@ export interface ProjectsApiInterface {
  * ProjectsApi - object-oriented interface
  * @export
  * @class ProjectsApi
- * @extends {BaseAPI}
+ * @extends {BaseApi}
  */
-export class ProjectsApi extends BaseAPI implements ProjectsApiInterface {
+export class ProjectsApi extends BaseApi implements ProjectsApiInterface {
     private logger = this.sdkManager.logger;
     /**
      * Creates a new project in the specified account. You can create the project directly, or clone the project from a project template.

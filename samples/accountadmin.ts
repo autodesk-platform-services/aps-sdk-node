@@ -4,7 +4,7 @@ import * as fs from "fs";
 
 
 const sdkmanager: SDKManager = SdkManagerBuilder
-    .Create() 
+    .create() 
     .build();
 
 let _adminApi :AdminClient = new AdminClient(sdkmanager);
