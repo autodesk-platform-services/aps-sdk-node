@@ -8,7 +8,7 @@
     "Autodesk Platform Services",
     "Typescript",
     "Construction Account Admin"
-  ],
+],
   "files": [
     "/dist"
   ],
@@ -22,12 +22,12 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@aps_sdk/autodesk-sdkmanager": "^0.0.4-beta.1",
+    "@aps_sdk/autodesk-sdkmanager": "^0.0.7-beta.1",
     "axios": "^1.6.1",
     "@types/node": "^20.9.0"
   },
   "devDependencies": {
-    "prettier": "^2.8.8",
+        "prettier": "^2.8.8",
     "typescript": "^5.1.5"
   }
 }
