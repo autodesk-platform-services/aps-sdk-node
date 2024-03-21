@@ -1,4 +1,4 @@
-import { ApsServiceRequestConfig, SDKManager } from "@aps_sdk/autodesk-sdkmanager";
+import { ApsServiceRequestConfig, SdkManager } from "@aps_sdk/autodesk-sdkmanager";
 import { DerivativesApi, InformationalApi, JobsApi, ManifestApi, MetadataApi, ThumbnailsApi } from "../api";
 import { AllProperties, DeleteManifest, DerivativeDownload, DerivativeHead, Formats, Height, Job, JobPayload, Manifest, ModelViews, ObjectTree, ReferencesPayload, Region, SpecificProperties, SpecificPropertiesPayload, SpecifyReferences, Width, XAdsDerivativeFormat } from "../model";
 import { Stream } from "stream";
@@ -12,7 +12,7 @@ export class ModelDerivativeClient {
     public metadataApi: MetadataApi;
     public thumbnailsApi: ThumbnailsApi;
 
-    constructor(sdkManager: SDKManager) {
+    constructor(sdkManager: SdkManager) {
         this.derivativesApi = new DerivativesApi(sdkManager);
         this.informationalApi = new InformationalApi(sdkManager);
         this.jobsApi = new JobsApi(sdkManager);
