@@ -1,4 +1,4 @@
-import { SDKManager, SdkManagerBuilder } from  "@aps_sdk/autodesk-sdkmanager"
+import { SdkManager, SdkManagerBuilder } from  "@aps_sdk/autodesk-sdkmanager"
 import {DataManagementClient, Folder, FolderContents, FolderContentsData, FolderData, FolderDataAttributes, FolderDataAttributesExtension, FolderDataAttributesExtensionData, FolderPayload, FolderPayloadData, FolderPayloadDataAttributes, FolderPayloadDataRelationships, FolderPayloadDataRelationshipsParent, FolderPayloadDataRelationshipsParentData, Hub, HubData, HubDataAttributes, HubDataAttributesExtension, Hubs, HubsData, HubsDataAttributes, HubsDataAttributesExtension, HubsLinksSelf, Item, ItemPayload, ItemPayloadIncluded, ItemPayloadIncludedAttributes, ModifyFolderPayloadJsonapi, Project, Projects, ProjectsData, ProjectsDataAttributes, ProjectsDataAttributesExtension, RelationshipRefsPayloadDataMetaExtension,StorageDataRelationshipsTarget, StorageDataRelationshipsTargetData, TopFolders, TopFoldersData, Type, VersionDetails, VersionNumber, VersionPayload} from "@aps_sdk/data-management";
 
 const token: string = "<token>";
@@ -7,7 +7,7 @@ let hub_id : string="<hubId>";
 let project_id :string="<projectId>";
 let folder_id:string="<folderId>>";
 
-const sdkmanager: SDKManager = SdkManagerBuilder
+const sdkmanager: SdkManager = SdkManagerBuilder
     .create() 
     .build();
 
@@ -66,7 +66,7 @@ async function hubdata() {
 // hubdata();
 
 //Projects
-async function projecstData() {
+async function projectsData() {
     const getHubProjects: Projects = await _dataManagementApi.getHubProjects(token, hub_id);
     console.log(getHubProjects)
     getHubProjects.data.forEach(currentProject => {
@@ -94,7 +94,7 @@ async function projecstData() {
     
     });
 }
-// projecstData() 
+// projectsData() 
 
 //Project
 //Returns a project for a given project_id

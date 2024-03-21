@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
+import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, DataManagementApiError } from '../base';
 import { Folder } from '../model';
@@ -565,7 +565,7 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
  * ItemsApi - functional programming interface
  * @export
  */
-export const ItemsApiFp = function(sdkManager?: SDKManager) {
+export const ItemsApiFp = function(sdkManager?: SdkManager) {
     const localVarAxiosParamCreator = ItemsApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
