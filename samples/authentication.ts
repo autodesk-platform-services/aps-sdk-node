@@ -1,5 +1,7 @@
 import { ApiResponse, SdkManager, SdkManagerBuilder } from '@aps_sdk/autodesk-sdkmanager'
-import { AuthenticationClient, ResponseType, Scopes, TokenTypeHint } from '@aps_sdk/authentication';
+// import { AuthenticationClient, ResponseType, Scopes, TokenTypeHint } from '@aps_sdk/authentication';
+import { AuthenticationClient } from '../Authentication/source/custom-code/AuthenticationClient';
+import {  ResponseType, Scopes, TokenTypeHint } from '../Authentication/source/model';
 
 
 const client_id = "<client_id>";
@@ -77,7 +79,7 @@ async function getKeys() {
  * Examines an access token and returns its status information
  */
 async function introspectToken() {  
-    const introspecttoken = await authenticationClient.introspectToken(access_token, client_id,client_secret );
+    const introspecttoken = await authenticationClient.introspectToken(access_token, client_id, { clientSecret: client_secret } );
     console.log(introspecttoken); 
 }
 
@@ -94,7 +96,7 @@ function logout() {
  *  Function that takes an access token or refresh token and revokes it.
  */
 async function revokeToken() {
-    var response = await authenticationClient.revoke(access_token, client_id, client_secret, TokenTypeHint.Access_token);
+    var response = await authenticationClient.revoke(access_token, client_id, { clientSecret: client_secret,  tokenTypeHint: TokenTypeHint.Access_token } );
     console.log(response);
 }
 
