@@ -1,4 +1,4 @@
-import { ApiResponse, ApsServiceRequestConfig, SDKManager } from "@aps_sdk/autodesk-sdkmanager";
+import { ApiResponse, ApsServiceRequestConfig, SdkManager } from "@aps_sdk/autodesk-sdkmanager";
 import { TokenApi, UsersApi } from "../api";
 import { GrantType, IntrospectToken, Jwks, OidcSpec, RefreshToken, ResponseType, Scopes, ThreeLeggedToken, TokenTypeHint, TwoLeggedToken, UserInfo } from "../model";
 
@@ -9,7 +9,7 @@ export class AuthenticationClient {
     public usersApi: UsersApi
 
 
-    constructor(sdkManager: SDKManager) {
+    constructor(sdkManager: SdkManager) {
         this.tokenApi = new TokenApi(sdkManager);
         this.usersApi = new UsersApi(sdkManager);
     }

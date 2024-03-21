@@ -1,4 +1,4 @@
-import { ApiResponse, SDKManager, SdkManagerBuilder } from '@aps_sdk/autodesk-sdkmanager'
+import { ApiResponse, SdkManager, SdkManagerBuilder } from '@aps_sdk/autodesk-sdkmanager'
 import { AuthenticationClient, ResponseType, Scopes, TokenTypeHint } from '@aps_sdk/authentication';
 
 
@@ -9,7 +9,7 @@ const code = "<code>";
 var access_token = "token";
 
 
-const sdkmanager: SDKManager = SdkManagerBuilder.create().build();
+const sdkmanager: SdkManager = SdkManagerBuilder.create().build();
 const authenticationClient = new AuthenticationClient(sdkmanager);
 
 /**
