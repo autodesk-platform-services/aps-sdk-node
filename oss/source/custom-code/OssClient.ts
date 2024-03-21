@@ -1,4 +1,4 @@
-import { SDKManager, ApiResponse, ApsServiceRequestConfig } from "@aps_sdk/autodesk-sdkmanager";
+import { SdkManager, ApiResponse, ApsServiceRequestConfig } from "@aps_sdk/autodesk-sdkmanager";
 import { CreateBucketXAdsRegionEnum, CreateSignedResourceAccessEnum, DeleteSignedResourceRegionEnum, GetBucketsRegionEnum, GetObjectDetailsWithEnum, GetSignedResourceRegionEnum, HeadObjectDetailsWithEnum, OSSApi, UploadSignedResourceXAdsRegionEnum, UploadSignedResourcesChunkXAdsRegionEnum } from "../api";
 import { OSSFileTransfer } from "./OSSFileTransfer";
 import { FileTransferConfigurations } from "./FileTransferConfigurations";
@@ -10,7 +10,7 @@ export class OssClient {
     public ossApi: OSSApi;
     public ossFileTransfer: OSSFileTransfer;
 
-    constructor(sdkManager: SDKManager) {
+    constructor(sdkManager: SdkManager) {
         this.ossApi = new OSSApi(sdkManager);
         this.ossFileTransfer = new OSSFileTransfer(new FileTransferConfigurations(3), sdkManager);
 

@@ -1,4 +1,4 @@
-import { IAuthClient, SDKManager, ApiResponse, ApsServiceRequestConfig } from "@aps_sdk/autodesk-sdkmanager";
+import { IAuthClient, SdkManager, ApiResponse, ApsServiceRequestConfig } from "@aps_sdk/autodesk-sdkmanager";
 import { IFileTransferConfigurations } from './FileTransferConfigurations';
 import { OSSApi } from "../api";
 import { Completes3uploadBody, ObjectStatusEnum, Signeds3downloadResponse, Signeds3uploadResponse } from "../model";
@@ -23,7 +23,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
   private maxRetryOnTokenExpiry: number;
   private maxChunkCountAllowed: number;
   private maxRetryOnUrlExpiry: number;
-  public sdkManager: SDKManager;
+  public sdkManager: SdkManager;
   private logger;
 
   private readonly accessTokenExpiredMessage: string = 'Access token provided is invalid or expired.';
@@ -31,7 +31,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
 
   constructor(
     configuration: IFileTransferConfigurations,
-    sdkmanager: SDKManager
+    sdkmanager: SdkManager
   ) {
 
     this.sdkManager = sdkmanager;
