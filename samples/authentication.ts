@@ -111,9 +111,9 @@ async function oidc() {
 //revokeToken();
 //logout();
 //authorize();
-//getRefreshTokenAsync();
-//getThreeLeggedTokenAsync();
-//introspectTokenAsync();
+//getRefreshToken();
+//getThreeLeggedToken();
+//introspectToken();
 //oidc();
-//getTwoLeggedTokenAsync();
+//getTwoLeggedToken();
 // getKeys();
