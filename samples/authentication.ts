@@ -16,7 +16,7 @@ const authenticationClient = new AuthenticationClient(sdkmanager);
 * Retrieves basic information for the given authenticated user. Only supports 3-legged access tokens.
 */
 async function getUserInfo() {
-    const userInfo = await authenticationClient.getUserInfo({authorization: access_token});
+    const userInfo = await authenticationClient.getUserInfo(access_token);
     console.log(userInfo.email);
 }
 

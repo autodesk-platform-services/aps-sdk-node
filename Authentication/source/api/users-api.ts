@@ -2,9 +2,9 @@
 /* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import { ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse } from "@aps_sdk/autodesk-sdkmanager";
-import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction, createRequestFunctionforUserInfo } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, AuthenticationApiError } from '../base';
+import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
+import { setBearerAuthToObject, setSearchParams, toPathString, createRequestFunction , createRequestFunctionforUserInfo} from '../common';
+import { RequestArgs, BaseApi, AuthenticationApiError } from '../base';
 import { UserInfo } from '../model';
 /**
  * UsersApi - axios parameter creator
@@ -56,7 +56,7 @@ export const UsersApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
  * UsersApi - functional programming interface
  * @export
  */
-export const UsersApiFp = function (sdkManager?: SdkManager) {
+export const UsersApiFp = function(sdkManager?: SdkManager) {
     const localVarAxiosParamCreator = UsersApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
@@ -96,7 +96,7 @@ export interface UsersApiInterface {
  * UsersApi - object-oriented interface
  * @export
  * @class UsersApi
- * @extends {BaseAPI}
+ * @extends {BaseApi}
  */
 export class UsersApi extends BaseApi implements UsersApiInterface {
     private logger = this.sdkManager.logger;

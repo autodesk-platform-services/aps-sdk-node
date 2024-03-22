@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import { ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse } from "@aps_sdk/autodesk-sdkmanager";
+import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, AuthenticationApiError } from '../base';
 import { Jwks } from '../model';
@@ -51,9 +51,9 @@ export const TokenApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
                 baseOptions = apsConfiguration.baseOptions;
             }
 
-            const localVarQueryParameter = {} as any;
+                        const localVarQueryParameter = {} as any;
 
-            if (clientId !== undefined) {
+                        if (clientId !== undefined) {
                 localVarQueryParameter['client_id'] = clientId;
             }
 
@@ -308,9 +308,9 @@ export const TokenApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
                 baseOptions = apsConfiguration.baseOptions;
             }
 
-            const localVarQueryParameter = {} as any;
+                        const localVarQueryParameter = {} as any;
 
-            if (postLogoutRedirectUri !== undefined) {
+                        if (postLogoutRedirectUri !== undefined) {
                 localVarQueryParameter['post_logout_redirect_uri'] = postLogoutRedirectUri;
             }
     
@@ -379,7 +379,7 @@ export const TokenApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
  * TokenApi - functional programming interface
  * @export
  */
-export const TokenApiFp = function (sdkManager?: SdkManager) {
+export const TokenApiFp = function(sdkManager?: SdkManager) {
     const localVarAxiosParamCreator = TokenApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
@@ -506,7 +506,7 @@ export interface TokenApiInterface {
      * @throws {RequiredError}
      * @memberof TokenApiInterface
      */
-    authorize(/* accessToken: string, */clientId: string, responseType: string, redirectUri: string, state: string, nonce?: string, scope?: string, responseMode?: string, prompt?: string, authoptions?: string, codeChallenge?: string, codeChallengeMethod?: string): string;
+    authorize(/* accessToken: string, */clientId: string, responseType: string, redirectUri: string, state: string, nonce?: string, scope?: string, responseMode?: string, prompt?: string, authoptions?: string, codeChallenge?: string, codeChallengeMethod?: string, options?: ApsServiceRequestConfig): string;
 
     /**
      * Token endpoint returns access token and refresh token, depending on the request parameters.  The endpoint requires Basic Authorization for confidential clients. For public clients, the Authorization Header should not be in the header and `client_id` should be included in the form body.  * If `grant_type` is `authorization_code`, it returns 3-legged access token for authorization code grant.  * If `grant_type` is `client_credentials`, it returns 2-legged access token for client credentials grant. * If `grant_type` is `refresh_token`, it returns new access token by using the refresh token provided in the request. 
@@ -589,7 +589,7 @@ export interface TokenApiInterface {
  * TokenApi - object-oriented interface
  * @export
  * @class TokenApi
- * @extends {BaseAPI}
+ * @extends {BaseApi}
  */
 export class TokenApi extends BaseApi implements TokenApiInterface {
     private logger = this.sdkManager.logger;
@@ -612,7 +612,7 @@ export class TokenApi extends BaseApi implements TokenApiInterface {
      * @throws {RequiredError}
      * @memberof TokenApi
      */
-    public authorize(/* accessToken: string, */ clientId: string, responseType: string, redirectUri: string, state: string, nonce?: string, scope?: string, responseMode?: string, prompt?: string, authoptions?: string, codeChallenge?: string, codeChallengeMethod?: string) {
+    public authorize(/* accessToken: string, */ clientId: string, responseType: string, redirectUri: string, state: string, nonce?: string, scope?: string, responseMode?: string, prompt?: string, authoptions?: string, codeChallenge?: string, codeChallengeMethod?: string, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into authorize ");
       try {
         const url = TokenApiFp(this.sdkManager).authorize(/* accessToken, */ clientId, responseType, redirectUri, state, nonce, scope, responseMode, prompt, authoptions, codeChallenge, codeChallengeMethod);
