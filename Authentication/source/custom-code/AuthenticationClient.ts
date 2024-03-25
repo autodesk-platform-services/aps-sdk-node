@@ -23,7 +23,7 @@ export class AuthenticationClient {
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
      */
-    public async getUserinfoAsync(authorization: string, optionalArgs?:{options?: ApsServiceRequestConfig}): Promise<UserInfo> {
+    public async getUserInfo(authorization: string, optionalArgs?:{options?: ApsServiceRequestConfig}): Promise<UserInfo> {
         const response = await this.usersApi.getUserinfo(`Bearer ${authorization}`, optionalArgs?.options);
         return response.content;
     }
