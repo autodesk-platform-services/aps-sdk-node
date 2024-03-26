@@ -114,7 +114,7 @@ export const TokenApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        fetchtoken: async (/* accessToken: string, */ authorization?: string, grantType?: GrantType, code?: string, redirectUri?: string, codeVerifier?: string, refreshToken?: string, scope?: string, clientId?: string, options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        fetchToken: async (/* accessToken: string, */ authorization?: string, grantType?: GrantType, code?: string, redirectUri?: string, codeVerifier?: string, refreshToken?: string, scope?: string, clientId?: string, options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/authentication/v2/token`;
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
@@ -415,8 +415,8 @@ export const TokenApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async fetchtoken(/* accessToken: string, */ authorization?: string, grantType?: GrantType, code?: string, redirectUri?: string, codeVerifier?: string, refreshToken?: string, scope?: string, clientId?: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.fetchtoken(/* accessToken, */ authorization, grantType, code, redirectUri, codeVerifier, refreshToken, scope, clientId, options);
+        async fetchToken(/* accessToken: string, */ authorization?: string, grantType?: GrantType, code?: string, redirectUri?: string, codeVerifier?: string, refreshToken?: string, scope?: string, clientId?: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.fetchToken(/* accessToken, */ authorization, grantType, code, redirectUri, codeVerifier, refreshToken, scope, clientId, options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
@@ -522,7 +522,7 @@ export interface TokenApiInterface {
      * @throws {RequiredError}
      * @memberof TokenApiInterface
      */
-    fetchtoken(/* accessToken: string, */authorization?: string, grantType?: GrantType, code?: string, redirectUri?: string, codeVerifier?: string, refreshToken?: string, scope?: string, clientId?: string, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    fetchToken(/* accessToken: string, */authorization?: string, grantType?: GrantType, code?: string, redirectUri?: string, codeVerifier?: string, refreshToken?: string, scope?: string, clientId?: string, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * To return JSON Web Key Set that used to validate JWT token.
@@ -639,20 +639,20 @@ export class TokenApi extends BaseApi implements TokenApiInterface {
      * @throws {RequiredError}
      * @memberof TokenApi
      */
-    public async fetchtoken(/* accessToken: string, */ authorization?: string, grantType?: GrantType, code?: string, redirectUri?: string, codeVerifier?: string, refreshToken?: string, scope?: string, clientId?: string, options?: ApsServiceRequestConfig) {
-      this.logger.logInfo("Entered into fetchtoken ");
+    public async fetchToken(/* accessToken: string, */ authorization?: string, grantType?: GrantType, code?: string, redirectUri?: string, codeVerifier?: string, refreshToken?: string, scope?: string, clientId?: string, options?: ApsServiceRequestConfig) {
+      this.logger.logInfo("Entered into fetchToken ");
       try {
-        const request = await TokenApiFp(this.sdkManager).fetchtoken(/* accessToken, */ authorization, grantType, code, redirectUri, codeVerifier, refreshToken, scope, clientId, options);
+        const request = await TokenApiFp(this.sdkManager).fetchToken(/* accessToken, */ authorization, grantType, code, redirectUri, codeVerifier, refreshToken, scope, clientId, options);
         const response = await request(this.axios);
-        this.logger.logInfo(`fetchtoken Request completed successfully with status code: ${response.status}`);
+        this.logger.logInfo(`fetchToken Request completed successfully with status code: ${response.status}`);
         return new ApiResponse(response, response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`fetchtoken Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AuthenticationApiError(`fetchtoken Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            this.logger.logError(`fetchToken Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+            throw new AuthenticationApiError(`fetchToken Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
-            this.logger.logError(`fetchtoken Request failed with no response received: ${error.request}`);
-            throw new AuthenticationApiError(`fetchtoken Request failed with no response received: ${error.request}`, error);
+            this.logger.logError(`fetchToken Request failed with no response received: ${error.request}`);
+            throw new AuthenticationApiError(`fetchToken Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }

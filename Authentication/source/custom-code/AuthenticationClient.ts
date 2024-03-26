@@ -24,7 +24,7 @@ export class AuthenticationClient {
          * @param {*} [options] Override http request option.
      */
     public async getUserInfo(authorization: string, optionalArgs?:{options?: ApsServiceRequestConfig}): Promise<UserInfo> {
-        const response = await this.usersApi.getUserinfo(`Bearer ${authorization}`, optionalArgs?.options);
+        const response = await this.usersApi.getUserInfo(`Bearer ${authorization}`, optionalArgs?.options);
         return response.content;
     }
 
@@ -43,7 +43,7 @@ export class AuthenticationClient {
     public async getTwoLeggedToken(clientId: string, clientSecret: string, scopes: Array<Scopes>, optionalArgs?:{options?: ApsServiceRequestConfig}): Promise<TwoLeggedToken> {
         const clientIDSecret = Buffer.from(`${clientId}:${clientSecret}`).toString(`base64`);
         const strscopes = scopes.join(' ');
-        const response = await this.tokenApi.fetchtoken(`Basic ${clientIDSecret}`, GrantType.ClientCredentials, undefined, undefined, undefined, undefined, strscopes, undefined, optionalArgs?.options);
+        const response = await this.tokenApi.fetchToken(`Basic ${clientIDSecret}`, GrantType.ClientCredentials, undefined, undefined, undefined, undefined, strscopes, undefined, optionalArgs?.options);
         return response.content;
     }
 
@@ -90,10 +90,10 @@ export class AuthenticationClient {
         var response = null;
         if (clientSecret) {
             const clientIDSecret = Buffer.from(`${clientId}:${clientSecret}`).toString(`base64`);
-            response = await this.tokenApi.fetchtoken(`Basic ${clientIDSecret}`, GrantType.AuthorizationCode, code, redirect_uri, optionalArgs?.code_verifier, undefined, undefined, undefined, optionalArgs?.options);
+            response = await this.tokenApi.fetchToken(`Basic ${clientIDSecret}`, GrantType.AuthorizationCode, code, redirect_uri, optionalArgs?.code_verifier, undefined, undefined, undefined, optionalArgs?.options);
         }
         else {
-            response = await this.tokenApi.fetchtoken(undefined, GrantType.AuthorizationCode, code, redirect_uri, optionalArgs?.code_verifier, undefined, undefined, clientId, optionalArgs?.options);
+            response = await this.tokenApi.fetchToken(undefined, GrantType.AuthorizationCode, code, redirect_uri, optionalArgs?.code_verifier, undefined, undefined, clientId, optionalArgs?.options);
         }
         return response.content;
     }
@@ -120,10 +120,10 @@ export class AuthenticationClient {
         }
         if (clientSecret) {
             const clientIDSecret = Buffer.from(`${clientId}:${clientSecret}`).toString(`base64`);
-            response = await this.tokenApi.fetchtoken(`Basic ${clientIDSecret}`, GrantType.RefreshToken, undefined, undefined, undefined, refreshToken, strScopes, undefined, optionalArgs?.options);
+            response = await this.tokenApi.fetchToken(`Basic ${clientIDSecret}`, GrantType.RefreshToken, undefined, undefined, undefined, refreshToken, strScopes, undefined, optionalArgs?.options);
         }
         else {
-            response = await this.tokenApi.fetchtoken(undefined, GrantType.RefreshToken, undefined, undefined, undefined, refreshToken, strScopes, clientId, optionalArgs?.options);
+            response = await this.tokenApi.fetchToken(undefined, GrantType.RefreshToken, undefined, undefined, undefined, refreshToken, strScopes, clientId, optionalArgs?.options);
         }
         return response.content;
     }

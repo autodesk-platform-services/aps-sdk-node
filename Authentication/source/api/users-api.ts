@@ -20,7 +20,7 @@ export const UsersApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserinfo: async (/* accessToken: string, */ authorization?: string, options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        getUserInfo: async (/* accessToken: string, */ authorization?: string, options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/userinfo`;
             const localVarUrlObj = new URL(localVarPath, "https://api.userprofile.autodesk.com");
             let baseOptions;
@@ -66,8 +66,8 @@ export const UsersApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserinfo(/* accessToken: string, */ authorization?: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserInfo>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserinfo(/* accessToken, */ authorization, options);
+        async getUserInfo(/* accessToken: string, */ authorization?: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserInfo>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserInfo(/* accessToken, */ authorization, options);
             return createRequestFunctionforUserInfo(localVarAxiosArgs, sdkManager);
         },
     }
@@ -88,7 +88,7 @@ export interface UsersApiInterface {
      * @throws {RequiredError}
      * @memberof UsersApiInterface
      */
-    getUserinfo(/* accessToken:  string*/authorization?: string, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getUserInfo(/* accessToken:  string*/authorization?: string, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
 }
 
@@ -109,20 +109,20 @@ export class UsersApi extends BaseApi implements UsersApiInterface {
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public async getUserinfo(/* accessToken: string, */ authorization?: string, options?: ApsServiceRequestConfig) {
-      this.logger.logInfo("Entered into getUserinfo ");
+    public async getUserInfo(/* accessToken: string, */ authorization?: string, options?: ApsServiceRequestConfig) {
+      this.logger.logInfo("Entered into getUserInfo ");
       try {
-        const request = await UsersApiFp(this.sdkManager).getUserinfo(/* accessToken, */ authorization, options);
+        const request = await UsersApiFp(this.sdkManager).getUserInfo(/* accessToken, */ authorization, options);
         const response = await request(this.axios);
-        this.logger.logInfo(`getUserinfo Request completed successfully with status code: ${response.status}`);
+        this.logger.logInfo(`getUserInfo Request completed successfully with status code: ${response.status}`);
         return new ApiResponse(response, response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getUserinfo Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AuthenticationApiError(`getUserinfo Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            this.logger.logError(`getUserInfo Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+            throw new AuthenticationApiError(`getUserInfo Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
-            this.logger.logError(`getUserinfo Request failed with no response received: ${error.request}`);
-            throw new AuthenticationApiError(`getUserinfo Request failed with no response received: ${error.request}`, error);
+            this.logger.logError(`getUserInfo Request failed with no response received: ${error.request}`);
+            throw new AuthenticationApiError(`getUserInfo Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
