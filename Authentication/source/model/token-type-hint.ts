@@ -9,8 +9,8 @@
  */
 
 export const TokenTypeHint = {
-    Access_token: 'access_token',
-    Refresh_token: 'refresh_token'  
+    AccessToken: 'access_token',
+    RefreshToken: 'refresh_token'  
 } as const;
 
 export type TokenTypeHint = typeof TokenTypeHint[keyof typeof TokenTypeHint];

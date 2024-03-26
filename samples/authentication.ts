@@ -24,7 +24,7 @@ async function getUserInfo() {
 * Returns a 2-legged access token.
 */
 async function getTwoLeggedToken() {
-    const token = await authenticationClient.getTwoLeggedToken(client_id, client_secret, new Array(Scopes.Dataread, Scopes.Datacreate, Scopes.Bucketcreate));
+    const token = await authenticationClient.getTwoLeggedToken(client_id, client_secret, new Array(Scopes.DataRead, Scopes.DataCreate, Scopes.BucketCreate));
     console.log(token.access_token);
 }
 
@@ -32,7 +32,7 @@ async function getTwoLeggedToken() {
 * Function to obtain the authorize url. 
 */
 function authorize() {
-    const url = authenticationClient.authorize(client_id, ResponseType.Code, redirect_uri, new Array(Scopes.Dataread, Scopes.Datacreate));
+    const url = authenticationClient.authorize(client_id, ResponseType.Code, redirect_uri, new Array(Scopes.DataRead, Scopes.DataCreate));
     console.log(url);
 }
 
@@ -56,8 +56,8 @@ async function getThreeLeggedToken() {
 */
 async function getRefreshToken() {
     try {
-        const refreshtoken = await authenticationClient.getRefreshToken(client_id, client_secret, "refreshToken");
-        console.log(refreshtoken);
+        const refresh_token = await authenticationClient.getRefreshToken(client_id, client_secret, "refreshToken");
+        console.log(refresh_token);
     }
     catch (error) {
         console.log(error);
@@ -77,8 +77,8 @@ async function getKeys() {
  * Examines an access token and returns its status information
  */
 async function introspectToken() {  
-    const introspecttoken = await authenticationClient.introspectToken(access_token, client_id, { clientSecret: client_secret } );
-    console.log(introspecttoken); 
+    const introspect_token = await authenticationClient.introspectToken(access_token, client_id, { clientSecret: client_secret } );
+    console.log(introspect_token); 
 }
 
 /**
@@ -94,7 +94,7 @@ function logout() {
  *  Function that takes an access token or refresh token and revokes it.
  */
 async function revokeToken() {
-    var response = await authenticationClient.revoke(access_token, client_id, { clientSecret: client_secret,  tokenTypeHint: TokenTypeHint.Access_token } );
+    var response = await authenticationClient.revoke(access_token, client_id, { clientSecret: client_secret,  tokenTypeHint: TokenTypeHint.AccessToken } );
     console.log(response);
 }
 
@@ -116,4 +116,4 @@ async function oidc() {
 //introspectToken();
 //oidc();
 //getTwoLeggedToken();
-// getKeys();
+//getKeys();
