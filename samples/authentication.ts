@@ -110,7 +110,7 @@ async function oidc() {
 //getUserInfo();
 //revokeToken();
 //logout();
-//authorize();
+// authorize();
 //getRefreshToken();
 //getThreeLeggedToken();
 //introspectToken();

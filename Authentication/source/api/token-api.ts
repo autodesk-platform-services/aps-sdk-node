@@ -42,8 +42,6 @@ export const TokenApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             assertParamExists('authorize', 'responseType', responseType)
             // verify required parameter 'redirectUri' is not null or undefined
             assertParamExists('authorize', 'redirectUri', redirectUri)
-            // verify required parameter 'state' is not null or undefined
-            assertParamExists('authorize', 'state', state)
             const localVarPath = `/authentication/v2/authorize`;
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
