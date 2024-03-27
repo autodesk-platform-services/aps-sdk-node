@@ -5,37 +5,37 @@
 /**
  * 
  * @export
- * @interface Jwks
+ * @interface JwksKey
  */
 export interface JwksKey {
     /**
      * 
      * @type {string}
-     * @memberof Jwks
+     * @memberof JwksKey
      */
     'kid'?: string;
     /**
      * 
      * @type {string}
-     * @memberof Jwks
+     * @memberof JwksKey
      */
     'kty'?: string;
     /**
      * 
      * @type {string}
-     * @memberof Jwks
+     * @memberof JwksKey
      */
     'use'?: string;
     /**
      * 
      * @type {string}
-     * @memberof Jwks
+     * @memberof JwksKey
      */
     'n'?: string;
     /**
      * 
      * @type {string}
-     * @memberof Jwks
+     * @memberof JwksKey
      */
     'e'?: string;
 }
