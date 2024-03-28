@@ -9,22 +9,22 @@
  */
 
 export const Scopes = {
-    UserProfileread: 'user-profile:read',
-    Userread: 'user:read',
-    Userwrite: 'user:write',
-    Viewablesread: 'viewables:read',
-    Dataread: 'data:read',
-    Datawrite: 'data:write',
-    Datacreate: 'data:create',
-    Datasearch: 'data:search',
-    Bucketcreate: 'bucket:create',
-    Bucketread: 'bucket:read',
-    Bucketupdate: 'bucket:update',
-    Bucketdelete: 'bucket:delete',
-    Codeall: 'code:all',
-    Accountread: 'account:read',
-    Accountwrite: 'account:write',
-    Openid: 'openid'
+    UserProfileRead: 'user-profile:read',
+    UserRead: 'user:read',
+    UserWrite: 'user:write',
+    ViewablesRead: 'viewables:read',
+    DataRead: 'data:read',
+    DataWrite: 'data:write',
+    DataCreate: 'data:create',
+    DataSearch: 'data:search',
+    BucketCreate: 'bucket:create',
+    BucketRead: 'bucket:read',
+    BucketUpdate: 'bucket:update',
+    BucketDelete: 'bucket:delete',
+    CodeAll: 'code:all',
+    AccountRead: 'account:read',
+    AccountWrite: 'account:write',
+    OpenId: 'openid'
 } as const;
 
 export type Scopes = typeof Scopes[keyof typeof Scopes];

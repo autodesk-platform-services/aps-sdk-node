@@ -1,4 +1,4 @@
-import { ApsServiceRequestConfig, SDKManager } from "@aps_sdk/autodesk-sdkmanager"; 
+import { ApsServiceRequestConfig, SdkManager } from "@aps_sdk/autodesk-sdkmanager"; 
 import {CommandsApi,HubsApi,ItemsApi,ProjectsApi,FoldersApi,VersionsApi, GetFolderRelationshipsRefsFilterRefTypeEnum, GetFolderRelationshipsRefsFilterDirectionEnum, GetItemRelationshipsRefsFilterRefTypeEnum, GetItemRelationshipsRefsFilterDirectionEnum, GetVersionRelationshipsRefsFilterRefTypeEnum, GetVersionRelationshipsRefsFilterDirectionEnum} from "../api";
 import { Command, CommandPayload, Download, DownloadDetails, DownloadFormats, DownloadPayload, Downloads, Folder, FolderContents, FolderPayload, FolderRefs, Hub, Hubs, Item, ItemPayload, ItemTip, Job, ModifyFolderPayload, ModifyItemPayload, ModifyVersionPayload, Project, Projects, Refs, RelationshipLinks, RelationshipRefs, RelationshipRefsPayload, Search, StoragePayload, TopFolders, Version, VersionDetails, VersionPayload, Versions} from "../model";
 
@@ -11,7 +11,7 @@ export class DataManagementClient {
     public projectsApi: ProjectsApi;
     public versionsApi: VersionsApi;
 
-    constructor(sdkManager: SDKManager) {
+    constructor(sdkManager: SdkManager) {
         this.commandsApi = new CommandsApi(sdkManager);
         this.foldersApi = new FoldersApi(sdkManager);
         this.hubsApi = new HubsApi(sdkManager);

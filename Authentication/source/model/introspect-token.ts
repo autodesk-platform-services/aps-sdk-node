@@ -5,37 +5,37 @@
 /**
  * The response body for the introspection of access token.
  * @export
- * @interface Introspecttoken
+ * @interface IntrospectToken
  */
 export interface IntrospectToken {
     /**
      * 
      * @type {boolean}
-     * @memberof Introspecttoken
+     * @memberof IntrospectToken
      */
     'active': boolean;
     /**
      * 
      * @type {string}
-     * @memberof Introspecttoken
+     * @memberof IntrospectToken
      */
     'scope': string;
     /**
      * 
      * @type {string}
-     * @memberof Introspecttoken
+     * @memberof IntrospectToken
      */
     'client_id': string;
     /**
      * 
      * @type {number}
-     * @memberof Introspecttoken
+     * @memberof IntrospectToken
      */
     'exp': number;
     /**
      * 
      * @type {string}
-     * @memberof Introspecttoken
+     * @memberof IntrospectToken
      */
     'userid'?: string;
 }

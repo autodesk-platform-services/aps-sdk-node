@@ -1,15 +1,20 @@
+/* tslint:disable */
+/* eslint-disable */
+
+
 /**
- * Enum for GrantType
+ * Enum for grant types
  * @export
  * @enum {string}
  */
 
 export const GrantType = {
-    Client_credentials: 'client_credentials',
-    Authorization_code: 'authorization_code',
-    Refresh_token: 'refresh_token'  
+    ClientCredentials: 'client_credentials',
+    AuthorizationCode: 'authorization_code',
+    RefreshToken: 'refresh_token'
 } as const;
 
 export type GrantType = typeof GrantType[keyof typeof GrantType];
+
 
 

@@ -2,9 +2,9 @@
 /* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import { ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse } from "@aps_sdk/autodesk-sdkmanager";
-import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction, createRequestFunctionforUserInfo } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, AuthenticationApiError } from '../base';
+import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
+import { setBearerAuthToObject, setSearchParams, toPathString, createRequestFunction , createRequestFunctionforUserInfo} from '../common';
+import { RequestArgs, BaseApi, AuthenticationApiError } from '../base';
 import { UserInfo } from '../model';
 /**
  * UsersApi - axios parameter creator
@@ -20,13 +20,13 @@ export const UsersApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserinfo: async (/* accessToken: string, */ authorization?: string, options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        getUserInfo: async (/* accessToken: string, */ authorization?: string, options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/userinfo`;
             const localVarUrlObj = new URL(localVarPath, "https://api.userprofile.autodesk.com");
-             let baseOptions;
-             if (apsConfiguration) {
-                 baseOptions = apsConfiguration.baseOptions;
-             }
+            let baseOptions;
+            if (apsConfiguration) {
+                baseOptions = apsConfiguration.baseOptions;
+            }
 
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
@@ -39,11 +39,11 @@ export const UsersApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             }
 
 
-
+    
             // setSearchParams(localVarUrlObj, localVarQueryParameter);
-             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions,  ...options.headers };
-            //localVarRequestOptions.baseURL = "https://api.userprofile.autodesk.com";
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+//localVarRequestOptions.baseURL = "https://api.userprofile.autodesk.com";
             return {
                 url: localVarUrlObj.toString(),
                 options: localVarRequestOptions,
@@ -56,8 +56,8 @@ export const UsersApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
  * UsersApi - functional programming interface
  * @export
  */
-export const UsersApiFp = function (sdkManager?: SDKManager) {
-    const localVarAxiosParamCreator = UsersApiAxiosParamCreator(sdkManager.apsconfiguration)
+export const UsersApiFp = function(sdkManager?: SdkManager) {
+    const localVarAxiosParamCreator = UsersApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
          * Retrieves basic information for the given authenticated user. Only supports 3-legged access tokens.
@@ -66,8 +66,8 @@ export const UsersApiFp = function (sdkManager?: SDKManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserinfo(/* accessToken: string, */ authorization?: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserInfo>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserinfo(/* accessToken, */ authorization, options);
+        async getUserInfo(/* accessToken: string, */ authorization?: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserInfo>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserInfo(/* accessToken, */ authorization, options);
             return createRequestFunctionforUserInfo(localVarAxiosArgs, sdkManager);
         },
     }
@@ -88,7 +88,7 @@ export interface UsersApiInterface {
      * @throws {RequiredError}
      * @memberof UsersApiInterface
      */
-    getUserinfo(/* accessToken:  string*/authorization?: string, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getUserInfo(/* accessToken:  string*/authorization?: string, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
 }
 
@@ -96,9 +96,9 @@ export interface UsersApiInterface {
  * UsersApi - object-oriented interface
  * @export
  * @class UsersApi
- * @extends {BaseAPI}
+ * @extends {BaseApi}
  */
-export class UsersApi extends BaseAPI implements UsersApiInterface {
+export class UsersApi extends BaseApi implements UsersApiInterface {
     private logger = this.sdkManager.logger;
     /**
      * Retrieves basic information for the given authenticated user. Only supports 3-legged access tokens.
@@ -109,23 +109,23 @@ export class UsersApi extends BaseAPI implements UsersApiInterface {
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public async getUserinfo(/* accessToken: string, */ authorization?: string, options?: ApsServiceRequestConfig) {
-        this.logger.logInfo("Entered into getUserinfo ");
-        try {
-            const request = await UsersApiFp(this.sdkManager).getUserinfo(/* accessToken, */ authorization, options);
-            const response = await request(this.axios);
-            this.logger.logInfo(`getUserinfo Request completed successfully with status code: ${response.status}`);
-            return new ApiResponse(response, response.data);
-        } catch (error) {
-            if (error.response) {
-                this.logger.logError(`getUserinfo Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-                throw new AuthenticationApiError(`getUserinfo Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
-            } else if (error.request) {
-                this.logger.logError(`getUserinfo Request failed with no response received: ${error.request}`);
-                throw new AuthenticationApiError(`getUserinfo Request failed with no response received: ${error.request}`, error);
-            }
-            throw error;
+    public async getUserInfo(/* accessToken: string, */ authorization?: string, options?: ApsServiceRequestConfig) {
+      this.logger.logInfo("Entered into getUserInfo ");
+      try {
+        const request = await UsersApiFp(this.sdkManager).getUserInfo(/* accessToken, */ authorization, options);
+        const response = await request(this.axios);
+        this.logger.logInfo(`getUserInfo Request completed successfully with status code: ${response.status}`);
+        return new ApiResponse(response, response.data);
+      } catch (error) {
+        if (error.response) {
+            this.logger.logError(`getUserInfo Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+            throw new AuthenticationApiError(`getUserInfo Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+        } else if (error.request) {
+            this.logger.logError(`getUserInfo Request failed with no response received: ${error.request}`);
+            throw new AuthenticationApiError(`getUserInfo Request failed with no response received: ${error.request}`, error);
         }
+        throw error;
+      }
     }
 }
 

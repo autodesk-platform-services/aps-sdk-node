@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
+import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, DataManagementApiError } from '../base';
 import { GetHubs401Response } from '../model';
@@ -114,7 +114,7 @@ export const HubsApiAxiosParamCreator = function (apsConfiguration?: IApsConfigu
  * HubsApi - functional programming interface
  * @export
  */
-export const HubsApiFp = function(sdkManager?: SDKManager) {
+export const HubsApiFp = function(sdkManager?: SdkManager) {
     const localVarAxiosParamCreator = HubsApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**

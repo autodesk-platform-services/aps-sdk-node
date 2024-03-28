@@ -1,4 +1,4 @@
-import { ApsServiceRequestConfig, SDKManager } from "@aps_sdk/autodesk-sdkmanager"; 
+import { ApsServiceRequestConfig, SdkManager } from "@aps_sdk/autodesk-sdkmanager"; 
 import {CompaniesApi, ProjectsApi, ProjectUsersApi, AccountUsersApi, BusinessUnitsApi} from "../api";
 import { AccessLevels, BusinessUnitsRequestPyload, BusinessUnitsResponse, Classification, Company, CompanyImportResponse, CompanyPatchPayload, CompanyPayload, CompanyResponse, Fields, FilterTextMatch, OrFilters, Platform, Products, Project, ProjectPatchResponse, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserResponse, ProjectUsers, ProjectUsersImportPayload, ProjectUsersImportResponse, ProjectUsersUpdatePayload, Projects, Region, SortBy, Status, StatusFilter, User, UserFields, UserImportResponse, UserPatchPayload, UserPayload, UserSortBy } from "../model";
 
@@ -9,7 +9,7 @@ export class AdminClient {
     public accountUsersApi: AccountUsersApi;
     public businessUnitAPI: BusinessUnitsApi;
 
-    constructor(sdkManager: SDKManager) {
+    constructor(sdkManager: SdkManager) {
         this.companiesApi = new CompaniesApi(sdkManager);
         this.accountUsersApi = new AccountUsersApi(sdkManager);
         this.projectsApi = new ProjectsApi(sdkManager);
@@ -30,8 +30,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectsApi
      */
-    public async getProjectAsync(accessToken: string, projectId: string, region?: Region, fields?: Array<Fields>, options?: ApsServiceRequestConfig): Promise<Project> {
-        const response = await this.projectsApi.getProject(accessToken, projectId, null, region, null, fields, options);
+    public async getProject(accessToken: string, projectId: string, optionalArgs?:{region?: Region, fields?: Array<Fields>, options?: ApsServiceRequestConfig}): Promise<Project> {
+        const response = await this.projectsApi.getProject(accessToken, projectId, null, optionalArgs?.region, null, optionalArgs?.fields, optionalArgs?.options);
         return response.content;
     }
 
@@ -59,8 +59,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectsApi
      */
-    public async getProjectsAsync(accessToken: string, accountId: string, region?: Region, fields?: Array<Fields>, filterClassification?: Array<Classification>, filterPlatform?: Array<Platform>, filterProducts?: Array<Products>, filterName?: string, filterType?: Array<string>, filterStatus?: Array<Status>, filterBusinessUnitId?: string, filterJobNumber?: string, filterUpdatedAt?: string, filterTextMatch?: FilterTextMatch, sort?: Array<SortBy>, limit?: number, offset?: number, options?: ApsServiceRequestConfig): Promise<Projects> {
-        const response = await this.projectsApi.getProjects(accessToken, accountId, null, region, null, fields, filterClassification, filterPlatform, filterProducts, filterName, filterType, filterStatus, filterBusinessUnitId, filterJobNumber, filterUpdatedAt, filterTextMatch, sort, limit, offset, options);
+    public async getProjects(accessToken: string, accountId: string, optionalArgs?:{region?: Region, fields?: Array<Fields>, filterClassification?: Array<Classification>, filterPlatform?: Array<Platform>, filterProducts?: Array<Products>, filterName?: string, filterType?: Array<string>, filterStatus?: Array<Status>, filterBusinessUnitId?: string, filterJobNumber?: string, filterUpdatedAt?: string, filterTextMatch?: FilterTextMatch, sort?: Array<SortBy>, limit?: number, offset?: number, options?: ApsServiceRequestConfig}): Promise<Projects> {
+        const response = await this.projectsApi.getProjects(accessToken, accountId, null, optionalArgs?.region, null, optionalArgs?.fields, optionalArgs?.filterClassification, optionalArgs?.filterPlatform, optionalArgs?.filterProducts, optionalArgs?.filterName, optionalArgs?.filterType, optionalArgs?.filterStatus, optionalArgs?.filterBusinessUnitId, optionalArgs?.filterJobNumber, optionalArgs?.filterUpdatedAt, optionalArgs?.filterTextMatch, optionalArgs?.sort, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.options);
         return response.content;
     }
 
@@ -76,8 +76,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectsApi
      */
-    public async createProjectAsync(accessToken: string, accountId: string, projectPayload: ProjectPayload, region?: Region, adminUserId?: string, options?: ApsServiceRequestConfig): Promise<Project> {
-        const response = await this.projectsApi.createProject(accessToken, accountId, null, region, adminUserId, projectPayload, options);
+    public async createProject(accessToken: string, accountId: string, projectPayload: ProjectPayload, optionalArgs?:{region?: Region, adminUserId?: string, options?: ApsServiceRequestConfig}): Promise<Project> {
+        const response = await this.projectsApi.createProject(accessToken, accountId, null, optionalArgs?.region, optionalArgs?.adminUserId, projectPayload, optionalArgs?.options);
         return response.content;
     }
 
@@ -93,8 +93,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectsApi
      */
-    public async createProjectImageAsync(accessToken: string, projectId: string, accountId: string, body: File, region?: Region, options?: ApsServiceRequestConfig): Promise<ProjectPatchResponse> {
-        const response = await this.projectsApi.createProjectImage(accessToken, projectId, accountId, body, region, options);
+    public async createProjectImage(accessToken: string, projectId: string, accountId: string, body: File, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<ProjectPatchResponse> {
+        const response = await this.projectsApi.createProjectImage(accessToken, projectId, accountId, body, optionalArgs?.region, optionalArgs?.options);
         return response.content;
     }
 
@@ -120,8 +120,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof CompaniesApi
      */
-    public async searchCompaniesAsync(accessToken: string, accountId: string, region?: Region, name?: string, trade?: string, operator?: string, partial?: boolean, limit?: number, offset?: number, sort?: string, field?: string, options?: ApsServiceRequestConfig): Promise<Array<Company>> {
-        const response = await this.companiesApi.searchCompanies(accessToken, accountId, region, name, trade, operator, partial, limit, offset, sort, field, options);
+    public async searchCompanies(accessToken: string, accountId: string, optionalArgs?:{region?: Region, name?: string, trade?: string, operator?: string, partial?: boolean, limit?: number, offset?: number, sort?: string, field?: string, options?: ApsServiceRequestConfig}): Promise<Array<Company>> {
+        const response = await this.companiesApi.searchCompanies(accessToken, accountId, optionalArgs?.region, optionalArgs?.name, optionalArgs?.trade, optionalArgs?.operator, optionalArgs?.partial, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sort, optionalArgs?.field, optionalArgs?.options);
         return response.content;
     }
 
@@ -137,8 +137,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof CompaniesApi
      */
-    public async patchCompanyImageAsync(accessToken: string, companyId: string, accountId: string, body: File, region?: Region, options?: ApsServiceRequestConfig): Promise<Company> {
-        const response = await this.companiesApi.patchCompanyImage(accessToken, companyId, accountId, body, region, options);
+    public async patchCompanyImage(accessToken: string, companyId: string, accountId: string, body: File, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<Company> {
+        const response = await this.companiesApi.patchCompanyImage(accessToken, companyId, accountId, body, optionalArgs?.region, optionalArgs?.options);
         return response.content;
     }
 
@@ -154,8 +154,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof CompaniesApi
      */
-    public async patchCompanyDetailsAsync(accessToken: string, companyId: string, accountId: string, region?: Region, companyPatchPayload?: CompanyPatchPayload, options?: ApsServiceRequestConfig): Promise<Company> {
-        const response = await this.companiesApi.patchCompanyDetails(accessToken, companyId, accountId, region, companyPatchPayload, options);
+    public async patchCompanyDetails(accessToken: string, companyId: string, accountId: string, companyPatchPayload: CompanyPatchPayload, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<Company> {
+        const response = await this.companiesApi.patchCompanyDetails(accessToken, companyId, accountId, optionalArgs?.region, companyPatchPayload, optionalArgs?.options);
         return response.content;
     }
 
@@ -170,8 +170,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof CompaniesApi
      */
-    public async importCompaniesAsync(accessToken: string, accountId: string, companyPayload: Array<CompanyPayload>, region?: Region, options?: ApsServiceRequestConfig): Promise<CompanyImportResponse> {
-        const response = await this.companiesApi.importCompanies(accessToken, accountId, region, companyPayload, options);
+    public async importCompanies(accessToken: string, accountId: string, companyPayload: Array<CompanyPayload>, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<CompanyImportResponse> {
+        const response = await this.companiesApi.importCompanies(accessToken, accountId, optionalArgs?.region, companyPayload, optionalArgs?.options);
         return response.content;
     }
 
@@ -190,8 +190,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof CompaniesApi
      */
-    public async getProjectCompaniesAsync(accessToken: string, accountId: string, projectId: string, region?: Region, limit?: number, offset?: number, sort?: string, field?: string, options?: ApsServiceRequestConfig): Promise<Array<CompanyResponse>> {
-        const response = await this.companiesApi.getProjectCompanies(accessToken, accountId, projectId, region, limit, offset, sort, field, options);
+    public async getProjectCompanies(accessToken: string, accountId: string, projectId: string, optionalArgs?:{region?: Region, limit?: number, offset?: number, sort?: string, field?: string, options?: ApsServiceRequestConfig}): Promise<Array<CompanyResponse>> {
+        const response = await this.companiesApi.getProjectCompanies(accessToken, accountId, projectId, optionalArgs?.region, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sort, optionalArgs?.field, optionalArgs?.options);
         return response.content;
     }
 
@@ -206,8 +206,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof CompaniesApi
      */
-    public async getCompanyAsync(accessToken: string, companyId: string, accountId: string, region?: Region, options?: ApsServiceRequestConfig): Promise<Company> {
-        const response = await this.companiesApi.getCompany(accessToken, companyId, accountId, region, options);
+    public async getCompany(accessToken: string, companyId: string, accountId: string, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<Company> {
+        const response = await this.companiesApi.getCompany(accessToken, companyId, accountId, optionalArgs?.region, optionalArgs?.options);
         return response.content;
     }
 
@@ -225,8 +225,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof CompaniesApi
      */
-    public async getCompaniesAsync(accessToken: string, accountId: string, region?: Region, limit?: number, offset?: number, sort?: string, field?: string, options?: ApsServiceRequestConfig): Promise<Array<Company>> {
-        const response = await this.companiesApi.getCompanies(accessToken, accountId, region, limit, offset, sort, field, options);
+    public async getCompanies(accessToken: string, accountId: string, optionalArgs?:{region?: Region, limit?: number, offset?: number, sort?: string, field?: string, options?: ApsServiceRequestConfig}): Promise<Array<Company>> {
+        const response = await this.companiesApi.getCompanies(accessToken, accountId, optionalArgs?.region, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sort, optionalArgs?.field, optionalArgs?.options);
         return response.content;
     }
 
@@ -241,8 +241,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof CompaniesApi
      */
-    public async createCompanyAsync(accessToken: string, accountId: string, companyPayload: CompanyPayload, region?: Region, options?: ApsServiceRequestConfig): Promise<Company> {
-        const response = await this.companiesApi.createCompany(accessToken, accountId, region, companyPayload, options);
+    public async createCompany(accessToken: string, accountId: string, companyPayload: CompanyPayload, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<Company> {
+        const response = await this.companiesApi.createCompany(accessToken, accountId, optionalArgs?.region, companyPayload, optionalArgs?.options);
         return response.content;
     }
 
@@ -262,8 +262,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectUsersApi
      */
-    public async getProjectUserAsync(accessToken: string, projectId: string, userId: string, region?: Region, fields?: any, options?: ApsServiceRequestConfig): Promise<ProjectUser> {
-        const response = await this.projectUsersApi.getProjectUser(accessToken, projectId, userId, null, region, null, fields, options);
+    public async getProjectUser(accessToken: string, projectId: string, userId: string, optionalArgs?:{region?: Region, fields?: any, options?: ApsServiceRequestConfig}): Promise<ProjectUser> {
+        const response = await this.projectUsersApi.getProjectUser(accessToken, projectId, userId, null, optionalArgs?.region, null, optionalArgs?.fields, optionalArgs?.options);
         return response.content;
     }
 
@@ -279,8 +279,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectUsersApi
      */
-    public async assignProjectUserAsync(accessToken: string, projectId: string, projectUserPayload: ProjectUserPayload, region?: Region, adminUserId?: string, options?: ApsServiceRequestConfig): Promise<ProjectUserResponse> {
-        const response = await this.projectUsersApi.assignProjectUser(accessToken, projectId, null, region, adminUserId, projectUserPayload, options);
+    public async assignProjectUser(accessToken: string, projectId: string, projectUserPayload: ProjectUserPayload, optionalArgs?:{region?: Region, adminUserId?: string, options?: ApsServiceRequestConfig}): Promise<ProjectUserResponse> {
+        const response = await this.projectUsersApi.assignProjectUser(accessToken, projectId, null, optionalArgs?.region, optionalArgs?.adminUserId, projectUserPayload, optionalArgs?.options);
         return response.content;
     }
 
@@ -311,8 +311,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectUsersApi
      */
-    public async getProjectUsersAsync(accessToken: string, projectId: string, region?: Region, filterProducts?: Array<Products>, filterName?: string, filterEmail?: string, filterStatus?: Array<StatusFilter>, filterAccessLevels?: Array<AccessLevels>, filterCompanyId?: string, filterCompanyName?: string, filterAutodeskId?: Array<string>, filterId?: Array<string>, filterRoleId?: string, filterRoleIds?: Array<string>, sort?: Array<UserSortBy>, fields?: Array<UserFields>, orFilters?: Array<OrFilters>, filterTextMatch?: FilterTextMatch, limit?: number, offset?: number, options?: ApsServiceRequestConfig): Promise<ProjectUsers> {
-        const response = await this.projectUsersApi.getProjectUsers(accessToken, projectId, null, region, null, filterProducts, filterName, filterEmail, filterStatus, filterAccessLevels, filterCompanyId, filterCompanyName, filterAutodeskId, filterId, filterRoleId, filterRoleIds, sort, fields, orFilters, filterTextMatch, limit, offset, options);
+    public async getProjectUsers(accessToken: string, projectId: string, optionalArgs?:{region?: Region, filterProducts?: Array<Products>, filterName?: string, filterEmail?: string, filterStatus?: Array<StatusFilter>, filterAccessLevels?: Array<AccessLevels>, filterCompanyId?: string, filterCompanyName?: string, filterAutodeskId?: Array<string>, filterId?: Array<string>, filterRoleId?: string, filterRoleIds?: Array<string>, sort?: Array<UserSortBy>, fields?: Array<UserFields>, orFilters?: Array<OrFilters>, filterTextMatch?: FilterTextMatch, limit?: number, offset?: number, options?: ApsServiceRequestConfig}): Promise<ProjectUsers> {
+        const response = await this.projectUsersApi.getProjectUsers(accessToken, projectId, null, optionalArgs?.region, null, optionalArgs?.filterProducts, optionalArgs?.filterName, optionalArgs?.filterEmail, optionalArgs?.filterStatus, optionalArgs?.filterAccessLevels, optionalArgs?.filterCompanyId, optionalArgs?.filterCompanyName, optionalArgs?.filterAutodeskId, optionalArgs?.filterId, optionalArgs?.filterRoleId, optionalArgs?.filterRoleIds, optionalArgs?.sort, optionalArgs?.fields, optionalArgs?.orFilters, optionalArgs?.filterTextMatch, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.options);
         return response.content;
     }
 
@@ -328,8 +328,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectUsersApi
      */
-    public async importProjectUsersAsync(accessToken: string, projectId: string, projectUsersImportPayload: ProjectUsersImportPayload, region?: Region, adminUserId?: string, options?: ApsServiceRequestConfig): Promise<ProjectUsersImportResponse> {
-        const response = await this.projectUsersApi.importProjectUsers(accessToken, projectId, null, region, adminUserId, projectUsersImportPayload, options);
+    public async importProjectUsers(accessToken: string, projectId: string, projectUsersImportPayload: ProjectUsersImportPayload, optionalArgs?:{region?: Region, adminUserId?: string, options?: ApsServiceRequestConfig}): Promise<ProjectUsersImportResponse> {
+        const response = await this.projectUsersApi.importProjectUsers(accessToken, projectId, null, optionalArgs?.region, optionalArgs?.adminUserId, projectUsersImportPayload, optionalArgs?.options);
         return response.content;
     }
 
@@ -345,8 +345,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectUsersApi
      */
-    public async removeProjectUserAsync(accessToken: string, projectId: string, userId: string, region?: Region, adminUserId?: string, options?: ApsServiceRequestConfig): Promise<void> {
-        const response = await this.projectUsersApi.removeProjectUser(accessToken, projectId, userId, null, region, adminUserId, options);
+    public async removeProjectUser(accessToken: string, projectId: string, userId: string, optionalArgs?:{region?: Region, adminUserId?: string, options?: ApsServiceRequestConfig}): Promise<void> {
+        const response = await this.projectUsersApi.removeProjectUser(accessToken, projectId, userId, null, optionalArgs?.region, optionalArgs?.adminUserId, optionalArgs?.options);
         return response.content;
     }
 
@@ -363,8 +363,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectUsersApi
      */
-    public async updateProjectUserAsync(accessToken: string, projectId: string, userId: string, projectUsersUpdatePayload: ProjectUsersUpdatePayload, region?: Region, adminUserId?: string, options?: ApsServiceRequestConfig): Promise<ProjectUserResponse> {
-        const response = await this.projectUsersApi.updateProjectUser(accessToken, projectId, userId, null, region, adminUserId, projectUsersUpdatePayload, options);
+    public async updateProjectUser(accessToken: string, projectId: string, userId: string, projectUsersUpdatePayload: ProjectUsersUpdatePayload, optionalArgs?:{region?: Region, adminUserId?: string, options?: ApsServiceRequestConfig}): Promise<ProjectUserResponse> {
+        const response = await this.projectUsersApi.updateProjectUser(accessToken, projectId, userId, null, optionalArgs?.region, optionalArgs?.adminUserId, projectUsersUpdatePayload, optionalArgs?.options);
         return response.content;
     }
 
@@ -383,8 +383,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof AccountUsersApi
      */
-    public async createUserAsync(accessToken: string, accountId: string, userPayload: UserPayload, region?: Region, options?: ApsServiceRequestConfig): Promise<User> {
-        const response = await this.accountUsersApi.createUser(accessToken, accountId, region, userPayload, options);
+    public async createUser(accessToken: string, accountId: string, userPayload: UserPayload, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<User> {
+        const response = await this.accountUsersApi.createUser(accessToken, accountId, optionalArgs?.region, userPayload, optionalArgs?.options);
         return response.content;
     }
 
@@ -399,8 +399,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof AccountUsersApi
      */
-    public async getUserAsync(accessToken: string, accountId: string, userId: string, region?: Region, options?: ApsServiceRequestConfig): Promise<User> {
-        const response = await this.accountUsersApi.getUser(accessToken, accountId, userId, region, options);
+    public async getUser(accessToken: string, accountId: string, userId: string, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<User> {
+        const response = await this.accountUsersApi.getUser(accessToken, accountId, userId, optionalArgs?.region, optionalArgs?.options);
         return response.content;
     }
 
@@ -418,8 +418,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof AccountUsersApi
      */
-    public async getUsersAsync(accessToken: string, accountId: string, region?: Region, limit?: number, offset?: number, sort?: string, field?: string, options?: ApsServiceRequestConfig): Promise<Array<User>> {
-        const response = await this.accountUsersApi.getUsers(accessToken, accountId, region, limit, offset, sort, field, options);
+    public async getUsers(accessToken: string, accountId: string, optionalArgs?:{region?: Region, limit?: number, offset?: number, sort?: string, field?: string, options?: ApsServiceRequestConfig}): Promise<Array<User>> {
+        const response = await this.accountUsersApi.getUsers(accessToken, accountId, optionalArgs?.region, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sort, optionalArgs?.field, optionalArgs?.options);
         return response.content;
     }
 
@@ -434,8 +434,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof AccountUsersApi
      */
-    public async importUsersAsync(accessToken: string, accountId: string, userPayload: Array<UserPayload>, region?: Region, options?: ApsServiceRequestConfig): Promise<UserImportResponse> {
-        const response = await this.accountUsersApi.importUsers(accessToken, accountId, region, userPayload, options);
+    public async importUsers(accessToken: string, accountId: string, userPayload: Array<UserPayload>, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<UserImportResponse> {
+        const response = await this.accountUsersApi.importUsers(accessToken, accountId, optionalArgs?.region, userPayload, optionalArgs?.options);
         return response.content;
     }
 
@@ -451,8 +451,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof AccountUsersApi
      */
-    public async patchUserDetailsAsync(accessToken: string, accountId: string, userId: string, userPatchPayload: UserPatchPayload, region?: Region, options?: ApsServiceRequestConfig): Promise<User> {
-        const response = await this.accountUsersApi.patchUserDetails(accessToken, accountId, userId, region, userPatchPayload, options);
+    public async patchUserDetails(accessToken: string, accountId: string, userId: string, userPatchPayload: UserPatchPayload, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<User> {
+        const response = await this.accountUsersApi.patchUserDetails(accessToken, accountId, userId, optionalArgs?.region, userPatchPayload, optionalArgs?.options);
         return response.content;
     }
 
@@ -475,8 +475,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof AccountUsersApi
      */
-    public async searchUsersAsync(accessToken: string, accountId: string, region?: Region, name?: string, email?: string, companyName?: string, operator?: string, partial?: boolean, limit?: number, offset?: number, sort?: string, field?: string, options?: ApsServiceRequestConfig): Promise<Array<User>> {
-        const response = await this.accountUsersApi.searchUsers(accessToken, accountId, region, name, email, companyName, operator, partial, limit, offset, sort, field, options);
+    public async searchUsers(accessToken: string, accountId: string, optionalArgs?:{region?: Region, name?: string, email?: string, companyName?: string, operator?: string, partial?: boolean, limit?: number, offset?: number, sort?: string, field?: string, options?: ApsServiceRequestConfig}): Promise<Array<User>> {
+        const response = await this.accountUsersApi.searchUsers(accessToken, accountId, optionalArgs?.region, optionalArgs?.name, optionalArgs?.email, optionalArgs?.companyName, optionalArgs?.operator, optionalArgs?.partial, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sort, optionalArgs?.field, optionalArgs?.options);
         return response.content;
     }
 
@@ -494,8 +494,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof BusinessUnitsApi
      */
-    public async getBusinessUnitsAsync(accessToken: string, accountId: string, region?: Region, options?: ApsServiceRequestConfig): Promise<BusinessUnitsResponse> {
-        const response = await this.businessUnitAPI.getBusinessUnits(accessToken, accountId, region, options);
+    public async getBusinessUnits(accessToken: string, accountId: string, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<BusinessUnitsResponse> {
+        const response = await this.businessUnitAPI.getBusinessUnits(accessToken, accountId, optionalArgs?.region, optionalArgs?.options);
         return response.content;
     }
 
@@ -510,8 +510,8 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof BusinessUnitsApi
      */
-    public async createBusinessUnitsAsync(accessToken: string, accountId: string, businessUnitsRequestPyload: BusinessUnitsRequestPyload, region?: Region, options?: ApsServiceRequestConfig): Promise<BusinessUnitsResponse> {
-        const response = await this.businessUnitAPI.createBusinessUnits(accessToken, accountId, region, businessUnitsRequestPyload, options);
+    public async createBusinessUnits(accessToken: string, accountId: string, businessUnitsRequestPyload: BusinessUnitsRequestPyload, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<BusinessUnitsResponse> {
+        const response = await this.businessUnitAPI.createBusinessUnits(accessToken, accountId, optionalArgs?.region, businessUnitsRequestPyload, optionalArgs?.options);
         return response.content;
     }
 }

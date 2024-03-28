@@ -2,9 +2,9 @@
 /* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
+import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, AccountAdminApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, AccountAdminApiError } from '../base';
 import { Region } from '../model';
 import { User } from '../model';
 import { UserImportResponse } from '../model';
@@ -47,9 +47,9 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
             // if (region != null) {
-            //     localVarHeaderParameter['Region'] = typeof region === 'string'
-            //         ? region
-            //         : JSON.stringify(region);
+                //     localVarHeaderParameter['Region'] = typeof region === 'string'
+                    //         ? region
+                    //         : JSON.stringify(region);
             // }
 
 
@@ -100,9 +100,9 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
             // if (region != null) {
-            //     localVarHeaderParameter['Region'] = typeof region === 'string'
-            //         ? region
-            //         : JSON.stringify(region);
+                //     localVarHeaderParameter['Region'] = typeof region === 'string'
+                    //         ? region
+                    //         : JSON.stringify(region);
             // }
 
 
@@ -165,9 +165,9 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
             }
 
             // if (region != null) {
-            //     localVarHeaderParameter['Region'] = typeof region === 'string'
-            //         ? region
-            //         : JSON.stringify(region);
+                //     localVarHeaderParameter['Region'] = typeof region === 'string'
+                    //         ? region
+                    //         : JSON.stringify(region);
             // }
 
 
@@ -211,9 +211,9 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
             // if (region != null) {
-            //     localVarHeaderParameter['Region'] = typeof region === 'string'
-            //         ? region
-            //         : JSON.stringify(region);
+                //     localVarHeaderParameter['Region'] = typeof region === 'string'
+                    //         ? region
+                    //         : JSON.stringify(region);
             // }
 
 
@@ -265,9 +265,9 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
             // if (region != null) {
-            //     localVarHeaderParameter['Region'] = typeof region === 'string'
-            //         ? region
-            //         : JSON.stringify(region);
+                //     localVarHeaderParameter['Region'] = typeof region === 'string'
+                    //         ? region
+                    //         : JSON.stringify(region);
             // }
 
 
@@ -359,9 +359,9 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
             }
 
             // if (region != null) {
-            //     localVarHeaderParameter['Region'] = typeof region === 'string'
-            //         ? region
-            //         : JSON.stringify(region);
+                //     localVarHeaderParameter['Region'] = typeof region === 'string'
+                    //         ? region
+                    //         : JSON.stringify(region);
             // }
 
 
@@ -382,8 +382,8 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
  * AccountUsersApi - functional programming interface
  * @export
  */
-export const AccountUsersApiFp = function(sdkManager?: SDKManager) {
-    const localVarAxiosParamCreator = AccountUsersApiAxiosParamCreator(sdkManager.apsconfiguration)
+export const AccountUsersApiFp = function(sdkManager?: SdkManager) {
+    const localVarAxiosParamCreator = AccountUsersApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
          * Create a new user in the BIM 360 member directory.
@@ -580,9 +580,9 @@ export interface AccountUsersApiInterface {
  * AccountUsersApi - object-oriented interface
  * @export
  * @class AccountUsersApi
- * @extends {BaseAPI}
+ * @extends {BaseApi}
  */
-export class AccountUsersApi extends BaseAPI implements AccountUsersApiInterface {
+export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface {
     private logger = this.sdkManager.logger;
     /**
      * Create a new user in the BIM 360 member directory.

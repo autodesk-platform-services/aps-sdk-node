@@ -5,37 +5,37 @@
 /**
  * 
  * @export
- * @interface Model3leggedtoken
+ * @interface ThreeLeggedToken
  */
-export interface ThreeleggedToken {
+export interface ThreeLeggedToken {
     /**
      * 
      * @type {string}
-     * @memberof Model3leggedtoken
+     * @memberof ThreeLeggedToken
      */
     'token_type'?: string;
     /**
      * 
      * @type {number}
-     * @memberof Model3leggedtoken
+     * @memberof ThreeLeggedToken
      */
     'expires_in'?: number;
     /**
      * 
      * @type {string}
-     * @memberof Model3leggedtoken
+     * @memberof ThreeLeggedToken
      */
     'refresh_token'?: string;
     /**
      * 
      * @type {string}
-     * @memberof Model3leggedtoken
+     * @memberof ThreeLeggedToken
      */
     'access_token'?: string;
     /**
      * 
      * @type {string}
-     * @memberof Model3leggedtoken
+     * @memberof ThreeLeggedToken
      */
     'id_token'?: string;
 }

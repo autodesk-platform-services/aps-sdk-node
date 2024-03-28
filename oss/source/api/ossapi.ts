@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
+import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, OssApiError } from '../base';
 import { BatchcompleteuploadObject } from '../model';
@@ -1268,7 +1268,7 @@ export const OSSApiAxiosParamCreator = function (apsConfiguration?: IApsConfigur
  * OSSApi - functional programming interface
  * @export
  */
-export const OSSApiFp = function(sdkManager?: SDKManager) {
+export const OSSApiFp = function(sdkManager?: SdkManager) {
     const localVarAxiosParamCreator = OSSApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**

@@ -2,9 +2,9 @@
 /* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
+import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, AccountAdminApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, AccountAdminApiError } from '../base';
 import { BusinessUnitsRequestPyload } from '../model';
 import { BusinessUnitsResponse } from '../model';
 import { Region } from '../model';
@@ -45,9 +45,9 @@ export const BusinessUnitsApiAxiosParamCreator = function (apsConfiguration?: IA
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
             // if (region != null) {
-            //     localVarHeaderParameter['Region'] = typeof region === 'string'
-            //         ? region
-            //         : JSON.stringify(region);
+                //     localVarHeaderParameter['Region'] = typeof region === 'string'
+                    //         ? region
+                    //         : JSON.stringify(region);
             // }
 
 
@@ -94,9 +94,9 @@ export const BusinessUnitsApiAxiosParamCreator = function (apsConfiguration?: IA
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
             // if (region != null) {
-            //     localVarHeaderParameter['Region'] = typeof region === 'string'
-            //         ? region
-            //         : JSON.stringify(region);
+                //     localVarHeaderParameter['Region'] = typeof region === 'string'
+                    //         ? region
+                    //         : JSON.stringify(region);
             // }
 
 
@@ -117,8 +117,8 @@ export const BusinessUnitsApiAxiosParamCreator = function (apsConfiguration?: IA
  * BusinessUnitsApi - functional programming interface
  * @export
  */
-export const BusinessUnitsApiFp = function(sdkManager?: SDKManager) {
-    const localVarAxiosParamCreator = BusinessUnitsApiAxiosParamCreator(sdkManager.apsconfiguration)
+export const BusinessUnitsApiFp = function(sdkManager?: SdkManager) {
+    const localVarAxiosParamCreator = BusinessUnitsApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
          * Query all the business units in a specific BIM 360 account.
@@ -185,9 +185,9 @@ export interface BusinessUnitsApiInterface {
  * BusinessUnitsApi - object-oriented interface
  * @export
  * @class BusinessUnitsApi
- * @extends {BaseAPI}
+ * @extends {BaseApi}
  */
-export class BusinessUnitsApi extends BaseAPI implements BusinessUnitsApiInterface {
+export class BusinessUnitsApi extends BaseApi implements BusinessUnitsApiInterface {
     private logger = this.sdkManager.logger;
     /**
      * Query all the business units in a specific BIM 360 account.

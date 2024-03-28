@@ -5,19 +5,19 @@
 /**
  * Error response body
  * @export
- * @interface ModelError
+ * @interface Error
  */
 export interface Error {
     /**
      * 
      * @type {string}
-     * @memberof ModelError
+     * @memberof Error
      */
     'error'?: string;
     /**
      * 
      * @type {string}
-     * @memberof ModelError
+     * @memberof Error
      */
     'error_description'?: string;
 }
