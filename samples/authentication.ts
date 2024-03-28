@@ -41,7 +41,7 @@ function authorize() {
 */
 async function getThreeLeggedToken() {
     try {
-        const token = await authenticationClient.getThreeLeggedToken(client_id, client_secret, code, redirect_uri);
+        const token = await authenticationClient.getThreeLeggedToken(client_id, code, redirect_uri,  { clientSecret: client_secret });
         access_token = token.access_token;
         console.log(token);
     }
@@ -56,7 +56,7 @@ async function getThreeLeggedToken() {
 */
 async function getRefreshToken() {
     try {
-        const refresh_token = await authenticationClient.getRefreshToken(client_id, client_secret, "refreshToken");
+        const refresh_token = await authenticationClient.getRefreshToken(client_id, "refreshToken", { clientSecret: client_secret });
         console.log(refresh_token);
     }
     catch (error) {

@@ -86,10 +86,10 @@ export class AuthenticationClient {
       * @param {Scopes} [scope]         
       * @returns {ThreeleggedToken} Three Legged access token
     */
-    public async getThreeLeggedToken(clientId: string, clientSecret: string, code: string, redirect_uri: string, optionalArgs?:{code_verifier?: string, options?: ApsServiceRequestConfig}): Promise<ThreeLeggedToken> {
+    public async getThreeLeggedToken(clientId: string, code: string, redirect_uri: string, optionalArgs?:{clientSecret?: string, code_verifier?: string, options?: ApsServiceRequestConfig}): Promise<ThreeLeggedToken> {
         var response = null;
-        if (clientSecret) {
-            const clientIDSecret = Buffer.from(`${clientId}:${clientSecret}`).toString(`base64`);
+        if (optionalArgs?.clientSecret) {
+            const clientIDSecret = Buffer.from(`${clientId}:${optionalArgs?.clientSecret}`).toString(`base64`);
             response = await this.tokenApi.fetchToken(`Basic ${clientIDSecret}`, GrantType.AuthorizationCode, code, redirect_uri, optionalArgs?.code_verifier, undefined, undefined, undefined, optionalArgs?.options);
         }
         else {
@@ -112,14 +112,14 @@ export class AuthenticationClient {
       * @param {Scopes} [scope]         
       * @returns {RefreshToken} Refresh Token
     */
-    public async getRefreshToken(clientId: string, clientSecret: string, refreshToken: string, optionalArgs?:{scopes?: Array<Scopes>, options?: ApsServiceRequestConfig}): Promise<RefreshToken> {
+    public async getRefreshToken(clientId: string, refreshToken: string, optionalArgs?:{clientSecret?: string, scopes?: Array<Scopes>, options?: ApsServiceRequestConfig}): Promise<RefreshToken> {
         var response = null;
         var strScopes = "";
         if (Array.isArray(optionalArgs?.scopes) && optionalArgs?.scopes.length) {
             strScopes = optionalArgs?.scopes.join(' ');
         }
-        if (clientSecret) {
-            const clientIDSecret = Buffer.from(`${clientId}:${clientSecret}`).toString(`base64`);
+        if (optionalArgs?.clientSecret) {
+            const clientIDSecret = Buffer.from(`${clientId}:${optionalArgs?.clientSecret}`).toString(`base64`);
             response = await this.tokenApi.fetchToken(`Basic ${clientIDSecret}`, GrantType.RefreshToken, undefined, undefined, undefined, refreshToken, strScopes, undefined, optionalArgs?.options);
         }
         else {
