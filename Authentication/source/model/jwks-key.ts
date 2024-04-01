@@ -5,37 +5,37 @@
 /**
  * 
  * @export
- * @interface Jwks
+ * @interface JwksKey
  */
 export interface JwksKey {
     /**
-     * 
+     * The ID of the key. Acts as a unique identifier for a specific key within the JWKS.
      * @type {string}
-     * @memberof Jwks
+     * @memberof JwksKey
      */
     'kid'?: string;
     /**
-     * 
+     * The cryptographic algorithm family used with the key. Currently, always ``RSA``.
      * @type {string}
-     * @memberof Jwks
+     * @memberof JwksKey
      */
     'kty'?: string;
     /**
-     * 
+     * The intended use of the public key. Possible values:  - ``sig`` - Verify the signature on data. 
      * @type {string}
-     * @memberof Jwks
+     * @memberof JwksKey
      */
     'use'?: string;
     /**
-     * 
+     * The RSA modulus value.
      * @type {string}
-     * @memberof Jwks
+     * @memberof JwksKey
      */
     'n'?: string;
     /**
-     * 
+     * The RSA exponent value.
      * @type {string}
-     * @memberof Jwks
+     * @memberof JwksKey
      */
     'e'?: string;
 }
