@@ -2,9 +2,9 @@
 /* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
+import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, DataManagementApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, DataManagementApiError } from '../base';
 import { GetHubs401Response } from '../model';
 import { Hub } from '../model';
 import { Hubs } from '../model';
@@ -114,8 +114,8 @@ export const HubsApiAxiosParamCreator = function (apsConfiguration?: IApsConfigu
  * HubsApi - functional programming interface
  * @export
  */
-export const HubsApiFp = function(sdkManager?: SDKManager) {
-    const localVarAxiosParamCreator = HubsApiAxiosParamCreator(sdkManager.apsconfiguration)
+export const HubsApiFp = function(sdkManager?: SdkManager) {
+    const localVarAxiosParamCreator = HubsApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
          * Returns data on a specific hub_id.  Note that for BIM 360 Docs, a hub ID corresponds to an account ID in the BIM 360 API. To convert an account ID into a hub ID you need to add a \"b.\" prefix. For example, an account ID of c8b0c73d-3ae9 translates to a hub ID of b.c8b0c73d-3ae9.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
@@ -184,9 +184,9 @@ export interface HubsApiInterface {
  * HubsApi - object-oriented interface
  * @export
  * @class HubsApi
- * @extends {BaseAPI}
+ * @extends {BaseApi}
  */
-export class HubsApi extends BaseAPI implements HubsApiInterface {
+export class HubsApi extends BaseApi implements HubsApiInterface {
     private logger = this.sdkManager.logger;
     /**
      * Returns data on a specific hub_id.  Note that for BIM 360 Docs, a hub ID corresponds to an account ID in the BIM 360 API. To convert an account ID into a hub ID you need to add a \"b.\" prefix. For example, an account ID of c8b0c73d-3ae9 translates to a hub ID of b.c8b0c73d-3ae9.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.

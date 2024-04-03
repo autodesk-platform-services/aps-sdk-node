@@ -1,9 +1,9 @@
 
     export interface IFileTransferConfigurations {
-        GetRetryCount(): number;
-        GetMaxChunkCountAllowed(): number;
-        GetMaxRetryOnTokenExpiry(): number;
-        GetMaxRetryOnUrlExpiry(): number;
+        getRetryCount(): number;
+        getMaxChunkCountAllowed(): number;
+        getMaxRetryOnTokenExpiry(): number;
+        getMaxRetryOnUrlExpiry(): number;
     }
     
     export class FileTransferConfigurations implements IFileTransferConfigurations {
@@ -19,19 +19,19 @@
             this._maxRetryOnUrlExpiry = maxRetryOnUrlExpiry;
         }
 
-        public GetRetryCount(): number {
+        public getRetryCount(): number {
             return this._retryCount;
         }
 
-        public GetMaxChunkCountAllowed(): number {
+        public getMaxChunkCountAllowed(): number {
             return this._maxChunkCountAllowed;
         }
 
-        public GetMaxRetryOnTokenExpiry(): number {
+        public getMaxRetryOnTokenExpiry(): number {
             return this._maxRetryOnTokenExpiry;
         }
 
-        public GetMaxRetryOnUrlExpiry(): number {
+        public getMaxRetryOnUrlExpiry(): number {
             return this._maxRetryOnUrlExpiry;
         }
     }

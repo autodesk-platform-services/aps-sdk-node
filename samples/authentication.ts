@@ -1,4 +1,4 @@
-import { ApiResponse, SDKManager, SdkManagerBuilder } from '@aps_sdk/autodesk-sdkmanager'
+import { ApiResponse, SdkManager, SdkManagerBuilder } from '@aps_sdk/autodesk-sdkmanager'
 import { AuthenticationClient, ResponseType, Scopes, TokenTypeHint } from '@aps_sdk/authentication';
 
 
@@ -9,22 +9,22 @@ const code = "<code>";
 var access_token = "token";
 
 
-const sdkmanager: SDKManager = SdkManagerBuilder.Create().build();
+const sdkmanager: SdkManager = SdkManagerBuilder.create().build();
 const authenticationClient = new AuthenticationClient(sdkmanager);
 
 /**
 * Retrieves basic information for the given authenticated user. Only supports 3-legged access tokens.
 */
-async function getUserInfoAsync() {
-    const userInfo = await authenticationClient.getUserinfoAsync(access_token);
+async function getUserInfo() {
+    const userInfo = await authenticationClient.getUserInfo(access_token);
     console.log(userInfo.email);
 }
 
 /**
 * Returns a 2-legged access token.
 */
-async function getTwoLeggedTokenAsync() {
-    const token = await authenticationClient.getTwoLeggedTokenAsync(client_id, client_secret, new Array(Scopes.Dataread, Scopes.Datacreate, Scopes.Bucketcreate));
+async function getTwoLeggedToken() {
+    const token = await authenticationClient.getTwoLeggedToken(client_id, client_secret, new Array(Scopes.DataRead, Scopes.DataCreate, Scopes.BucketCreate));
     console.log(token.access_token);
 }
 
@@ -32,16 +32,16 @@ async function getTwoLeggedTokenAsync() {
 * Function to obtain the authorize url. 
 */
 function authorize() {
-    const url = authenticationClient.authorize(client_id, ResponseType.Code, redirect_uri, new Array(Scopes.Dataread, Scopes.Datacreate));
+    const url = authenticationClient.authorize(client_id, ResponseType.Code, redirect_uri, new Array(Scopes.DataRead, Scopes.DataCreate));
     console.log(url);
 }
 
 /**
 *  Returns a 3-legged access token. 
 */
-async function getThreeLeggedTokenAsync() {
+async function getThreeLeggedToken() {
     try {
-        const token = await authenticationClient.getThreeLeggedTokenAsync(client_id, client_secret, code, redirect_uri);
+        const token = await authenticationClient.getThreeLeggedToken(client_id, client_secret, code, redirect_uri);
         access_token = token.access_token;
         console.log(token);
     }
@@ -54,10 +54,10 @@ async function getThreeLeggedTokenAsync() {
 /**
 * Returns a Refresh token.  
 */
-async function getRefreshTokenAsync() {
+async function getRefreshToken() {
     try {
-        const refreshtoken = await authenticationClient.getRefreshTokenAsync(client_id, client_secret, "refreshToken");
-        console.log(refreshtoken);
+        const refresh_token = await authenticationClient.getRefreshToken(client_id, client_secret, "refreshToken");
+        console.log(refresh_token);
     }
     catch (error) {
         console.log(error);
@@ -67,8 +67,8 @@ async function getRefreshTokenAsync() {
 /** 
 * Retrieves the list of public keys in the JWKS format (JSON Web Key Set). 
 */
-async function getKeysAsync() {
-    const jwkskeys = await authenticationClient.getKeysAsync();
+async function getKeys() {
+    const jwkskeys = await authenticationClient.getKeys();
     console.log(jwkskeys);
 }
 
@@ -76,16 +76,16 @@ async function getKeysAsync() {
 /**
  * Examines an access token and returns its status information
  */
-async function introspectTokenAsync() {  
-    const introspecttoken = await authenticationClient.IntrospectTokenAsync(access_token, client_id,client_secret );
-    console.log(introspecttoken); 
+async function introspectToken() {  
+    const introspect_token = await authenticationClient.introspectToken(access_token, client_id, { clientSecret: client_secret } );
+    console.log(introspect_token); 
 }
 
 /**
  * Function to log a user out.
  */
 function logout() {
-    const logouturl = authenticationClient.Logout("www.google.com");
+    const logouturl = authenticationClient.logout("www.google.com");
     console.log(logouturl);
 }
 
@@ -94,7 +94,7 @@ function logout() {
  *  Function that takes an access token or refresh token and revokes it.
  */
 async function revokeToken() {
-    var response = await authenticationClient.RevokeAsync(access_token, client_id, client_secret, TokenTypeHint.Access_token);
+    var response = await authenticationClient.revoke(access_token, client_id, { clientSecret: client_secret,  tokenTypeHint: TokenTypeHint.AccessToken } );
     console.log(response);
 }
 
@@ -102,18 +102,18 @@ async function revokeToken() {
  * Function to get the OIDC Specification.
  */
 async function oidc() {
-    const response = await authenticationClient.getKeysAsync();
+    const response = await authenticationClient.getKeys();
     console.log(response);
 }
 
 
-//getUserInfoAsync();
+//getUserInfo();
 //revokeToken();
 //logout();
-//authorize();
-//getRefreshTokenAsync();
-//getThreeLeggedTokenAsync();
-//introspectTokenAsync();
+// authorize();
+//getRefreshToken();
+//getThreeLeggedToken();
+//introspectToken();
 //oidc();
-//getTwoLeggedTokenAsync();
-getKeysAsync();
+//getTwoLeggedToken();
+//getKeys();

@@ -2,9 +2,9 @@
 /* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
+import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, DataManagementApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, DataManagementApiError } from '../base';
 import { Download } from '../model';
 import { DownloadDetails } from '../model';
 import { DownloadPayload } from '../model';
@@ -417,8 +417,8 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
  * ProjectsApi - functional programming interface
  * @export
  */
-export const ProjectsApiFp = function(sdkManager?: SDKManager) {
-    const localVarAxiosParamCreator = ProjectsApiAxiosParamCreator(sdkManager.apsconfiguration)
+export const ProjectsApiFp = function(sdkManager?: SdkManager) {
+    const localVarAxiosParamCreator = ProjectsApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
          * Request the creation of a new download for a specific and supported file type. The fileType specified in the POST body needs to be contained in the list of supported file types returned by the GET /data/v1/projects/:project_id/downloads endpoint for the specified version_id.
@@ -653,9 +653,9 @@ export interface ProjectsApiInterface {
  * ProjectsApi - object-oriented interface
  * @export
  * @class ProjectsApi
- * @extends {BaseAPI}
+ * @extends {BaseApi}
  */
-export class ProjectsApi extends BaseAPI implements ProjectsApiInterface {
+export class ProjectsApi extends BaseApi implements ProjectsApiInterface {
     private logger = this.sdkManager.logger;
     /**
      * Request the creation of a new download for a specific and supported file type. The fileType specified in the POST body needs to be contained in the list of supported file types returned by the GET /data/v1/projects/:project_id/downloads endpoint for the specified version_id.

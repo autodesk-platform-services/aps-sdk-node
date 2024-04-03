@@ -2,9 +2,9 @@
 /* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
+import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, DataManagementApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, DataManagementApiError } from '../base';
 import { Folder } from '../model';
 import { FolderContents } from '../model';
 import { FolderPayload } from '../model';
@@ -574,8 +574,8 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
  * FoldersApi - functional programming interface
  * @export
  */
-export const FoldersApiFp = function(sdkManager?: SDKManager) {
-    const localVarAxiosParamCreator = FoldersApiAxiosParamCreator(sdkManager.apsconfiguration)
+export const FoldersApiFp = function(sdkManager?: SdkManager) {
+    const localVarAxiosParamCreator = FoldersApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
          * Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint.  BIM 360 and ACC  To access Docs folders using the Data Management API you need to provision your app in the Account Administrator portal. For more details, see the Manage Access to Docs tutorial. The number of subfolder levels is limited to 25. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
@@ -890,9 +890,9 @@ export interface FoldersApiInterface {
  * FoldersApi - object-oriented interface
  * @export
  * @class FoldersApi
- * @extends {BaseAPI}
+ * @extends {BaseApi}
  */
-export class FoldersApi extends BaseAPI implements FoldersApiInterface {
+export class FoldersApi extends BaseApi implements FoldersApiInterface {
     private logger = this.sdkManager.logger;
     /**
      * Creates a new folder. To delete and restore folders, use the PATCH projects/:project_id/folders/:folder_id endpoint.  BIM 360 and ACC  To access Docs folders using the Data Management API you need to provision your app in the Account Administrator portal. For more details, see the Manage Access to Docs tutorial. The number of subfolder levels is limited to 25. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.

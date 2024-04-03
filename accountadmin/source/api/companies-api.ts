@@ -2,9 +2,9 @@
 /* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
+import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, AccountAdminApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, AccountAdminApiError } from '../base';
 import { Company } from '../model';
 import { CompanyImportResponse } from '../model';
 import { CompanyPatchPayload } from '../model';
@@ -48,9 +48,9 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
             // if (region != null) {
-            //     localVarHeaderParameter['Region'] = typeof region === 'string'
-            //         ? region
-            //         : JSON.stringify(region);
+                //     localVarHeaderParameter['Region'] = typeof region === 'string'
+                    //         ? region
+                    //         : JSON.stringify(region);
             // }
 
 
@@ -84,7 +84,7 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
         getCompanies: async (accessToken: string, accountId: string, region?: Region, limit?: number, offset?: number, sort?: string, field?: string,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('getCompanies', 'accountId', accountId)
-
+            
             const regionPath = Utils.GetPathfromRegion(region ?? Region.Us);
 
             const localVarPath = (regionPath + `{account_id}/companies`)
@@ -167,9 +167,9 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
             // if (region != null) {
-            //     localVarHeaderParameter['Region'] = typeof region === 'string'
-            //         ? region
-            //         : JSON.stringify(region);
+                //     localVarHeaderParameter['Region'] = typeof region === 'string'
+                    //         ? region
+                    //         : JSON.stringify(region);
             // }
 
 
@@ -236,9 +236,9 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
             }
 
             // if (region != null) {
-            //     localVarHeaderParameter['Region'] = typeof region === 'string'
-            //         ? region
-            //         : JSON.stringify(region);
+                //     localVarHeaderParameter['Region'] = typeof region === 'string'
+                    //         ? region
+                    //         : JSON.stringify(region);
             // }
 
 
@@ -282,9 +282,9 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
             // if (region != null) {
-            //     localVarHeaderParameter['Region'] = typeof region === 'string'
-            //         ? region
-            //         : JSON.stringify(region);
+                //     localVarHeaderParameter['Region'] = typeof region === 'string'
+                    //         ? region
+                    //         : JSON.stringify(region);
             // }
 
 
@@ -336,9 +336,9 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
             // if (region != null) {
-            //     localVarHeaderParameter['Region'] = typeof region === 'string'
-            //         ? region
-            //         : JSON.stringify(region);
+                //     localVarHeaderParameter['Region'] = typeof region === 'string'
+                    //         ? region
+                    //         : JSON.stringify(region);
             // }
 
 
@@ -393,9 +393,9 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
             // if (region != null) {
-            //     localVarHeaderParameter['Region'] = typeof region === 'string'
-            //         ? region
-            //         : JSON.stringify(region);
+                //     localVarHeaderParameter['Region'] = typeof region === 'string'
+                    //         ? region
+                    //         : JSON.stringify(region);
             // }
 
 
@@ -485,9 +485,9 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
             }
 
             // if (region != null) {
-            //     localVarHeaderParameter['Region'] = typeof region === 'string'
-            //         ? region
-            //         : JSON.stringify(region);
+                //     localVarHeaderParameter['Region'] = typeof region === 'string'
+                    //         ? region
+                    //         : JSON.stringify(region);
             // }
 
 
@@ -508,8 +508,8 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
  * CompaniesApi - functional programming interface
  * @export
  */
-export const CompaniesApiFp = function(sdkManager?: SDKManager) {
-    const localVarAxiosParamCreator = CompaniesApiAxiosParamCreator(sdkManager.apsconfiguration)
+export const CompaniesApiFp = function(sdkManager?: SdkManager) {
+    const localVarAxiosParamCreator = CompaniesApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
          * Create a new partner company. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
@@ -766,9 +766,9 @@ export interface CompaniesApiInterface {
  * CompaniesApi - object-oriented interface
  * @export
  * @class CompaniesApi
- * @extends {BaseAPI}
+ * @extends {BaseApi}
  */
-export class CompaniesApi extends BaseAPI implements CompaniesApiInterface {
+export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
     private logger = this.sdkManager.logger;
     /**
      * Create a new partner company. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.

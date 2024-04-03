@@ -1,4 +1,4 @@
-import { SDKManager, SdkManagerBuilder } from  "@aps_sdk/autodesk-sdkmanager"
+import { SdkManager, SdkManagerBuilder } from  "@aps_sdk/autodesk-sdkmanager"
 import {DataManagementClient, Folder, FolderContents, FolderContentsData, FolderData, FolderDataAttributes, FolderDataAttributesExtension, FolderDataAttributesExtensionData, FolderPayload, FolderPayloadData, FolderPayloadDataAttributes, FolderPayloadDataRelationships, FolderPayloadDataRelationshipsParent, FolderPayloadDataRelationshipsParentData, Hub, HubData, HubDataAttributes, HubDataAttributesExtension, Hubs, HubsData, HubsDataAttributes, HubsDataAttributesExtension, HubsLinksSelf, Item, ItemPayload, ItemPayloadIncluded, ItemPayloadIncludedAttributes, ModifyFolderPayloadJsonapi, Project, Projects, ProjectsData, ProjectsDataAttributes, ProjectsDataAttributesExtension, RelationshipRefsPayloadDataMetaExtension,StorageDataRelationshipsTarget, StorageDataRelationshipsTargetData, TopFolders, TopFoldersData, Type, VersionDetails, VersionNumber, VersionPayload} from "@aps_sdk/data-management";
 
 const token: string = "<token>";
@@ -7,8 +7,8 @@ let hub_id : string="<hubId>";
 let project_id :string="<projectId>";
 let folder_id:string="<folderId>>";
 
-const sdkmanager: SDKManager = SdkManagerBuilder
-    .Create() 
+const sdkmanager: SdkManager = SdkManagerBuilder
+    .create() 
     .build();
 
 let _dataManagementApi :DataManagementClient = new DataManagementClient(sdkmanager);
@@ -16,10 +16,11 @@ let _dataManagementApi :DataManagementClient = new DataManagementClient(sdkmanag
 //HUBS
 // Returns a collectionof accessible hubs for this member.
 async function hubsData() {
-    const getHubs: Hubs = await _dataManagementApi.GetHubsAsync(token);
+    const getHubs: Hubs = await _dataManagementApi.getHubs(token);
     getHubs.data.forEach(current =>{
         const HubsId :string=current.id;
         const hubsType :string=current.type;
+        console.log(HubsId)
 
         // Attributes
         const hubsAttributes: HubsDataAttributes = current.attributes;
@@ -36,12 +37,13 @@ async function hubsData() {
         const hubsAttributesExtensionSchemaHref: string = hubsAttributesExtensionSchema.href;
     })
 }
-hubsData();
+// hubsData();
 
 //Hub
 // Returns data on a specific hub_id.
 async function hubdata() {
-    const getHub:Hub = await _dataManagementApi.GetHubAsync(token,hub_id);
+    const getHub:Hub = await _dataManagementApi.getHub(token, hub_id);
+    console.log(getHub)
     const getHubData:HubData = getHub.data;
     const hubsType :string= getHubData.type;
     const hubsId  :string= getHubData.id;
@@ -61,11 +63,12 @@ async function hubdata() {
     const hubAttributesExtensionSchemaHref:string = hubAttributesExtensionSchema.href;
  
 }
-hubdata();
+// hubdata();
 
 //Projects
-async function projecstData() {
-    const getHubProjects: Projects = await _dataManagementApi.GetHubProjectsAsync(token,hub_id);
+async function projectsData() {
+    const getHubProjects: Projects = await _dataManagementApi.getHubProjects(token, hub_id);
+    console.log(getHubProjects)
     getHubProjects.data.forEach(currentProject => {
         // Getting type and ID for the current project.
         const hubProjectsType: string = currentProject.type;
@@ -91,12 +94,12 @@ async function projecstData() {
     
     });
 }
-projecstData() 
+// projectsData() 
 
 //Project
 //Returns a project for a given project_id
 async function projectData() {
-    const  getHubProject:Project = await _dataManagementApi.GetProjectAsync( token,hub_id, project_id,);
+    const  getHubProject:Project = await _dataManagementApi.getProject(token, hub_id, project_id);
     const getHubProjectData :ProjectsData = getHubProject.data;
     const  getHubProjectDataType :string = getHubProjectData.type;
     const getHubProjectDataId :string = getHubProjectData.id;
@@ -117,11 +120,12 @@ async function projectData() {
     const hubProjectAttributesExtensionSchema: HubsLinksSelf = hubProjectAttributesExtension.schema;
     const hubProjectAttributesExtensionSchemaHref: string = hubProjectAttributesExtensionSchema.href;
 }
-projectData()
+// projectData()
 
 // Returns the details of the highest level folders the user has access to for a given project
 async function topFolderDetail(){
-    const projectTopFolders: TopFolders = await _dataManagementApi.GetProjectTopFoldersAsync(token,hub_id,project_id);
+    const projectTopFolders: TopFolders = await _dataManagementApi.getProjectTopFolders(token, hub_id, project_id, {excludeDeleted: true});
+    console.log(projectTopFolders)
     const projectTopFoldersJsonapiVersion: string = projectTopFolders.jsonapi.version;
     const projectTopFoldersLinksSelfHref: string = projectTopFolders.links.self.href;
     const topFoldersData: TopFoldersData[] = Array.from(projectTopFolders.data);
@@ -134,7 +138,7 @@ async function topFolderDetail(){
         const topFolderDataAttributesExtensionSchemaHref: string = topFolder.attributes.extension.schema.href;
     }    
 }
-topFolderDetail()
+// topFolderDetail()
 
 // Folders
 // Describe the folder to be created
@@ -166,7 +170,8 @@ async function createFolder() {
             }
         }   
     };
-    const folder:Folder  = await _dataManagementApi.CreateFolderAsync(token, project_id,null, createFolder);
+    const folder:Folder  = await _dataManagementApi.createFolder(token, project_id, createFolder);
+    console.log(folder)
     let createdFolderData: FolderData = createFolder.data;
     let createdFolderDataType: string = createdFolderData.type;
     let createdFolderDataId: string = createdFolderData.id;
@@ -207,17 +212,18 @@ async function createFolder() {
     });
 
 }
-createFolder();
+// createFolder();
 
 //Folder
 async function folderData() {
-    const folderContents: FolderContents = await _dataManagementApi.GetFolderContentsAsync(token,project_id, folder_id);
-    const folderContentsJsonapiVersion: string = folderContents.jsonapi.version;
+    const folderContents: FolderContents = await _dataManagementApi.getFolderContents(token, project_id, folder_id);
+    console.log(folderContents.data)
+    const folderContentsJsonapiVersion: string = folderContents.jsonapi?.version;
 
-    const folderContentsLinksSelfHref: string = folderContents.links.self.href;
-    const folderContentsLinksFirstHref: string = folderContents.links.first.href;
-    const folderContentsLinksPrevHref: string = folderContents.links.prev.href;
-    const folderContentsLinksNextHref: string = folderContents.links.next.href;
+    const folderContentsLinksSelfHref: string = folderContents.links?.self?.href;
+    const folderContentsLinksFirstHref: string = folderContents.links?.first?.href;
+    const folderContentsLinksPrevHref: string = folderContents.links?.prev?.href;
+    const folderContentsLinksNextHref: string = folderContents.links?.next?.href;
 
     folderContents.data.forEach(contentData => {
         const contentDataType: string = contentData.type;
@@ -237,47 +243,47 @@ async function createItem() {
     
 
     const itemPayload: ItemPayload = {
-    jsonapi: {
-        version: VersionNumber._10,
-    },
-    data: {
-        type: Type.Items,
-        attributes: {
-            displayName: "drawing3.dwg",
-            extension: {
-                type: Type.ItemsautodeskCoreFile,
-                version: VersionNumber._10,
-            },
+        jsonapi: {
+            version: VersionNumber._10,
         },
-        relationships: {
-            tip: {
-                data: {
-                    type: Type.Versions,
-                    id: "1",
+        data: {
+            type: Type.Items,
+            attributes: {
+                displayName: "drawing3.dwg",
+                extension: {
+                    type: Type.ItemsautodeskCoreFile,
+                    version: VersionNumber._10,
                 },
             },
-            parent: {
-                data: {
-                    type: Type.Folders,
-                    id: "urn:adsk.wipprod:fs.folder:co.zk8KLsPPTkiK1Kub-9PPHg",
+            relationships: {
+                tip: {
+                    data: {
+                        type: Type.Versions,
+                        id: "1",
+                    },
+                },
+                parent: {
+                    data: {
+                        type: Type.Folders,
+                        id: "urn:adsk.wipprod:fs.folder:co.zk8KLsPPTkiK1Kub-9PPHg",
+                    },
                 },
             },
         },
-    },
-    included:<ItemPayloadIncluded[]>[{
-        type:Type.Versions,
-        id:"1",
-        attributes:{
-            name:"drawing3.dwg",
-            extension:{
-                type : Type.VersionsautodeskCoreFile,
-                 version:VersionNumber._10,
+        included:<ItemPayloadIncluded[]>[{
+            type:Type.Versions,
+            id:"1",
+            attributes:{
+                name:"drawing3.dwg",
+                extension:{
+                    type : Type.VersionsautodeskCoreFile,
+                    version:VersionNumber._10,
+                }
             }
         }
-    }
-    ] 
-};
-const createdItem: Item = await _dataManagementApi.CreateItemAsync(token, project_id, null, null,itemPayload);
+        ] 
+    };
+    const createdItem: Item = await _dataManagementApi.createItem(token, project_id, itemPayload);
 
     const createdItemJsonapiVersion: string = createdItem.jsonapi.version;
     const createdItemLinks: string = createdItem.links.self.href;
@@ -296,4 +302,4 @@ const createdItem: Item = await _dataManagementApi.CreateItemAsync(token, projec
     const createdItemDataAttributesExtensionVersion: string = createdItem.data.attributes.extension.version;
 
 }    
-createItem();
+// createItem();

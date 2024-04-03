@@ -4,7 +4,7 @@
 import type { RequestArgs } from "./base";
 import type { AxiosInstance, AxiosResponse } from 'axios';
 import { RequiredError } from "./base";
-import {IApsConfiguration, SDKManager} from "@aps_sdk/autodesk-sdkmanager";
+import {IApsConfiguration, SdkManager} from "@aps_sdk/autodesk-sdkmanager";
 
 /**
  *
@@ -98,20 +98,20 @@ export const toPathString = function (url: URL) {
  *
  * @export
  */
-export const createRequestFunction = function (axiosArgs: RequestArgs, sdkManager?: SDKManager) {
+export const createRequestFunction = function (axiosArgs: RequestArgs, sdkManager?: SdkManager) {
     return <T = unknown, R = AxiosResponse<T>>() => {
-        const config = {...axiosArgs.options, url: sdkManager.apsconfiguration?.baseAddress + axiosArgs.url};
-        return sdkManager?.apsclient?.apsService.request(config);
+        const config = {...axiosArgs.options, url: sdkManager.apsConfiguration?.baseAddress + axiosArgs.url};
+        return sdkManager?.apsClient?.apsService.request(config);
     };
 }
 /**
  *
  * @export
  */
-export const createRequestFunctionOss = function (axiosArgs: RequestArgs, sdkManager?: SDKManager) {
+export const createRequestFunctionOss = function (axiosArgs: RequestArgs, sdkManager?: SdkManager) {
     return <T = unknown, R = AxiosResponse<T>>() => {
         const config = {...axiosArgs.options, url: axiosArgs.url};
-        return sdkManager?.apsclient?.apsService.request(config);
+        return sdkManager?.apsClient?.apsService.request(config);
     };
 }
 

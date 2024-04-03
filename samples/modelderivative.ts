@@ -1,11 +1,11 @@
-import { SDKManager, SdkManagerBuilder } from "@aps_sdk/model-derivative/node_modules/@aps_sdk/autodesk-sdkmanager";
+import { SdkManager, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
 import { ModelDerivativeClient } from "@aps_sdk/model-derivative";
 import { InformationalApi, Formats, JobThumbnailOutputFormat, ExtractorVersion, JobSvf2OutputFormatAdvancedRVT, Model2dView, JobSvf2OutputFormatAdvancedIFC, BuildingStoreys, Width, Height, JobSvfOutputFormatAdvancedRVT, Job, XAdsDerivativeFormat, Region, Type, Manifest, ModelViews, ObjectTree, ModelViewsDataMetadata, AllProperties, SpecificPropertiesPayload, SpecificPropertiesPayloadQuery, Payload, SpecificProperties } from "@aps_sdk/model-derivative";
 import { JobThumbnailOutputFormatAdvanced, JobPayloadOutputDestination, JobsApi, JobPayload, JobPayloadOutput, JobPayloadInput, JobPayloadFormat, JobSvf2OutputFormat, JobSvfOutputFormat, View } from "@aps_sdk/model-derivative";
 
 
 
-const sdkmanager: SDKManager = SdkManagerBuilder.create().build();
+const sdkmanager: SdkManager = SdkManagerBuilder.create().build();
 const modelDerivativeClient = new ModelDerivativeClient(sdkmanager);
 
 const token: string = "<token>";

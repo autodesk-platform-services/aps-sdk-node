@@ -2,9 +2,9 @@
 /* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
+import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, AccountAdminApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, AccountAdminApiError } from '../base';
 import { AccessLevels } from '../model';
 import { FilterTextMatch } from '../model';
 import { OrFilters } from '../model';
@@ -468,8 +468,8 @@ export const ProjectUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
  * ProjectUsersApi - functional programming interface
  * @export
  */
-export const ProjectUsersApiFp = function(sdkManager?: SDKManager) {
-    const localVarAxiosParamCreator = ProjectUsersApiAxiosParamCreator(sdkManager.apsconfiguration)
+export const ProjectUsersApiFp = function(sdkManager?: SdkManager) {
+    const localVarAxiosParamCreator = ProjectUsersApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
          * Assigns a user to the specified project.
@@ -702,9 +702,9 @@ export interface ProjectUsersApiInterface {
  * ProjectUsersApi - object-oriented interface
  * @export
  * @class ProjectUsersApi
- * @extends {BaseAPI}
+ * @extends {BaseApi}
  */
-export class ProjectUsersApi extends BaseAPI implements ProjectUsersApiInterface {
+export class ProjectUsersApi extends BaseApi implements ProjectUsersApiInterface {
     private logger = this.sdkManager.logger;
     /**
      * Assigns a user to the specified project.
