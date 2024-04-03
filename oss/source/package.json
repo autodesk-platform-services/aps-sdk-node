@@ -1,6 +1,6 @@
 {
   "name": "@aps_sdk/oss",
-  "version": "0.0.2-beta.1",
+  "version": "0.0.3-beta.1",
   "description": "Client sdk for Data Management Oss API",
   "license": "Apache-2.0",
   "author": "Autodesk Platform Services",
@@ -22,8 +22,8 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@aps_sdk/autodesk-sdkmanager": "^0.0.6-beta.1",
-    "axios": "^1.6.2"
+    "@aps_sdk/autodesk-sdkmanager": "^0.0.7-beta.1",
+    "axios": "^1.6.2",
     "@types/node": "^20.9.0"
   },
   "devDependencies": {    

@@ -9,10 +9,11 @@
   "author": "Autodesk Platform Services",
   "license": "ISC",
   "dependencies": {
+    "@aps_sdk/authentication": "^0.0.1-beta.1",
+    "@aps_sdk/autodesk-sdkmanager": "^0.0.7-beta.1",
     "@aps_sdk/data-management": "^0.0.3-beta.1",
     "@aps_sdk/model-derivative": "^0.0.7-beta.1",
-    "@aps_sdk/webhooks": "^0.0.4-beta.1",
-    "@aps_sdk/authentication":"^0.0.1-beta.1",
-    "@aps_sdk/oss":"^0.0.1-beta.1"
+    "@aps_sdk/oss": "^0.0.1-beta.1",
+    "@aps_sdk/webhooks": "^0.0.4-beta.1"
   }
 }
