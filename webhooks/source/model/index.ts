@@ -9,8 +9,6 @@ export * from './hooks';
 export * from './hooks-data';
 export * from './hooks-links';
 export * from './modify-hook-payload';
-export * from './modify-hook-payload-hook-attribute';
-export * from './modify-hook-payload-hook-attribute-myobject';
 export * from './scopes';
 export * from './systems';
 export * from './token';

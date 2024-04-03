@@ -2,9 +2,9 @@
 /* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
+import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, WebhooksApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, WebhooksApiError } from '../base';
 import { Events } from '../model';
 import { GetHookDetails400Response } from '../model';
 import { Hook } from '../model';
@@ -62,7 +62,7 @@ export const HooksApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/WEBHOOKS/TypeScript/1.0.0';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/WEBHOOKS/TypeScript/1.0.0-beta1';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -113,7 +113,7 @@ export const HooksApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/WEBHOOKS/TypeScript/1.0.0';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/WEBHOOKS/TypeScript/1.0.0-beta1';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -510,7 +510,7 @@ export const HooksApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/WEBHOOKS/TypeScript/1.0.0';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/WEBHOOKS/TypeScript/1.0.0-beta1';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -529,8 +529,8 @@ export const HooksApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
  * HooksApi - functional programming interface
  * @export
  */
-export const HooksApiFp = function(sdkManager?: SDKManager) {
-    const localVarAxiosParamCreator = HooksApiAxiosParamCreator(sdkManager.apsconfiguration)
+export const HooksApiFp = function(sdkManager?: SdkManager) {
+    const localVarAxiosParamCreator = HooksApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
          * Add new webhook to receive the notification on a specified event.
@@ -819,9 +819,9 @@ export interface HooksApiInterface {
  * HooksApi - object-oriented interface
  * @export
  * @class HooksApi
- * @extends {BaseAPI}
+ * @extends {BaseApi}
  */
-export class HooksApi extends BaseAPI implements HooksApiInterface {
+export class HooksApi extends BaseApi implements HooksApiInterface {
     private logger = this.sdkManager.logger;
     /**
      * Add new webhook to receive the notification on a specified event.

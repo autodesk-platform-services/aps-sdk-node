@@ -1,10 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ModifyHookPayloadHookAttribute } from './modify-hook-payload-hook-attribute';
 
 /**
- * 
+ * Modify Hook Payload
  * @export
  * @interface ModifyHookPayload
  */
@@ -14,24 +13,36 @@ export interface ModifyHookPayload {
      * @type {string}
      * @memberof ModifyHookPayload
      */
-    'status': string;
+    'status'?: string;
     /**
      * 
      * @type {boolean}
      * @memberof ModifyHookPayload
      */
-    'autoReactivateHook': boolean;
+    'autoReactivateHook'?: boolean;
     /**
      * 
      * @type {string}
      * @memberof ModifyHookPayload
      */
-    'filter': string;
+    'filter'?: string;
     /**
      * 
-     * @type {ModifyHookPayloadHookAttribute}
+     * @type {object}
      * @memberof ModifyHookPayload
      */
-    'hookAttribute': ModifyHookPayloadHookAttribute;
+    'hookAttribute'?: object;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModifyHookPayload
+     */
+    'token'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModifyHookPayload
+     */
+    'hookExpiry'?: string;
 }
 

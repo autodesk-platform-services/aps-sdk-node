@@ -21,8 +21,6 @@ model/hooks-data.ts
 model/hooks-links.ts
 model/hooks.ts
 model/index.ts
-model/modify-hook-payload-hook-attribute-myobject.ts
-model/modify-hook-payload-hook-attribute.ts
 model/modify-hook-payload.ts
 model/scopes.ts
 model/systems.ts
