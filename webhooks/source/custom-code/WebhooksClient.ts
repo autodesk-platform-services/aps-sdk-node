@@ -10,254 +10,281 @@ import {
   TokenPayload,
   Token
 } from '../model';
-import { SDKManager, ApsServiceRequestConfig } from '@aps_sdk/autodesk-sdkmanager'; // Assuming a default export
+import {
+  SdkManager,
+  ApsServiceRequestConfig
+} from '@aps_sdk/autodesk-sdkmanager'; // Assuming a default export
 
 export class WebhooksClient {
   public hooksApi: HooksApi;
   public tokensApi: TokensApi;
 
-  constructor(sdkManager: SDKManager) {
+  constructor(sdkManager: SdkManager) {
     this.hooksApi = new HooksApi(sdkManager);
     this.tokensApi = new TokensApi(sdkManager);
   }
 
   //#region HooksAPi
-  public async createSystemEventHookAsync(
+  public async createSystemEventHook(
     accessToken: string,
     system: Systems,
     event: Events,
     hookPayload: HookPayload,
-    xAdsRegion?: string,
-    region?: string,
-    options?: ApsServiceRequestConfig
+    optionalArgs?: {
+      xAdsRegion?: string,
+      region?: string,
+      options?: ApsServiceRequestConfig,
+    }
   ): Promise<void> {
     const response = await this.hooksApi.createSystemEventHook(
       accessToken,
       system,
       event,
-      xAdsRegion,
-      region,
+      optionalArgs?.xAdsRegion,
+      optionalArgs?.region,
       hookPayload,
-      options
+      optionalArgs?.options
     );
     return response.content;
   }
 
-  public async createSystemHookAsync(
+  public async createSystemHook(
     accessToken: string,
     system: Systems,
     hookPayload: HookPayload,
-    xAdsRegion?: string,
-    region?: string,
-    options?: ApsServiceRequestConfig
+    optionalArgs?: {
+      xAdsRegion?: string,
+      region?: string,
+      options?: ApsServiceRequestConfig
+    }
   ): Promise<Hook> {
     const response = await this.hooksApi.createSystemHook(
       accessToken,
       system,
-      xAdsRegion,
-      region,
+      optionalArgs?.xAdsRegion,
+      optionalArgs?.region,
       hookPayload,
-      options
+      optionalArgs?.options
     );
     return response.content;
   }
 
-  public async deleteSystemEventHookAsync(
+  public async deleteSystemEventHook(
     accessToken: string,
     system: Systems,
     event: Events,
     hookId: string,
-    xAdsRegion?: string,
-    region?: string,
-    options?: ApsServiceRequestConfig
+    optionalArgs?: {
+      xAdsRegion?: string,
+      region?: string,
+      options?: ApsServiceRequestConfig
+    }
   ): Promise<void> {
     const response = await this.hooksApi.deleteSystemEventHook(
       accessToken,
       system,
       event,
       hookId,
-      xAdsRegion,
-      region,
-      options
+      optionalArgs?.xAdsRegion,
+      optionalArgs?.region,
+      optionalArgs?.options
     );
     return response.content;
   }
 
-  public async getAppHooksAsync(
+  public async getAppHooks(
     accessToken: string,
-    xAdsRegion?: string,
-    pageState?: string,
-    status?: string,
-    sort?: string,
-    region?: string,
-    options?: ApsServiceRequestConfig
+    optionalArgs?: {
+      xAdsRegion?: string,
+      pageState?: string,
+      status?: string,
+      sort?: string,
+      region?: string,
+      options?: ApsServiceRequestConfig
+    }
   ): Promise<Hooks> {
     const response = await this.hooksApi.getAppHooks(
       accessToken,
-      xAdsRegion,
-      pageState,
-      status,
-      sort,
-      region,
-      options
+      optionalArgs?.xAdsRegion,
+      optionalArgs?.pageState,
+      optionalArgs?.status,
+      optionalArgs?.sort,
+      optionalArgs?.region,
+      optionalArgs?.options
     );
     return response.content;
   }
 
-  public async getHookDetailsAsync(
+  public async getHookDetails(
     accessToken: string,
     system: Systems,
     event: Events,
     hookId: string,
-    xAdsRegion?: string,
-    region?: string,
-    options?: ApsServiceRequestConfig
+    optionalArgs?: {
+      xAdsRegion?: string,
+      region?: string,
+      options?: ApsServiceRequestConfig
+    }
   ): Promise<HookDetails> {
     const response = await this.hooksApi.getHookDetails(
       accessToken,
       system,
       event,
       hookId,
-      xAdsRegion,
-      region,
-      options
+      optionalArgs?.xAdsRegion,
+      optionalArgs?.region,
+      optionalArgs?.options
     );
     return response.content;
   }
 
-  public async getHooksAsync(
+  public async getHooks(
     accessToken: string,
     pageState?: string,
     status?: string,
     region?: string,
-    xAdsRegion?: string,
-    options?: ApsServiceRequestConfig
+    optionalArgs?: {
+      xAdsRegion?: string;
+      options?: ApsServiceRequestConfig
+    }
   ): Promise<Hooks> {
     const response = await this.hooksApi.getHooks(
       accessToken,
       pageState,
       status,
       region,
-      xAdsRegion,
-      options
+      optionalArgs?.xAdsRegion,
+      optionalArgs?.options
     );
     return response.content;
   }
 
-  public async getSystemEventHooksAsync(
+  public async getSystemEventHooks(
     accessToken: string,
     system: Systems,
     event: Events,
-    xAdsRegion?: string,
-    region?: string,
-    scopeName?: string,
-    pageState?: string,
-    status?: string,
-    options?: ApsServiceRequestConfig
+    optionalArgs?: {
+      xAdsRegion?: string;
+      region?: string,
+      scopeName?: string,
+      pageState?: string,
+      status?: string,
+      options?: ApsServiceRequestConfig
+    }
   ): Promise<Hooks> {
     const response = await this.hooksApi.getSystemEventHooks(
       accessToken,
       system,
       event,
-      xAdsRegion,
-      region,
-      scopeName,
-      pageState,
-      status,
-      options
+      optionalArgs?.xAdsRegion,
+      optionalArgs?.region,
+      optionalArgs?.scopeName,
+      optionalArgs?.pageState,
+      optionalArgs?.status,
+      optionalArgs?.options
     );
     return response.content;
   }
 
-  public async getSystemHooksAsync(
+  public async getSystemHooks(
     accessToken: string,
     system: Systems,
-    xAdsRegion?: string,
-    status?: string,
-    pageState?: string,
-    region?: string,
-    options?: ApsServiceRequestConfig
+    optionalArgs?: {
+      xAdsRegion?: string;
+      status?: string,
+      pageState?: string,
+      region?: string,
+      options?: ApsServiceRequestConfig
+    }
   ): Promise<Hooks> {
     const response = await this.hooksApi.getSystemHooks(
       accessToken,
       system,
-      xAdsRegion,
-      status,
-      pageState,
-      region,
-      options
+      optionalArgs?.xAdsRegion,
+      optionalArgs?.status,
+      optionalArgs?.pageState,
+      optionalArgs?.region,
+      optionalArgs?.options
     );
     return response.content;
   }
 
-  public async patchSystemEventHookAsync(
+  public async patchSystemEventHook(
     accessToken: string,
     system: Systems,
     event: Events,
     hookId: string,
     modifyHookPayload: ModifyHookPayload,
-    xAdsRegion?: string,
-    region?: string,
-    options?: ApsServiceRequestConfig
+    optionalArgs?: {
+      xAdsRegion?: string;
+      region?: string,
+      options?: ApsServiceRequestConfig
+    }
   ): Promise<void> {
     const response = await this.hooksApi.patchSystemEventHook(
       accessToken,
       system,
       event,
       hookId,
-      xAdsRegion,
-      region,
+      optionalArgs?.xAdsRegion,
+      optionalArgs?.region,
       modifyHookPayload,
-      options
+      optionalArgs?.options
     );
     return response.content;
   }
 
-  public async createTokenAsync(
+  public async createToken(
     accessToken: string,
     tokenPayload: TokenPayload,
-    xAdsRegion?: string,
-    region?: string,
-    options?: ApsServiceRequestConfig
+    optionalArgs?: {
+      xAdsRegion?: string;
+      region?: string,
+      options?: ApsServiceRequestConfig
+    }
   ): Promise<Token> {
     const response = await this.tokensApi.createToken(
       accessToken,
-      xAdsRegion,
-      region,
+      optionalArgs?.xAdsRegion,
+      optionalArgs?.region,
       tokenPayload,
-      options
+      optionalArgs?.options
     );
     return response.content;
   }
 
-  public async deleteTokenAsync(
+  public async deleteToken(
     accessToken: string,
-    xAdsRegion?: string,
-    region?: string,
-    options?: ApsServiceRequestConfig
+    optionalArgs?: {
+      xAdsRegion?: string,
+      region?: string,
+      options?: ApsServiceRequestConfig
+    }
   ): Promise<void> {
     const response = await this.tokensApi.deleteToken(
       accessToken,
-      xAdsRegion,
-      region,
-      options
+      optionalArgs?.xAdsRegion,
+      optionalArgs?.region,
+      optionalArgs?.options
     );
     return response.content;
   }
 
-  public async putTokenAsync(
+  public async putToken(
     accessToken: string,
     tokenPayload: TokenPayload,
-    xAdsRegion?: string,
-    region?: string,
-    options?: ApsServiceRequestConfig
+    optionalArgs?: {
+      xAdsRegion?: string,
+      region?: string,
+      options?: ApsServiceRequestConfig
+    }
   ): Promise<void> {
     const response = await this.tokensApi.putToken(
       accessToken,
-      xAdsRegion,
-      region,
+      optionalArgs?.xAdsRegion,
+      optionalArgs?.region,
       tokenPayload,
-      options
+      optionalArgs?.options
     );
     return response.content;
   }
