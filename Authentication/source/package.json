@@ -1,6 +1,6 @@
 {
   "name": "@aps_sdk/authentication",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.2-beta.1",
   "description": "Client sdk for Authentication API",
   "license": "Apache-2.0",
   "author": "Autodesk Platform Services",

@@ -3,17 +3,18 @@
 
 
 /**
- * Enum for scopes
+ * Specifies the scope for the token you are requesting. See the `Developer\'s Guide documentation on scopes </en/docs/oauth/v2/developers_guide/scopes/>`_ for a complete list of possible values. 
  * @export
  * @enum {string}
  */
 
 export const Scopes = {
-    UserProfileRead: 'user-profile:read',
     UserRead: 'user:read',
     UserWrite: 'user:write',
+    UserProfileRead: 'user-profile:read',
     ViewablesRead: 'viewables:read',
     DataRead: 'data:read',
+    DataReadUrnOfResource: 'data:read:<URN_OF_RESOURCE>',
     DataWrite: 'data:write',
     DataCreate: 'data:create',
     DataSearch: 'data:search',

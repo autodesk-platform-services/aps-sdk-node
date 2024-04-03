@@ -2,8 +2,8 @@
 /* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
-import { setBearerAuthToObject, setSearchParams, toPathString, createRequestFunction , createRequestFunctionforUserInfo} from '../common';
+import { ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse } from "@aps_sdk/autodesk-sdkmanager";
+import { createRequestFunctionforUserInfo } from '../common';
 import { RequestArgs, BaseApi, AuthenticationApiError } from '../base';
 import { UserInfo } from '../model';
 /**
@@ -13,9 +13,8 @@ import { UserInfo } from '../model';
 export const UsersApiAxiosParamCreator = function (apsConfiguration?: IApsConfiguration) {
     return {
         /**
-         * Retrieves basic information for the given authenticated user. Only supports 3-legged access tokens.
-         * @summary GET User Info
-         * @param {string} [authorization] YOUR_3_LEGGED_ACCESS_TOKEN
+         * Retrieves information about the authenticated user.
+         * @summary Get User Info
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -38,12 +37,10 @@ export const UsersApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
                 localVarHeaderParameter['Authorization'] = String(authorization);
             }
 
-
-    
             // setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-//localVarRequestOptions.baseURL = "https://api.userprofile.autodesk.com";
+            //localVarRequestOptions.baseURL = "https://api.userprofile.autodesk.com";
             return {
                 url: localVarUrlObj.toString(),
                 options: localVarRequestOptions,
@@ -56,12 +53,12 @@ export const UsersApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
  * UsersApi - functional programming interface
  * @export
  */
-export const UsersApiFp = function(sdkManager?: SdkManager) {
+export const UsersApiFp = function (sdkManager?: SdkManager) {
     const localVarAxiosParamCreator = UsersApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
-         * Retrieves basic information for the given authenticated user. Only supports 3-legged access tokens.
-         * @summary GET User Info
+         * Retrieves information about the authenticated user.
+         * @summary Get User Info
          * @param {string} [authorization] YOUR_3_LEGGED_ACCESS_TOKEN
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -80,9 +77,8 @@ export const UsersApiFp = function(sdkManager?: SdkManager) {
  */
 export interface UsersApiInterface {
     /**
-     * Retrieves basic information for the given authenticated user. Only supports 3-legged access tokens.
-     * @summary GET User Info
-     * @param {string} [authorization] YOUR_3_LEGGED_ACCESS_TOKEN
+     * Retrieves information about the authenticated user.
+     * @summary Get User Info
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -96,36 +92,35 @@ export interface UsersApiInterface {
  * UsersApi - object-oriented interface
  * @export
  * @class UsersApi
- * @extends {BaseApi}
+ * @extends {BaseAPI}
  */
 export class UsersApi extends BaseApi implements UsersApiInterface {
     private logger = this.sdkManager.logger;
     /**
-     * Retrieves basic information for the given authenticated user. Only supports 3-legged access tokens.
-     * @summary GET User Info
-     * @param {string} [authorization] YOUR_3_LEGGED_ACCESS_TOKEN
+     * Retrieves information about the authenticated user.
+     * @summary Get User Info
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UsersApi
      */
     public async getUserInfo(/* accessToken: string, */ authorization?: string, options?: ApsServiceRequestConfig) {
-      this.logger.logInfo("Entered into getUserInfo ");
-      try {
-        const request = await UsersApiFp(this.sdkManager).getUserInfo(/* accessToken, */ authorization, options);
-        const response = await request(this.axios);
-        this.logger.logInfo(`getUserInfo Request completed successfully with status code: ${response.status}`);
-        return new ApiResponse(response, response.data);
-      } catch (error) {
-        if (error.response) {
-            this.logger.logError(`getUserInfo Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AuthenticationApiError(`getUserInfo Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
-        } else if (error.request) {
-            this.logger.logError(`getUserInfo Request failed with no response received: ${error.request}`);
-            throw new AuthenticationApiError(`getUserInfo Request failed with no response received: ${error.request}`, error);
+        this.logger.logInfo("Entered into getUserInfo ");
+        try {
+            const request = await UsersApiFp(this.sdkManager).getUserInfo(/* accessToken, */ authorization, options);
+            const response = await request(this.axios);
+            this.logger.logInfo(`getUserInfo Request completed successfully with status code: ${response.status}`);
+            return new ApiResponse(response, response.data);
+        } catch (error) {
+            if (error.response) {
+                this.logger.logError(`getUserInfo Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
+                throw new AuthenticationApiError(`getUserInfo Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            } else if (error.request) {
+                this.logger.logError(`getUserInfo Request failed with no response received: ${error.request}`);
+                throw new AuthenticationApiError(`getUserInfo Request failed with no response received: ${error.request}`, error);
+            }
+            throw error;
         }
-        throw error;
-      }
     }
 }
 
