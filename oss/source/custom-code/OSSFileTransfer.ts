@@ -117,7 +117,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
         uploadKey: uploadKey
       } as Completes3uploadBody);
     onProgress?.(100);
-    return completeResponse.content;
+    return completeResponse;
   }
   protected async uploadToURL(currentUrl: string, fileChunk: Buffer, accessToken: string, requestId: string, options?: ApsServiceRequestConfig): Promise<any> {
     const localVarHeaderParameter = {} as any;

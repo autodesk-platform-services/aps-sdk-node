@@ -184,7 +184,7 @@ export class OssClient {
      * @memberof OSSApiInterface
      */
     public async getBucketDetails(accessToken: string, bucketKey: string, optionalArgs?: { options?: ApsServiceRequestConfig }): Promise<Bucket> {
-        const response = await this.ossApi.getBucketDetails(accessToken, bucketKey, optionalArgs.options);
+        const response = await this.ossApi.getBucketDetails(accessToken, bucketKey, optionalArgs?.options);
         return response.content;
     }
     /**
