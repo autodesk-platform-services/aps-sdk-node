@@ -1,4 +1,4 @@
-import { Systems, Events, Scopes, HookPayload, Hooks, HookDetails, ModifyHookPayload, TokenPayload, Token } from "@aps_sdk/webhooks";
+import { Systems, Events, Scopes, HookPayload, Hooks, HookDetails, ModifyHookPayload, TokenPayload, Token, XAdsRegion, Region } from "@aps_sdk/webhooks";
 import { SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager"; // Assuming a default export
 import { WebhooksClient } from "@aps_sdk/webhooks";
 import { setScope } from "@aps_sdk/webhooks";
@@ -64,7 +64,7 @@ async function getSystemEventHooks(): Promise<any> {
 // get a list of system hooks
 async function getSystemHooks(): Promise<any> {
   try {
-    const response: Hooks = await webhooksClient.getSystemHooks(accessToken, system, {status: "active"});
+    const response: Hooks = await webhooksClient.getSystemHooks(accessToken, system, {status: "active", region: Region.Us});
     console.log(response);
     console.log(response.links.next);
   } catch (error) {
@@ -75,7 +75,7 @@ async function getSystemHooks(): Promise<any> {
 // get details of a webhook based on its webhook Id
 async function getHookDetails(): Promise<any> {
   try {
-    const response: HookDetails = await webhooksClient.getHookDetails(accessToken, system, event, hookId, {xAdsRegion: "US"});
+    const response: HookDetails = await webhooksClient.getHookDetails(accessToken, system, event, hookId, {xAdsRegion: XAdsRegion.Us});
     console.log(response);
   } catch (error) {
     console.error(`Failed to get hook details:`, error);
@@ -85,7 +85,7 @@ async function getHookDetails(): Promise<any> {
 // get a paginated list of webhooks created in the context of a Client or Application. This API accepts 2-legged token of the application only. If the pageState query string is not specified, the first page is returned.
 async function getAppHooks(): Promise<any> {
   try {
-    const response: Hooks = await webhooksClient.getAppHooks(token, {xAdsRegion: "US", status: "active", sort:"asc"});
+    const response: Hooks = await webhooksClient.getAppHooks(accessToken, {xAdsRegion: XAdsRegion.Apac, status: "active", sort:"asc"});
     console.log(response);
   } catch (error) {
     console.error(`Failed to get app hooks:`, error);
