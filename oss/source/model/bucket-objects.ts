@@ -4,7 +4,7 @@
 import { ObjectDetails } from './object-details';
 
 /**
- * 
+ * An array where each element represents an object in the bucket.
  * @export
  * @interface BucketObjects
  */
@@ -16,7 +16,7 @@ export interface BucketObjects {
      */
     'items'?: Array<ObjectDetails>;
     /**
-     * Next possible request
+     * The URL to be used to retrieve the next page of results, if available. It will be present only when there are more items to be retrieved after the current set.
      * @type {string}
      * @memberof BucketObjects
      */

@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { PermissionAccess } from './permission-access';
 
 /**
  * 
@@ -9,16 +10,18 @@
  */
 export interface Permission {
     /**
-     * The authentication ID
+     * The Client ID of the application.
      * @type {string}
      * @memberof Permission
      */
     'authId'?: string;
     /**
-     * The authentication access type
-     * @type {string}
+     * 
+     * @type {PermissionAccess}
      * @memberof Permission
      */
-    'access'?: string;
+    'access'?: PermissionAccess;
 }
+
+
 

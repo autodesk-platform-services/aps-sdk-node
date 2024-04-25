@@ -3,37 +3,37 @@
 
 
 /**
- * 
+ * Represents a signed URL to be generated.
  * @export
  * @interface CreateSignedResource
  */
 export interface CreateSignedResource {
     /**
-     * Expiration time value. Default is 60 minutes.
+     * The time window (in minutes) the signed URL will remain usable. Acceptable values = 1-60 minutes. Default = 2 minutes.  **Tip:** Use the smallest possible time window to minimize exposure of the signed URL. 
      * @type {number}
      * @memberof CreateSignedResource
      */
     'minutesExpiration'?: number;
     /**
-     * If it is true, the public URL can only be used once and will expire immediately after use. When downloading an object, URL will expire once the download is complete.
+     * ``true`` : The signed URL will expire immediately after use. For example, when downloading an object, URL will expire once the download is complete.  ``false`` : (Default) The signed URL will remain usable for the entire time window specified by ``minutesExpiration``.  
      * @type {boolean}
      * @memberof CreateSignedResource
      */
     'singleUse'?: boolean;
     /**
-     * If set, the public URL will use that value as Content-Type when downloading
+     * The value to use as the Content-Type when downloading the object using the signed URL.  If this attribute is not provided, it defaults to the value corresponding to the object.
      * @type {string}
      * @memberof CreateSignedResource
      */
     'contentType'?: string;
     /**
-     * If set, the public URL will use that value as Content-Disposition when downloading
+     * The value to use as the Content-Disposition when downloading the object using the signed URL.  If this attribute is not provided, it defaults to the value corresponding to the object.
      * @type {string}
      * @memberof CreateSignedResource
      */
     'contentDisposition'?: string;
     /**
-     * If set, the public URL will be restricted to the specified IP addresses. downloads and uploads will be allowed or blocked based on the list of the IP addresses in the X-Forwarded-For header received from Apigee.
+     * Restricts the signed URL to the specified IP addresses. Downloads and uploads will be allowed only for the list of the IP addresses in the ``X-Forwarded-For`` header received from Apigee. If not specified, use of the signed URL is not restricted.
      * @type {string}
      * @memberof CreateSignedResource
      */

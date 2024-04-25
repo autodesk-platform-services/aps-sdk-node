@@ -9,31 +9,31 @@
  */
 export interface Batchsigneds3uploadResponseResultsValue {
     /**
-     * Accompanies error state for the object and describes the error encountered
+     * Describes an error that was encountered. Returned only if the signed URL request for that object failed.
      * @type {string}
      * @memberof Batchsigneds3uploadResponseResultsValue
      */
     'reason'?: string;
     /**
-     * Appears when object is in error state
+     * Returned only if the signed URL request for that object failed.
      * @type {string}
      * @memberof Batchsigneds3uploadResponseResultsValue
      */
     'status'?: string;
     /**
-     * Time Stamp representing the upload abort date for which all parts must be uploaded for the object and the complete upload endpoint must be called.
+     * The deadline to call `Complete Batch Upload to S3 Signed URL </en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3upload-POST/>`_ for the object. If not completed by this time, all uploaded data for this session will be discarded.
      * @type {string}
      * @memberof Batchsigneds3uploadResponseResultsValue
      */
     'uploadExpiration'?: string;
     /**
-     * The identifier of the upload session, to differentiate multiple attempts to upload data for the same object. This must be provided when re-requesting chunk URLs for the same blob if they expire, and when calling the Complete Upload endpoint.
+     * An ID that uniquely identifies the upload session. It allows OSS to differentiate between fresh upload attempts from attempts to resume uploading data for an active upload session, in case of network interruptions. You must provide this value when:  - Re-requesting chunk URLs for an active upload session.  - When calling the `Complete Batch Upload to S3 Signed URL </en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3upload-POST/>`_ operation to end an active upload session. 
      * @type {string}
      * @memberof Batchsigneds3uploadResponseResultsValue
      */
     'uploadKey': string;
     /**
-     * Time Stamp representing the expiration of the generated signed URLs.  Note that when multiple parts/URLs are requested, there is a chance that this time stamp does not represent the expiration of all URLs in the group. Consider this expiration a very close approximation of the expiration of the URLs in the group
+     * The date and time, in the ISO 8601 format, indicating when the signed URLs will expire.
      * @type {string}
      * @memberof Batchsigneds3uploadResponseResultsValue
      */

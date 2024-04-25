@@ -1,17 +1,21 @@
 import { SdkManager, ApiResponse, ApsServiceRequestConfig } from "@aps_sdk/autodesk-sdkmanager";
-import { CreateBucketXAdsRegionEnum, CreateSignedResourceAccessEnum, DeleteSignedResourceRegionEnum, GetBucketsRegionEnum, GetObjectDetailsWithEnum, GetSignedResourceRegionEnum, HeadObjectDetailsWithEnum, OSSApi, UploadSignedResourceXAdsRegionEnum, UploadSignedResourcesChunkXAdsRegionEnum } from "../api";
 import { OSSFileTransfer } from "./OSSFileTransfer";
+import { BucketsApi,ObjectsApi } from "../api";
 import { FileTransferConfigurations } from "./FileTransferConfigurations";
-import { CreateBucketsPayload, ObjectDetails, ObjectFullDetails, Bucket, Buckets, BucketObjects, BatchcompleteuploadResponse, BatchcompleteuploadObject, Batchsigneds3downloadObject, Batchsigneds3downloadResponse, Batchsigneds3uploadObject, Batchsigneds3uploadResponse, Completes3uploadBody, CreateObjectSigned, CreateSignedResource, Signeds3downloadResponse, Signeds3uploadResponse } from "../model";
+import { CreateBucketsPayload, ObjectDetails, ObjectFullDetails, Bucket, Buckets, BucketObjects, BatchcompleteuploadResponse, BatchcompleteuploadObject, Batchsigneds3downloadObject, Batchsigneds3downloadResponse, Batchsigneds3uploadObject, Batchsigneds3uploadResponse, Completes3uploadBody, CreateObjectSigned, CreateSignedResource, Signeds3downloadResponse, Signeds3uploadResponse, Region, With, Access } from "../model";
 import * as fs from "fs";
 
 export class OssClient {
 
-    public ossApi: OSSApi;
+    public objectApi: ObjectsApi;
+    public bucketApi: BucketsApi;
+
     public ossFileTransfer: OSSFileTransfer;
 
     constructor(sdkManager: SdkManager) {
-        this.ossApi = new OSSApi(sdkManager);
+        this.objectApi = new ObjectsApi(sdkManager);
+        this.bucketApi = new BucketsApi(sdkManager);
+
         this.ossFileTransfer = new OSSFileTransfer(new FileTransferConfigurations(3), sdkManager);
 
     }
@@ -38,7 +42,7 @@ export class OssClient {
      * @memberof OSSApiInterface
      */
     public async batchCompleteUpload(accessToken: string, bucketKey: string, optionalArgs?: { requests?: BatchcompleteuploadObject, options?: ApsServiceRequestConfig }): Promise<BatchcompleteuploadResponse> {
-        const response = await this.ossApi.batchCompleteUpload(accessToken, bucketKey, optionalArgs?.requests, optionalArgs?.options);
+        const response = await this.objectApi.batchCompleteUpload(accessToken, bucketKey, optionalArgs?.requests, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -51,7 +55,7 @@ export class OssClient {
          * @throws {RequiredError}
          */
     public async batchSignedS3Download(accessToken: string, bucketKey: string, requests: Batchsigneds3downloadObject, optionalArgs?: { publicResourceFallback?: boolean, minutesExpiration?: number, options?: ApsServiceRequestConfig }): Promise<BatchcompleteuploadResponse> {
-        const response = await this.ossApi.batchSignedS3Download(accessToken, bucketKey, requests, optionalArgs?.publicResourceFallback, optionalArgs?.minutesExpiration, optionalArgs?.options);
+        const response = await this.objectApi.batchSignedS3Download(accessToken, bucketKey, requests, optionalArgs?.publicResourceFallback, optionalArgs?.minutesExpiration, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -66,7 +70,7 @@ export class OssClient {
      * @memberof OSSApi
      */
     public async batchSignedS3Upload(accessToken: string, bucketKey: string, optionalArgs?: { useAcceleration?: boolean, minutesExpiration?: number, requests?: Batchsigneds3uploadObject, options?: ApsServiceRequestConfig }): Promise<Batchsigneds3uploadResponse> {
-        const response = await this.ossApi.batchSignedS3Upload(accessToken, bucketKey, optionalArgs?.useAcceleration, optionalArgs?.minutesExpiration, optionalArgs?.requests, optionalArgs?.options);
+        const response = await this.objectApi.batchSignedS3Upload(accessToken, bucketKey, optionalArgs?.useAcceleration, optionalArgs?.minutesExpiration, optionalArgs?.requests, optionalArgs?.options);
         return response.content;
     }
 
@@ -85,7 +89,7 @@ export class OssClient {
          * @throws {RequiredError}
          */
     public async completeSignedS3Upload(accessToken: string, bucketKey: string, objectKey: string, contentType: string, body: Completes3uploadBody, optionalArgs?: { xAdsMetaContentType?: string, xAdsMetaContentDisposition?: string, xAdsMetaContentEncoding?: string, xAdsMetaCacheControl?: string, xAdsUserDefinedMetadata?: string, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
-        const response = await this.ossApi.completeSignedS3Upload(accessToken, bucketKey, objectKey, contentType, body, optionalArgs?.xAdsMetaContentType, optionalArgs?.xAdsMetaContentDisposition, optionalArgs?.xAdsMetaContentEncoding, optionalArgs?.xAdsMetaCacheControl, optionalArgs?.xAdsUserDefinedMetadata, optionalArgs?.options);
+        const response = await this.objectApi.completeSignedS3Upload(accessToken, bucketKey, objectKey, contentType, body, optionalArgs?.xAdsMetaContentType, optionalArgs?.xAdsMetaContentDisposition, optionalArgs?.xAdsMetaContentEncoding, optionalArgs?.xAdsMetaCacheControl, optionalArgs?.xAdsUserDefinedMetadata, optionalArgs?.options);
         return response.content;
     }
 
@@ -101,7 +105,7 @@ export class OssClient {
          * @throws {RequiredError}
          */
     public async copyTo(accessToken: string, bucketKey: string, objectKey: string, newObjName: string, optionalArgs?: { xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, options?: ApsServiceRequestConfig }): Promise<ObjectDetails> {
-        const response = await this.ossApi.copyTo(accessToken, bucketKey, objectKey, newObjName, optionalArgs?.xAdsAcmNamespace, optionalArgs?.xAdsAcmCheckGroups, optionalArgs?.xAdsAcmGroups, optionalArgs?.options);
+        const response = await this.objectApi.copyTo(accessToken, bucketKey, objectKey, newObjName, optionalArgs?.xAdsAcmNamespace, optionalArgs?.xAdsAcmCheckGroups, optionalArgs?.xAdsAcmGroups, optionalArgs?.options);
         return response.content;
     }
 
@@ -114,8 +118,8 @@ export class OssClient {
      * @throws {RequiredError}
      * @memberof OSSApiInterface
      */
-    public async createBucket(accessToken: string, xAdsRegion: CreateBucketXAdsRegionEnum, bucketPayload: CreateBucketsPayload, optionalArgs?: { options?: ApsServiceRequestConfig }): Promise<Bucket> {
-        const response = await this.ossApi.createBucket(accessToken, xAdsRegion, bucketPayload, optionalArgs?.options);
+    public async createBucket(accessToken: string, xAdsRegion: Region, bucketPayload: CreateBucketsPayload, optionalArgs?: { options?: ApsServiceRequestConfig }): Promise<Bucket> {
+        const response = await this.bucketApi.createBucket(accessToken, bucketPayload, xAdsRegion, optionalArgs?.options);
         return response.content;
     }
 
@@ -129,8 +133,8 @@ export class OssClient {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-    public async createSignedResource(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { access?: CreateSignedResourceAccessEnum, useCdn?: boolean, createSignedResource?: CreateSignedResource, options?: ApsServiceRequestConfig }): Promise<CreateObjectSigned> {
-        const response = await this.ossApi.createSignedResource(accessToken, bucketKey, objectKey, optionalArgs?.access, optionalArgs?.useCdn, optionalArgs?.createSignedResource, optionalArgs?.options);
+    public async createSignedResource(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { access?: Access, useCdn?: boolean, createSignedResource?: CreateSignedResource, options?: ApsServiceRequestConfig }): Promise<CreateObjectSigned> {
+        const response = await this.objectApi.createSignedResource(accessToken, bucketKey, objectKey, optionalArgs?.access, optionalArgs?.useCdn, optionalArgs?.createSignedResource, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -142,7 +146,7 @@ export class OssClient {
    * @memberof OSSApiInterface
    */
     public async deleteBucket(accessToken: string, bucketKey: string, optionalArgs?: { options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
-        const response = await this.ossApi.deleteBucket(accessToken, bucketKey, optionalArgs?.options);
+        const response = await this.bucketApi.deleteBucket(accessToken, bucketKey, optionalArgs?.options);
         return response.content;
     }
 
@@ -160,7 +164,7 @@ export class OssClient {
   * @memberof OSSApiInterface
   */
     public async deleteObject(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { AdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
-        const response = await this.ossApi.deleteObject(accessToken, bucketKey, objectKey, optionalArgs?.AdsAcmNamespace, optionalArgs?.xAdsAcmCheckGroups, optionalArgs?.xAdsAcmGroups, optionalArgs?.options);
+        const response = await this.objectApi.deleteObject(accessToken, bucketKey, objectKey, optionalArgs?.AdsAcmNamespace, optionalArgs?.xAdsAcmCheckGroups, optionalArgs?.xAdsAcmGroups, optionalArgs?.options);
         return response.content;
 
     }
@@ -171,8 +175,8 @@ export class OssClient {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-    public async deleteSignedResource(accessToken: string, hash: string, optionalArgs?: { region?: DeleteSignedResourceRegionEnum, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
-        const response = await this.ossApi.deleteSignedResource(accessToken, hash, optionalArgs?.region, optionalArgs?.options);
+    public async deleteSignedResource(accessToken: string, hash: string, optionalArgs?: { region?: Region, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
+        const response = await this.objectApi.deleteSignedResource(accessToken, hash, optionalArgs?.region, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -184,7 +188,7 @@ export class OssClient {
      * @memberof OSSApiInterface
      */
     public async getBucketDetails(accessToken: string, bucketKey: string, optionalArgs?: { options?: ApsServiceRequestConfig }): Promise<Bucket> {
-        const response = await this.ossApi.getBucketDetails(accessToken, bucketKey, optionalArgs?.options);
+        const response = await this.bucketApi.getBucketDetails(accessToken, bucketKey, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -197,8 +201,8 @@ export class OssClient {
         * @throws {RequiredError}
         * @memberof OSSApiInterface
         */
-    public async getBuckets(accessToken: string, optionalArgs?: { region?: GetBucketsRegionEnum, limit?: number, startAt?: string, options?: ApsServiceRequestConfig }): Promise<Buckets> {
-        const response = await this.ossApi.getBuckets(accessToken, optionalArgs?.region, optionalArgs?.limit, optionalArgs?.startAt, optionalArgs?.options);
+    public async getBuckets(accessToken: string, optionalArgs?: { region?: Region, limit?: number, startAt?: string, options?: ApsServiceRequestConfig }): Promise<Buckets> {
+        const response = await this.bucketApi.getBuckets(accessToken, optionalArgs?.region, optionalArgs?.limit, optionalArgs?.startAt, optionalArgs?.options);
         return response.content;
 
     }
@@ -217,8 +221,8 @@ export class OssClient {
         * @memberof OSSApiInterface
         */
 
-    public async getObjectDetails(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { ifModifiedSince?: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, _with?: GetObjectDetailsWithEnum, options?: ApsServiceRequestConfig }): Promise<ObjectFullDetails> {
-        const response = await this.ossApi.getObjectDetails(accessToken, bucketKey, objectKey, optionalArgs?.ifModifiedSince, optionalArgs?.xAdsAcmNamespace, optionalArgs?.xAdsAcmCheckGroups, optionalArgs?.xAdsAcmGroups, optionalArgs?._with, optionalArgs?.options);
+    public async getObjectDetails(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { ifModifiedSince?: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, _with?: With, options?: ApsServiceRequestConfig }): Promise<ObjectFullDetails> {
+        const response = await this.objectApi.getObjectDetails(accessToken, bucketKey, objectKey, optionalArgs?.ifModifiedSince, optionalArgs?.xAdsAcmNamespace, optionalArgs?.xAdsAcmCheckGroups, optionalArgs?.xAdsAcmGroups, optionalArgs?._with, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -233,7 +237,7 @@ export class OssClient {
      * @memberof OSSApiInterface
      */
     public async getObjects(accessToken: string, bucketKey: string, optionalArgs?: { limit?: number, beginsWith?: string, startAt?: string }): Promise<BucketObjects> {
-        const response = await this.ossApi.getObjects(accessToken, bucketKey, optionalArgs?.limit, optionalArgs?.beginsWith, optionalArgs?.startAt);
+        const response = await this.objectApi.getObjects(accessToken, bucketKey, optionalArgs?.limit, optionalArgs?.beginsWith, optionalArgs?.startAt);
         return response.content;
     }
 
@@ -250,8 +254,8 @@ export class OssClient {
         * @param {*} [options] Override http request option.
         * @throws {RequiredError}
         */
-    public async getSignedResource(accessToken: string, hash: string, optionalArgs?: { range?: string, ifNoneMatch?: string, ifModifiedSince?: string, acceptEncoding?: string, region?: GetSignedResourceRegionEnum, responseContentDisposition?: string, responseContentType?: string, options?: ApsServiceRequestConfig }): Promise<File> {
-        const response = await this.ossApi.getSignedResource(accessToken, hash, optionalArgs?.range, optionalArgs?.ifNoneMatch, optionalArgs?.ifModifiedSince, optionalArgs?.acceptEncoding, optionalArgs?.region, optionalArgs?.responseContentDisposition, optionalArgs?.responseContentType, optionalArgs?.options);
+    public async getSignedResource(accessToken: string, hash: string, optionalArgs?: { range?: string, ifNoneMatch?: string, ifModifiedSince?: string, acceptEncoding?: string, region?: Region, responseContentDisposition?: string, responseContentType?: string, options?: ApsServiceRequestConfig }): Promise<File> {
+        const response = await this.objectApi.getSignedResource(accessToken, hash, optionalArgs?.range, optionalArgs?.ifNoneMatch, optionalArgs?.ifModifiedSince, optionalArgs?.acceptEncoding, optionalArgs?.region, optionalArgs?.responseContentDisposition, optionalArgs?.responseContentType, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -266,8 +270,8 @@ export class OssClient {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public async headObjectDetails(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { ifModifiedSince?: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, _with?: HeadObjectDetailsWithEnum, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
-        const response = await this.ossApi.headObjectDetails(accessToken, bucketKey, objectKey, optionalArgs?.ifModifiedSince, optionalArgs?.xAdsAcmNamespace, optionalArgs?.xAdsAcmCheckGroups, optionalArgs?.xAdsAcmGroups, optionalArgs?._with, optionalArgs?.options);
+    public async headObjectDetails(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { ifModifiedSince?: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, _with?: With, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
+        const response = await this.objectApi.headObjectDetails(accessToken, bucketKey, objectKey, optionalArgs?.ifModifiedSince, optionalArgs?.xAdsAcmNamespace, optionalArgs?.xAdsAcmCheckGroups, optionalArgs?.xAdsAcmGroups, optionalArgs?._with, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -284,10 +288,10 @@ export class OssClient {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public async postUpload(accessToken: string, bucketKey: string, contentLength: number, xAdsObjectName: string, xAdsObjectSize: number, optionalArgs?: { contentType?: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, xAdsMetaCacheControl?: string, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
-        const response = await this.ossApi.postUpload(accessToken, bucketKey, contentLength, xAdsObjectName, xAdsObjectSize, optionalArgs?.contentType, optionalArgs?.xAdsAcmNamespace, optionalArgs?.xAdsAcmCheckGroups, optionalArgs?.xAdsAcmGroups, optionalArgs?.xAdsMetaCacheControl, optionalArgs?.options);
-        return response.content;
-    }
+    // public async postUpload(accessToken: string, bucketKey: string, contentLength: number, xAdsObjectName: string, xAdsObjectSize: number, optionalArgs?: { contentType?: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, xAdsMetaCacheControl?: string, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
+    //     const response = await this.bucketApi.postUpload(accessToken, bucketKey, contentLength, xAdsObjectName, xAdsObjectSize, optionalArgs?.contentType, optionalArgs?.xAdsAcmNamespace, optionalArgs?.xAdsAcmCheckGroups, optionalArgs?.xAdsAcmGroups, optionalArgs?.xAdsMetaCacheControl, optionalArgs?.options);
+    //     return response.content;
+    // }
     /**
      * Gets a signed URL to a download an object directly from S3, bypassing OSS servers. This signed URL expires in 60 seconds, so the request must begin within that time frame; the actual data transfer can take longer. Note that resumable uploads store each chunk individually; after the upload completes, an async process merges all the chunks and creates the definitive OSS file. If you request a signed URL before the async process completes, the response returns a map of S3 URLs, one per chunk; the key is the byte range of the total file to which the chunk corresponds. If you need a single URL in the response, you can use OSS signed resource functionality by setting the \'public-resource-fallback\' query parameter to true. Lastly, note that ranged downloads can be used with the returned URL.
      * @param {string} bucketKey URL-encoded bucket key
@@ -306,7 +310,7 @@ export class OssClient {
      * @throws {RequiredError}
      */
     public async signedS3Download(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { ifNoneMatch?: string, ifModifiedSince?: string, xAdsAcmScopes?: string, responseContentType?: string, responseContentDisposition?: string, responseCacheControl?: string, publicResourceFallback?: boolean, minutesExpiration?: number, useCdn?: boolean, redirect?: boolean, options?: ApsServiceRequestConfig }): Promise<Signeds3downloadResponse> {
-        const response = await this.ossApi.signedS3Download(accessToken, bucketKey, objectKey, optionalArgs?.ifNoneMatch, optionalArgs?.ifModifiedSince, optionalArgs?.xAdsAcmScopes, optionalArgs?.responseContentType, optionalArgs?.responseContentDisposition, optionalArgs?.responseCacheControl, optionalArgs?.publicResourceFallback, optionalArgs?.minutesExpiration, optionalArgs?.useCdn, optionalArgs?.redirect, optionalArgs?.options);
+        const response = await this.objectApi.signedS3Download(accessToken, bucketKey, objectKey, optionalArgs?.ifNoneMatch, optionalArgs?.ifModifiedSince, optionalArgs?.xAdsAcmScopes, optionalArgs?.responseContentType, optionalArgs?.responseContentDisposition, optionalArgs?.responseCacheControl, optionalArgs?.publicResourceFallback, optionalArgs?.minutesExpiration, optionalArgs?.useCdn, optionalArgs?.redirect, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -321,8 +325,8 @@ export class OssClient {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public async signedS3Upload(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { xAdsAcmScopes?: string, parts?: number, firstPart?: number, uploadKey?: string, minutesExpiration?: number, options?: ApsServiceRequestConfig }): Promise<Signeds3uploadResponse> {
-        const response = await this.ossApi.signedS3Upload(accessToken, bucketKey, objectKey, optionalArgs?.xAdsAcmScopes, optionalArgs?.parts, optionalArgs?.firstPart, optionalArgs?.uploadKey, optionalArgs?.minutesExpiration, optionalArgs?.options);
+    public async signedS3Upload(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { xAdsAcmScopes?: string, parts?: number, firstPart?: number, uploadKey?: string, minutesExpiration?: number, useAcceleration?: boolean, options?: ApsServiceRequestConfig }): Promise<Signeds3uploadResponse> {
+        const response = await this.objectApi.signedS3Upload(accessToken, bucketKey, objectKey, optionalArgs?.xAdsAcmScopes, optionalArgs?.parts, optionalArgs?.firstPart, optionalArgs?.uploadKey, optionalArgs?.minutesExpiration, optionalArgs.useAcceleration, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -337,8 +341,8 @@ export class OssClient {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public async uploadSignedResource(accessToken: string, hash: string, contentLength: number, body: File, optionalArgs?: { contentType?: string, contentDisposition?: string, xAdsRegion?: UploadSignedResourceXAdsRegionEnum, ifMatch?: string, options?: ApsServiceRequestConfig }): Promise<ObjectDetails> {
-        const response = await this.ossApi.uploadSignedResource(accessToken, hash, contentLength, body, optionalArgs?.contentType, optionalArgs?.contentDisposition, optionalArgs?.xAdsRegion, optionalArgs?.ifMatch, optionalArgs?.options);
+    public async uploadSignedResource(accessToken: string, hash: string, contentLength: number, body: File, optionalArgs?: { contentType?: string, contentDisposition?: string, xAdsRegion?: Region, ifMatch?: string, options?: ApsServiceRequestConfig }): Promise<ObjectDetails> {
+        const response = await this.objectApi.uploadSignedResource(accessToken, hash, contentLength, body, optionalArgs?.contentType, optionalArgs?.contentDisposition, optionalArgs?.xAdsRegion, optionalArgs?.ifMatch, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -353,8 +357,8 @@ export class OssClient {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public async uploadSignedResourcesChunk(accessToken: string, hash: string, contentRange: string, sessionId: string, body: File, optionalArgs?: { contentType?: string, contentDisposition?: string, xAdsRegion?: UploadSignedResourcesChunkXAdsRegionEnum, options?: ApsServiceRequestConfig }): Promise<ObjectDetails> {
-        const response = await this.ossApi.uploadSignedResourcesChunk(accessToken, hash, contentRange, sessionId, body, optionalArgs?.contentType, optionalArgs?.contentDisposition, optionalArgs?.xAdsRegion, optionalArgs?.options);
+    public async uploadSignedResourcesChunk(accessToken: string, hash: string, contentRange: string, sessionId: string, body: File, optionalArgs?: { contentType?: string, contentDisposition?: string, xAdsRegion?: Region, options?: ApsServiceRequestConfig }): Promise<ObjectDetails> {
+        const response = await this.objectApi.uploadSignedResourcesChunk(accessToken, hash, contentRange, sessionId, body, optionalArgs?.contentType, optionalArgs?.contentDisposition, optionalArgs?.xAdsRegion, optionalArgs?.options);
         return response.content;
     }
 }

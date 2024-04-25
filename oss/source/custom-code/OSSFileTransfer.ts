@@ -1,7 +1,7 @@
 import { IAuthClient, SdkManager, ApiResponse, ApsServiceRequestConfig } from "@aps_sdk/autodesk-sdkmanager";
 import { IFileTransferConfigurations } from './FileTransferConfigurations';
-import { OSSApi } from "../api";
-import { Completes3uploadBody, ObjectStatusEnum, Signeds3downloadResponse, Signeds3uploadResponse } from "../model";
+import { ObjectsApi } from "../api";
+import { Completes3uploadBody, DownloadStatus, Signeds3downloadResponse, Signeds3uploadResponse } from "../model";
 import { OssApiError, RequestArgs } from "../base";
 import { createRequestFunctionOss } from "../common";
 import { WriteStream, createWriteStream } from "fs";
@@ -17,7 +17,7 @@ class Constants {
 export class OSSFileTransfer implements IOSSFileTransfer {
 
   public configuration: IFileTransferConfigurations;
-  public ossApi: OSSApi;
+  public objectApi: ObjectsApi;
   public authentication: IAuthClient;
 
   private maxRetryOnTokenExpiry: number;
@@ -36,7 +36,8 @@ export class OSSFileTransfer implements IOSSFileTransfer {
 
     this.sdkManager = sdkmanager;
     this.configuration = configuration;
-    this.ossApi = new OSSApi(this.sdkManager);
+    this.objectApi = new ObjectsApi(this.sdkManager);
+
     this.maxChunkCountAllowed = this.configuration.getMaxChunkCountAllowed();
     this.maxRetryOnUrlExpiry = this.configuration.getMaxRetryOnUrlExpiry();
     this.maxRetryOnTokenExpiry = this.configuration.getMaxRetryOnTokenExpiry();
@@ -108,7 +109,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
       onProgress?.(percentCompleted);
       this.logger.logInfo(`${requestId} Number of chunks uploaded : ${chunksUploaded}`);
     }
-    var completeResponse = await this.ossApi.completeSignedS3Upload(
+    var completeResponse = await this.objectApi.completeSignedS3Upload(
       accessToken,
       bucketKey,
       objectKey,
@@ -201,7 +202,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
       this.logger.logInfo(`${requestId} Refreshing URL attempt:${attemptcount}.`);
       try {
 
-        var response = await this.ossApi.signedS3Upload(accessToken, bucketKey, objectKey, projectScope, parts, firstPart, uploadKey);
+        var response = await this.objectApi.signedS3Upload(accessToken, bucketKey, objectKey, projectScope, parts, firstPart, uploadKey);
         return ([response.content, accessToken]);
 
       } catch (e) {
@@ -252,8 +253,8 @@ export class OSSFileTransfer implements IOSSFileTransfer {
       this.logger.logInfo(`${requestId} Get signed URL to download directly from S3 attempt: ${attemptCount}`);
 
       try {
-        var objectStatusEnumString: string = ObjectStatusEnum.Complete;
-        var response = await this.ossApi.signedS3Download(accessToken, bucketKey, objectKey, requestId);
+        var objectStatusEnumString: string = DownloadStatus.Complete;
+        var response = await this.objectApi.signedS3Download(accessToken, bucketKey, objectKey, requestId);
         if (response.content.status != objectStatusEnumString) {
           this.logger.logError(`${requestId} File not available for download yet.`);
           throw new OssApiError(`${requestId} File not available for download yet.`);
