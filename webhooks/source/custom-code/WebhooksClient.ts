@@ -8,7 +8,9 @@ import {
   HookDetails,
   ModifyHookPayload,
   TokenPayload,
-  Token
+  Token,
+  XAdsRegion,
+  Region
 } from '../model';
 import {
   SdkManager,
@@ -31,8 +33,8 @@ export class WebhooksClient {
     event: Events,
     hookPayload: HookPayload,
     optionalArgs?: {
-      xAdsRegion?: string,
-      region?: string,
+      xAdsRegion?: XAdsRegion,
+      region?: Region,
       options?: ApsServiceRequestConfig,
     }
   ): Promise<void> {
@@ -53,8 +55,8 @@ export class WebhooksClient {
     system: Systems,
     hookPayload: HookPayload,
     optionalArgs?: {
-      xAdsRegion?: string,
-      region?: string,
+      xAdsRegion?: XAdsRegion,
+      region?: Region,
       options?: ApsServiceRequestConfig
     }
   ): Promise<Hook> {
@@ -75,8 +77,8 @@ export class WebhooksClient {
     event: Events,
     hookId: string,
     optionalArgs?: {
-      xAdsRegion?: string,
-      region?: string,
+      xAdsRegion?: XAdsRegion,
+      region?: Region,
       options?: ApsServiceRequestConfig
     }
   ): Promise<void> {
@@ -95,11 +97,11 @@ export class WebhooksClient {
   public async getAppHooks(
     accessToken: string,
     optionalArgs?: {
-      xAdsRegion?: string,
+      xAdsRegion?: XAdsRegion,
       pageState?: string,
       status?: string,
       sort?: string,
-      region?: string,
+      region?: Region,
       options?: ApsServiceRequestConfig
     }
   ): Promise<Hooks> {
@@ -121,8 +123,8 @@ export class WebhooksClient {
     event: Events,
     hookId: string,
     optionalArgs?: {
-      xAdsRegion?: string,
-      region?: string,
+      xAdsRegion?: XAdsRegion,
+      region?: Region,
       options?: ApsServiceRequestConfig
     }
   ): Promise<HookDetails> {
@@ -140,19 +142,19 @@ export class WebhooksClient {
 
   public async getHooks(
     accessToken: string,
-    pageState?: string,
-    status?: string,
-    region?: string,
     optionalArgs?: {
-      xAdsRegion?: string;
+      pageState?: string,
+      status?: string,
+      region?: Region,
+      xAdsRegion?: XAdsRegion;
       options?: ApsServiceRequestConfig
     }
   ): Promise<Hooks> {
     const response = await this.hooksApi.getHooks(
       accessToken,
-      pageState,
-      status,
-      region,
+      optionalArgs?.pageState,
+      optionalArgs?.status,
+      optionalArgs?.region,
       optionalArgs?.xAdsRegion,
       optionalArgs?.options
     );
@@ -164,8 +166,8 @@ export class WebhooksClient {
     system: Systems,
     event: Events,
     optionalArgs?: {
-      xAdsRegion?: string;
-      region?: string,
+      xAdsRegion?: XAdsRegion;
+      region?: Region,
       scopeName?: string,
       pageState?: string,
       status?: string,
@@ -190,10 +192,10 @@ export class WebhooksClient {
     accessToken: string,
     system: Systems,
     optionalArgs?: {
-      xAdsRegion?: string;
+      xAdsRegion?: XAdsRegion;
       status?: string,
       pageState?: string,
-      region?: string,
+      region?: Region,
       options?: ApsServiceRequestConfig
     }
   ): Promise<Hooks> {
@@ -216,8 +218,8 @@ export class WebhooksClient {
     hookId: string,
     modifyHookPayload: ModifyHookPayload,
     optionalArgs?: {
-      xAdsRegion?: string;
-      region?: string,
+      xAdsRegion?: XAdsRegion;
+      region?: Region,
       options?: ApsServiceRequestConfig
     }
   ): Promise<void> {
@@ -238,8 +240,8 @@ export class WebhooksClient {
     accessToken: string,
     tokenPayload: TokenPayload,
     optionalArgs?: {
-      xAdsRegion?: string;
-      region?: string,
+      xAdsRegion?: XAdsRegion;
+      region?: Region,
       options?: ApsServiceRequestConfig
     }
   ): Promise<Token> {
@@ -256,8 +258,8 @@ export class WebhooksClient {
   public async deleteToken(
     accessToken: string,
     optionalArgs?: {
-      xAdsRegion?: string,
-      region?: string,
+      xAdsRegion?: XAdsRegion,
+      region?: Region,
       options?: ApsServiceRequestConfig
     }
   ): Promise<void> {
@@ -274,8 +276,8 @@ export class WebhooksClient {
     accessToken: string,
     tokenPayload: TokenPayload,
     optionalArgs?: {
-      xAdsRegion?: string,
-      region?: string,
+      xAdsRegion?: XAdsRegion,
+      region?: Region,
       options?: ApsServiceRequestConfig
     }
   ): Promise<void> {

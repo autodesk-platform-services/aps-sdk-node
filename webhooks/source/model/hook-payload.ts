@@ -26,7 +26,7 @@ export interface HookPayload {
      * @type {Scopes}
      * @memberof HookPayload
      */
-    'scope': Scopes;
+    'scope': { [key in Scopes]: string };
     /**
      * 
      * @type {object}
