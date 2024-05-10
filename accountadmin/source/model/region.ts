@@ -10,7 +10,8 @@
 
 export const Region = {
     Us: 'US',
-    Emea: 'EMEA'
+    Emea: 'EMEA',
+    Apac: 'APAC'
 } as const;
 
 export type Region = typeof Region[keyof typeof Region];

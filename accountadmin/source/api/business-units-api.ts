@@ -4,7 +4,7 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, AccountAdminApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, ConstructionAccountAdminApiError } from '../base';
 import { BusinessUnitsRequestPyload } from '../model';
 import { BusinessUnitsResponse } from '../model';
 import { Region } from '../model';
@@ -53,8 +53,7 @@ export const BusinessUnitsApiAxiosParamCreator = function (apsConfiguration?: IA
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
-
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -101,6 +100,7 @@ export const BusinessUnitsApiAxiosParamCreator = function (apsConfiguration?: IA
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -210,10 +210,10 @@ export class BusinessUnitsApi extends BaseApi implements BusinessUnitsApiInterfa
       } catch (error) {
         if (error.response) {
             this.logger.logError(`createBusinessUnits Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`createBusinessUnits Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`createBusinessUnits Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`createBusinessUnits Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`createBusinessUnits Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`createBusinessUnits Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -239,10 +239,10 @@ export class BusinessUnitsApi extends BaseApi implements BusinessUnitsApiInterfa
       } catch (error) {
         if (error.response) {
             this.logger.logError(`getBusinessUnits Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`getBusinessUnits Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`getBusinessUnits Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`getBusinessUnits Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`getBusinessUnits Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`getBusinessUnits Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }

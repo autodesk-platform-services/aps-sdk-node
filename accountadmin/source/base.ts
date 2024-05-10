@@ -54,7 +54,7 @@ export class RequiredError extends Error {
     }
 }
 
-export class AccountAdminApiError extends Error implements ISdkError {
+export class ConstructionAccountAdminApiError extends Error implements ISdkError {
     /* istanbul ignore next */
     axiosError?: any;
     constructor(message: string, axiosError?: any) {
@@ -62,7 +62,7 @@ export class AccountAdminApiError extends Error implements ISdkError {
         if (axiosError) {
             this.axiosError = axiosError;
         }
-        Object.setPrototypeOf(this, AccountAdminApiError.prototype);
+        Object.setPrototypeOf(this, ConstructionAccountAdminApiError.prototype);
     }
     httpStatusCode(): number | null {
       return this.axiosError?.response?.status;

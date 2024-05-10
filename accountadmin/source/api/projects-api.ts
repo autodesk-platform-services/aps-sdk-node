@@ -4,7 +4,7 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, AccountAdminApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, ConstructionAccountAdminApiError } from '../base';
 import { Classification } from '../model';
 import { Fields } from '../model';
 import { FilterTextMatch } from '../model';
@@ -70,8 +70,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
-
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -129,7 +128,11 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
                 formData.set('chunk', body);
             }
     
-                setSearchParams(localVarUrlObj, localVarQueryParameter);
+    
+            localVarHeaderParameter['Content-Type'] = 'application/multipart/form-data';
+    
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = formData;
@@ -188,6 +191,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -311,6 +315,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -516,10 +521,10 @@ export class ProjectsApi extends BaseApi implements ProjectsApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`createProject Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`createProject Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`createProject Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`createProject Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`createProject Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`createProject Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -547,10 +552,10 @@ export class ProjectsApi extends BaseApi implements ProjectsApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`createProjectImage Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`createProjectImage Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`createProjectImage Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`createProjectImage Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`createProjectImage Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`createProjectImage Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -579,10 +584,10 @@ export class ProjectsApi extends BaseApi implements ProjectsApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`getProject Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`getProject Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`getProject Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`getProject Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`getProject Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`getProject Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -624,10 +629,10 @@ export class ProjectsApi extends BaseApi implements ProjectsApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`getProjects Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`getProjects Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`getProjects Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`getProjects Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`getProjects Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`getProjects Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }

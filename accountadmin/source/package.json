@@ -1,5 +1,5 @@
 {
-  "name": "@aps_sdk/account-admin",
+  "name": "@aps_sdk/construction-account-admin",
   "version": "0.0.2-beta.1",
   "description": "Client sdk for Construction Account Admin API",
   "license": "Apache-2.0",

@@ -4,7 +4,7 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, AccountAdminApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, ConstructionAccountAdminApiError } from '../base';
 import { Region } from '../model';
 import { User } from '../model';
 import { UserImportResponse } from '../model';
@@ -55,8 +55,7 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
-
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -107,6 +106,7 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -172,6 +172,7 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -219,8 +220,7 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
-
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -273,8 +273,7 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
-
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -366,6 +365,7 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -605,10 +605,10 @@ export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface
       } catch (error) {
         if (error.response) {
             this.logger.logError(`createUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`createUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`createUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`createUser Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`createUser Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`createUser Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -635,10 +635,10 @@ export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface
       } catch (error) {
         if (error.response) {
             this.logger.logError(`getUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`getUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`getUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`getUser Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`getUser Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`getUser Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -668,10 +668,10 @@ export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface
       } catch (error) {
         if (error.response) {
             this.logger.logError(`getUsers Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`getUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`getUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`getUsers Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`getUsers Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`getUsers Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -698,10 +698,10 @@ export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface
       } catch (error) {
         if (error.response) {
             this.logger.logError(`importUsers Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`importUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`importUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`importUsers Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`importUsers Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`importUsers Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -729,10 +729,10 @@ export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface
       } catch (error) {
         if (error.response) {
             this.logger.logError(`patchUserDetails Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`patchUserDetails Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`patchUserDetails Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`patchUserDetails Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`patchUserDetails Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`patchUserDetails Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -767,10 +767,10 @@ export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface
       } catch (error) {
         if (error.response) {
             this.logger.logError(`searchUsers Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`searchUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`searchUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`searchUsers Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`searchUsers Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`searchUsers Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
