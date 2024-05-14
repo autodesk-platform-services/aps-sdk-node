@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { Permission } from './permission';
+import { PolicyKey } from './policy-key';
 
 /**
  * 
@@ -10,34 +11,36 @@ import { Permission } from './permission';
  */
 export interface Bucket {
     /**
-     * The key of the Bucket
+     * Bucket key: An ID that uniquely identifies the bucket.
      * @type {string}
      * @memberof Bucket
      */
     'bucketKey'?: string;
     /**
-     * The owner of the Bucket
+     * The Client ID of the application that owns the bucket.
      * @type {string}
      * @memberof Bucket
      */
     'bucketOwner'?: string;
     /**
-     * The epoch time at which the bucket was created
+     * The time the bucket was created, represented as a Unix timestamp.
      * @type {string}
      * @memberof Bucket
      */
     'createdDate'?: string;
     /**
-     * 
+     * An array of objects, where each object represents an application that can access the bucket.
      * @type {Array<Permission>}
      * @memberof Bucket
      */
     'permissions'?: Array<Permission>;
     /**
-     * The policy key
-     * @type {string}
+     * 
+     * @type {PolicyKey}
      * @memberof Bucket
      */
-    'policyKey'?: string;
+    'policyKey'?: PolicyKey;
 }
+
+
 

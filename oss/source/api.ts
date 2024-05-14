@@ -2,5 +2,6 @@
 /* eslint-disable */
 
 
-export * from './api/ossapi';
+export * from "./api/buckets-api"
+export * from "./api/objects-api"
 

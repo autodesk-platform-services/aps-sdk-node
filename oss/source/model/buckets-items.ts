@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { PolicyKey } from './policy-key';
 
 /**
  * 
@@ -9,31 +10,24 @@
  */
 export interface BucketsItems {
     /**
-     * Bucket key
+     * Bucket key: An ID that uniquely identifies the bucket.
      * @type {string}
      * @memberof BucketsItems
      */
     'bucketKey': string;
     /**
-     * Timestamp in epoch time
+     * The time the bucket was created, represented as a Unix timestamp.
      * @type {number}
      * @memberof BucketsItems
      */
     'createdDate': number;
     /**
-     * Policy values: `transient`, `temporary` or `persistent` 
-     * @type {string}
+     * 
+     * @type {PolicyKey}
      * @memberof BucketsItems
      */
-    'policyKey': BucketsItemsPolicyKeyEnum;
+    'policyKey': PolicyKey;
 }
 
-export const BucketsItemsPolicyKeyEnum = {
-    Transient: 'transient',
-    Temporary: 'temporary',
-    Persistent: 'persistent'
-} as const;
-
-export type BucketsItemsPolicyKeyEnum = typeof BucketsItemsPolicyKeyEnum[keyof typeof BucketsItemsPolicyKeyEnum];
 
 

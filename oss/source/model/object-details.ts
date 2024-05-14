@@ -3,49 +3,49 @@
 
 
 /**
- * Object json response
+ * Represents an object within a bucket.
  * @export
  * @interface ObjectDetails
  */
 export interface ObjectDetails {
     /**
-     * Bucket key
+     * The bucket key of the bucket that contains the object.
      * @type {string}
      * @memberof ObjectDetails
      */
     'bucketKey'?: string;
     /**
-     * Object URN
+     * An identifier (URN) that uniquely and persistently identifies the object.
      * @type {string}
      * @memberof ObjectDetails
      */
     'objectId'?: string;
     /**
-     * Object name
+     * A URL-encoded human friendly name to identify the object.
      * @type {string}
      * @memberof ObjectDetails
      */
     'objectKey'?: string;
     /**
-     * Object SHA1
+     * A hash value computed from the data of the object.
      * @type {string}
      * @memberof ObjectDetails
      */
     'sha1'?: string;
     /**
-     * Object size
+     * The total amount of storage space occupied by the object, in bytes.
      * @type {number}
      * @memberof ObjectDetails
      */
     'size'?: number;
     /**
-     * Object content-type
+     * The format of the data stored within the object, expressed as a MIME type.
      * @type {string}
      * @memberof ObjectDetails
      */
     'contentType'?: string;
     /**
-     * URL to download the object
+     * A URL that points to the actual location of the object.
      * @type {string}
      * @memberof ObjectDetails
      */
