@@ -4,7 +4,7 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, AccountAdminApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, ConstructionAccountAdminApiError } from '../base';
 import { Company } from '../model';
 import { CompanyImportResponse } from '../model';
 import { CompanyPatchPayload } from '../model';
@@ -56,8 +56,7 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
-
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -125,6 +124,7 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -174,6 +174,7 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -243,6 +244,7 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -290,8 +292,7 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
-
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -344,8 +345,7 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/ACCOUNT-ADMIN/TypeScript/1.0.0-beta1';
-
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -404,8 +404,9 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
             }
     
     
-            localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -492,6 +493,7 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -791,10 +793,10 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`createCompany Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`createCompany Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`createCompany Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`createCompany Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`createCompany Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`createCompany Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -824,10 +826,10 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`getCompanies Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`getCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`getCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`getCompanies Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`getCompanies Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`getCompanies Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -854,10 +856,10 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`getCompany Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`getCompany Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`getCompany Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`getCompany Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`getCompany Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`getCompany Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -888,10 +890,10 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`getProjectCompanies Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`getProjectCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`getProjectCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`getProjectCompanies Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`getProjectCompanies Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`getProjectCompanies Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -918,10 +920,10 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`importCompanies Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`importCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`importCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`importCompanies Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`importCompanies Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`importCompanies Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -949,10 +951,10 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`patchCompanyDetails Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`patchCompanyDetails Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`patchCompanyDetails Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`patchCompanyDetails Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`patchCompanyDetails Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`patchCompanyDetails Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -980,10 +982,10 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`patchCompanyImage Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`patchCompanyImage Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`patchCompanyImage Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`patchCompanyImage Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`patchCompanyImage Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`patchCompanyImage Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -1017,10 +1019,10 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
       } catch (error) {
         if (error.response) {
             this.logger.logError(`searchCompanies Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new AccountAdminApiError(`searchCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            throw new ConstructionAccountAdminApiError(`searchCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
         } else if (error.request) {
             this.logger.logError(`searchCompanies Request failed with no response received: ${error.request}`);
-            throw new AccountAdminApiError(`searchCompanies Request failed with no response received: ${error.request}`, error);
+            throw new ConstructionAccountAdminApiError(`searchCompanies Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
