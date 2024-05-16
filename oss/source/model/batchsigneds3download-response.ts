@@ -4,7 +4,7 @@
 import { DownloadResults } from './download-results';
 
 /**
- * 
+ * The response to a Batch Generate Signed S3 Download URLs operation.
  * @export
  * @interface Batchsigneds3downloadResponse
  */

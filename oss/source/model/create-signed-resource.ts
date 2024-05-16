@@ -3,7 +3,7 @@
 
 
 /**
- * Represents a signed URL to be generated.
+ * The request payload for a Generate OSS Signed URL operation.
  * @export
  * @interface CreateSignedResource
  */

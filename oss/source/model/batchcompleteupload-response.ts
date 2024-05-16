@@ -4,7 +4,7 @@
 import { BatchCompletedResults } from './batch-completed-results';
 
 /**
- * 
+ * The response to a Complete Batch Upload to S3 Signed URLs operation.
  * @export
  * @interface BatchcompleteuploadResponse
  */

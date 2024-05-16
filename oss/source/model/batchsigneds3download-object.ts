@@ -4,7 +4,7 @@
 import { Batchsigneds3downloadObjectRequests } from './batchsigneds3download-object-requests';
 
 /**
- * 
+ * The response to a Batch Generate Signed S3 Download URLs operation.
  * @export
  * @interface Batchsigneds3downloadObject
  */

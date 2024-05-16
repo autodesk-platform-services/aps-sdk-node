@@ -3,7 +3,7 @@
 
 
 /**
- * Represents detailed information about an object.
+ * Represents detailed information about an object within a bucket.
  * @export
  * @interface ObjectFullDetails
  */
