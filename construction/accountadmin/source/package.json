@@ -1,6 +1,6 @@
 {
   "name": "@aps_sdk/construction-account-admin",
-  "version": "0.0.2-beta.1",
+  "version": "1.0.0-beta.1",
   "description": "Client sdk for Construction Account Admin API",
   "license": "Apache-2.0",
   "author": "Autodesk Platform Services",
@@ -8,7 +8,7 @@
     "Autodesk Platform Services",
     "Typescript",
     "Construction Account Admin"
-],
+  ],
   "files": [
     "/dist"
   ],
@@ -23,11 +23,11 @@
   },
   "dependencies": {
     "@aps_sdk/autodesk-sdkmanager": "^0.0.7-beta.1",
-    "axios": "^1.6.1",
-    "@types/node": "^20.9.0"
+    "@types/node": "^20.9.0",
+    "axios": "^1.6.1"
   },
   "devDependencies": {
-        "prettier": "^2.8.8",
+    "prettier": "^2.8.8",
     "typescript": "^5.1.5"
   }
 }

@@ -8,7 +8,7 @@ For further information see [Documentation](https://aps.autodesk.com/en/docs/acc
 
 ## Installation 
 ```
-npm i @aps_sdk/account-admin
+npm i @aps_sdk/construction-account-admin
 ```
 ## Example
 
