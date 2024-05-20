@@ -3,13 +3,13 @@
 
 
 /**
- * 
+ * The response payload to a Generate Signed S3 Upload URL operation.
  * @export
  * @interface Signeds3uploadResponse
  */
 export interface Signeds3uploadResponse {
     /**
-     * An ID that uniquely identifies the upload session. It allows OSS to differentiate between fresh upload attempts from attempts to resume uploading data for an active upload session, in case of network interruptions. You must provide this value when:  - Re-requesting chunk URLs for an active upload session.  - When calling the `Complete Upload to S3 Signed URL </en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3upload-POST/>`_ operation to end an active upload session. 
+     * An ID that uniquely identifies the upload session. It allows OSS to differentiate between fresh upload attempts from attempts to resume uploading data for an active upload session, in case of network interruptions. You must provide this value when:  - Re-requesting chunk URLs for an active upload session.  - When calling the [Complete Upload to S3 Signed URL](/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3upload-POST/) operation to end an active upload session. 
      * @type {string}
      * @memberof Signeds3uploadResponse
      */
@@ -27,7 +27,7 @@ export interface Signeds3uploadResponse {
      */
     'urlExpiration'?: string;
     /**
-     * The deadline to call `Complete Upload to S3 Signed URL </en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3upload-POST/>`_ for the object. If not completed by this time, all uploaded data for this session will be discarded.
+     * The deadline to call [Complete Upload to S3 Signed URL](/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3upload-POST/) for the object. If not completed by this time, all uploaded data for this session will be discarded.
      * @type {string}
      * @memberof Signeds3uploadResponse
      */

@@ -3,7 +3,7 @@
 
 
 /**
- * 
+ * An object that represents the permissions allowed for a bucket.
  * @export
  * @interface CreateBucketsPayloadAllow
  */

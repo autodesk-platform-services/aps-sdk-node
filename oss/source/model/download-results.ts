@@ -4,7 +4,7 @@
 import { DownloadStatus } from './download-status';
 
 /**
- * objectKeyN is a placeholder for the first object key for which the client requested a download signed URL. The attributes within contain the success data / error information for the request for that object. `results` will contain one such attribute for each requested object in the batch.
+ * An object that represents the response to a Batch Generate Signed S3 Download URLs operation.   **Note**: objectKeyN is a placeholder for the first object key for which the client requested a download signed URL. The attributes within contain the success data / error information for the request for that object. `results` will contain one such attribute for each requested object in the batch. 
  * @export
  * @interface DownloadResults
  */

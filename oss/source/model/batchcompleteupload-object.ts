@@ -4,7 +4,7 @@
 import { BatchcompleteuploadObjectRequests } from './batchcompleteupload-object-requests';
 
 /**
- * 
+ * The request payload for the Complete Batch Upload to S3 Signed URLs operation.
  * @export
  * @interface BatchcompleteuploadObject
  */

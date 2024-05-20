@@ -17,7 +17,7 @@ import { Region } from '../model';
 export const BucketsApiAxiosParamCreator = function (apsConfiguration?: IApsConfiguration) {
     return {
         /**
-         * Creates a bucket.   Buckets are virtual container within the Object Storage Service (OSS), which you can use to store and manage objects (files) in the cloud. The application creating the bucket is the owner of the bucket.  **Note:** Do not use this operation to create buckets for BIM360 Document Management. Use `POST projects/{project_id}/storage </en/docs/data/v2/reference/http/projects-project_id-storage-POST>_ instead. For details, see `Upload Files to BIM 360 Document Management </en/docs/bim360/v1/tutorials/document-management/upload-document>`_. 
+         * Creates a bucket.   Buckets are virtual container within the Object Storage Service (OSS), which you can use to store and manage objects (files) in the cloud. The application creating the bucket is the owner of the bucket.  **Note:** Do not use this operation to create buckets for BIM360 Document Management. Use [POST projects/{project_id}/storage](/en/docs/data/v2/reference/http/projects-project_id-storage-POST>) instead. For details, see [Upload Files to BIM 360 Document Management](/en/docs/bim360/v1/tutorials/document-management/upload-document). 
          * @summary Create Bucket
          * @param {CreateBucketsPayload} policyKey 
          * @param {Region} [xAdsRegion] Specifies where the bucket must be stored. Possible values are: - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center for the US region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center for the European Union, Middle East, and Africa. - &#x60;&#x60;APAC&#x60;&#x60; -  (Beta) Data center for Australia. **Note:** Beta features are subject to change. Please do not use in production environments. 
@@ -89,6 +89,7 @@ export const BucketsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -125,6 +126,7 @@ export const BucketsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -172,6 +174,7 @@ export const BucketsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -192,14 +195,14 @@ export const BucketsApiFp = function(sdkManager?: SdkManager) {
     const localVarAxiosParamCreator = BucketsApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
-         * Creates a bucket.   Buckets are virtual container within the Object Storage Service (OSS), which you can use to store and manage objects (files) in the cloud. The application creating the bucket is the owner of the bucket.  **Note:** Do not use this operation to create buckets for BIM360 Document Management. Use `POST projects/{project_id}/storage </en/docs/data/v2/reference/http/projects-project_id-storage-POST>_ instead. For details, see `Upload Files to BIM 360 Document Management </en/docs/bim360/v1/tutorials/document-management/upload-document>`_. 
+         * Creates a bucket.   Buckets are virtual container within the Object Storage Service (OSS), which you can use to store and manage objects (files) in the cloud. The application creating the bucket is the owner of the bucket.  **Note:** Do not use this operation to create buckets for BIM360 Document Management. Use [POST projects/{project_id}/storage](/en/docs/data/v2/reference/http/projects-project_id-storage-POST>) instead. For details, see [Upload Files to BIM 360 Document Management](/en/docs/bim360/v1/tutorials/document-management/upload-document). 
          * @summary Create Bucket
          * @param {CreateBucketsPayload} policyKey 
          * @param {Region} [xAdsRegion] Specifies where the bucket must be stored. Possible values are: - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center for the US region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center for the European Union, Middle East, and Africa. - &#x60;&#x60;APAC&#x60;&#x60; -  (Beta) Data center for Australia. **Note:** Beta features are subject to change. Please do not use in production environments. 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createBucket(accessToken: string, policyKey: CreateBucketsPayload, xAdsRegion?: Region, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Bucket>> {
+        async createBucket(accessToken: string, policyKey: CreateBucketsPayload, xAdsRegion: Region, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Bucket>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createBucket(accessToken, policyKey, xAdsRegion,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -248,7 +251,7 @@ export const BucketsApiFp = function(sdkManager?: SdkManager) {
  */
 export interface BucketsApiInterface {
     /**
-     * Creates a bucket.   Buckets are virtual container within the Object Storage Service (OSS), which you can use to store and manage objects (files) in the cloud. The application creating the bucket is the owner of the bucket.  **Note:** Do not use this operation to create buckets for BIM360 Document Management. Use `POST projects/{project_id}/storage </en/docs/data/v2/reference/http/projects-project_id-storage-POST>_ instead. For details, see `Upload Files to BIM 360 Document Management </en/docs/bim360/v1/tutorials/document-management/upload-document>`_. 
+     * Creates a bucket.   Buckets are virtual container within the Object Storage Service (OSS), which you can use to store and manage objects (files) in the cloud. The application creating the bucket is the owner of the bucket.  **Note:** Do not use this operation to create buckets for BIM360 Document Management. Use [POST projects/{project_id}/storage](/en/docs/data/v2/reference/http/projects-project_id-storage-POST>) instead. For details, see [Upload Files to BIM 360 Document Management](/en/docs/bim360/v1/tutorials/document-management/upload-document). 
      * @summary Create Bucket
      * @param {CreateBucketsPayload} policyKey 
      * @param {Region} [xAdsRegion] Specifies where the bucket must be stored. Possible values are: - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center for the US region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center for the European Union, Middle East, and Africa. - &#x60;&#x60;APAC&#x60;&#x60; -  (Beta) Data center for Australia. **Note:** Beta features are subject to change. Please do not use in production environments. 
@@ -257,7 +260,7 @@ export interface BucketsApiInterface {
      * @throws {RequiredError}
      * @memberof BucketsApiInterface
      */
-    createBucket(accessToken: string,policyKey: CreateBucketsPayload, xAdsRegion?: Region,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    createBucket(accessToken: string,policyKey: CreateBucketsPayload, xAdsRegion: Region,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Deletes the specified bucket. Only the application that owns the bucket can call this operation. All other applications that call this operation will receive a \"403 Forbidden\" error.   The initial processing of a bucket deletion request can be time-consuming. So, we recommend only deleting buckets containing a few objects, like those typically used for acceptance testing and prototyping.   **Note:** Bucket keys will not be immediately available for reuse.  
@@ -305,7 +308,7 @@ export interface BucketsApiInterface {
 export class BucketsApi extends BaseApi implements BucketsApiInterface {
     private logger = this.sdkManager.logger;
     /**
-     * Creates a bucket.   Buckets are virtual container within the Object Storage Service (OSS), which you can use to store and manage objects (files) in the cloud. The application creating the bucket is the owner of the bucket.  **Note:** Do not use this operation to create buckets for BIM360 Document Management. Use `POST projects/{project_id}/storage </en/docs/data/v2/reference/http/projects-project_id-storage-POST>_ instead. For details, see `Upload Files to BIM 360 Document Management </en/docs/bim360/v1/tutorials/document-management/upload-document>`_. 
+     * Creates a bucket.   Buckets are virtual container within the Object Storage Service (OSS), which you can use to store and manage objects (files) in the cloud. The application creating the bucket is the owner of the bucket.  **Note:** Do not use this operation to create buckets for BIM360 Document Management. Use [POST projects/{project_id}/storage](/en/docs/data/v2/reference/http/projects-project_id-storage-POST>) instead. For details, see [Upload Files to BIM 360 Document Management](/en/docs/bim360/v1/tutorials/document-management/upload-document). 
      * @summary Create Bucket
      * @param {CreateBucketsPayload} policyKey 
      * @param {Region} [xAdsRegion] Specifies where the bucket must be stored. Possible values are: - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center for the US region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center for the European Union, Middle East, and Africa. - &#x60;&#x60;APAC&#x60;&#x60; -  (Beta) Data center for Australia. **Note:** Beta features are subject to change. Please do not use in production environments. 

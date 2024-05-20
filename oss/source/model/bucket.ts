@@ -5,7 +5,7 @@ import { Permission } from './permission';
 import { PolicyKey } from './policy-key';
 
 /**
- * 
+ * An object representing a bucket.
  * @export
  * @interface Bucket
  */

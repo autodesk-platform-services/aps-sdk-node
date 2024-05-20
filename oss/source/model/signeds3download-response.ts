@@ -4,7 +4,7 @@
 import { DownloadStatus } from './download-status';
 
 /**
- * 
+ * An object representing the response payload on successful execution of a Generate Signed S3 Download URL operation.
  * @export
  * @interface Signeds3downloadResponse
  */

@@ -4,7 +4,7 @@
 import { PermissionAccess } from './permission-access';
 
 /**
- * 
+ * An object representing the permissions for accessing a bucket.
  * @export
  * @interface Permission
  */

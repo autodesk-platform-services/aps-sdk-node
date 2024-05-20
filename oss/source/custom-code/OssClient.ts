@@ -259,40 +259,6 @@ export class OssClient {
         return response.content;
     }
     /**
-     * Returns an empty response body and a 200 response code if the object exists.
-     * @param {string} bucketKey URL-encoded bucket key
-     * @param {string} objectKey URL-encoded object name
-     * @param {string} [ifModifiedSince] If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body. 
-     * @param {string} [xAdsAcmNamespace] This header is used to let the OSS Api Proxy know if ACM is used to authorize access to the given object. If this authorization is used by your service, then you must provide the name of the namespace you want to validate access control policies against.
-     * @param {string} [xAdsAcmCheckGroups] Informs the OSS Api Proxy know if your service requires ACM authorization to also validate against Oxygen groups. If so, you must pass this header with a value of \&#39;true\&#39;. Otherwise, the assumption is that checking authorization against Oxygen groups is not required.
-     * @param {string} [xAdsAcmGroups] Use this header to pass the Oxygen groups you want the OSS Api Proxy to use for group validation for the given user in the OAuth2 token.
-     * @param {HeadObjectDetailsWithEnum} [_with] Extra information in details; multiple uses are supported Acceptable values: &#x60;createdDate&#x60;, &#x60;lastAccessedDate&#x60;, &#x60;lastModifiedDate&#x60; 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    public async headObjectDetails(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { ifModifiedSince?: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, _with?: With, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
-        const response = await this.objectApi.headObjectDetails(accessToken, bucketKey, objectKey, optionalArgs?.ifModifiedSince, optionalArgs?.xAdsAcmNamespace, optionalArgs?.xAdsAcmCheckGroups, optionalArgs?.xAdsAcmGroups, optionalArgs?._with, optionalArgs?.options);
-        return response.content;
-    }
-    /**
-     * Upload an object to this bucket using the body of a POST request, as multipart form data. If during the upload, OSS determines that the combination of bucket key + object key already exists, then the uploaded content will overwrite the existing object. Even if it is possible to upload multiple files in the same request, it is better to create one request for each and paralellize the uploads.
-     * @param {string} bucketKey URL-encoded bucket key
-     * @param {number} contentLength Indicates the size of the request body. Since the multipart type is complex, this is usually computed after building the body and getting its length.
-     * @param {string} xAdsObjectName The key of the object being uploaded. Must be URL-encoded, and it must be 3-1024 characters including any UTF-8 encoding for foreign character support. If an object with this key already exists in the bucket, the object will be overwritten.
-     * @param {number} xAdsObjectSize The size in bytes of the file to upload.
-     * @param {string} [contentType] Must be the multipart type followed by the boundary used; example: \&#39;multipart/form-data, boundary&#x3D;AaB03x\&#39;.
-     * @param {string} [xAdsAcmNamespace] This header is used to let the OSS Api Proxy know if ACM is used to authorize access to the given object. If this authorization is used by your service, then you must provide the name of the namespace you want to validate access control policies against.
-     * @param {string} [xAdsAcmCheckGroups] Informs the OSS Api Proxy know if your service requires ACM authorization to also validate against Oxygen groups. If so, you must pass this header with a value of \&#39;true\&#39;. Otherwise, the assumption is that checking authorization against Oxygen groups is not required.
-     * @param {string} [xAdsAcmGroups] Use this header to pass the Oxygen groups you want the OSS Api Proxy to use for group validation for the given user in the OAuth2 token.
-     * @param {string} [xAdsMetaCacheControl] The value of this header will be stored with the uploaded object. The value will be used as the \&#39;Cache-Control\&#39; header in the response when the object is downloaded.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    // public async postUpload(accessToken: string, bucketKey: string, contentLength: number, xAdsObjectName: string, xAdsObjectSize: number, optionalArgs?: { contentType?: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, xAdsMetaCacheControl?: string, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
-    //     const response = await this.bucketApi.postUpload(accessToken, bucketKey, contentLength, xAdsObjectName, xAdsObjectSize, optionalArgs?.contentType, optionalArgs?.xAdsAcmNamespace, optionalArgs?.xAdsAcmCheckGroups, optionalArgs?.xAdsAcmGroups, optionalArgs?.xAdsMetaCacheControl, optionalArgs?.options);
-    //     return response.content;
-    // }
-    /**
      * Gets a signed URL to a download an object directly from S3, bypassing OSS servers. This signed URL expires in 60 seconds, so the request must begin within that time frame; the actual data transfer can take longer. Note that resumable uploads store each chunk individually; after the upload completes, an async process merges all the chunks and creates the definitive OSS file. If you request a signed URL before the async process completes, the response returns a map of S3 URLs, one per chunk; the key is the byte range of the total file to which the chunk corresponds. If you need a single URL in the response, you can use OSS signed resource functionality by setting the \'public-resource-fallback\' query parameter to true. Lastly, note that ranged downloads can be used with the returned URL.
      * @param {string} bucketKey URL-encoded bucket key
      * @param {string} objectKey The URL-encoded key of the object for which to create a signed URL.

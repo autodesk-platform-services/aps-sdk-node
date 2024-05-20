@@ -4,7 +4,7 @@
 import { BucketsItems } from './buckets-items';
 
 /**
- * 
+ * An object that represents a collection of buckets.
  * @export
  * @interface Buckets
  */

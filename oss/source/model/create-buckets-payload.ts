@@ -5,7 +5,7 @@ import { CreateBucketsPayloadAllow } from './create-buckets-payload-allow';
 import { PolicyKey } from './policy-key';
 
 /**
- * Request body structure for Create Bucket operation.
+ * The request payload for the Create Bucket operation.
  * @export
  * @interface CreateBucketsPayload
  */

@@ -125,7 +125,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
             };
         },
         /**
-         * Creates and returns signed URLs to upload a set of objects directly to S3. These signed URLs expire in 2 minutes by default, but you can change this duration if needed.  You must start uploading the objects before the signed URLs expire. The upload  itself can take longer.  Only the application that owns the bucket can call this operation. All other applications that call this operation will receive a \"403 Forbidden\" error.  If required, you can request an array of signed URLs for each object, which lets you upload the objects in chunks. Once you upload all chunks you must call the `Complete Batch Upload to S3 Signed URL </en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-batchcompleteupload-POST/>`_ operation to indicate completion. This instructs OSS to assemble the chunks and reconstitute the object on OSS. You must call this operation even if you requested a single signed URL for an object.  If an upload fails after the validity period of a signed URL has elapsed, you can call this operation again to obtain fresh signed URLs. However, you must use the same ``uploadKey`` that was returned when you originally called this operation.  
+         * Creates and returns signed URLs to upload a set of objects directly to S3. These signed URLs expire in 2 minutes by default, but you can change this duration if needed.  You must start uploading the objects before the signed URLs expire. The upload  itself can take longer.  Only the application that owns the bucket can call this operation. All other applications that call this operation will receive a \"403 Forbidden\" error.  If required, you can request an array of signed URLs for each object, which lets you upload the objects in chunks. Once you upload all chunks you must call the [Complete Batch Upload to S3 Signed URL](/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-batchcompleteupload-POST/) operation to indicate completion. This instructs OSS to assemble the chunks and reconstitute the object on OSS. You must call this operation even if you requested a single signed URL for an object.  If an upload fails after the validity period of a signed URL has elapsed, you can call this operation again to obtain fresh signed URLs. However, you must use the same ``uploadKey`` that was returned when you originally called this operation.  
          * @summary Batch Generate Signed S3 Upload URLs
          * @param {string} bucketKey The bucket key of the bucket that contains the objects you are operating on.
          * @param {boolean} [useAcceleration] &#x60;&#x60;true&#x60;&#x60; : (Default) Generates a faster S3 signed URL using Transfer Acceleration.  &#x60;&#x60;false&#x60;&#x60;: Generates a standard S3 signed URL. 
@@ -304,6 +304,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -414,6 +415,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -426,7 +428,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
         /**
          * Delete an object using an OSS signed URL to access it.  Only applications that own the bucket containing the object can call this operation.  
          * @summary Delete Object Using Signed URL
-         * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by Generate OSS Signed URL &lt;/en/docs/data/v2/reference/http/signedresources-:id-GET/&gt;_ contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
+         * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
          * @param {Region} [xAdsRegion] Specifies where the bucket containing the object stored. Possible values are:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center for the US region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center for the European Union, Middle East, and Africa. - &#x60;&#x60;APAC&#x60;&#x60; -  (Beta) Data center for Australia.  **Note:** Beta features are subject to change. Please do not use in production environments. 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
@@ -457,6 +459,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -524,6 +527,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -575,6 +579,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -585,9 +590,9 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
             };
         },
         /**
-         * Downloads an object using an OSS signed URL.  **Note:** The signed URL returned by `Generate OSS Signed URL </en/docs/data/v2/reference/http/signedresources-:id-GET/>`_  contains the ``hash`` URI parameter as well.  
+         * Downloads an object using an OSS signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/)  contains the ``hash`` URI parameter as well.  
          * @summary Download Object Using Signed URL
-         * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by Generate OSS Signed URL &lt;/en/docs/data/v2/reference/http/signedresources-:id-GET/&gt;_ contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
+         * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
          * @param {string} [range] The byte range to download, specified in the form &#x60;&#x60;bytes&#x3D;&lt;START_BYTE&gt;-&lt;END_BYTE&gt;&#x60;&#x60;.
          * @param {string} [ifNoneMatch] The last known ETag value of the object. OSS returns the requested data  only if the &#x60;&#x60;If-None-Match&#x60;&#x60; header differs from the ETag value of the object on OSS, which indicates that the object on OSS is newer. If not, it returns a 304 \&quot;Not Modified\&quot; HTTP status.
          * @param {string} [ifModifiedSince] A timestamp in the HTTP date format (Mon, DD Month YYYY HH:MM:SS GMT). The requested data is returned only if the object has been modified since the specified timestamp. If not, a 304 (Not Modified) HTTP status is returned. 
@@ -648,73 +653,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Returns an empty response body and a 200 response code if the object exists.
-         * @summary Check Object Existence
-         * @param {string} bucketKey The bucket key of the bucket that contains the objects you are operating on.
-         * @param {string} objectKey The URL-encoded human friendly name of the object.
-         * @param {string} [ifModifiedSince] A timestamp in the HTTP date format (Mon, DD Month YYYY HH:MM:SS GMT). The requested data is returned only if the object has been modified since the specified timestamp. If not, a 304 (Not Modified) HTTP status is returned. 
-         * @param {string} [xAdsAcmNamespace] This header is used to let the OSS Api Proxy know if ACM is used to authorize access to the given object. If this authorization is used by your service, then you must provide the name of the namespace you want to validate access control policies against.
-         * @param {string} [xAdsAcmCheckGroups] Informs the OSS Api Proxy know if your service requires ACM authorization to also validate against Oxygen groups. If so, you must pass this header with a value of &#x60;&#x60;true&#x60;&#x60;. Otherwise, the assumption is that checking authorization against Oxygen groups is not required.
-         * @param {string} [xAdsAcmGroups] Use this header to pass the Oxygen groups you want the OSS Api Proxy to use for group validation for the given user in the OAuth2 token.
-         * @param {HeadObjectDetailsWithEnum} [_with] **Not applicable to this operation**  The optional information you can request for. To request more than one of the following, specify this parameter multiple times in the request.  Possible values:   - &#x60;&#x60;createdDate&#x60;&#x60;  - &#x60;&#x60;lastAccessedDate&#x60;&#x60;  - &#x60;&#x60;lastModifiedDate&#x60;&#x60;  - &#x60;&#x60;userDefinedMetadata&#x60;&#x60; 
-         * @param accessToken bearer access token
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        headObjectDetails: async (accessToken: string, bucketKey: string, objectKey: string, ifModifiedSince?: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, _with?: HeadObjectDetailsWithEnum,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'bucketKey' is not null or undefined
-            assertParamExists('headObjectDetails', 'bucketKey', bucketKey)
-            // verify required parameter 'objectKey' is not null or undefined
-            assertParamExists('headObjectDetails', 'objectKey', objectKey)
-            const localVarPath = `/oss/v2/buckets/{bucketKey}/objects/{objectKey}/details`
-                .replace(`{${"bucketKey"}}`, encodeURIComponent(String(bucketKey)))
-                .replace(`{${"objectKey"}}`, encodeURIComponent(String(objectKey)));
-            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
-            let baseOptions;
-            if (apsConfiguration) {
-                baseOptions = apsConfiguration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'HEAD', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            await setBearerAuthToObject(localVarHeaderParameter, accessToken)
-
-            if (_with !== undefined) {
-                localVarQueryParameter['with'] = _with;
-            }
-
-            if (ifModifiedSince != null) {
-                localVarHeaderParameter['If-Modified-Since'] = typeof ifModifiedSince === 'string'
-                    ? ifModifiedSince
-                    : JSON.stringify(ifModifiedSince);
-            }
-
-            if (xAdsAcmNamespace != null) {
-                localVarHeaderParameter['x-ads-acm-namespace'] = String(xAdsAcmNamespace);
-            }
-
-            if (xAdsAcmCheckGroups != null) {
-                localVarHeaderParameter['x-ads-acm-check-groups'] = String(xAdsAcmCheckGroups);
-            }
-
-            if (xAdsAcmGroups != null) {
-                localVarHeaderParameter['x-ads-acm-groups'] = String(xAdsAcmGroups);
-            }
-
-
-    
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -807,6 +746,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -817,7 +757,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
             };
         },
         /**
-         * Gets a signed URL to upload an object directly to S3, bypassing OSS servers. You can also request an array of signed URLs which lets you upload an object in chunks.  This signed URL expires in 2 minutes by default, but you can change this duration if needed.  You must start the upload before the signed URL expires. The upload itself can take longer. If the upload fails after the validity period of the signed URL has elapsed, you can call this operation again to obtain a fresh signed URL (or an array of signed URLs as the case may be). However, you must use the same ``uploadKey`` that was returned when you originally called this operation.   Only applications that own the bucket can call this operation.  **Note:** Once you upload all chunks you must call the `Complete Upload to S3 Signed URL </en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3upload-POST/>`_ operation to indicate completion. This instructs OSS to assemble the chunks and reconstitute the object on OSS. You must call this operation even when using a single signed URL.   In addition to this operation that generates S3 signed URLs, OSS provides an operation to generate OSS signed URLs. S3 signed URLs allow direct upload/download from S3 but are restricted to bucket owners. OSS signed URLs also allow upload/download and can be configured for access by other applications, making them suitable for sharing objects across applications.     
+         * Gets a signed URL to upload an object directly to S3, bypassing OSS servers. You can also request an array of signed URLs which lets you upload an object in chunks.  This signed URL expires in 2 minutes by default, but you can change this duration if needed.  You must start the upload before the signed URL expires. The upload itself can take longer. If the upload fails after the validity period of the signed URL has elapsed, you can call this operation again to obtain a fresh signed URL (or an array of signed URLs as the case may be). However, you must use the same ``uploadKey`` that was returned when you originally called this operation.   Only applications that own the bucket can call this operation.  **Note:** Once you upload all chunks you must call the [Complete Upload to S3 Signed URL](/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3upload-POST/) operation to indicate completion. This instructs OSS to assemble the chunks and reconstitute the object on OSS. You must call this operation even when using a single signed URL.   In addition to this operation that generates S3 signed URLs, OSS provides an operation to generate OSS signed URLs. S3 signed URLs allow direct upload/download from S3 but are restricted to bucket owners. OSS signed URLs also allow upload/download and can be configured for access by other applications, making them suitable for sharing objects across applications.     
          * @summary Generate Signed S3 Upload URL
          * @param {string} bucketKey The bucket key of the bucket that contains the objects you are operating on.
          * @param {string} objectKey The URL-encoded human friendly name of the object.
@@ -877,6 +817,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -889,7 +830,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
         /**
          * Replaces an object that already exists on OSS, using an OSS signed URL.   The signed URL must fulfil the following conditions:  - The signed URL is valid (it has not expired as yet). - It was generated with ``write`` or ``readwrite`` for the ``access`` parameter. 
          * @summary Replace Object Using Signed URL
-         * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by Generate OSS Signed URL &lt;/en/docs/data/v2/reference/http/signedresources-:id-GET/&gt;_ contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
+         * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
          * @param {number} contentLength The size of the data contained in the request body, in bytes.
          * @param {File} body The object to upload.
          * @param {string} [contentType] The MIME type of the object to upload; can be any type except \&#39;multipart/form-data\&#39;. This can be omitted, but we recommend adding it.
@@ -954,6 +895,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
     
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -965,9 +907,9 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
             };
         },
         /**
-         * Performs a resumable upload using an OSS signed URL. Use this operation to upload an object in chunks.  **Note:** The signed URL returned by `Generate OSS Signed URL </en/docs/data/v2/reference/http/signedresources-:id-GET/>`_  contains the ``hash`` URI parameter as well.  
+         * Performs a resumable upload using an OSS signed URL. Use this operation to upload an object in chunks.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains the ``hash`` as a URI parameter.  
          * @summary Upload Object Using Signed URL
-         * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by Generate OSS Signed URL &lt;/en/docs/data/v2/reference/http/signedresources-:id-GET/&gt;_ contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
+         * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
          * @param {string} contentRange The byte range to upload, specified in the form &#x60;&#x60;bytes&#x3D;&lt;START_BYTE&gt;-&lt;END_BYTE&gt;&#x60;&#x60;.
          * @param {string} sessionId An ID to uniquely identify the file upload session.
          * @param {File} body The chunk to upload.
@@ -1032,6 +974,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
     
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -1079,7 +1022,7 @@ export const ObjectsApiFp = function(sdkManager?: SdkManager) {
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
-         * Creates and returns signed URLs to upload a set of objects directly to S3. These signed URLs expire in 2 minutes by default, but you can change this duration if needed.  You must start uploading the objects before the signed URLs expire. The upload  itself can take longer.  Only the application that owns the bucket can call this operation. All other applications that call this operation will receive a \"403 Forbidden\" error.  If required, you can request an array of signed URLs for each object, which lets you upload the objects in chunks. Once you upload all chunks you must call the `Complete Batch Upload to S3 Signed URL </en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-batchcompleteupload-POST/>`_ operation to indicate completion. This instructs OSS to assemble the chunks and reconstitute the object on OSS. You must call this operation even if you requested a single signed URL for an object.  If an upload fails after the validity period of a signed URL has elapsed, you can call this operation again to obtain fresh signed URLs. However, you must use the same ``uploadKey`` that was returned when you originally called this operation.  
+         * Creates and returns signed URLs to upload a set of objects directly to S3. These signed URLs expire in 2 minutes by default, but you can change this duration if needed.  You must start uploading the objects before the signed URLs expire. The upload  itself can take longer.  Only the application that owns the bucket can call this operation. All other applications that call this operation will receive a \"403 Forbidden\" error.  If required, you can request an array of signed URLs for each object, which lets you upload the objects in chunks. Once you upload all chunks you must call the [Complete Batch Upload to S3 Signed URL](/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-batchcompleteupload-POST/) operation to indicate completion. This instructs OSS to assemble the chunks and reconstitute the object on OSS. You must call this operation even if you requested a single signed URL for an object.  If an upload fails after the validity period of a signed URL has elapsed, you can call this operation again to obtain fresh signed URLs. However, you must use the same ``uploadKey`` that was returned when you originally called this operation.  
          * @summary Batch Generate Signed S3 Upload URLs
          * @param {string} bucketKey The bucket key of the bucket that contains the objects you are operating on.
          * @param {boolean} [useAcceleration] &#x60;&#x60;true&#x60;&#x60; : (Default) Generates a faster S3 signed URL using Transfer Acceleration.  &#x60;&#x60;false&#x60;&#x60;: Generates a standard S3 signed URL. 
@@ -1160,7 +1103,7 @@ export const ObjectsApiFp = function(sdkManager?: SdkManager) {
         /**
          * Delete an object using an OSS signed URL to access it.  Only applications that own the bucket containing the object can call this operation.  
          * @summary Delete Object Using Signed URL
-         * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by Generate OSS Signed URL &lt;/en/docs/data/v2/reference/http/signedresources-:id-GET/&gt;_ contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
+         * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
          * @param {Region} [xAdsRegion] Specifies where the bucket containing the object stored. Possible values are:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center for the US region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center for the European Union, Middle East, and Africa. - &#x60;&#x60;APAC&#x60;&#x60; -  (Beta) Data center for Australia.  **Note:** Beta features are subject to change. Please do not use in production environments. 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1201,9 +1144,9 @@ export const ObjectsApiFp = function(sdkManager?: SdkManager) {
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
-         * Downloads an object using an OSS signed URL.  **Note:** The signed URL returned by `Generate OSS Signed URL </en/docs/data/v2/reference/http/signedresources-:id-GET/>`_  contains the ``hash`` URI parameter as well.  
+         * Downloads an object using an OSS signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/)  contains the ``hash`` URI parameter as well.  
          * @summary Download Object Using Signed URL
-         * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by Generate OSS Signed URL &lt;/en/docs/data/v2/reference/http/signedresources-:id-GET/&gt;_ contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
+         * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
          * @param {string} [range] The byte range to download, specified in the form &#x60;&#x60;bytes&#x3D;&lt;START_BYTE&gt;-&lt;END_BYTE&gt;&#x60;&#x60;.
          * @param {string} [ifNoneMatch] The last known ETag value of the object. OSS returns the requested data  only if the &#x60;&#x60;If-None-Match&#x60;&#x60; header differs from the ETag value of the object on OSS, which indicates that the object on OSS is newer. If not, it returns a 304 \&quot;Not Modified\&quot; HTTP status.
          * @param {string} [ifModifiedSince] A timestamp in the HTTP date format (Mon, DD Month YYYY HH:MM:SS GMT). The requested data is returned only if the object has been modified since the specified timestamp. If not, a 304 (Not Modified) HTTP status is returned. 
@@ -1216,23 +1159,6 @@ export const ObjectsApiFp = function(sdkManager?: SdkManager) {
          */
         async getSignedResource(accessToken: string, hash: string, range?: string, ifNoneMatch?: string, ifModifiedSince?: string, acceptEncoding?: string, region?: Region, responseContentDisposition?: string, responseContentType?: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<File>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getSignedResource(accessToken, hash, range, ifNoneMatch, ifModifiedSince, acceptEncoding, region, responseContentDisposition, responseContentType,  options);
-            return createRequestFunction(localVarAxiosArgs, sdkManager);
-        },
-        /**
-         * Returns an empty response body and a 200 response code if the object exists.
-         * @summary Check Object Existence
-         * @param {string} bucketKey The bucket key of the bucket that contains the objects you are operating on.
-         * @param {string} objectKey The URL-encoded human friendly name of the object.
-         * @param {string} [ifModifiedSince] A timestamp in the HTTP date format (Mon, DD Month YYYY HH:MM:SS GMT). The requested data is returned only if the object has been modified since the specified timestamp. If not, a 304 (Not Modified) HTTP status is returned. 
-         * @param {string} [xAdsAcmNamespace] This header is used to let the OSS Api Proxy know if ACM is used to authorize access to the given object. If this authorization is used by your service, then you must provide the name of the namespace you want to validate access control policies against.
-         * @param {string} [xAdsAcmCheckGroups] Informs the OSS Api Proxy know if your service requires ACM authorization to also validate against Oxygen groups. If so, you must pass this header with a value of &#x60;&#x60;true&#x60;&#x60;. Otherwise, the assumption is that checking authorization against Oxygen groups is not required.
-         * @param {string} [xAdsAcmGroups] Use this header to pass the Oxygen groups you want the OSS Api Proxy to use for group validation for the given user in the OAuth2 token.
-         * @param {HeadObjectDetailsWithEnum} [_with] **Not applicable to this operation**  The optional information you can request for. To request more than one of the following, specify this parameter multiple times in the request.  Possible values:   - &#x60;&#x60;createdDate&#x60;&#x60;  - &#x60;&#x60;lastAccessedDate&#x60;&#x60;  - &#x60;&#x60;lastModifiedDate&#x60;&#x60;  - &#x60;&#x60;userDefinedMetadata&#x60;&#x60; 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async headObjectDetails(accessToken: string, bucketKey: string, objectKey: string, ifModifiedSince?: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, _with?: HeadObjectDetailsWithEnum, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.headObjectDetails(accessToken, bucketKey, objectKey, ifModifiedSince, xAdsAcmNamespace, xAdsAcmCheckGroups, xAdsAcmGroups, _with,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
@@ -1258,7 +1184,7 @@ export const ObjectsApiFp = function(sdkManager?: SdkManager) {
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
-         * Gets a signed URL to upload an object directly to S3, bypassing OSS servers. You can also request an array of signed URLs which lets you upload an object in chunks.  This signed URL expires in 2 minutes by default, but you can change this duration if needed.  You must start the upload before the signed URL expires. The upload itself can take longer. If the upload fails after the validity period of the signed URL has elapsed, you can call this operation again to obtain a fresh signed URL (or an array of signed URLs as the case may be). However, you must use the same ``uploadKey`` that was returned when you originally called this operation.   Only applications that own the bucket can call this operation.  **Note:** Once you upload all chunks you must call the `Complete Upload to S3 Signed URL </en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3upload-POST/>`_ operation to indicate completion. This instructs OSS to assemble the chunks and reconstitute the object on OSS. You must call this operation even when using a single signed URL.   In addition to this operation that generates S3 signed URLs, OSS provides an operation to generate OSS signed URLs. S3 signed URLs allow direct upload/download from S3 but are restricted to bucket owners. OSS signed URLs also allow upload/download and can be configured for access by other applications, making them suitable for sharing objects across applications.     
+         * Gets a signed URL to upload an object directly to S3, bypassing OSS servers. You can also request an array of signed URLs which lets you upload an object in chunks.  This signed URL expires in 2 minutes by default, but you can change this duration if needed.  You must start the upload before the signed URL expires. The upload itself can take longer. If the upload fails after the validity period of the signed URL has elapsed, you can call this operation again to obtain a fresh signed URL (or an array of signed URLs as the case may be). However, you must use the same ``uploadKey`` that was returned when you originally called this operation.   Only applications that own the bucket can call this operation.  **Note:** Once you upload all chunks you must call the [Complete Upload to S3 Signed URL](/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3upload-POST/) operation to indicate completion. This instructs OSS to assemble the chunks and reconstitute the object on OSS. You must call this operation even when using a single signed URL.   In addition to this operation that generates S3 signed URLs, OSS provides an operation to generate OSS signed URLs. S3 signed URLs allow direct upload/download from S3 but are restricted to bucket owners. OSS signed URLs also allow upload/download and can be configured for access by other applications, making them suitable for sharing objects across applications.     
          * @summary Generate Signed S3 Upload URL
          * @param {string} bucketKey The bucket key of the bucket that contains the objects you are operating on.
          * @param {string} objectKey The URL-encoded human friendly name of the object.
@@ -1278,7 +1204,7 @@ export const ObjectsApiFp = function(sdkManager?: SdkManager) {
         /**
          * Replaces an object that already exists on OSS, using an OSS signed URL.   The signed URL must fulfil the following conditions:  - The signed URL is valid (it has not expired as yet). - It was generated with ``write`` or ``readwrite`` for the ``access`` parameter. 
          * @summary Replace Object Using Signed URL
-         * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by Generate OSS Signed URL &lt;/en/docs/data/v2/reference/http/signedresources-:id-GET/&gt;_ contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
+         * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
          * @param {number} contentLength The size of the data contained in the request body, in bytes.
          * @param {File} body The object to upload.
          * @param {string} [contentType] The MIME type of the object to upload; can be any type except \&#39;multipart/form-data\&#39;. This can be omitted, but we recommend adding it.
@@ -1293,9 +1219,9 @@ export const ObjectsApiFp = function(sdkManager?: SdkManager) {
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
-         * Performs a resumable upload using an OSS signed URL. Use this operation to upload an object in chunks.  **Note:** The signed URL returned by `Generate OSS Signed URL </en/docs/data/v2/reference/http/signedresources-:id-GET/>`_  contains the ``hash`` URI parameter as well.  
+         * Performs a resumable upload using an OSS signed URL. Use this operation to upload an object in chunks.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains the ``hash`` as a URI parameter.  
          * @summary Upload Object Using Signed URL
-         * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by Generate OSS Signed URL &lt;/en/docs/data/v2/reference/http/signedresources-:id-GET/&gt;_ contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
+         * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
          * @param {string} contentRange The byte range to upload, specified in the form &#x60;&#x60;bytes&#x3D;&lt;START_BYTE&gt;-&lt;END_BYTE&gt;&#x60;&#x60;.
          * @param {string} sessionId An ID to uniquely identify the file upload session.
          * @param {File} body The chunk to upload.
@@ -1345,7 +1271,7 @@ export interface ObjectsApiInterface {
     batchSignedS3Download(accessToken: string,bucketKey: string, requests: Batchsigneds3downloadObject, publicResourceFallback?: boolean, minutesExpiration?: number,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
-     * Creates and returns signed URLs to upload a set of objects directly to S3. These signed URLs expire in 2 minutes by default, but you can change this duration if needed.  You must start uploading the objects before the signed URLs expire. The upload  itself can take longer.  Only the application that owns the bucket can call this operation. All other applications that call this operation will receive a \"403 Forbidden\" error.  If required, you can request an array of signed URLs for each object, which lets you upload the objects in chunks. Once you upload all chunks you must call the `Complete Batch Upload to S3 Signed URL </en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-batchcompleteupload-POST/>`_ operation to indicate completion. This instructs OSS to assemble the chunks and reconstitute the object on OSS. You must call this operation even if you requested a single signed URL for an object.  If an upload fails after the validity period of a signed URL has elapsed, you can call this operation again to obtain fresh signed URLs. However, you must use the same ``uploadKey`` that was returned when you originally called this operation.  
+     * Creates and returns signed URLs to upload a set of objects directly to S3. These signed URLs expire in 2 minutes by default, but you can change this duration if needed.  You must start uploading the objects before the signed URLs expire. The upload  itself can take longer.  Only the application that owns the bucket can call this operation. All other applications that call this operation will receive a \"403 Forbidden\" error.  If required, you can request an array of signed URLs for each object, which lets you upload the objects in chunks. Once you upload all chunks you must call the [Complete Batch Upload to S3 Signed URL](/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-batchcompleteupload-POST/) operation to indicate completion. This instructs OSS to assemble the chunks and reconstitute the object on OSS. You must call this operation even if you requested a single signed URL for an object.  If an upload fails after the validity period of a signed URL has elapsed, you can call this operation again to obtain fresh signed URLs. However, you must use the same ``uploadKey`` that was returned when you originally called this operation.  
      * @summary Batch Generate Signed S3 Upload URLs
      * @param {string} bucketKey The bucket key of the bucket that contains the objects you are operating on.
      * @param {boolean} [useAcceleration] &#x60;&#x60;true&#x60;&#x60; : (Default) Generates a faster S3 signed URL using Transfer Acceleration.  &#x60;&#x60;false&#x60;&#x60;: Generates a standard S3 signed URL. 
@@ -1426,7 +1352,7 @@ export interface ObjectsApiInterface {
     /**
      * Delete an object using an OSS signed URL to access it.  Only applications that own the bucket containing the object can call this operation.  
      * @summary Delete Object Using Signed URL
-     * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by Generate OSS Signed URL &lt;/en/docs/data/v2/reference/http/signedresources-:id-GET/&gt;_ contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
+     * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
      * @param {Region} [xAdsRegion] Specifies where the bucket containing the object stored. Possible values are:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center for the US region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center for the European Union, Middle East, and Africa. - &#x60;&#x60;APAC&#x60;&#x60; -  (Beta) Data center for Australia.  **Note:** Beta features are subject to change. Please do not use in production environments. 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -1467,9 +1393,9 @@ export interface ObjectsApiInterface {
     getObjects(accessToken: string,bucketKey: string, limit?: number, beginsWith?: string, startAt?: string,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
-     * Downloads an object using an OSS signed URL.  **Note:** The signed URL returned by `Generate OSS Signed URL </en/docs/data/v2/reference/http/signedresources-:id-GET/>`_  contains the ``hash`` URI parameter as well.  
+     * Downloads an object using an OSS signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/)  contains the ``hash`` URI parameter as well.  
      * @summary Download Object Using Signed URL
-     * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by Generate OSS Signed URL &lt;/en/docs/data/v2/reference/http/signedresources-:id-GET/&gt;_ contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
+     * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
      * @param {string} [range] The byte range to download, specified in the form &#x60;&#x60;bytes&#x3D;&lt;START_BYTE&gt;-&lt;END_BYTE&gt;&#x60;&#x60;.
      * @param {string} [ifNoneMatch] The last known ETag value of the object. OSS returns the requested data  only if the &#x60;&#x60;If-None-Match&#x60;&#x60; header differs from the ETag value of the object on OSS, which indicates that the object on OSS is newer. If not, it returns a 304 \&quot;Not Modified\&quot; HTTP status.
      * @param {string} [ifModifiedSince] A timestamp in the HTTP date format (Mon, DD Month YYYY HH:MM:SS GMT). The requested data is returned only if the object has been modified since the specified timestamp. If not, a 304 (Not Modified) HTTP status is returned. 
@@ -1483,23 +1409,6 @@ export interface ObjectsApiInterface {
      * @memberof ObjectsApiInterface
      */
     getSignedResource(accessToken: string,hash: string, range?: string, ifNoneMatch?: string, ifModifiedSince?: string, acceptEncoding?: string, region?: Region, responseContentDisposition?: string, responseContentType?: string,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
-
-    /**
-     * Returns an empty response body and a 200 response code if the object exists.
-     * @summary Check Object Existence
-     * @param {string} bucketKey The bucket key of the bucket that contains the objects you are operating on.
-     * @param {string} objectKey The URL-encoded human friendly name of the object.
-     * @param {string} [ifModifiedSince] A timestamp in the HTTP date format (Mon, DD Month YYYY HH:MM:SS GMT). The requested data is returned only if the object has been modified since the specified timestamp. If not, a 304 (Not Modified) HTTP status is returned. 
-     * @param {string} [xAdsAcmNamespace] This header is used to let the OSS Api Proxy know if ACM is used to authorize access to the given object. If this authorization is used by your service, then you must provide the name of the namespace you want to validate access control policies against.
-     * @param {string} [xAdsAcmCheckGroups] Informs the OSS Api Proxy know if your service requires ACM authorization to also validate against Oxygen groups. If so, you must pass this header with a value of &#x60;&#x60;true&#x60;&#x60;. Otherwise, the assumption is that checking authorization against Oxygen groups is not required.
-     * @param {string} [xAdsAcmGroups] Use this header to pass the Oxygen groups you want the OSS Api Proxy to use for group validation for the given user in the OAuth2 token.
-     * @param {HeadObjectDetailsWithEnum} [_with] **Not applicable to this operation**  The optional information you can request for. To request more than one of the following, specify this parameter multiple times in the request.  Possible values:   - &#x60;&#x60;createdDate&#x60;&#x60;  - &#x60;&#x60;lastAccessedDate&#x60;&#x60;  - &#x60;&#x60;lastModifiedDate&#x60;&#x60;  - &#x60;&#x60;userDefinedMetadata&#x60;&#x60; 
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ObjectsApiInterface
-     */
-    headObjectDetails(accessToken: string,bucketKey: string, objectKey: string, ifModifiedSince?: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, _with?: HeadObjectDetailsWithEnum,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Gets a signed URL to download an object directly from S3, bypassing OSS servers. This signed URL expires in 2 minutes by default, but you can change this duration if needed.  You must start the download before the signed URL expires. The download itself can take longer. If the download fails after the validity period of the signed URL has elapsed, you can call this operation again to obtain a fresh signed URL.  Only applications that have read access to the object can call this operation.     You can use range headers with the signed download URL to download the object in chunks. This ability lets you download chunks in parallel, which can result in faster downloads.  If the object you want to download was uploaded in chunks and is still assembling on OSS, you will receive multiple S3 URLs instead of just one. Each URL will point to a chunk. If you prefer to receive a single URL, set the ``public-resource-fallback`` query parameter to ``true``. This setting will make OSS fallback to returning a single signed OSS URL, if assembling is still in progress.   In addition to this operation that generates S3 signed URLs, OSS provides an operation to generate OSS signed URLs. S3 signed URLs allow direct upload/download from S3 but are restricted to bucket owners. OSS signed URLs also allow upload/download and can be configured for access by other applications, making them suitable for sharing objects across applications. 
@@ -1524,7 +1433,7 @@ export interface ObjectsApiInterface {
     signedS3Download(accessToken: string,bucketKey: string, objectKey: string, ifNoneMatch?: string, ifModifiedSince?: string, xAdsAcmScopes?: string, responseContentType?: string, responseContentDisposition?: string, responseCacheControl?: string, publicResourceFallback?: boolean, minutesExpiration?: number, useCdn?: boolean, redirect?: boolean,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
-     * Gets a signed URL to upload an object directly to S3, bypassing OSS servers. You can also request an array of signed URLs which lets you upload an object in chunks.  This signed URL expires in 2 minutes by default, but you can change this duration if needed.  You must start the upload before the signed URL expires. The upload itself can take longer. If the upload fails after the validity period of the signed URL has elapsed, you can call this operation again to obtain a fresh signed URL (or an array of signed URLs as the case may be). However, you must use the same ``uploadKey`` that was returned when you originally called this operation.   Only applications that own the bucket can call this operation.  **Note:** Once you upload all chunks you must call the `Complete Upload to S3 Signed URL </en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3upload-POST/>`_ operation to indicate completion. This instructs OSS to assemble the chunks and reconstitute the object on OSS. You must call this operation even when using a single signed URL.   In addition to this operation that generates S3 signed URLs, OSS provides an operation to generate OSS signed URLs. S3 signed URLs allow direct upload/download from S3 but are restricted to bucket owners. OSS signed URLs also allow upload/download and can be configured for access by other applications, making them suitable for sharing objects across applications.     
+     * Gets a signed URL to upload an object directly to S3, bypassing OSS servers. You can also request an array of signed URLs which lets you upload an object in chunks.  This signed URL expires in 2 minutes by default, but you can change this duration if needed.  You must start the upload before the signed URL expires. The upload itself can take longer. If the upload fails after the validity period of the signed URL has elapsed, you can call this operation again to obtain a fresh signed URL (or an array of signed URLs as the case may be). However, you must use the same ``uploadKey`` that was returned when you originally called this operation.   Only applications that own the bucket can call this operation.  **Note:** Once you upload all chunks you must call the [Complete Upload to S3 Signed URL](/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3upload-POST/) operation to indicate completion. This instructs OSS to assemble the chunks and reconstitute the object on OSS. You must call this operation even when using a single signed URL.   In addition to this operation that generates S3 signed URLs, OSS provides an operation to generate OSS signed URLs. S3 signed URLs allow direct upload/download from S3 but are restricted to bucket owners. OSS signed URLs also allow upload/download and can be configured for access by other applications, making them suitable for sharing objects across applications.     
      * @summary Generate Signed S3 Upload URL
      * @param {string} bucketKey The bucket key of the bucket that contains the objects you are operating on.
      * @param {string} objectKey The URL-encoded human friendly name of the object.
@@ -1544,7 +1453,7 @@ export interface ObjectsApiInterface {
     /**
      * Replaces an object that already exists on OSS, using an OSS signed URL.   The signed URL must fulfil the following conditions:  - The signed URL is valid (it has not expired as yet). - It was generated with ``write`` or ``readwrite`` for the ``access`` parameter. 
      * @summary Replace Object Using Signed URL
-     * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by Generate OSS Signed URL &lt;/en/docs/data/v2/reference/http/signedresources-:id-GET/&gt;_ contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
+     * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
      * @param {number} contentLength The size of the data contained in the request body, in bytes.
      * @param {File} body The object to upload.
      * @param {string} [contentType] The MIME type of the object to upload; can be any type except \&#39;multipart/form-data\&#39;. This can be omitted, but we recommend adding it.
@@ -1559,9 +1468,9 @@ export interface ObjectsApiInterface {
     uploadSignedResource(accessToken: string,hash: string, contentLength: number, body: File, contentType?: string, contentDisposition?: string, xAdsRegion?: Region, ifMatch?: string,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
-     * Performs a resumable upload using an OSS signed URL. Use this operation to upload an object in chunks.  **Note:** The signed URL returned by `Generate OSS Signed URL </en/docs/data/v2/reference/http/signedresources-:id-GET/>`_  contains the ``hash`` URI parameter as well.  
+     * Performs a resumable upload using an OSS signed URL. Use this operation to upload an object in chunks.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains the ``hash`` as a URI parameter.  
      * @summary Upload Object Using Signed URL
-     * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by Generate OSS Signed URL &lt;/en/docs/data/v2/reference/http/signedresources-:id-GET/&gt;_ contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
+     * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
      * @param {string} contentRange The byte range to upload, specified in the form &#x60;&#x60;bytes&#x3D;&lt;START_BYTE&gt;-&lt;END_BYTE&gt;&#x60;&#x60;.
      * @param {string} sessionId An ID to uniquely identify the file upload session.
      * @param {File} body The chunk to upload.
@@ -1646,7 +1555,7 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
     }
 
     /**
-     * Creates and returns signed URLs to upload a set of objects directly to S3. These signed URLs expire in 2 minutes by default, but you can change this duration if needed.  You must start uploading the objects before the signed URLs expire. The upload  itself can take longer.  Only the application that owns the bucket can call this operation. All other applications that call this operation will receive a \"403 Forbidden\" error.  If required, you can request an array of signed URLs for each object, which lets you upload the objects in chunks. Once you upload all chunks you must call the `Complete Batch Upload to S3 Signed URL </en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-batchcompleteupload-POST/>`_ operation to indicate completion. This instructs OSS to assemble the chunks and reconstitute the object on OSS. You must call this operation even if you requested a single signed URL for an object.  If an upload fails after the validity period of a signed URL has elapsed, you can call this operation again to obtain fresh signed URLs. However, you must use the same ``uploadKey`` that was returned when you originally called this operation.  
+     * Creates and returns signed URLs to upload a set of objects directly to S3. These signed URLs expire in 2 minutes by default, but you can change this duration if needed.  You must start uploading the objects before the signed URLs expire. The upload  itself can take longer.  Only the application that owns the bucket can call this operation. All other applications that call this operation will receive a \"403 Forbidden\" error.  If required, you can request an array of signed URLs for each object, which lets you upload the objects in chunks. Once you upload all chunks you must call the [Complete Batch Upload to S3 Signed URL](/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-batchcompleteupload-POST/) operation to indicate completion. This instructs OSS to assemble the chunks and reconstitute the object on OSS. You must call this operation even if you requested a single signed URL for an object.  If an upload fails after the validity period of a signed URL has elapsed, you can call this operation again to obtain fresh signed URLs. However, you must use the same ``uploadKey`` that was returned when you originally called this operation.  
      * @summary Batch Generate Signed S3 Upload URLs
      * @param {string} bucketKey The bucket key of the bucket that contains the objects you are operating on.
      * @param {boolean} [useAcceleration] &#x60;&#x60;true&#x60;&#x60; : (Default) Generates a faster S3 signed URL using Transfer Acceleration.  &#x60;&#x60;false&#x60;&#x60;: Generates a standard S3 signed URL. 
@@ -1812,7 +1721,7 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
     /**
      * Delete an object using an OSS signed URL to access it.  Only applications that own the bucket containing the object can call this operation.  
      * @summary Delete Object Using Signed URL
-     * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by Generate OSS Signed URL &lt;/en/docs/data/v2/reference/http/signedresources-:id-GET/&gt;_ contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
+     * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
      * @param {Region} [xAdsRegion] Specifies where the bucket containing the object stored. Possible values are:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center for the US region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center for the European Union, Middle East, and Africa. - &#x60;&#x60;APAC&#x60;&#x60; -  (Beta) Data center for Australia.  **Note:** Beta features are subject to change. Please do not use in production environments. 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -1904,9 +1813,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
     }
 
     /**
-     * Downloads an object using an OSS signed URL.  **Note:** The signed URL returned by `Generate OSS Signed URL </en/docs/data/v2/reference/http/signedresources-:id-GET/>`_  contains the ``hash`` URI parameter as well.  
+     * Downloads an object using an OSS signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/)  contains the ``hash`` URI parameter as well.  
      * @summary Download Object Using Signed URL
-     * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by Generate OSS Signed URL &lt;/en/docs/data/v2/reference/http/signedresources-:id-GET/&gt;_ contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
+     * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
      * @param {string} [range] The byte range to download, specified in the form &#x60;&#x60;bytes&#x3D;&lt;START_BYTE&gt;-&lt;END_BYTE&gt;&#x60;&#x60;.
      * @param {string} [ifNoneMatch] The last known ETag value of the object. OSS returns the requested data  only if the &#x60;&#x60;If-None-Match&#x60;&#x60; header differs from the ETag value of the object on OSS, which indicates that the object on OSS is newer. If not, it returns a 304 \&quot;Not Modified\&quot; HTTP status.
      * @param {string} [ifModifiedSince] A timestamp in the HTTP date format (Mon, DD Month YYYY HH:MM:SS GMT). The requested data is returned only if the object has been modified since the specified timestamp. If not, a 304 (Not Modified) HTTP status is returned. 
@@ -1933,40 +1842,6 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         } else if (error.request) {
             this.logger.logError(`getSignedResource Request failed with no response received: ${error.request}`);
             throw new OssApiError(`getSignedResource Request failed with no response received: ${error.request}`, error);
-        }
-        throw error;
-      }
-    }
-
-    /**
-     * Returns an empty response body and a 200 response code if the object exists.
-     * @summary Check Object Existence
-     * @param {string} bucketKey The bucket key of the bucket that contains the objects you are operating on.
-     * @param {string} objectKey The URL-encoded human friendly name of the object.
-     * @param {string} [ifModifiedSince] A timestamp in the HTTP date format (Mon, DD Month YYYY HH:MM:SS GMT). The requested data is returned only if the object has been modified since the specified timestamp. If not, a 304 (Not Modified) HTTP status is returned. 
-     * @param {string} [xAdsAcmNamespace] This header is used to let the OSS Api Proxy know if ACM is used to authorize access to the given object. If this authorization is used by your service, then you must provide the name of the namespace you want to validate access control policies against.
-     * @param {string} [xAdsAcmCheckGroups] Informs the OSS Api Proxy know if your service requires ACM authorization to also validate against Oxygen groups. If so, you must pass this header with a value of &#x60;&#x60;true&#x60;&#x60;. Otherwise, the assumption is that checking authorization against Oxygen groups is not required.
-     * @param {string} [xAdsAcmGroups] Use this header to pass the Oxygen groups you want the OSS Api Proxy to use for group validation for the given user in the OAuth2 token.
-     * @param {HeadObjectDetailsWithEnum} [_with] **Not applicable to this operation**  The optional information you can request for. To request more than one of the following, specify this parameter multiple times in the request.  Possible values:   - &#x60;&#x60;createdDate&#x60;&#x60;  - &#x60;&#x60;lastAccessedDate&#x60;&#x60;  - &#x60;&#x60;lastModifiedDate&#x60;&#x60;  - &#x60;&#x60;userDefinedMetadata&#x60;&#x60; 
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ObjectsApi
-     */
-    public async headObjectDetails(accessToken: string, bucketKey: string, objectKey: string, ifModifiedSince?: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, _with?: HeadObjectDetailsWithEnum, options?: ApsServiceRequestConfig) {
-      this.logger.logInfo("Entered into headObjectDetails ");
-      try {
-        const request =  await ObjectsApiFp(this.sdkManager).headObjectDetails(accessToken, bucketKey, objectKey, ifModifiedSince, xAdsAcmNamespace, xAdsAcmCheckGroups, xAdsAcmGroups, _with,  options);
-        const response = await request(this.axios);
-        this.logger.logInfo(`headObjectDetails Request completed successfully with status code: ${response.status}`);
-        return new ApiResponse(response,response.data);
-      } catch (error) {
-        if (error.response) {
-            this.logger.logError(`headObjectDetails Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`headObjectDetails Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
-        } else if (error.request) {
-            this.logger.logError(`headObjectDetails Request failed with no response received: ${error.request}`);
-            throw new OssApiError(`headObjectDetails Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -2012,7 +1887,7 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
     }
 
     /**
-     * Gets a signed URL to upload an object directly to S3, bypassing OSS servers. You can also request an array of signed URLs which lets you upload an object in chunks.  This signed URL expires in 2 minutes by default, but you can change this duration if needed.  You must start the upload before the signed URL expires. The upload itself can take longer. If the upload fails after the validity period of the signed URL has elapsed, you can call this operation again to obtain a fresh signed URL (or an array of signed URLs as the case may be). However, you must use the same ``uploadKey`` that was returned when you originally called this operation.   Only applications that own the bucket can call this operation.  **Note:** Once you upload all chunks you must call the `Complete Upload to S3 Signed URL </en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3upload-POST/>`_ operation to indicate completion. This instructs OSS to assemble the chunks and reconstitute the object on OSS. You must call this operation even when using a single signed URL.   In addition to this operation that generates S3 signed URLs, OSS provides an operation to generate OSS signed URLs. S3 signed URLs allow direct upload/download from S3 but are restricted to bucket owners. OSS signed URLs also allow upload/download and can be configured for access by other applications, making them suitable for sharing objects across applications.     
+     * Gets a signed URL to upload an object directly to S3, bypassing OSS servers. You can also request an array of signed URLs which lets you upload an object in chunks.  This signed URL expires in 2 minutes by default, but you can change this duration if needed.  You must start the upload before the signed URL expires. The upload itself can take longer. If the upload fails after the validity period of the signed URL has elapsed, you can call this operation again to obtain a fresh signed URL (or an array of signed URLs as the case may be). However, you must use the same ``uploadKey`` that was returned when you originally called this operation.   Only applications that own the bucket can call this operation.  **Note:** Once you upload all chunks you must call the [Complete Upload to S3 Signed URL](/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3upload-POST/) operation to indicate completion. This instructs OSS to assemble the chunks and reconstitute the object on OSS. You must call this operation even when using a single signed URL.   In addition to this operation that generates S3 signed URLs, OSS provides an operation to generate OSS signed URLs. S3 signed URLs allow direct upload/download from S3 but are restricted to bucket owners. OSS signed URLs also allow upload/download and can be configured for access by other applications, making them suitable for sharing objects across applications.     
      * @summary Generate Signed S3 Upload URL
      * @param {string} bucketKey The bucket key of the bucket that contains the objects you are operating on.
      * @param {string} objectKey The URL-encoded human friendly name of the object.
@@ -2049,7 +1924,7 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
     /**
      * Replaces an object that already exists on OSS, using an OSS signed URL.   The signed URL must fulfil the following conditions:  - The signed URL is valid (it has not expired as yet). - It was generated with ``write`` or ``readwrite`` for the ``access`` parameter. 
      * @summary Replace Object Using Signed URL
-     * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by Generate OSS Signed URL &lt;/en/docs/data/v2/reference/http/signedresources-:id-GET/&gt;_ contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
+     * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
      * @param {number} contentLength The size of the data contained in the request body, in bytes.
      * @param {File} body The object to upload.
      * @param {string} [contentType] The MIME type of the object to upload; can be any type except \&#39;multipart/form-data\&#39;. This can be omitted, but we recommend adding it.
@@ -2081,9 +1956,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
     }
 
     /**
-     * Performs a resumable upload using an OSS signed URL. Use this operation to upload an object in chunks.  **Note:** The signed URL returned by `Generate OSS Signed URL </en/docs/data/v2/reference/http/signedresources-:id-GET/>`_  contains the ``hash`` URI parameter as well.  
+     * Performs a resumable upload using an OSS signed URL. Use this operation to upload an object in chunks.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains the ``hash`` as a URI parameter.  
      * @summary Upload Object Using Signed URL
-     * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by Generate OSS Signed URL &lt;/en/docs/data/v2/reference/http/signedresources-:id-GET/&gt;_ contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
+     * @param {string} hash The ID component of the signed URL.  **Note:** The signed URL returned by [Generate OSS Signed URL](/en/docs/data/v2/reference/http/signedresources-:id-GET/) contains &#x60;&#x60;hash&#x60;&#x60; as a URI parameter. 
      * @param {string} contentRange The byte range to upload, specified in the form &#x60;&#x60;bytes&#x3D;&lt;START_BYTE&gt;-&lt;END_BYTE&gt;&#x60;&#x60;.
      * @param {string} sessionId An ID to uniquely identify the file upload session.
      * @param {File} body The chunk to upload.
@@ -2115,13 +1990,3 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
     }
 }
 
-/**
- * @export
- */
-export const HeadObjectDetailsWithEnum = {
-    CreatedDate: 'createdDate',
-    LastAccessedDate: 'lastAccessedDate',
-    LastModifiedDate: 'lastModifiedDate',
-    UserDefinedMetadata: 'userDefinedMetadata'
-} as const;
-export type HeadObjectDetailsWithEnum = typeof HeadObjectDetailsWithEnum[keyof typeof HeadObjectDetailsWithEnum];

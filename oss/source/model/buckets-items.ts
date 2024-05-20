@@ -4,7 +4,7 @@
 import { PolicyKey } from './policy-key';
 
 /**
- * 
+ * An object containing the properties of a bucket.
  * @export
  * @interface BucketsItems
  */

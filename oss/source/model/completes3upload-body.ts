@@ -3,13 +3,13 @@
 
 
 /**
- * 
+ * The request payload for a Complete Upload to S3 Signed URL operation.
  * @export
  * @interface Completes3uploadBody
  */
 export interface Completes3uploadBody {
     /**
-     * The ID uniquely identifying the upload session that was returned when you called `Get S3 Signed Upload URL </en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3upload-POST/>`_.
+     * The ID uniquely identifying the upload session that was returned when you called [Get S3 Signed Upload URL](/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3upload-POST/).
      * @type {string}
      * @memberof Completes3uploadBody
      */
