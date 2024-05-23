@@ -1,7 +1,6 @@
 .gitignore
 .npmignore
 .npmrc
-.openapi-generator-ignore
 .prettierrc
 README.md
 api.ts
