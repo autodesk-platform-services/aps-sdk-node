@@ -3,7 +3,8 @@ import { OSSFileTransfer } from "./OSSFileTransfer";
 import { BucketsApi,ObjectsApi } from "../api";
 import { FileTransferConfigurations } from "./FileTransferConfigurations";
 import { CreateBucketsPayload, ObjectDetails, ObjectFullDetails, Bucket, Buckets, BucketObjects, BatchcompleteuploadResponse, BatchcompleteuploadObject, Batchsigneds3downloadObject, Batchsigneds3downloadResponse, Batchsigneds3uploadObject, Batchsigneds3uploadResponse, Completes3uploadBody, CreateObjectSigned, CreateSignedResource, Signeds3downloadResponse, Signeds3uploadResponse, Region, With, Access } from "../model";
-import * as fs from "fs";
+import {promises as fs} from "fs";
+import { buffer } from "stream/consumers";
 
 export class OssClient {
 
@@ -21,12 +22,27 @@ export class OssClient {
     }
 
     /**
-     * The below helper method takes care of the complete upload process, i.e. 
-     * the steps 2 to 4 in this link (https://aps.autodesk.com/en/docs/data/v2/tutorials/app-managed-bucket/)
+     * Instructs OSS to complete the object creation process for numerous objects after their bytes have been uploaded directly to S3. An object will not be accessible until you complete the object creation process, either with this endpoint or the single Complete Upload endpoint. This endpoint accepts batch sizes of up to 25. Any larger and the request will fail.
+     * @param {string} bucketKey URL-encoded bucket key
+     * @param {string} objectKey URL-encoded object name
+     * @param {Buffer|string} sourceToUpload The Path of the file to be uploaded or the buffer of the file . 
+     * @param accessToken bearer access token
+     * @param {AbortController} cancellationToken
+     * @param {string} projectScope 
+     * @param {string} requestIdPrefix
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OSSApiInterface
      */
-    public async upload(bucketKey: string, filename: string, filepath: string, accessToken: string, cancellationToken: AbortController = new AbortController, projectScope: string = '', requestIdPrefix: string = '', optionalArgs?: { onProgress?: (percentCompleted: number) => void }): Promise<ObjectDetails> {
-        const buffer = fs.readFileSync(filepath);
-        const response = await this.ossFileTransfer.upload(bucketKey, filename, buffer, accessToken, cancellationToken, projectScope, requestIdPrefix, optionalArgs?.onProgress);
+    public async upload(bucketKey: string, objectKey: string, sourceToUpload: Buffer|string, accessToken: string, cancellationToken: AbortController = new AbortController, projectScope: string = '', requestIdPrefix: string = '', optionalArgs?: { onProgress?: (percentCompleted: number) => void }): Promise<ObjectDetails> {
+        var response;
+        if(typeof sourceToUpload === 'string')
+        {
+            var buffer = await fs.readFile(sourceToUpload);
+            response = await this.ossFileTransfer.upload(bucketKey,objectKey,buffer,accessToken,cancellationToken,projectScope, requestIdPrefix,optionalArgs?.onProgress);        }
+        else {
+            response = await this.ossFileTransfer.upload(bucketKey, objectKey, sourceToUpload, accessToken, cancellationToken, projectScope, requestIdPrefix, optionalArgs?.onProgress);
+        }
         return response.content;
     }
     public async download(bucketKey: string, objectKey: string, filePath: string, accessToken: string, cancellationToken: AbortController = new AbortController, projectScope: string = '', requestIdPrefix: string = '', optionalArgs?: { onProgress?: (percentCompleted: number) => void }): Promise<void> {
@@ -41,8 +57,8 @@ export class OssClient {
      * @throws {RequiredError}
      * @memberof OSSApiInterface
      */
-    public async batchCompleteUpload(accessToken: string, bucketKey: string, optionalArgs?: { requests?: BatchcompleteuploadObject, options?: ApsServiceRequestConfig }): Promise<BatchcompleteuploadResponse> {
-        const response = await this.objectApi.batchCompleteUpload(accessToken, bucketKey, optionalArgs?.requests, optionalArgs?.options);
+    public async batchCompleteUpload(accessToken: string, bucketKey: string, requests: BatchcompleteuploadObject,optionalArgs?: {options?: ApsServiceRequestConfig }): Promise<BatchcompleteuploadResponse> {
+        const response = await this.objectApi.batchCompleteUpload(accessToken, bucketKey,requests, optionalArgs?.options);
         return response.content;
     }
     /**

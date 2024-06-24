@@ -10,7 +10,7 @@ import { DownloadResults } from './download-results';
  */
 export interface Batchsigneds3downloadResponse {
     /**
-     * 
+     * A map of the returned results; each key in the map corresponds to an object key in the batch, and the value includes the results for that object.
      * @type {{ [key: string]: DownloadResults; }}
      * @memberof Batchsigneds3downloadResponse
      */
