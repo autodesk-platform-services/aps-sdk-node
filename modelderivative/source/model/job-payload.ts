@@ -6,7 +6,7 @@ import { JobPayloadMisc } from './job-payload-misc';
 import { JobPayloadOutput } from './job-payload-output';
 
 /**
- * 
+ * An object that represents the request body of a Create Translation Job operation.
  * @export
  * @interface JobPayload
  */

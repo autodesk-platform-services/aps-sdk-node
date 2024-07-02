@@ -6,7 +6,7 @@ import { SpecificPropertiesPayloadPagination } from './specific-properties-paylo
 import { SpecificPropertiesPayloadQuery } from './specific-properties-payload-query';
 
 /**
- * 
+ * An object that represents the request body of a Fetch Specific Properties operation.
  * @export
  * @interface SpecificPropertiesPayload
  */
