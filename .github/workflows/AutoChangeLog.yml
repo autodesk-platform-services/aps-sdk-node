@@ -1,0 +1,36 @@
+name: Auto Update Changelog    
+on: 
+  push:
+    branches: 
+        - 'development'
+    paths-ignore:
+        - 'CHANGELOG.md'  
+jobs: 
+  auto-update-changelog:                                                                                                                                                                 
+      runs-on: ubuntu-latest                                                                                                                                                                    
+      steps:                                                                                                                                                                                            
+          - name: Checkout                                                                                                                                                                        
+            uses: actions/checkout@v4.1.4                                                                                                                                                                
+            with:                                                                                                                                                                                       
+                ref: development                                                                                                                                                                             
+          - name: Update CHANGELOG                                                                                                                                                                      
+            uses: heinrichreimer/github-changelog-generator-action@v2.4
+            with:
+                token: ${{ secrets.GITHUB_TOKEN }} 
+                #issues: true
+                #issuesWoLabels: false
+                #pullRequests: true
+                #prWoLabels: true
+                #author: true
+                #unreleased: true
+                #stripGeneratorNotice: true
+                #verbose: true
+                #compareLink: true
+                #httpCache: true
+                #filterByMilestone: true
+          - name: Commit CHANGELOG
+            uses: stefanzweifel/git-auto-commit-action@v4
+            with:
+                commit_user_name: ChangeLogger        
+                commit_message: '[AUTO]: Update CHANGELOG'
+                file_pattern: CHANGELOG.md
