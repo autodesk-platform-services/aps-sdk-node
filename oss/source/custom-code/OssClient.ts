@@ -45,6 +45,19 @@ export class OssClient {
         }
         return response.content;
     }
+    /**
+     *Downloads a file by transparently handling operations like obtaining signed download URLs and chunking large files for optimal transfer.
+     * @param {string} bucketKey URL-encoded bucket key
+     * @param {string} objectKey URL-encoded object name
+     * @param {string} filePath The Path of the file where should be downloaded 
+     * @param accessToken bearer access token
+     * @param {AbortController} cancellationToken
+     * @param {string} projectScope 
+     * @param {string} requestIdPrefix
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OSSApiInterface
+     */
     public async download(bucketKey: string, objectKey: string, filePath: string, accessToken: string, cancellationToken: AbortController = new AbortController, projectScope: string = '', requestIdPrefix: string = '', optionalArgs?: { onProgress?: (percentCompleted: number) => void }): Promise<void> {
         const response = await this.ossFileTransfer.download(bucketKey, objectKey, filePath, accessToken, cancellationToken, projectScope, requestIdPrefix, optionalArgs?.onProgress);
     }
@@ -85,8 +98,8 @@ export class OssClient {
      * @throws {RequiredError}
      * @memberof OSSApi
      */
-    public async batchSignedS3Upload(accessToken: string, bucketKey: string, optionalArgs?: { useAcceleration?: boolean, minutesExpiration?: number, requests?: Batchsigneds3uploadObject, options?: ApsServiceRequestConfig }): Promise<Batchsigneds3uploadResponse> {
-        const response = await this.objectApi.batchSignedS3Upload(accessToken, bucketKey, optionalArgs?.useAcceleration, optionalArgs?.minutesExpiration, optionalArgs?.requests, optionalArgs?.options);
+    public async batchSignedS3Upload(accessToken: string, bucketKey: string, requests: Batchsigneds3uploadObject, optionalArgs?: { useAcceleration?: boolean, minutesExpiration?: number, options?: ApsServiceRequestConfig }): Promise<Batchsigneds3uploadResponse> {
+        const response = await this.objectApi.batchSignedS3Upload(accessToken, bucketKey, optionalArgs?.useAcceleration, optionalArgs?.minutesExpiration,requests, optionalArgs?.options);
         return response.content;
     }
 
@@ -127,8 +140,8 @@ export class OssClient {
 
     /**
      * Use this endpoint to create a bucket. Buckets are arbitrary spaces created and owned by applications. Bucket keys are globally unique across all regions, regardless of where they were created, and they cannot be changed. The application creating the bucket is the owner of the bucket. 
-     * @param {CreateBucketXAdsRegionEnum} xAdsRegion The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; 
-     * @param {CreateBucketsPayload} policyKey Length of time for objects in the bucket to exist; &#x60;transient&#x60; (24h),  &#x60;temporary&#x60; (30d), or &#x60;persistent&#x60; (until delete request). 
+     * @param {Region} xAdsRegion The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; 
+     * @param {CreateBucketsPayload} bucketPayload Length of time for objects in the bucket to exist; &#x60;transient&#x60; (24h),  &#x60;temporary&#x60; (30d), or &#x60;persistent&#x60; (until delete request). 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -143,7 +156,7 @@ export class OssClient {
          * This endpoint creates a signed URL that can be used to download an object within the specified expiration time. Be aware that if the object the signed URL points to is deleted or expires before the signed URL expires, then the signed URL will no longer be valid. A successful call to this endpoint requires bucket owner access.
          * @param {string} bucketKey URL-encoded bucket key
          * @param {string} objectKey URL-encoded object name
-         * @param {CreateSignedResourceAccessEnum} [access] Access for signed resource Acceptable values: &#x60;read&#x60;, &#x60;write&#x60;, &#x60;readwrite&#x60;. Default value: &#x60;read&#x60; 
+         * @param {Access} [access] Access for signed resource Acceptable values: &#x60;read&#x60;, &#x60;write&#x60;, &#x60;readwrite&#x60;. Default value: &#x60;read&#x60; 
          * @param {boolean} [useCdn] When this is provided, OSS will return a URL that does not point to https://developer.api.autodesk.com.... , but instead points towards an alternate domain. A client can then interact with this public resource exactly as they would for a classic public resource in OSS, i.e. make a GET request to download an object or a PUT request to upload an object.
          * @param {CreateSignedResource} [createSignedResource] 
          * @param {*} [options] Override http request option.
@@ -187,7 +200,7 @@ export class OssClient {
     /**
          * Delete a signed URL. A successful call to this endpoint requires bucket owner access.
          * @param {string} hash Hash of signed resource
-         * @param {DeleteSignedResourceRegionEnum} [region] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
+         * @param {Region} [region] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -209,7 +222,7 @@ export class OssClient {
     }
     /**
         * This endpoint will return the buckets owned by the application. This endpoint supports pagination. 
-        * @param {GetBucketsRegionEnum} [region] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
+        * @param {Region} [region] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
         * @param {number} [limit] Limit to the response size, Acceptable values: 1-100 Default &#x3D; 10 
         * @param {string} [startAt] Key to use as an offset to continue pagination This is typically the last bucket key found in a preceding GET buckets response 
         * @param accessToken bearer access token
@@ -230,7 +243,7 @@ export class OssClient {
         * @param {string} [xAdsAcmNamespace] This header is used to let the OSS Api Proxy know if ACM is used to authorize access to the given object. If this authorization is used by your service, then you must provide the name of the namespace you want to validate access control policies against.
         * @param {string} [xAdsAcmCheckGroups] Informs the OSS Api Proxy know if your service requires ACM authorization to also validate against Oxygen groups. If so, you must pass this header with a value of \&#39;true\&#39;. Otherwise, the assumption is that checking authorization against Oxygen groups is not required.
         * @param {string} [xAdsAcmGroups] Use this header to pass the Oxygen groups you want the OSS Api Proxy to use for group validation for the given user in the OAuth2 token.
-        * @param {GetObjectDetailsWithEnum} [_with] Extra information in details; multiple uses are supported Acceptable values: &#x60;createdDate&#x60;, &#x60;lastAccessedDate&#x60;, &#x60;lastModifiedDate&#x60;, &#x60;userDefinedMetadata&#x60; 
+        * @param {With} [_with] Extra information in details; multiple uses are supported Acceptable values: &#x60;createdDate&#x60;, &#x60;lastAccessedDate&#x60;, &#x60;lastModifiedDate&#x60;, &#x60;userDefinedMetadata&#x60; 
         * @param accessToken bearer access token
         * @param {*} [options] Override http request option.
         * @throws {RequiredError}
@@ -264,7 +277,7 @@ export class OssClient {
         * @param {string} [ifNoneMatch] The value of this header is compared to the ETAG of the object. If they match, the body will not be included in the response. Only the object information will be included.
         * @param {string} [ifModifiedSince] If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body. 
         * @param {string} [acceptEncoding] When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used. 
-        * @param {GetSignedResourceRegionEnum} [region] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
+        * @param {Region} [region] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
         * @param {string} [responseContentDisposition] Value of the Content-Disposition HTTP header you expect to receive. If the parameter is not provided, the value associated with the object is used.
         * @param {string} [responseContentType] Value of the Content-Type HTTP header you expect to receive in the download response.
         * @param {*} [options] Override http request option.
@@ -318,7 +331,7 @@ export class OssClient {
      * @param {File} body The object to upload.
      * @param {string} [contentType] The MIME type of the object to upload; can be any type except \&#39;multipart/form-data\&#39;. This can be omitted, but we recommend adding it.
      * @param {string} [contentDisposition] The suggested default filename when downloading this object to a file after it has been uploaded.
-     * @param {UploadSignedResourceXAdsRegionEnum} [xAdsRegion] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
+     * @param {Region} [xAdsRegion] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
      * @param {string} [ifMatch] If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written. 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -335,7 +348,7 @@ export class OssClient {
      * @param {File} body The chunk to upload.
      * @param {string} [contentType] The MIME type of the object to upload; can be any type except \&#39;multipart/form-data\&#39;. This can be omitted, but we recommend adding it.
      * @param {string} [contentDisposition] The suggested default filename when downloading this object to a file after it has been uploaded.
-     * @param {UploadSignedResourcesChunkXAdsRegionEnum} [xAdsRegion] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
+     * @param {Region} [xAdsRegion] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */

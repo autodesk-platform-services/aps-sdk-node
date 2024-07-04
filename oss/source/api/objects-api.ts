@@ -59,7 +59,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -112,7 +112,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -163,7 +163,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -242,7 +242,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -304,7 +304,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -357,7 +357,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -415,7 +415,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -459,7 +459,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -527,7 +527,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -579,7 +579,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -653,7 +653,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -746,7 +746,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -817,7 +817,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -895,7 +895,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
     
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -974,7 +974,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
     
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
