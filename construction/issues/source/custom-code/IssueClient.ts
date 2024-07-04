@@ -71,7 +71,7 @@ export class IssueClient {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-  public async createComments(accessToken: string, projectId: string, issueId: string, commentsPayload?: CommentsPayload, optionalArgs?: { xAdsRegion?: Region, options?: ApsServiceRequestConfig }): Promise<CreatedComment> {
+  public async createComments(accessToken: string, projectId: string, issueId: string, commentsPayload: CommentsPayload, optionalArgs?: { xAdsRegion?: Region, options?: ApsServiceRequestConfig }): Promise<CreatedComment> {
     const request = await this.issuecommentsapi.createComments(accessToken, projectId, issueId, optionalArgs?.xAdsRegion, commentsPayload, optionalArgs?.options);
     return request.content;
   }
@@ -213,7 +213,7 @@ export class IssueClient {
    * @throws {RequiredError}
    * @memberof IssuesApiInterface
    */
-  public async patchIssueDetails(accessToken: string, projectId: string, issueId: string, issuePayload?: IssuePayload, optionalArgs?: { xAdsRegion?: Region, options?: ApsServiceRequestConfig }): Promise<Issue> {
+  public async patchIssueDetails(accessToken: string, projectId: string, issueId: string, issuePayload: IssuePayload, optionalArgs?: { xAdsRegion?: Region, options?: ApsServiceRequestConfig }): Promise<Issue> {
     const response = await this.issuesapi.patchIssueDetails(accessToken, projectId, issueId, optionalArgs?.xAdsRegion, issuePayload, optionalArgs?.options);
     return response.content;
   }
