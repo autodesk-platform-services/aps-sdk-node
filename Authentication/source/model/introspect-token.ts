@@ -3,7 +3,7 @@
 
 
 /**
- * 
+ * Represents the payload returned for an introspect token request.
  * @export
  * @interface IntrospectToken
  */

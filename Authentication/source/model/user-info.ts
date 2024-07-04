@@ -5,7 +5,7 @@ import { UserInfoAddress } from './user-info-address';
 import { UserInfoSocialUserinfoList } from './user-info-social-userinfo-list';
 
 /**
- * 
+ * Represents a successful response to a Get User Info operation.
  * @export
  * @interface UserInfo
  */
@@ -186,9 +186,9 @@ export interface UserInfo {
     'social_userinfo_list'?: Array<UserInfoSocialUserinfoList>;
     /**
      * An array of key-value pairs containing image URLs for various thumbnail sizes of the user\'s profile picture. The key is named ``sizeX<NUMBER>`` where ``<NUMBER>`` is the width and height of the thumbnail, in pixels. The corresponding value is the URL pointing to the thumbnail. For example, ``sizeX200`` would contain the URL for the 200x200 pixel thumbnail.
-     * @type {Array<object>}
+     * @type {{ [key: string]: string; }}
      * @memberof UserInfo
      */
-    'thumbnails'?: Array<object>;
+    'thumbnails'?: { [key: string]: string; };
 }
 

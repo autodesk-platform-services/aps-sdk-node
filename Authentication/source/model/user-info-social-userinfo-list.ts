@@ -21,7 +21,7 @@ export interface UserInfoSocialUserinfoList {
      */
     'providerId'?: string;
     /**
-     * The name of teh social media platform.
+     * The name of the social media platform.
      * @type {string}
      * @memberof UserInfoSocialUserinfoList
      */

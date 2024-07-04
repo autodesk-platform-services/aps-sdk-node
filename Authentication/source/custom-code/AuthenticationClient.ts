@@ -1,6 +1,6 @@
 import { ApiResponse, ApsServiceRequestConfig, SdkManager } from "@aps_sdk/autodesk-sdkmanager";
 import { TokenApi, UsersApi } from "../api";
-import { GrantType, IntrospectToken, Jwks, OidcSpec, RefreshToken, ResponseType, Scopes, ThreeLeggedToken, TokenTypeHint, TwoLeggedToken, UserInfo } from "../model";
+import { GrantType, IntrospectToken, Jwks, OidcSpec,  ResponseType, Scopes, ThreeLeggedToken, TokenTypeHint, TwoLeggedToken, UserInfo } from "../model";
 
 
 
@@ -24,7 +24,7 @@ export class AuthenticationClient {
          * @param {*} [options] Override http request option.
      */
     public async getUserInfo(authorization: string, optionalArgs?: { options?: ApsServiceRequestConfig }): Promise<UserInfo> {
-        const response = await this.usersApi.getUserInfo(`Bearer ${authorization}`, optionalArgs?.options);
+        const response = await this.usersApi.getUserInfo(authorization, optionalArgs?.options);
         return response.content;
     }
 
@@ -42,9 +42,8 @@ export class AuthenticationClient {
      */
     public async getTwoLeggedToken(clientId: string, clientSecret: string, scopes: Array<Scopes>, optionalArgs?: { options?: ApsServiceRequestConfig }): Promise<TwoLeggedToken> {
         const clientIDSecret = Buffer.from(`${clientId}:${clientSecret}`).toString(`base64`);
-        const arrScopes = scopes.join(' ');
-        const response = await this.tokenApi.fetchToken(`Basic ${clientIDSecret}`, GrantType.ClientCredentials, undefined, undefined, undefined, undefined, arrScopes, undefined, optionalArgs?.options);
-        return response.content;
+        const response = await this.tokenApi.fetchToken(`Basic ${clientIDSecret}`, GrantType.ClientCredentials, undefined, undefined, undefined, undefined,scopes, undefined, optionalArgs?.options);
+        return new TwoLeggedToken(response.content); 
     }
 
 
@@ -66,8 +65,7 @@ export class AuthenticationClient {
     */
 
     public authorize(clientId: string, responseType: ResponseType, redirectUri: string, scopes: Array<Scopes>, optionalArgs?: { state?: string, nonce?: string, responseMode?: string, prompt?: string, authoptions?: string, codeChallenge?: string, codeChallengeMethod?: string }): string {
-        const arrScopes = scopes.join(' ');
-        const url = this.tokenApi.authorize(clientId, responseType, redirectUri, optionalArgs?.state, optionalArgs?.nonce, arrScopes, optionalArgs?.responseMode, optionalArgs?.prompt, optionalArgs?.authoptions, optionalArgs?.codeChallenge, optionalArgs?.codeChallengeMethod);
+        const url = this.tokenApi.authorize(clientId, responseType, redirectUri, optionalArgs?.state, optionalArgs?.nonce, scopes, optionalArgs?.responseMode, optionalArgs?.prompt, optionalArgs?.authoptions, optionalArgs?.codeChallenge, optionalArgs?.codeChallengeMethod);
         return url;
     }
 
@@ -90,11 +88,11 @@ export class AuthenticationClient {
         if (optionalArgs?.clientSecret) {
             const clientIDSecret = Buffer.from(`${clientId}:${optionalArgs?.clientSecret}`).toString(`base64`);
             const response = await this.tokenApi.fetchToken(`Basic ${clientIDSecret}`, GrantType.AuthorizationCode, code, redirect_uri, optionalArgs?.code_verifier, undefined, undefined, undefined, optionalArgs?.options);
-            return response.content;
+            return new ThreeLeggedToken(response.content);
         }
         else {
             const response = await this.tokenApi.fetchToken(undefined, GrantType.AuthorizationCode, code, redirect_uri, optionalArgs?.code_verifier, undefined, undefined, clientId, optionalArgs?.options);
-            return response.content;
+            return new ThreeLeggedToken(response.content);
         }
 
     }
@@ -110,22 +108,18 @@ export class AuthenticationClient {
       * @param {string} [clientId] This field is required for client ID
       * @param {string} [clientSecret] This field is required for client secret
       * @param {string} refreshToken
-      * @param {Scopes} [scope]         
+      * @param {Scopes} [scopes]         
       * @returns {RefreshToken} Refresh Token
     */
-    public async getRefreshToken(clientId: string, refreshToken: string, optionalArgs?: { clientSecret?: string, scopes?: Array<Scopes>, options?: ApsServiceRequestConfig }): Promise<RefreshToken> {
-        var arrScopes = undefined;
-        if (Array.isArray(optionalArgs?.scopes) && optionalArgs?.scopes.length) {
-            arrScopes = optionalArgs?.scopes.join(' ');
-        }
+    public async refreshToken(clientId: string, refreshToken: string, optionalArgs?: { clientSecret?: string, scopes?: Array<Scopes>, options?: ApsServiceRequestConfig }): Promise<ThreeLeggedToken> {
         if (optionalArgs?.clientSecret) {
             const clientIDSecret = Buffer.from(`${clientId}:${optionalArgs?.clientSecret}`).toString(`base64`);
-            const response = await this.tokenApi.fetchToken(`Basic ${clientIDSecret}`, GrantType.RefreshToken, undefined, undefined, undefined, refreshToken, arrScopes, undefined, optionalArgs?.options);
-            return response.content;
+            const response = await this.tokenApi.fetchToken(`Basic ${clientIDSecret}`, GrantType.RefreshToken, undefined, undefined, undefined, refreshToken, optionalArgs?.scopes, undefined, optionalArgs?.options);
+            return new ThreeLeggedToken(response.content);
         }
         else {
-            const response = await this.tokenApi.fetchToken(undefined, GrantType.RefreshToken, undefined, undefined, undefined, refreshToken, arrScopes, clientId, optionalArgs?.options);
-            return response.content;
+            const response = await this.tokenApi.fetchToken(undefined, GrantType.RefreshToken, undefined, undefined, undefined, refreshToken, optionalArgs?.scopes, clientId, optionalArgs?.options);
+            return new ThreeLeggedToken(response.content);
         }
 
     }
@@ -207,12 +201,12 @@ export class AuthenticationClient {
     public async revoke(token: string, clientId: string, tokenTypeHint: TokenTypeHint, optionalArgs?: { clientSecret?: string, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
         if (optionalArgs?.clientSecret) { // request is for private client 
             const clientIDSecret = Buffer.from(`${clientId}:${optionalArgs?.clientSecret}`).toString(`base64`);
-            const response = await this.tokenApi.revoke(token, `Basic ${clientIDSecret}`, tokenTypeHint, undefined, optionalArgs?.options);
-            return response.content;
+            const response = await this.tokenApi.revoke(token,tokenTypeHint, `Basic ${clientIDSecret}`,  undefined, optionalArgs?.options);
+            return response;
         }
         else {
-            const response = await this.tokenApi.revoke(token, undefined, tokenTypeHint, clientId, optionalArgs?.options);
-            return response.content;
+            const response = await this.tokenApi.revoke(token,  tokenTypeHint,undefined, clientId, optionalArgs?.options);
+            return response;
         }
     }
 

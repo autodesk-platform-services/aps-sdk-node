@@ -3,7 +3,7 @@
 
 
 /**
- * 
+ * Represents a JSON Web Key Set (JWKS).
  * @export
  * @interface JwksKey
  */
