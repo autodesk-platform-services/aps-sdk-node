@@ -3,7 +3,7 @@
 
 
 /**
- * Access for signed resource Acceptable values: read, write, readwrite Default value: read
+ * Access for signed resource Possible values: read, write, readwrite Default value: read
  * @export
  * @enum {string}
  */

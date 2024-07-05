@@ -50,7 +50,7 @@ export const BucketsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -89,7 +89,7 @@ export const BucketsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -126,7 +126,7 @@ export const BucketsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -174,7 +174,7 @@ export const BucketsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -326,8 +326,9 @@ export class BucketsApi extends BaseApi implements BucketsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`createBucket Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`createBucket Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`createBucket Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`createBucket Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`createBucket Request failed with no response received: ${error.request}`);
             throw new OssApiError(`createBucket Request failed with no response received: ${error.request}`, error);
@@ -354,8 +355,9 @@ export class BucketsApi extends BaseApi implements BucketsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`deleteBucket Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`deleteBucket Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`deleteBucket Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`deleteBucket Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`deleteBucket Request failed with no response received: ${error.request}`);
             throw new OssApiError(`deleteBucket Request failed with no response received: ${error.request}`, error);
@@ -382,8 +384,9 @@ export class BucketsApi extends BaseApi implements BucketsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getBucketDetails Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`getBucketDetails Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getBucketDetails Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`getBucketDetails Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getBucketDetails Request failed with no response received: ${error.request}`);
             throw new OssApiError(`getBucketDetails Request failed with no response received: ${error.request}`, error);
@@ -412,8 +415,9 @@ export class BucketsApi extends BaseApi implements BucketsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getBuckets Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`getBuckets Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getBuckets Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`getBuckets Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getBuckets Request failed with no response received: ${error.request}`);
             throw new OssApiError(`getBuckets Request failed with no response received: ${error.request}`, error);
