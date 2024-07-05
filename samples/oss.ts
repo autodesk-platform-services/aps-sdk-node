@@ -1,12 +1,12 @@
 import { SdkManager, SdkManagerBuilder, ApsServiceRequestConfig } from "@aps_sdk/autodesk-sdkmanager";
-import { OssClient } from "@aps_sdk/oss";
-import { CreateBucketsPayloadPolicyKeyEnum, CreateBucketsPayload, CreateBucketXAdsRegionEnum, DeleteSignedResourceRegionEnum, UploadSignedResourceXAdsRegionEnum, GetSignedResourceRegionEnum, CreateSignedResourceAccessEnum, ObjectDetails, UploadSignedResourcesChunkXAdsRegionEnum, BucketObjects, HeadObjectDetailsWithEnum, BatchcompleteuploadObject, Batchsigneds3downloadObject, Batchsigneds3uploadObject, Completes3uploadBody, CreateObjectSigned, CreateSignedResource } from "@aps_sdk/oss";
+import { PolicyKey, OssClient, Region } from "@aps_sdk/oss";
 
 
 
 const bucketkey = "<bucketkey>";
 const filepath = "<path/to/file>";
-const filename = "<filename>";
+const sourceToUpload ="<path to source file>";//sourceToUpload can also be a stream object
+const objectKey = "<objectKey>";
 const access_token = "<token>";
 const newObjName = "<filename>";
 const hash = "<hash>";
@@ -22,11 +22,13 @@ const ossClient = new OssClient(sdkmanager);
  * the steps 2 to 4 in this link (https://aps.autodesk.com/en/docs/data/v2/tutorials/app-managed-bucket/)
  */
 async function upload() {
-    const response = await ossClient.upload(bucketkey, filename, filepath, access_token);
+    
+    //sourceToUpload can be either file path or stream of the object 
+    const response = await ossClient.upload(bucketkey, objectKey, sourceToUpload, access_token);
     console.log(response);
 }
 async function download() {
-    await ossClient.download(bucketkey, filename, filepath, access_token);
+    await ossClient.download(bucketkey, objectKey, filepath, access_token);
 }
 /**
      * This function will return the details about the specified bucket.
@@ -46,13 +48,13 @@ async function batchSignedS3Upload() {
 }
 
 async function copyTo() {
-    const response = await ossClient.copyTo(access_token, bucketkey, filename, newObjName);
+    const response = await ossClient.copyTo(access_token, bucketkey, objectKey, newObjName);
     console.log(response);
 }
 
 async function createBucket() {
-    const policyKey: CreateBucketsPayloadPolicyKeyEnum = CreateBucketsPayloadPolicyKeyEnum.Temporary;
-    const xAdsRegion: CreateBucketXAdsRegionEnum = CreateBucketXAdsRegionEnum.Us
+    const policyKey = PolicyKey.Temporary;
+    const xAdsRegion: Region = Region.Us
     const response = await ossClient.createBucket(access_token, xAdsRegion, {
         bucketKey: bucketkey,
         policyKey: policyKey
@@ -61,7 +63,7 @@ async function createBucket() {
 }
 
 async function createSignedResource() {
-    const response = await ossClient.createSignedResource(access_token, bucketkey, filename);
+    const response = await ossClient.createSignedResource(access_token, bucketkey, objectKey);
     console.log(response);
 }
 
@@ -71,7 +73,7 @@ async function deleteBucket() {
 }
 
 async function deleteObject() {
-    const response = await ossClient.deleteObject(access_token, bucketkey, filename);
+    const response = await ossClient.deleteObject(access_token, bucketkey, objectKey);
     console.log(response);
 }
 
@@ -81,7 +83,7 @@ async function deleteSignedResource() {
 }
 
 async function getObjectDetails() {
-    const response = await ossClient.getObjectDetails(access_token, bucketkey, filename);
+    const response = await ossClient.getObjectDetails(access_token, bucketkey, objectKey);
     console.log(response);
 }
 
@@ -95,13 +97,8 @@ async function getSignedResource() {
     console.log(response);
 }
 
-async function headObjectDetails() {
-    const response = await ossClient.headObjectDetails(access_token, bucketkey, filename);
-    return response.content;
-}
-
 async function signedS3Download() {
-    const response = await ossClient.signedS3Download(access_token, bucketkey, filename);
+    const response = await ossClient.signedS3Download(access_token, bucketkey, objectKey);
     console.log(response);
 }
 
@@ -120,6 +117,5 @@ deleteSignedResource();
 getObjectDetails();
 getObjects();
 getSignedResource();
-headObjectDetails();
 signedS3Download();
 
