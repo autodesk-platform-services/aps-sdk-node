@@ -39,7 +39,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        batchCompleteUpload: async (accessToken: string, bucketKey: string, requests?: BatchcompleteuploadObject,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        batchCompleteUpload: async (accessToken: string, bucketKey: string, requests: BatchcompleteuploadObject,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'bucketKey' is not null or undefined
             assertParamExists('batchCompleteUpload', 'bucketKey', bucketKey)
             const localVarPath = `/oss/v2/buckets/{bucketKey}/objects/batchcompleteupload`
@@ -59,7 +59,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -112,7 +112,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -163,7 +163,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -242,7 +242,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -304,7 +304,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -357,7 +357,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -415,7 +415,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -459,7 +459,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -527,7 +527,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -579,7 +579,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -653,7 +653,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -746,7 +746,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -817,7 +817,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -895,7 +895,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
     
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -974,7 +974,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
     
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -1513,8 +1513,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`batchCompleteUpload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`batchCompleteUpload Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`batchCompleteUpload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`batchCompleteUpload Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`batchCompleteUpload Request failed with no response received: ${error.request}`);
             throw new OssApiError(`batchCompleteUpload Request failed with no response received: ${error.request}`, error);
@@ -1544,8 +1545,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`batchSignedS3Download Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`batchSignedS3Download Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`batchSignedS3Download Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`batchSignedS3Download Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`batchSignedS3Download Request failed with no response received: ${error.request}`);
             throw new OssApiError(`batchSignedS3Download Request failed with no response received: ${error.request}`, error);
@@ -1575,8 +1577,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`batchSignedS3Upload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`batchSignedS3Upload Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`batchSignedS3Upload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`batchSignedS3Upload Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`batchSignedS3Upload Request failed with no response received: ${error.request}`);
             throw new OssApiError(`batchSignedS3Upload Request failed with no response received: ${error.request}`, error);
@@ -1611,8 +1614,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`completeSignedS3Upload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`completeSignedS3Upload Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`completeSignedS3Upload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`completeSignedS3Upload Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`completeSignedS3Upload Request failed with no response received: ${error.request}`);
             throw new OssApiError(`completeSignedS3Upload Request failed with no response received: ${error.request}`, error);
@@ -1644,8 +1648,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`copyTo Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`copyTo Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`copyTo Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`copyTo Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`copyTo Request failed with no response received: ${error.request}`);
             throw new OssApiError(`copyTo Request failed with no response received: ${error.request}`, error);
@@ -1676,8 +1681,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`createSignedResource Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`createSignedResource Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`createSignedResource Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`createSignedResource Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`createSignedResource Request failed with no response received: ${error.request}`);
             throw new OssApiError(`createSignedResource Request failed with no response received: ${error.request}`, error);
@@ -1708,8 +1714,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`deleteObject Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`deleteObject Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`deleteObject Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`deleteObject Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`deleteObject Request failed with no response received: ${error.request}`);
             throw new OssApiError(`deleteObject Request failed with no response received: ${error.request}`, error);
@@ -1737,8 +1744,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`deleteSignedResource Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`deleteSignedResource Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`deleteSignedResource Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`deleteSignedResource Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`deleteSignedResource Request failed with no response received: ${error.request}`);
             throw new OssApiError(`deleteSignedResource Request failed with no response received: ${error.request}`, error);
@@ -1771,8 +1779,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getObjectDetails Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`getObjectDetails Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getObjectDetails Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`getObjectDetails Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getObjectDetails Request failed with no response received: ${error.request}`);
             throw new OssApiError(`getObjectDetails Request failed with no response received: ${error.request}`, error);
@@ -1802,8 +1811,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getObjects Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`getObjects Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getObjects Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`getObjects Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getObjects Request failed with no response received: ${error.request}`);
             throw new OssApiError(`getObjects Request failed with no response received: ${error.request}`, error);
@@ -1837,8 +1847,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getSignedResource Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`getSignedResource Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getSignedResource Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`getSignedResource Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getSignedResource Request failed with no response received: ${error.request}`);
             throw new OssApiError(`getSignedResource Request failed with no response received: ${error.request}`, error);
@@ -1876,8 +1887,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`signedS3Download Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`signedS3Download Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`signedS3Download Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`signedS3Download Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`signedS3Download Request failed with no response received: ${error.request}`);
             throw new OssApiError(`signedS3Download Request failed with no response received: ${error.request}`, error);
@@ -1911,8 +1923,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`signedS3Upload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`signedS3Upload Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`signedS3Upload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`signedS3Upload Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`signedS3Upload Request failed with no response received: ${error.request}`);
             throw new OssApiError(`signedS3Upload Request failed with no response received: ${error.request}`, error);
@@ -1945,8 +1958,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`uploadSignedResource Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`uploadSignedResource Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`uploadSignedResource Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`uploadSignedResource Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`uploadSignedResource Request failed with no response received: ${error.request}`);
             throw new OssApiError(`uploadSignedResource Request failed with no response received: ${error.request}`, error);
@@ -1979,8 +1993,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`uploadSignedResourcesChunk Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`uploadSignedResourcesChunk Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`uploadSignedResourcesChunk Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`uploadSignedResourcesChunk Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`uploadSignedResourcesChunk Request failed with no response received: ${error.request}`);
             throw new OssApiError(`uploadSignedResourcesChunk Request failed with no response received: ${error.request}`, error);

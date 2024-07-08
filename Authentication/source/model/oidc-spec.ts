@@ -3,7 +3,7 @@
 
 
 /**
- * OIDC Specification
+ * Represents a successful response to a Get OIDC Specification operation.
  * @export
  * @interface OidcSpec
  */
