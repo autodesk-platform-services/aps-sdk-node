@@ -3,7 +3,7 @@
 
 
 /**
- * 
+ * An array of objects where each object represents a message logged to the manifest during translation. For example, error messages and warning messages.
  * @export
  * @interface Messages
  */
@@ -21,10 +21,10 @@ export interface Messages {
      */
     'code'?: string;
     /**
-     * A human-readable explanation of the event being reported.
-     * @type {Array<string>}
+     * A human-readable explanation of the event being reported. Can be a string or an array of string.
+     * @type {object}
      * @memberof Messages
      */
-    'message'?: Array<string>;
+    'message'?: string | Array<string>;
 }
 

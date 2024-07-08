@@ -4,7 +4,7 @@
 import { ObjectTreeData } from './object-tree-data';
 
 /**
- * 
+ * An object that represents the successful response of a Fetch Object Tree operation.
  * @export
  * @interface ObjectTree
  */

@@ -1,22 +1,24 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JobDwgOutputFormat } from './job-dwg-output-format';
-import { JobIfcOutputFormat } from './job-ifc-output-format';
-import { JobIgesOutputFormat } from './job-iges-output-format';
-import { JobObjOutputFormat } from './job-obj-output-format';
-import { JobStepOutputFormat } from './job-step-output-format';
-import { JobStlOutputFormat } from './job-stl-output-format';
-import { JobSvf2OutputFormat } from './job-svf2-output-format';
-import { JobSvfOutputFormat } from './job-svf-output-format';
-import { JobThumbnailOutputFormat } from './job-thumbnail-output-format';
-
+import { JobPayloadFormatAdvancedIFC } from './job-payload-format-advanced-ifc';
+import { JobPayloadFormatDWG } from './job-payload-format-dwg';
+import { JobPayloadFormatIFC } from './job-payload-format-ifc';
+import { JobPayloadFormatIGES } from './job-payload-format-iges';
+import { JobPayloadFormatOBJ } from './job-payload-format-obj';
+import { JobPayloadFormatSTEP } from './job-payload-format-step';
+import { JobPayloadFormatSTL } from './job-payload-format-stl';
+import { JobPayloadFormatSVF } from './job-payload-format-svf';
+import { JobPayloadFormatSVF2 } from './job-payload-format-svf2';
+import { JobPayloadFormatThumbnail } from './job-payload-format-thumbnail';
+import { OutputType } from './output-type';
+import { View } from './view';
 
 /**
  * @type JobPayloadFormat
- * Output description object, depends of the type
+ * Options for the output. The available options depend on the output type.
  * @export
  */
-export type JobPayloadFormat = JobDwgOutputFormat | JobIfcOutputFormat | JobIgesOutputFormat | JobObjOutputFormat | JobStepOutputFormat | JobStlOutputFormat | JobSvf2OutputFormat | JobSvfOutputFormat | JobThumbnailOutputFormat;
+export type JobPayloadFormat = JobPayloadFormatDWG | JobPayloadFormatIFC | JobPayloadFormatIGES | JobPayloadFormatOBJ | JobPayloadFormatSTEP | JobPayloadFormatSTL | JobPayloadFormatSVF | JobPayloadFormatSVF2 | JobPayloadFormatThumbnail;
 
 

@@ -25,7 +25,7 @@ export interface JobPayloadInput {
      * @type {string}
      * @memberof JobPayloadInput
      */
-    'rootFileName'?: string;
+    'rootFilename'?: string;
     /**
      * - ``true`` - Instructs the system to check for references, and if any exist, download all referenced files. Setting this parameter to ``true`` is mandatory when translating source designs consisting of multiple files. For example, Autodesk Inventor assemblies. - ``false`` - (Default) Instructs the system not to check for references.
      * @type {boolean}

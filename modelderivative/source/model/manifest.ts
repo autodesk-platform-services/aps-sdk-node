@@ -1,10 +1,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ManifestDerivatives } from './manifest-derivatives';
+import { ManifestDerivative } from './manifest-derivative';
 
 /**
- * 
+ * An object that represents the successful response of a Fetch Manifest operation.
  * @export
  * @interface Manifest
  */
@@ -20,7 +20,7 @@ export interface Manifest {
      * @type {Array<ManifestDerivative>}
      * @memberof Manifest
      */
-    'derivatives': Array<ManifestDerivatives>;
+    'derivatives': Array<ManifestDerivative>;
     /**
      * - ``true``: There is a thumbnail for the source design. - ``false``: There is no thumbnail for the source design. 
      * @type {string}
@@ -40,7 +40,7 @@ export interface Manifest {
      */
     'type': string;
     /**
-     * Specifies the data center where the manifest, derivatives, and references are stored. Possible values are:   - ``US`` - Data center for the US region. - ``EMEA`` - Data center for European Union, Middle East, and Africa.  
+     * Specifies the data center where the manifest, derivatives, and references are stored. Possible values are:   - ``US`` - Data center for the US region. - ``EMEA`` - Data center for European Union, Middle East, and Africa.  - ``APAC`` - Data centre for the Australia region. 
      * @type {string}
      * @memberof Manifest
      */

@@ -3,7 +3,7 @@
 
 
 /**
- * list of the requested outputs
+ * List of the requested outputs.
  * @export
  * @interface JobAcceptedJobs
  */
