@@ -1,6 +1,6 @@
 {
   "name": "@aps_sdk/model-derivative",
-  "version": "0.0.8-beta.1",
+  "version": "1.0.0-beta.1",
   "description": "Client sdk for model-derivative API",
   "license": "Apache-2.0",
   "keywords": [
@@ -21,7 +21,7 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@aps_sdk/autodesk-sdkmanager": "^0.0.7-beta.1",
+    "@aps_sdk/autodesk-sdkmanager": "^1.0.0-beta.1",
     "@types/node": "^20.9.0",
     "axios": "^1.6.1"
   },

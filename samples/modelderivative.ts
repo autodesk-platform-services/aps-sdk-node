@@ -1,7 +1,10 @@
-import { ApiResponse, ApsConfiguration, ApsServiceRequestConfig, SdkManager, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
+//process.env['LOG_LEVEL'] = 'info'; /* The default log level is `Error`.*/
+
+import { ApiResponse, ApsConfiguration, ApsServiceRequestConfig, SdkManager, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager"
 import { BeginsWith, Between, DeleteManifest, DerivativeDownload, EqualsTo, JobPayloadFormatAdvancedThumbnail, JobPayloadFormatSVFAdvancedRVT, MatchId, MatchIdType, ModelDerivativeClient } from "@aps_sdk/model-derivative";
 import { InformationalApi, SupportedFormats, JobPayloadFormatThumbnail, ExtractorVersion, JobPayloadFormatSVF2AdvancedRVT, Model2dView, JobPayloadFormatSVF2AdvancedIFC, BuildingStoreys, Width, Height, JobPayloadFormatSVFAdvancedIFC, Job, XAdsDerivativeFormat, Region, OutputType, Manifest, ModelViews, ObjectTree, ModelViewsDataMetadata, Properties, SpecificPropertiesPayload, SpecificPropertiesPayloadQuery, Payload, SpecificProperties } from "@aps_sdk/model-derivative";
 import { JobPayloadOutputDestination, JobsApi, JobPayload, JobPayloadOutput, JobPayloadInput, JobPayloadFormat, JobPayloadFormatSVF2, JobPayloadFormatSVF, View } from "@aps_sdk/model-derivative";
+
 
 
 const sdkmanager: SdkManager = SdkManagerBuilder.create().build();
@@ -174,7 +177,7 @@ async function fetchSpecificProperties() {
     // Specify the request payload
     const specificPropertiesPayload: SpecificPropertiesPayload = {
       fields: ["objectid", "name"],
-      query: <MatchId>{$in: [MatchIdType.ObjectId,167]}
+      query: <MatchId>{$in: [MatchIdType.ObjectId,2646]}
     };
 
     let specificProps: SpecificProperties = await modelDerivativeClient.fetchSpecificProperties(token, urn, modelGuid, specificPropertiesPayload);
@@ -187,6 +190,9 @@ async function fetchSpecificProperties() {
 //#endregion
 
 //#region Thumbnail
+/**
+ * Function to fetch thumbnail
+*/
 async function getThumbnail() {
   try {
     let response = await modelDerivativeClient.getThumbnail(token, urn);
@@ -208,7 +214,7 @@ async function getThumbnail() {
 // getModelViews();
 // getObjectTree();
 // getAllProperties();
- //fetchSpecificProperties();
+// fetchSpecificProperties();
 
 
 
