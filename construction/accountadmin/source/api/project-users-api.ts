@@ -728,8 +728,9 @@ export class ProjectUsersApi extends BaseApi implements ProjectUsersApiInterface
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`assignProjectUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`assignProjectUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`assignProjectUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`assignProjectUser Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`assignProjectUser Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`assignProjectUser Request failed with no response received: ${error.request}`, error);
@@ -761,8 +762,9 @@ export class ProjectUsersApi extends BaseApi implements ProjectUsersApiInterface
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getProjectUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`getProjectUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getProjectUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`getProjectUser Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getProjectUser Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`getProjectUser Request failed with no response received: ${error.request}`, error);
@@ -809,8 +811,9 @@ export class ProjectUsersApi extends BaseApi implements ProjectUsersApiInterface
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getProjectUsers Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`getProjectUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getProjectUsers Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`getProjectUsers Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getProjectUsers Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`getProjectUsers Request failed with no response received: ${error.request}`, error);
@@ -841,8 +844,9 @@ export class ProjectUsersApi extends BaseApi implements ProjectUsersApiInterface
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`importProjectUsers Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`importProjectUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`importProjectUsers Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`importProjectUsers Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`importProjectUsers Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`importProjectUsers Request failed with no response received: ${error.request}`, error);
@@ -873,8 +877,9 @@ export class ProjectUsersApi extends BaseApi implements ProjectUsersApiInterface
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`removeProjectUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`removeProjectUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`removeProjectUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`removeProjectUser Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`removeProjectUser Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`removeProjectUser Request failed with no response received: ${error.request}`, error);
@@ -906,8 +911,9 @@ export class ProjectUsersApi extends BaseApi implements ProjectUsersApiInterface
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`updateProjectUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`updateProjectUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`updateProjectUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`updateProjectUser Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`updateProjectUser Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`updateProjectUser Request failed with no response received: ${error.request}`, error);
