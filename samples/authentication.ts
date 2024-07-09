@@ -24,7 +24,7 @@ async function getUserInfo() {
         console.log(userInfo.email);
     }
     catch (error) {
-        console.error(console.error);
+        console.error(error);
     }
 }
 
@@ -38,7 +38,7 @@ async function getTwoLeggedToken() {
         console.log(token.access_token);
     }
     catch (error) {
-        console.error(console.error);
+        console.error(error);
     }
 }
 
@@ -50,7 +50,9 @@ function authorize() {
         const url = authenticationClient.authorize(clientId, ResponseType.Code, redirectUri, new Array(Scopes.DataRead, Scopes.DataCreate));
         console.log(url);
     }
-    catch (error) { console.error(error); }
+    catch (error) { 
+        console.error(error); 
+    }
 }
 
 /**
@@ -91,7 +93,7 @@ async function getKeys() {
         console.log(jwkskeys);
     }
     catch (error) {
-        console.error(console.error);
+        console.error(error);
     }
 }
 
@@ -106,7 +108,7 @@ async function introspectToken() {
         console.log(introspect_token);
     }
     catch (error) {
-        console.error(console.error);
+        console.error(error);
     }
 }
 
@@ -120,7 +122,7 @@ function logout() {
         console.log(logouturl);
     }
     catch (error) {
-        console.error(console.error);
+        console.error(error);
     }
 
 }
@@ -135,7 +137,7 @@ async function revokeToken() {
         console.log(response);
     }
     catch (error) {
-        console.error(console.error);
+        console.error(error);
     }
 }
 
@@ -149,7 +151,7 @@ async function getOidcSpec() {
         console.log(response);
     }
     catch (error) {
-        console.error(console.error);
+        console.error(error);
     }
 }
 
