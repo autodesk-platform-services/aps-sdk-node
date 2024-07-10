@@ -282,8 +282,9 @@ export class TokensApi extends BaseApi implements TokensApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`createToken Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new WebhooksApiError(`createToken Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`createToken Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new WebhooksApiError(`createToken Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`createToken Request failed with no response received: ${error.request}`);
             throw new WebhooksApiError(`createToken Request failed with no response received: ${error.request}`, error);
@@ -311,8 +312,9 @@ export class TokensApi extends BaseApi implements TokensApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`deleteToken Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new WebhooksApiError(`deleteToken Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`deleteToken Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new WebhooksApiError(`deleteToken Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`deleteToken Request failed with no response received: ${error.request}`);
             throw new WebhooksApiError(`deleteToken Request failed with no response received: ${error.request}`, error);
@@ -341,8 +343,9 @@ export class TokensApi extends BaseApi implements TokensApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`putToken Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new WebhooksApiError(`putToken Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`putToken Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new WebhooksApiError(`putToken Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`putToken Request failed with no response received: ${error.request}`);
             throw new WebhooksApiError(`putToken Request failed with no response received: ${error.request}`, error);
