@@ -868,8 +868,9 @@ export class HooksApi extends BaseApi implements HooksApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`createSystemEventHook Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new WebhooksApiError(`createSystemEventHook Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`createSystemEventHook Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new WebhooksApiError(`createSystemEventHook Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`createSystemEventHook Request failed with no response received: ${error.request}`);
             throw new WebhooksApiError(`createSystemEventHook Request failed with no response received: ${error.request}`, error);
@@ -899,8 +900,9 @@ export class HooksApi extends BaseApi implements HooksApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`createSystemHook Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new WebhooksApiError(`createSystemHook Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`createSystemHook Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new WebhooksApiError(`createSystemHook Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`createSystemHook Request failed with no response received: ${error.request}`);
             throw new WebhooksApiError(`createSystemHook Request failed with no response received: ${error.request}`, error);
@@ -931,8 +933,9 @@ export class HooksApi extends BaseApi implements HooksApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`deleteSystemEventHook Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new WebhooksApiError(`deleteSystemEventHook Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`deleteSystemEventHook Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new WebhooksApiError(`deleteSystemEventHook Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`deleteSystemEventHook Request failed with no response received: ${error.request}`);
             throw new WebhooksApiError(`deleteSystemEventHook Request failed with no response received: ${error.request}`, error);
@@ -963,8 +966,9 @@ export class HooksApi extends BaseApi implements HooksApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getAppHooks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new WebhooksApiError(`getAppHooks Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getAppHooks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new WebhooksApiError(`getAppHooks Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getAppHooks Request failed with no response received: ${error.request}`);
             throw new WebhooksApiError(`getAppHooks Request failed with no response received: ${error.request}`, error);
@@ -995,8 +999,9 @@ export class HooksApi extends BaseApi implements HooksApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getHookDetails Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new WebhooksApiError(`getHookDetails Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getHookDetails Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new WebhooksApiError(`getHookDetails Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getHookDetails Request failed with no response received: ${error.request}`);
             throw new WebhooksApiError(`getHookDetails Request failed with no response received: ${error.request}`, error);
@@ -1026,8 +1031,9 @@ export class HooksApi extends BaseApi implements HooksApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getHooks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new WebhooksApiError(`getHooks Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getHooks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new WebhooksApiError(`getHooks Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getHooks Request failed with no response received: ${error.request}`);
             throw new WebhooksApiError(`getHooks Request failed with no response received: ${error.request}`, error);
@@ -1060,8 +1066,9 @@ export class HooksApi extends BaseApi implements HooksApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getSystemEventHooks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new WebhooksApiError(`getSystemEventHooks Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getSystemEventHooks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new WebhooksApiError(`getSystemEventHooks Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getSystemEventHooks Request failed with no response received: ${error.request}`);
             throw new WebhooksApiError(`getSystemEventHooks Request failed with no response received: ${error.request}`, error);
@@ -1092,8 +1099,9 @@ export class HooksApi extends BaseApi implements HooksApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getSystemHooks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new WebhooksApiError(`getSystemHooks Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getSystemHooks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new WebhooksApiError(`getSystemHooks Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getSystemHooks Request failed with no response received: ${error.request}`);
             throw new WebhooksApiError(`getSystemHooks Request failed with no response received: ${error.request}`, error);
@@ -1125,8 +1133,9 @@ export class HooksApi extends BaseApi implements HooksApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`patchSystemEventHook Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new WebhooksApiError(`patchSystemEventHook Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`patchSystemEventHook Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new WebhooksApiError(`patchSystemEventHook Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`patchSystemEventHook Request failed with no response received: ${error.request}`);
             throw new WebhooksApiError(`patchSystemEventHook Request failed with no response received: ${error.request}`, error);

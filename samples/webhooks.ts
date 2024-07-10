@@ -1,3 +1,4 @@
+// process.env['LOG_LEVEL'] = 'info'; /* The default log level is `Error`.*/
 import { Systems, Events, Scopes, HookPayload, Hooks, HookDetails, ModifyHookPayload, TokenPayload, Token, XAdsRegion, Region } from "@aps_sdk/webhooks";
 import { SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager"; // Assuming a default export
 import { WebhooksClient } from "@aps_sdk/webhooks";
@@ -11,7 +12,7 @@ const webhooksClient = new WebhooksClient(sdkManager);
 const accessToken = "<token>"; // Replace with your actual access token
 const system = Systems.Data; // Replace with the desired system from the Systems enum
 const event = Events.DmVersionAdded; // Replace with the desired event from the Events enum
-const hookId = "<token>";
+const hookId = "<hookId>";
 
 // create system event hooks
 async function createSystemEventhook(): Promise<any> {
@@ -35,7 +36,7 @@ async function createSystemEventhook(): Promise<any> {
     const response = await webhooksClient.createSystemEventHook(accessToken, system, event, hookPayload);
     console.log(response);
   } catch (error) {
-    console.error(`Failed to create system event hook:`, error);
+    console.error(`Failed to create system event hook:`, error.message);
   }
 }
 
@@ -46,7 +47,7 @@ async function getHooks(): Promise<any> {
     console.log(response);
     console.log(response.links.next);
   } catch (error) {
-    console.error(`Failed to get hooks:`, error);
+    console.error(`Failed to get hooks:`, error.message);
   }
 }
 
@@ -57,7 +58,7 @@ async function getSystemEventHooks(): Promise<any> {
     console.log(response);
     console.log(response.links.next);
   } catch (error) {
-    console.error(`Failed to get hooks:`, error);
+    console.error(`Failed to get hooks:`, error.message);
   }
 }
 
@@ -68,7 +69,7 @@ async function getSystemHooks(): Promise<any> {
     console.log(response);
     console.log(response.links.next);
   } catch (error) {
-    console.error(`Failed to get hooks:`, error);
+    console.error(`Failed to get hooks:`, error.message);
   }
 }
 
@@ -78,7 +79,7 @@ async function getHookDetails(): Promise<any> {
     const response: HookDetails = await webhooksClient.getHookDetails(accessToken, system, event, hookId, {xAdsRegion: XAdsRegion.Us});
     console.log(response);
   } catch (error) {
-    console.error(`Failed to get hook details:`, error);
+    console.error(`Failed to get hook details:`, error.message);
   }
 }
 
@@ -88,7 +89,7 @@ async function getAppHooks(): Promise<any> {
     const response: Hooks = await webhooksClient.getAppHooks(accessToken, {xAdsRegion: XAdsRegion.Apac, status: "active", sort:"asc"});
     console.log(response);
   } catch (error) {
-    console.error(`Failed to get app hooks:`, error);
+    console.error(`Failed to get app hooks:`, error.message);
   }
 }
 
@@ -115,7 +116,7 @@ async function patchSystemEventHook(): Promise<any> {
     );
     console.log(response);
   } catch (error) {
-    console.error(`Failed to update system event hook:`, error);
+    console.error(`Failed to update system event hook:`, error.message);
   }
 }
 
@@ -145,7 +146,7 @@ async function createSystemHook(): Promise<any> {
     );
     console.log(response);
   } catch (error) {
-    console.error(`Failed to create system hook:`, error);
+    console.error(`Failed to create system hook:`, error.message);
   }
 }
 
@@ -155,7 +156,7 @@ async function deleteSystemEventHook(): Promise<any> {
     const response = await webhooksClient.deleteSystemEventHook(accessToken, system, event, hookId);
     console.log(response);
   } catch (error) {
-    console.error(`Failed to delete hook:`, error);
+    console.error(`Failed to delete hook:`, error.message);
   }
 }
 
@@ -169,7 +170,7 @@ async function createToken(): Promise<any> {
     const response:Token = await webhooksClient.createToken(accessToken, tokenPayload);
     console.log(response);
   } catch (error) {
-    console.error(`Failed to create token:`, error);
+    console.error(`Failed to create token:`, error.message);
   }
 }
 
@@ -179,7 +180,7 @@ async function deleteToken(): Promise<any> {
     const response = await webhooksClient.deleteToken(accessToken);
     console.log(response);
   } catch (error) {
-    console.error(`Failed to delete token:`, error);
+    console.error(`Failed to delete token:`, error.message);
   }
 }
 
@@ -193,7 +194,7 @@ async function putToken(): Promise<any> {
     const response = await webhooksClient.putToken(accessToken, tokenPayload);
     console.log(response);
   } catch (error) {
-    console.error(`Failed to update token:`, error);
+    console.error(`Failed to update token:`, error.message);
   }
 }
 
