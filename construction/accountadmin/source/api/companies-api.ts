@@ -792,8 +792,9 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`createCompany Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`createCompany Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`createCompany Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`createCompany Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`createCompany Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`createCompany Request failed with no response received: ${error.request}`, error);
@@ -825,8 +826,9 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getCompanies Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`getCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getCompanies Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`getCompanies Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getCompanies Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`getCompanies Request failed with no response received: ${error.request}`, error);
@@ -855,8 +857,9 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getCompany Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`getCompany Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getCompany Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`getCompany Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getCompany Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`getCompany Request failed with no response received: ${error.request}`, error);
@@ -889,8 +892,9 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getProjectCompanies Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`getProjectCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getProjectCompanies Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`getProjectCompanies Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getProjectCompanies Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`getProjectCompanies Request failed with no response received: ${error.request}`, error);
@@ -919,8 +923,9 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`importCompanies Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`importCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`importCompanies Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`importCompanies Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`importCompanies Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`importCompanies Request failed with no response received: ${error.request}`, error);
@@ -950,8 +955,9 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`patchCompanyDetails Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`patchCompanyDetails Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`patchCompanyDetails Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`patchCompanyDetails Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`patchCompanyDetails Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`patchCompanyDetails Request failed with no response received: ${error.request}`, error);
@@ -981,8 +987,9 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`patchCompanyImage Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`patchCompanyImage Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`patchCompanyImage Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`patchCompanyImage Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`patchCompanyImage Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`patchCompanyImage Request failed with no response received: ${error.request}`, error);
@@ -1018,8 +1025,9 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`searchCompanies Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`searchCompanies Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`searchCompanies Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`searchCompanies Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`searchCompanies Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`searchCompanies Request failed with no response received: ${error.request}`, error);

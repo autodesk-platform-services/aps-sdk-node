@@ -604,8 +604,9 @@ export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`createUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`createUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`createUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`createUser Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`createUser Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`createUser Request failed with no response received: ${error.request}`, error);
@@ -634,8 +635,9 @@ export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`getUser Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getUser Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`getUser Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getUser Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`getUser Request failed with no response received: ${error.request}`, error);
@@ -667,8 +669,9 @@ export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getUsers Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`getUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getUsers Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`getUsers Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getUsers Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`getUsers Request failed with no response received: ${error.request}`, error);
@@ -697,8 +700,9 @@ export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`importUsers Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`importUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`importUsers Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`importUsers Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`importUsers Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`importUsers Request failed with no response received: ${error.request}`, error);
@@ -728,8 +732,9 @@ export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`patchUserDetails Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`patchUserDetails Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`patchUserDetails Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`patchUserDetails Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`patchUserDetails Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`patchUserDetails Request failed with no response received: ${error.request}`, error);
@@ -766,8 +771,9 @@ export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`searchUsers Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`searchUsers Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`searchUsers Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`searchUsers Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`searchUsers Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`searchUsers Request failed with no response received: ${error.request}`, error);

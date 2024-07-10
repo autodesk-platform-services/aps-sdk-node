@@ -520,8 +520,9 @@ export class ProjectsApi extends BaseApi implements ProjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`createProject Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`createProject Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`createProject Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`createProject Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`createProject Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`createProject Request failed with no response received: ${error.request}`, error);
@@ -551,8 +552,9 @@ export class ProjectsApi extends BaseApi implements ProjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`createProjectImage Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`createProjectImage Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`createProjectImage Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`createProjectImage Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`createProjectImage Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`createProjectImage Request failed with no response received: ${error.request}`, error);
@@ -583,8 +585,9 @@ export class ProjectsApi extends BaseApi implements ProjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getProject Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`getProject Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getProject Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`getProject Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getProject Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`getProject Request failed with no response received: ${error.request}`, error);
@@ -628,8 +631,9 @@ export class ProjectsApi extends BaseApi implements ProjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getProjects Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`getProjects Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getProjects Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`getProjects Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getProjects Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`getProjects Request failed with no response received: ${error.request}`, error);

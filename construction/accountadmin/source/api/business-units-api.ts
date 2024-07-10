@@ -209,8 +209,9 @@ export class BusinessUnitsApi extends BaseApi implements BusinessUnitsApiInterfa
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`createBusinessUnits Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`createBusinessUnits Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`createBusinessUnits Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`createBusinessUnits Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`createBusinessUnits Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`createBusinessUnits Request failed with no response received: ${error.request}`, error);
@@ -238,8 +239,9 @@ export class BusinessUnitsApi extends BaseApi implements BusinessUnitsApiInterfa
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getBusinessUnits Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new ConstructionAccountAdminApiError(`getBusinessUnits Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getBusinessUnits Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`getBusinessUnits Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getBusinessUnits Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`getBusinessUnits Request failed with no response received: ${error.request}`, error);
