@@ -14,6 +14,7 @@ const token = "<token>";
 
 const accountId = "<accountId>";
 const adminUserId = "<adminUserId>";
+const projectId = "<projectId>";
 
 
 
@@ -34,7 +35,6 @@ async function getProjects() {
 // fetch project details
 async function getProject() {
     try {
-        const projectId = "c2522227-fd2e-4944-913b-3709e2d9f96a";
         const project: Project = await _adminApi.getProject(token, projectId, { region: Region.Apac });
         console.log(project);
     }
@@ -46,10 +46,10 @@ async function getProject() {
 // update project image
 async function postProjectImage() {
     try {
-        let buffer = fs.readFileSync("C:/Users/n078/OneDrive - Autodesk/Desktop/tempp/abc.jpg");
-        const file: File = new File([buffer], "C:/Users/n078/OneDrive - Autodesk/Desktop/tempp/abc.jpg");
+        let buffer = fs.readFileSync(" /path/to/file/abc.jpg");
+        const file: File = new File([buffer], "/path/to/file/abc.jpg");
 
-        const response: ProjectPatchResponse = await _adminApi.createProjectImage(token, "c2522227-fd2e-4944-913b-3709e2d9f96a", "489c5e7a-c6c0-4212-81f3-3529a621210b", file);
+        const response: ProjectPatchResponse = await _adminApi.createProjectImage(token, projectId, accountId, file);
         console.log(response)
     }
     catch (err) {
@@ -114,7 +114,7 @@ async function getCompanies() {
 // fetch company details 
 async function getCompany() {
     try {
-        const response: Company = await _adminApi.getCompany(token, "5ffac16f-4109-42b3-8e3f-159ba2638413", accountId);
+        const response: Company = await _adminApi.getCompany(token, "<companyId>", accountId);
         console.log(response);
     }
     catch (err) {
@@ -136,7 +136,7 @@ async function searchCompanies() {
 // Query all the partner companies in a project
 async function getProjectCompany() {
     try {
-        const response: Array<Company> = await _adminApi.getProjectCompanies(token, accountId, "c2522227-fd2e-4944-913b-3709e2d9f96a");
+        const response: Array<Company> = await _adminApi.getProjectCompanies(token, accountId, projectId);
         console.log(response);
     }
     catch (err) {
@@ -348,7 +348,7 @@ async function updateUser() {
 // fetch users in the specified project
 async function getProjectUsers() {
     try {
-        const response: ProjectUsers = await _adminApi.getProjectUsers(token, "c2522227-fd2e-4944-913b-3709e2d9f96a");
+        const response: ProjectUsers = await _adminApi.getProjectUsers(token, projectId);
         console.log(response);
     }
     catch (err) {
@@ -359,7 +359,7 @@ async function getProjectUsers() {
 // fetch specified user in the project
 async function getProjectUser() {
     try {
-        const response: ProjectUser = await _adminApi.getProjectUser(token, "c2522227-fd2e-4944-913b-3709e2d9f96a", "7e7c31fd-9e9d-4c92-8e73-aadecfd6a39b", { region: Region.Us });
+        const response: ProjectUser = await _adminApi.getProjectUser(token, projectId, "7e7c31fd-9e9d-4c92-8e73-aadecfd6a39b", { region: Region.Us });
         console.log(response);
     }
     catch (err) {
@@ -379,7 +379,7 @@ async function assignProjectUser() {
                 }
             ]
         }
-        const response: ProjectUserResponse = await _adminApi.assignProjectUser(token, "c2522227-fd2e-4944-913b-3709e2d9f96a", projectUserPayload, { region: Region.Us, adminUserId: adminUserId });
+        const response: ProjectUserResponse = await _adminApi.assignProjectUser(token, projectId, projectUserPayload, { region: Region.Us, adminUserId: adminUserId });
         console.log(response)
     }
     catch (err) {
@@ -403,7 +403,7 @@ async function importProjectUsers() {
                 }
             ]
         }
-        const response: ProjectUsersImportResponse = await _adminApi.importProjectUsers(token, "c2522227-fd2e-4944-913b-3709e2d9f96a", projectUsersImportPayload, { region: Region.Us, adminUserId: adminUserId });
+        const response: ProjectUsersImportResponse = await _adminApi.importProjectUsers(token, projectId, projectUsersImportPayload, { region: Region.Us, adminUserId: adminUserId });
         console.log(response)
     }
     catch (err) {
@@ -443,7 +443,7 @@ async function updateProjectUser() {
                 }
             ]
         }
-        const response: ProjectUserResponse = await _adminApi.updateProjectUser(token, "c2522227-fd2e-4944-913b-3709e2d9f96a", "4ca99e9a-cce9-40a1-abb7-d69a1fd79173", projectUsersUpdatePayload, { region: Region.Us, adminUserId: adminUserId });
+        const response: ProjectUserResponse = await _adminApi.updateProjectUser(token, projectId, "4ca99e9a-cce9-40a1-abb7-d69a1fd79173", projectUsersUpdatePayload, { region: Region.Us, adminUserId: adminUserId });
         console.log(response);
     }
     catch (err) {
@@ -454,7 +454,7 @@ async function updateProjectUser() {
 // Remove the specified user from a project
 async function deleteProjectUser() {
     try {
-        const response: void = await _adminApi.removeProjectUser(token, "c2522227-fd2e-4944-913b-3709e2d9f96a", "4ca99e9a-cce9-40a1-abb7-d69a1fd79173", { region: Region.Us, adminUserId: adminUserId });
+        const response: void = await _adminApi.removeProjectUser(token, projectId, "4ca99e9a-cce9-40a1-abb7-d69a1fd79173", { region: Region.Us, adminUserId: adminUserId });
         console.log(response);
     }
     catch (err) {
