@@ -2,7 +2,7 @@
 
 [![node.js](https://img.shields.io/badge/Node.js-16.16-blue.svg)](https://nodejs.org)
 [![npm](https://img.shields.io/badge/npm-8.11-blue.svg)](https://www.npmjs.com/)
-[![license](https://img.shields.io/:license-mit-green.svg)](https://opensource.org/licenses/MIT)
+[![license](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
 The **Autodesk Platform Services (APS) SDK for NodeJs** helps NodeJs developer create applications that leverage the various APS services: Model Derivative, Data Management, OSS, Webhooks. More services soon.
 
