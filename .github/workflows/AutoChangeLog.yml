@@ -2,7 +2,7 @@ name: Auto Update Changelog
 on: 
   push:
     branches: 
-        - 'development'
+        - 'main'
     paths-ignore:
         - 'CHANGELOG.md'  
 jobs: 
@@ -12,7 +12,7 @@ jobs:
           - name: Checkout                                                                                                                                                                        
             uses: actions/checkout@v4.1.4                                                                                                                                                                
             with:                                                                                                                                                                                       
-                ref: development                                                                                                                                                                             
+                ref: main                                                                                                                                                                             
           - name: Update CHANGELOG                                                                                                                                                                      
             uses: heinrichreimer/github-changelog-generator-action@v2.4
             with:
