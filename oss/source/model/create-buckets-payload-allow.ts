@@ -3,19 +3,19 @@
 
 
 /**
- * 
+ * An object that represents the permissions allowed for a bucket.
  * @export
  * @interface CreateBucketsPayloadAllow
  */
 export interface CreateBucketsPayloadAllow {
     /**
-     * The application key to grant access to
+     * The Client ID of the application.
      * @type {string}
      * @memberof CreateBucketsPayloadAllow
      */
     'authId': string;
     /**
-     * Acceptable values: `full` or `read` 
+     * Specifies the level of permission the application has. Required when ``allow`` is specified. Possible values are:   - ``full`` - Unrestricted access to objects within the bucket. - ``read_only`` - Read only access to the objects within the bucket. Modification or deletion of objects is not allowed. 
      * @type {string}
      * @memberof CreateBucketsPayloadAllow
      */

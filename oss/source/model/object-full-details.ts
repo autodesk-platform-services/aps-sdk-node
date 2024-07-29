@@ -3,73 +3,73 @@
 
 
 /**
- * Object Details json response
+ * Represents detailed information about an object within a bucket.
  * @export
  * @interface ObjectFullDetails
  */
 export interface ObjectFullDetails {
     /**
-     * Bucket key
+     * The bucket key of the bucket that contains the object.
      * @type {string}
      * @memberof ObjectFullDetails
      */
     'bucketKey'?: string;
     /**
-     * Object URN
+     * An identifier (URN) that uniquely and persistently identifies the object.
      * @type {string}
      * @memberof ObjectFullDetails
      */
     'objectId'?: string;
     /**
-     * Object name
+     * A URL-encoded human friendly name to identify the object.
      * @type {string}
      * @memberof ObjectFullDetails
      */
     'objectKey'?: string;
     /**
-     * Object SHA1
+     * A hash value computed from the data of the object.
      * @type {string}
      * @memberof ObjectFullDetails
      */
     'sha1'?: string;
     /**
-     * Object size
+     * The total amount of storage space occupied by the object, in bytes.
      * @type {number}
      * @memberof ObjectFullDetails
      */
     'size'?: number;
     /**
-     * Object content-type
+     * The format of the data stored within the object, expressed as a MIME type.
      * @type {string}
      * @memberof ObjectFullDetails
      */
     'contentType'?: string;
     /**
-     * URL to download the object
+     * A URL that points to the actual location of the object.
      * @type {string}
      * @memberof ObjectFullDetails
      */
     'location'?: string;
     /**
-     * Epoch timestamp when the object was created. Only provided if the user requests this to be included in the query parameters.
+     * The time the object was created, represented as a Unix timestamp. Only returned if explicitly requested using the ``with`` query string parameter.
      * @type {number}
      * @memberof ObjectFullDetails
      */
     'createdDate'?: number;
     /**
-     * Epoch timestamp when the object was last accessed. Only provided if the user requests this to be included in the query parameters.
+     * The time the object was last accessed, represented as a Unix timestamp. Only returned if explicitly requested using the ``with`` query string parameter.
      * @type {number}
      * @memberof ObjectFullDetails
      */
     'lastAccessedDate'?: number;
     /**
-     * Epoch timestamp when the object was last modified. Only provided if the user requests this to be included in the query parameters.
+     * The time the object was most recently modified, represented as a Unix timestamp. Only returned if explicitly requested using the ``with`` query string parameter.
      * @type {number}
      * @memberof ObjectFullDetails
      */
     'lastModifiedDate'?: number;
     /**
-     * When specified, the response will include the user defined metadata in a JSON field named userDefinedMetadata, if available. The user defined metadata can be set on file uploading.
+     * Any custom metadata, if available. Only returned if explicitly requested for using the ``with`` query string parameter.
      * @type {string}
      * @memberof ObjectFullDetails
      */

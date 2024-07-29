@@ -12,6 +12,7 @@ import { JobPayloadOutputDestination } from './job-payload-output-destination';
 export interface JobPayloadOutput {
     /**
      * 
+     * @deprecated This attribute is replaced by the region header.
      * @type {JobPayloadOutputDestination}
      * @memberof JobPayloadOutput
      */

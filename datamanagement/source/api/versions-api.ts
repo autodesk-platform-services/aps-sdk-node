@@ -2,9 +2,9 @@
 /* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
+import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, DataManagementApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, DataManagementApiError } from '../base';
 import { DownloadFormats } from '../model';
 import { Downloads } from '../model';
 import { GetHubs401Response } from '../model';
@@ -536,8 +536,8 @@ export const VersionsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
  * VersionsApi - functional programming interface
  * @export
  */
-export const VersionsApiFp = function(sdkManager?: SDKManager) {
-    const localVarAxiosParamCreator = VersionsApiAxiosParamCreator(sdkManager.apsconfiguration)
+export const VersionsApiFp = function(sdkManager?: SdkManager) {
+    const localVarAxiosParamCreator = VersionsApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
          * Creates new versions of a file (item), except for the first version of the item. To create the first version of the item, use POST items.  Before creating each version you need to create a new storage location for the version, and upload the file to the storage object. For more details about the workflow, see the tutorial on uploading a file.  This endpoint also copies versions of items to exisitng items in other folders. The endpoint creates a new version of the existing item in the target folder. You cannot copy versions of items across different projects and accounts.  To copy versions of items to other folders and create a new item and a first version of the item in the target folder, use POST versions.  This endpoint can also be used to delete files on BIM360 Document Management. For more information, please refer to the delete and restore a file turorial.  Note that to access BIM 360 Docs files using the Data Management API you need to provision your app in the BIM 360 Account Administrator portal. For more details, see the Manage Access to Docs tutorial.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
@@ -836,9 +836,9 @@ export interface VersionsApiInterface {
  * VersionsApi - object-oriented interface
  * @export
  * @class VersionsApi
- * @extends {BaseAPI}
+ * @extends {BaseApi}
  */
-export class VersionsApi extends BaseAPI implements VersionsApiInterface {
+export class VersionsApi extends BaseApi implements VersionsApiInterface {
     private logger = this.sdkManager.logger;
     /**
      * Creates new versions of a file (item), except for the first version of the item. To create the first version of the item, use POST items.  Before creating each version you need to create a new storage location for the version, and upload the file to the storage object. For more details about the workflow, see the tutorial on uploading a file.  This endpoint also copies versions of items to exisitng items in other folders. The endpoint creates a new version of the existing item in the target folder. You cannot copy versions of items across different projects and accounts.  To copy versions of items to other folders and create a new item and a first version of the item in the target folder, use POST versions.  This endpoint can also be used to delete files on BIM360 Document Management. For more information, please refer to the delete and restore a file turorial.  Note that to access BIM 360 Docs files using the Data Management API you need to provision your app in the BIM 360 Account Administrator portal. For more details, see the Manage Access to Docs tutorial.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.

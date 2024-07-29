@@ -16,7 +16,7 @@ export interface ModelViewsDataMetadata {
      */
     'name': string;
     /**
-     * Unique ID for the Model View.
+     * Unique ID of the Model View.
      * @type {string}
      * @memberof ModelViewsDataMetadata
      */
@@ -28,7 +28,7 @@ export interface ModelViewsDataMetadata {
      */
     'role': Role;
     /**
-     * ``true``: Model View is a Master View derived from a Revit file.  ``false``: Model View is not a Master View.
+     * ``true``: Model View is a Master View derived from a Revit source design.  ``false``: Model View is not a Master View.
      * @type {boolean}
      * @memberof ModelViewsDataMetadata
      */

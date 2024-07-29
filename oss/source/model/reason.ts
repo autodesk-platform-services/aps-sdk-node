@@ -3,7 +3,7 @@
 
 
 /**
- * reason for failure
+ * An object returned with an error describing the reason for failure.
  * @export
  * @interface Reason
  */

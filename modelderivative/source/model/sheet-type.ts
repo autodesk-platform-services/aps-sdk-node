@@ -3,7 +3,7 @@
 
 
 /**
- * Export the sheet body to IGES. `open`, `shell`, `surface` or `wireframe`. By default, it is set to `surface`.
+ * The sheet body type to export as, when the output is IGES.  Possible values are:  - ``open`` -  ``shell``  - ``surface`` - (Default) - ``wireframe`` 
  * @export
  * @enum {string}
  */

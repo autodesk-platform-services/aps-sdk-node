@@ -16,10 +16,10 @@ export interface ObjectTreeData {
      */
     'type': string;
     /**
-     * Collection of \"objects\".
-     * @type {Set<ObjectTreeDataObjects>}
+     * Collection of \"objects\" that constitute the nodes of the object tree.
+     * @type {Array<ObjectTreeDataObjects>}
      * @memberof ObjectTreeData
      */
-    'objects': Set<ObjectTreeDataObjects>;
+    'objects': Array<ObjectTreeDataObjects>;
 }
 

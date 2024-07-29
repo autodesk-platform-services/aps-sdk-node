@@ -3,7 +3,7 @@
 
 
 /**
- * Export the solid body to IGES `solid`, `surface` or `wireframe`. By default, it is set to `solid`.
+ * The solid body type to export as, when the output is IGES. Possible values are:   - ``solid`` - (Default) - ``surface`` - ``wireframe`` 
  * @export
  * @enum {string}
  */

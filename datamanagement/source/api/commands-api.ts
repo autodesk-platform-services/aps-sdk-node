@@ -2,9 +2,9 @@
 /* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
-import {ApsServiceRequestConfig, IApsConfiguration, SDKManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
+import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, DataManagementApiError } from '../base';
+import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, DataManagementApiError } from '../base';
 import { Command } from '../model';
 import { CommandPayload } from '../model';
 import { GetHubs401Response } from '../model';
@@ -67,8 +67,8 @@ export const CommandsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
  * CommandsApi - functional programming interface
  * @export
  */
-export const CommandsApiFp = function(sdkManager?: SDKManager) {
-    const localVarAxiosParamCreator = CommandsApiAxiosParamCreator(sdkManager.apsconfiguration)
+export const CommandsApiFp = function(sdkManager?: SdkManager) {
+    const localVarAxiosParamCreator = CommandsApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
          * Commands enable you to perform general operations on multiple resources. For example, you can check whether a user has permission to delete specific versions, items, and folders. Commands are executed by sending requests in the body payload. See the [Commands](/en/docs/data/v2/overview/commands/) section for more information. 
@@ -111,9 +111,9 @@ export interface CommandsApiInterface {
  * CommandsApi - object-oriented interface
  * @export
  * @class CommandsApi
- * @extends {BaseAPI}
+ * @extends {BaseApi}
  */
-export class CommandsApi extends BaseAPI implements CommandsApiInterface {
+export class CommandsApi extends BaseApi implements CommandsApiInterface {
     private logger = this.sdkManager.logger;
     /**
      * Commands enable you to perform general operations on multiple resources. For example, you can check whether a user has permission to delete specific versions, items, and folders. Commands are executed by sending requests in the body payload. See the [Commands](/en/docs/data/v2/overview/commands/) section for more information. 

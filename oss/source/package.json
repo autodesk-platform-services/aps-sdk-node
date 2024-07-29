@@ -1,16 +1,20 @@
 {
-  "name": "oss",
-  "version": "1.0.0",
-  "description": "Client sdk for oss API",
-  "license": "",
-  "publishConfig": {
-    "registry": "https://npm.autodesk.com/artifactory/api/npm/autodesk-npm",
-    "access": "public"
+  "name": "@aps_sdk/oss",
+  "version": "1.0.0-beta.1",
+  "description": "Client sdk for Data Management Oss API",
+  "license": "Apache-2.0",
+  "author": "Autodesk Platform Services",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/autodesk-platform-services/aps-sdk-node.git"
   },
   "keywords": [
-    "axios",
-    "typescript",
-    "oss"
+    "Autodesk Platform Services",
+    "Typescript",
+    "Oss"
+  ],
+  "files": [
+    "/dist"
   ],
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
@@ -22,11 +26,11 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "axios": "^0.27.2",
-    "autodesk-sdkmanager": "^1.0.5-SNAPSHOT"
+    "@aps_sdk/autodesk-sdkmanager": "^1.0.0-beta.1",
+    "axios": "^1.6.2",
+    "@types/node": "^20.9.0"
   },
-  "devDependencies": {
-    "@types/node": "^20.3.2",
+  "devDependencies": {    
     "prettier": "^2.8.8",
     "typescript": "^5.1.5"
   }

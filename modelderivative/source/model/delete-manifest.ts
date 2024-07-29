@@ -3,15 +3,15 @@
 
 
 /**
- * 
+ * An object that represents the successful response of a Delete Manifest operation. 
  * @export
- * @interface DeleteManifest200Response
+ * @interface DeleteManifest
  */
 export interface DeleteManifest {
     /**
-     * A message describing outcome of the operation. Always ``success``.
+     * A message describing outcome of the operation. Always ``success`` for status ``200``.
      * @type {string}
-     * @memberof DeleteManifest200Response
+     * @memberof DeleteManifest
      */
     'result'?: string;
 }

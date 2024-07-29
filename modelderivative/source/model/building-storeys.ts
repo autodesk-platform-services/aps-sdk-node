@@ -3,7 +3,7 @@
 
 
 /**
- * Specifies how storeys are translated. Available options are: - hide - (default) storeys are extracted but not visible by default. - show - storeys are extracted and are visible by default. - skip - storeys are not translated. Note These options are applicable only when conversionMethod is set to modern or v3.
+ * Specifies how storeys are translated. Applicable only when the source design is of type IFC. Possible values are:  - ``hide`` - (Default) Storeys are translated but not visible by default. - ``show`` - Storeys are translated and are visible by default. - ``skip`` - Storeys are not translated.  **Note:** These options are applicable only when ``conversionMethod`` is set to ``modern`` or ``v3``.
  * @export
  * @enum {string}
  */

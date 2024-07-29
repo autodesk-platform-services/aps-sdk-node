@@ -3,13 +3,13 @@
 
 
 /**
- * list of the requested outputs
+ * List of the requested outputs.
  * @export
  * @interface JobAcceptedJobs
  */
 export interface JobAcceptedJobs {
     /**
-     * identical to the request body. For more information please see the request body structure above.
+     * Identical to the ``output`` object of the request body. For information on each attribute, see the request body structure description.
      * @type {object}
      * @memberof JobAcceptedJobs
      */

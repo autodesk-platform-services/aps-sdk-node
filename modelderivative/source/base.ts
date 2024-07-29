@@ -3,7 +3,7 @@
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import globalAxios, {AxiosError} from 'axios';
-import {ApsServiceRequestConfig, ISDKError, SDKManager} from  "@aps_sdk/autodesk-sdkmanager";
+import {ApsServiceRequestConfig, ISdkError, SdkManager} from  "@aps_sdk/autodesk-sdkmanager";
 
 /**
  *
@@ -29,12 +29,12 @@ export interface RequestArgs {
 /**
  *
  * @export
- * @class BaseAPI
+ * @class BaseApi
  */
-export class BaseAPI {
-    protected sdkManager: SDKManager | undefined;
+export class BaseApi {
+    protected sdkManager: SdkManager | undefined;
 
-    constructor(sdkManager?: SDKManager, protected axios: AxiosInstance = globalAxios) {
+    constructor(sdkManager?: SdkManager, protected axios: AxiosInstance = globalAxios) {
         if (sdkManager) {
             this.sdkManager = sdkManager;
         }
@@ -54,7 +54,7 @@ export class RequiredError extends Error {
     }
 }
 
-export class ModelDerivativeApiError extends Error implements ISDKError {
+export class ModelDerivativeApiError extends Error implements ISdkError {
     /* istanbul ignore next */
     axiosError?: any;
     constructor(message: string, axiosError?: any) {

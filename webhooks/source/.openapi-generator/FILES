@@ -1,7 +1,6 @@
 .gitignore
 .npmignore
 .npmrc
-.openapi-generator-ignore
 .prettierrc
 README.md
 api.ts
@@ -21,13 +20,13 @@ model/hooks-data.ts
 model/hooks-links.ts
 model/hooks.ts
 model/index.ts
-model/modify-hook-payload-hook-attribute-myobject.ts
-model/modify-hook-payload-hook-attribute.ts
 model/modify-hook-payload.ts
+model/region.ts
 model/scopes.ts
 model/systems.ts
 model/token-payload.ts
 model/token.ts
+model/xads-region.ts
 package.json
 tsconfig.esm.json
 tsconfig.json
