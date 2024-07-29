@@ -12,7 +12,7 @@ jobs:
           - name: Checkout                                                                                                                                                                        
             uses: actions/checkout@v4.1.4                                                                                                                                                                
             with:                                                                                                                                                                                       
-                ref: main                                                                                                                                                                             
+                ref: development                                                                                                                                                                             
           - name: Update CHANGELOG                                                                                                                                                                      
             uses: heinrichreimer/github-changelog-generator-action@v2.4
             with:
