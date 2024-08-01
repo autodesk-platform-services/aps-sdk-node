@@ -12,5 +12,5 @@ npm i @aps_sdk/construction-issues
 ```
 ## Example
 
-For usage, see [Issues sample](https://github.com/autodesk-platform-services/aps-sdk-node/blob/development/samples/issues.ts)
+For usage, see [Issues sample](https://github.com/autodesk-platform-services/aps-sdk-node/blob/main/samples/issues.ts)
 

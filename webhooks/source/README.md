@@ -12,5 +12,5 @@ npm i @aps_sdk/webhooks
 ```
 ## Example
 
-For usage, see [WebHooks sample](https://github.com/autodesk-platform-services/aps-sdk-node/blob/development/samples/webhooks.ts)
+For usage, see [WebHooks sample](https://github.com/autodesk-platform-services/aps-sdk-node/blob/main/samples/webhooks.ts)
 
