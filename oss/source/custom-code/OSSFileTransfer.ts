@@ -18,7 +18,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
 
   public configuration: IFileTransferConfigurations;
   public objectApi: ObjectsApi;
-  public authentication: IAuthClient;
+  // public authentication: IAuthClient;
 
   private maxRetryOnTokenExpiry: number;
   private maxChunkCountAllowed: number;
@@ -52,7 +52,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     this.logger.logDebug(`${requestId} Config retry setting was: ${retryCount}`);
 
     await this.validateFileSize(requestId, sourceToUpload);
-    this.validateProjectScopeName(requestId, projectScope);
+    // this.validateProjectScopeName(requestId, projectScope);
 
     onProgress?.(1);
     var numberOfChunks: number = this.calculateNumberOfChunks(sourceToUpload.length);
@@ -202,14 +202,16 @@ export class OSSFileTransfer implements IOSSFileTransfer {
       this.logger.logInfo(`${requestId} Refreshing URL attempt:${attemptcount}.`);
       try {
 
-        var response = await this.objectApi.signedS3Upload(accessToken, bucketKey, objectKey, projectScope, parts, firstPart, uploadKey);
+        var response = await this.objectApi.signedS3Upload(accessToken, bucketKey, objectKey, parts, firstPart, uploadKey);
         return ([response.content, accessToken]);
 
       } catch (e) {
         if (e.message.includes(this.accessTokenExpiredMessage)) {
 
           attemptcount++;
-          accessToken = this.authentication.getUpdatedAccessToken();
+
+          //Yet to be implemented
+          // accessToken = this.authentication.getUpdatedAccessToken();
 
           this.logger.logInfo(`${requestId} Token expired. Trying to refresh`);
         }
@@ -263,7 +265,10 @@ export class OSSFileTransfer implements IOSSFileTransfer {
       } catch (error) {
         if (error.message.includes(this.accessTokenExpiredMessage)) {
           attemptCount++;
-          accessToken = this.authentication.getUpdatedAccessToken();
+
+          //Yet to be implemented
+          // accessToken = this.authentication.getUpdatedAccessToken();
+
           this.logger.logInfo(`${requestId} Token expired. Trying to refresh`);
         }
         else {

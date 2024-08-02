@@ -133,8 +133,8 @@ export class OssClient {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-    public async copyTo(accessToken: string, bucketKey: string, objectKey: string, newObjName: string, optionalArgs?: { xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, options?: ApsServiceRequestConfig }): Promise<ObjectDetails> {
-        const response = await this.objectApi.copyTo(accessToken, bucketKey, objectKey, newObjName, optionalArgs?.xAdsAcmNamespace, optionalArgs?.xAdsAcmCheckGroups, optionalArgs?.xAdsAcmGroups, optionalArgs?.options);
+    public async copyTo(accessToken: string, bucketKey: string, objectKey: string, newObjName: string, optionalArgs?: { options?: ApsServiceRequestConfig }): Promise<ObjectDetails> {
+        const response = await this.objectApi.copyTo(accessToken, bucketKey, objectKey, newObjName, optionalArgs?.options);
         return response.content;
     }
 
@@ -192,8 +192,8 @@ export class OssClient {
   * @throws {RequiredError}
   * @memberof OSSApiInterface
   */
-    public async deleteObject(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { AdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
-        const response = await this.objectApi.deleteObject(accessToken, bucketKey, objectKey, optionalArgs?.AdsAcmNamespace, optionalArgs?.xAdsAcmCheckGroups, optionalArgs?.xAdsAcmGroups, optionalArgs?.options);
+    public async deleteObject(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
+        const response = await this.objectApi.deleteObject(accessToken, bucketKey, objectKey,optionalArgs?.options);
         return response.content;
 
     }
@@ -250,8 +250,8 @@ export class OssClient {
         * @memberof OSSApiInterface
         */
 
-    public async getObjectDetails(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { ifModifiedSince?: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, _with?: With, options?: ApsServiceRequestConfig }): Promise<ObjectFullDetails> {
-        const response = await this.objectApi.getObjectDetails(accessToken, bucketKey, objectKey, optionalArgs?.ifModifiedSince, optionalArgs?.xAdsAcmNamespace, optionalArgs?.xAdsAcmCheckGroups, optionalArgs?.xAdsAcmGroups, optionalArgs?._with, optionalArgs?.options);
+    public async getObjectDetails(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { ifModifiedSince?: string, _with?: With, options?: ApsServiceRequestConfig }): Promise<ObjectFullDetails> {
+        const response = await this.objectApi.getObjectDetails(accessToken, bucketKey, objectKey, optionalArgs?.ifModifiedSince, optionalArgs?._with, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -304,8 +304,8 @@ export class OssClient {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public async signedS3Download(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { ifNoneMatch?: string, ifModifiedSince?: string, xAdsAcmScopes?: string, responseContentType?: string, responseContentDisposition?: string, responseCacheControl?: string, publicResourceFallback?: boolean, minutesExpiration?: number, useCdn?: boolean, redirect?: boolean, options?: ApsServiceRequestConfig }): Promise<Signeds3downloadResponse> {
-        const response = await this.objectApi.signedS3Download(accessToken, bucketKey, objectKey, optionalArgs?.ifNoneMatch, optionalArgs?.ifModifiedSince, optionalArgs?.xAdsAcmScopes, optionalArgs?.responseContentType, optionalArgs?.responseContentDisposition, optionalArgs?.responseCacheControl, optionalArgs?.publicResourceFallback, optionalArgs?.minutesExpiration, optionalArgs?.useCdn, optionalArgs?.redirect, optionalArgs?.options);
+    public async signedS3Download(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { ifNoneMatch?: string, ifModifiedSince?: string, responseContentType?: string, responseContentDisposition?: string, responseCacheControl?: string, publicResourceFallback?: boolean, minutesExpiration?: number, useCdn?: boolean, options?: ApsServiceRequestConfig }): Promise<Signeds3downloadResponse> {
+        const response = await this.objectApi.signedS3Download(accessToken, bucketKey, objectKey, optionalArgs?.ifNoneMatch, optionalArgs?.ifModifiedSince, optionalArgs?.responseContentType, optionalArgs?.responseContentDisposition, optionalArgs?.responseCacheControl, optionalArgs?.publicResourceFallback, optionalArgs?.minutesExpiration, optionalArgs?.useCdn, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -320,8 +320,8 @@ export class OssClient {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public async signedS3Upload(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { xAdsAcmScopes?: string, parts?: number, firstPart?: number, uploadKey?: string, minutesExpiration?: number, useAcceleration?: boolean, options?: ApsServiceRequestConfig }): Promise<Signeds3uploadResponse> {
-        const response = await this.objectApi.signedS3Upload(accessToken, bucketKey, objectKey, optionalArgs?.xAdsAcmScopes, optionalArgs?.parts, optionalArgs?.firstPart, optionalArgs?.uploadKey, optionalArgs?.minutesExpiration, optionalArgs.useAcceleration, optionalArgs?.options);
+    public async signedS3Upload(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { parts?: number, firstPart?: number, uploadKey?: string, minutesExpiration?: number, useAcceleration?: boolean, options?: ApsServiceRequestConfig }): Promise<Signeds3uploadResponse> {
+        const response = await this.objectApi.signedS3Upload(accessToken, bucketKey, objectKey, optionalArgs?.parts, optionalArgs?.firstPart, optionalArgs?.uploadKey, optionalArgs?.minutesExpiration, optionalArgs.useAcceleration, optionalArgs?.options);
         return response.content;
     }
     /**
