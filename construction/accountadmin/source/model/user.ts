@@ -1,8 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { UserRole } from './user-role';
-import { UserStatus } from './user-status';
 
 /**
  * 
@@ -23,17 +21,17 @@ export interface User {
      */
     'account_id'?: string;
     /**
-     * 
-     * @type {UserRole}
+     * The role of the user in the account. New user should be account_user only.
+     * @type {string}
      * @memberof User
      */
-    'role'?: UserRole;
+    'role'?: string;
     /**
-     * 
-     * @type {UserStatus}
+     * Status of the user in the system. A new account user is always not_invited.
+     * @type {string}
      * @memberof User
      */
-    'status'?: UserStatus;
+    'status'?: string;
     /**
      * The user’s default company ID in BIM 360
      * @type {string}
@@ -173,6 +171,4 @@ export interface User {
      */
     'updated_at'?: string;
 }
-
-
 
