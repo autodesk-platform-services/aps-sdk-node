@@ -45,14 +45,12 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     this.logger = this.sdkManager.logger;
   }
 
-  public async upload(bucketKey: string, objectKey: string, sourceToUpload: Buffer, accessToken: string, cancellationToken: AbortController, projectScope: string = '',
-    requestIdPrefix: string = '', onProgress?: (percentCompleted: number) => void): Promise<ApiResponse> {
+  public async upload(bucketKey: string, objectKey: string, sourceToUpload: Buffer, accessToken: string, cancellationToken: AbortController,requestIdPrefix: string = '', onProgress?: (percentCompleted: number) => void): Promise<ApiResponse> {
     const requestId: any = await this.handleRequestId(requestIdPrefix, bucketKey, objectKey);
     const retryCount: number = this.configuration.getRetryCount();
     this.logger.logDebug(`${requestId} Config retry setting was: ${retryCount}`);
 
     await this.validateFileSize(requestId, sourceToUpload);
-    // this.validateProjectScopeName(requestId, projectScope);
 
     onProgress?.(1);
     var numberOfChunks: number = this.calculateNumberOfChunks(sourceToUpload.length);
@@ -73,7 +71,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
 
         if (uploadUrls.length == 0) {
           retryUrlExpiryCount++;
-          var [uploadUrlsResponse, currentAccessToken] = await this.getUploadUrlsWithRetry(bucketKey, objectKey, numberOfChunks, chunksUploaded, uploadKey, accessToken, projectScope, requestId);
+          var [uploadUrlsResponse, currentAccessToken] = await this.getUploadUrlsWithRetry(bucketKey, objectKey, numberOfChunks, chunksUploaded, uploadKey, accessToken, requestId);
           uploadKey = uploadUrlsResponse.uploadKey;
           uploadUrls = uploadUrlsResponse.urls;
           accessToken = currentAccessToken;
@@ -134,10 +132,9 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     const response = await request();
     return response;
   }
-  public async download(bucketKey: string, objectKey: string, filePath: string, accessToken: string, cancellationToken: AbortController, projectScope: string = '', requestIdPrefix: string = '', onProgress?: (percentCompleted: number) => void): Promise<void> {
+  public async download(bucketKey: string, objectKey: string, filePath: string, accessToken: string, cancellationToken: AbortController, requestIdPrefix: string = '', onProgress?: (percentCompleted: number) => void): Promise<void> {
 
     const requestId: any = await this.handleRequestId(requestIdPrefix, bucketKey, objectKey);
-    this.validateProjectScopeName(requestId, projectScope);
 
     onProgress?.(1);
     const response: Signeds3downloadResponse = await this.getS3SignedDownloadUrlWithRetry(bucketKey, objectKey, accessToken, requestId);
@@ -192,7 +189,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     const fileReader = file.subarray(start, end);
     return fileReader;
   }
-  private async getUploadUrlsWithRetry(bucketKey: string, objectKey: string, numberOfChunks: number, chunksUploaded: number, uploadKey: string, accessToken: string, projectScope: string, requestId: string): Promise<[Signeds3uploadResponse, string]> {
+  private async getUploadUrlsWithRetry(bucketKey: string, objectKey: string, numberOfChunks: number, chunksUploaded: number, uploadKey: string, accessToken: string, requestId: string): Promise<[Signeds3uploadResponse, string]> {
 
     var attemptcount: number = 0;
     var parts: number = (Math.min(numberOfChunks - chunksUploaded, Constants.BatchSize));
