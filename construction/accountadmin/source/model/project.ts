@@ -1,10 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Classification } from './classification';
-import { Platform } from './platform';
-import { ProjectProjectValue } from './project-project-value';
-import { Status } from './status';
 
 /**
  * 
@@ -43,23 +39,23 @@ export interface Project {
      */
     'type'?: string;
     /**
-     * 
-     * @type {Classification}
+     * The project’s purpose. Possible values: production, template, component, sample
+     * @type {string}
      * @memberof Project
      */
-    'classification'?: Classification;
+    'classification'?: string;
     /**
-     * 
-     * @type {ProjectProjectValue}
+     * The value of the project. When updating the project value, both the value and currency parameters are required.
+     * @type {object}
      * @memberof Project
      */
-    'projectValue'?: ProjectProjectValue;
+    'projectValue'?: object;
     /**
-     * 
-     * @type {Status}
+     * The status of the project.
+     * @type {string}
      * @memberof Project
      */
-    'status'?: Status;
+    'status'?: string;
     /**
      * A job identifier that’s defined for the project by the user. This ID was defined when the project was created. Max length: 100
      * @type {string}
@@ -206,16 +202,16 @@ export interface Project {
     'sheetCount'?: number;
     /**
      * An array of the product objects associated with the project.
-     * @type {Array<string>}
+     * @type {Array<object>}
      * @memberof Project
      */
-    'products'?: Array<string>;
+    'products'?: Array<object>;
     /**
-     * 
-     * @type {Platform}
+     * The APS platform that the project belongs to.
+     * @type {string}
      * @memberof Project
      */
-    'platform'?: Platform;
+    'platform'?: string;
     /**
      * The total number of companies associated with the project.
      * @type {number}
@@ -229,6 +225,4 @@ export interface Project {
      */
     'memberCount'?: number;
 }
-
-
 

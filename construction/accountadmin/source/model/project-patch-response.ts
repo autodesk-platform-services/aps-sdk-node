@@ -1,10 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ConstructionType } from './construction-type';
-import { ContractType } from './contract-type';
-import { Language } from './language';
-import { ProjectStatus } from './project-status';
 
 /**
  * 
@@ -61,11 +57,11 @@ export interface ProjectPatchResponse {
      */
     'currency'?: string;
     /**
-     * 
-     * @type {ProjectStatus}
+     * The status of project.
+     * @type {string}
      * @memberof ProjectPatchResponse
      */
-    'status'?: ProjectStatus;
+    'status'?: string;
     /**
      * Project job number to connect a BIM 360 project to project or job in a financial or ERP system.
      * @type {string}
@@ -121,23 +117,23 @@ export interface ProjectPatchResponse {
      */
     'timezone'?: string;
     /**
-     * 
-     * @type {Language}
+     * Language of the project; applicable to the BIM 360 Field service only
+     * @type {string}
      * @memberof ProjectPatchResponse
      */
-    'language'?: Language;
+    'language'?: string;
     /**
-     * 
-     * @type {ConstructionType}
+     * Type of construction
+     * @type {string}
      * @memberof ProjectPatchResponse
      */
-    'construction_type'?: ConstructionType;
+    'construction_type'?: string;
     /**
-     * 
-     * @type {ContractType}
+     * Contract Type for your project
+     * @type {string}
      * @memberof ProjectPatchResponse
      */
-    'contract_type'?: ContractType;
+    'contract_type'?: string;
     /**
      * Timestamp of the last sign in, YYYY-MM-DDThh:mm:ss.sssZ format
      * @type {string}
@@ -145,6 +141,4 @@ export interface ProjectPatchResponse {
      */
     'last_sign_in'?: string;
 }
-
-
 
