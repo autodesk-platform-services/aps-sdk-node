@@ -15,9 +15,9 @@ export interface SpecifyReferencesPayload {
      * @type {string}
      * @memberof SpecifyReferencesPayload
      */
-    'urn': string;
+    'urn'?: string;
     /**
-     * 
+     * @deprecated This attribute is replaced by the region header.
      * @type {Region}
      * @memberof SpecifyReferencesPayload
      */
@@ -27,7 +27,7 @@ export interface SpecifyReferencesPayload {
      * @type {string}
      * @memberof SpecifyReferencesPayload
      */
-    'filename': string;
+    'filename'?: string;
     /**
      * An array of objects, where each object represents a referenced file.
      * @type {Array<SpecifyReferencesPayloadReferences>}
