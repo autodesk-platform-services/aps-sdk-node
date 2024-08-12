@@ -34,4 +34,4 @@ The Developer Portal has everything APS:
 
 ## Contributions
 
- Contributions are welcome! Please make sure to read the [contribution guidelines](CONTRIBUTING.md).
+ Contributions are welcome! Please make sure to read the [contribution guidelines](CONTRIBUTIONS.md).
