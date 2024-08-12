@@ -24,10 +24,14 @@ The Developer Portal has everything APS:
 ## Node Packages
 
 - [Authentication](https://www.npmjs.com/package/@aps_sdk/authentication)
-- [Construction Account Admin](https://www.npmjs.com/package/@aps_sdk/construction-account-admin)
-- [Construction Issues](https://www.npmjs.com/package/@aps_sdk/construction-issues)
+- [ACC Account Admin](https://www.npmjs.com/package/@aps_sdk/construction-account-admin)
+- [ACC Issues](https://www.npmjs.com/package/@aps_sdk/construction-issues)
 - [Data Management](https://www.npmjs.com/package/@aps_sdk/data-management)
 - [Model Derivative](https://www.npmjs.com/package/@aps_sdk/model-derivative)
 - [OSS](https://www.npmjs.com/package/@aps_sdk/oss)
 - [SDK Manager](https://www.npmjs.com/package/@aps_sdk/autodesk-sdkmanager)
 - [Webhooks](https://www.npmjs.com/package/@aps_sdk/webhooks)
+
+## Contributions
+
+ Contributions are welcome! Please make sure to read the [contribution guidelines](CONTRIBUTING.md).
