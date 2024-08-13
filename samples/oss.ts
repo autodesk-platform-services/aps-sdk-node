@@ -1,15 +1,14 @@
 import { SdkManager, SdkManagerBuilder, ApsServiceRequestConfig } from "@aps_sdk/autodesk-sdkmanager";
 import { PolicyKey, OssClient, Region } from "@aps_sdk/oss";
+import 'dotenv/config';
 
-
-
-const bucketkey = "<bucketkey>";
-const filepath = "<path/to/file>";
-const sourceToUpload ="<path to source file>";//sourceToUpload can also be a stream object
-const objectKey = "<objectKey>";
-const access_token = "<token>";
-const newObjName = "<filename>";
-const hash = "<hash>";
+const bucketKey = process.env.bucketKey;
+const filePath = process.env.filePath;
+const sourceToUpload = process.env.sourceToUpload; //sourceToUpload can also be a stream object
+const objectKey = process.env.objectKey;
+const accessToken = process.env.accessToken;
+const newObjName = process.env.newObjName;
+const hash = process.env.hash;
 
 
 
@@ -24,81 +23,81 @@ const ossClient = new OssClient(sdkmanager);
 async function upload() {
     
     //sourceToUpload can be either file path or stream of the object 
-    const response = await ossClient.upload(bucketkey, objectKey, sourceToUpload, access_token);
+    const response = await ossClient.upload(bucketKey, objectKey, sourceToUpload, accessToken);
     console.log(response);
 }
 async function download() {
-    await ossClient.download(bucketkey, objectKey, filepath, access_token);
+    await ossClient.download(bucketKey, objectKey, filePath, accessToken);
 }
 /**
      * This function will return the details about the specified bucket.
 */
 async function getBucketDetails() {
-    const response = await ossClient.getBucketDetails(access_token, bucketkey);
+    const response = await ossClient.getBucketDetails(accessToken, bucketKey);
     console.log(response);
 }
 
 async function getBuckets() {
-    const response = await ossClient.getBuckets(access_token);
+    const response = await ossClient.getBuckets(accessToken);
     console.log(response);
 }
 async function batchSignedS3Upload() {
-    const response = await ossClient.batchSignedS3Upload(access_token, bucketkey);
+    const response = await ossClient.batchSignedS3Upload(accessToken, bucketKey);
     console.log(response);
 }
 
 async function copyTo() {
-    const response = await ossClient.copyTo(access_token, bucketkey, objectKey, newObjName);
+    const response = await ossClient.copyTo(accessToken, bucketKey, objectKey, newObjName);
     console.log(response);
 }
 
 async function createBucket() {
     const policyKey = PolicyKey.Temporary;
     const xAdsRegion: Region = Region.Us
-    const response = await ossClient.createBucket(access_token, xAdsRegion, {
-        bucketKey: bucketkey,
+    const response = await ossClient.createBucket(accessToken, xAdsRegion, {
+        bucketKey: bucketKey,
         policyKey: policyKey
     });
     console.log(response);
 }
 
 async function createSignedResource() {
-    const response = await ossClient.createSignedResource(access_token, bucketkey, objectKey);
+    const response = await ossClient.createSignedResource(accessToken, bucketKey, objectKey);
     console.log(response);
 }
 
 async function deleteBucket() {
-    const response = await ossClient.deleteBucket(access_token, bucketkey);
+    const response = await ossClient.deleteBucket(accessToken, bucketKey);
     console.log(response);
 }
 
 async function deleteObject() {
-    const response = await ossClient.deleteObject(access_token, bucketkey, objectKey);
+    const response = await ossClient.deleteObject(accessToken, bucketKey, objectKey);
     console.log(response);
 }
 
 async function deleteSignedResource() {
-    const response = await ossClient.deleteSignedResource(access_token, hash);
+    const response = await ossClient.deleteSignedResource(accessToken, hash);
     console.log(response);
 }
 
 async function getObjectDetails() {
-    const response = await ossClient.getObjectDetails(access_token, bucketkey, objectKey);
+    const response = await ossClient.getObjectDetails(accessToken, bucketKey, objectKey);
     console.log(response);
 }
 
 async function getObjects() {
-    const response = await ossClient.getObjects(access_token, bucketkey);
+    const response = await ossClient.getObjects(accessToken, bucketKey);
     console.log(response);
 }
 
 async function getSignedResource() {
-    const response = await ossClient.getSignedResource(access_token, hash);
+    const response = await ossClient.getSignedResource(accessToken, hash);
     console.log(response);
 }
 
 async function signedS3Download() {
-    const response = await ossClient.signedS3Download(access_token, bucketkey, objectKey);
+    const response = await ossClient.signedS3Download(accessToken, bucketKey, objectKey);
     console.log(response);
 }
 

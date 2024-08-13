@@ -1,18 +1,17 @@
-// process.env['LOG_LEVEL'] = 'info'; /* The default log level is `Error`.*/
 import { Systems, Events, Scopes, HookPayload, Hooks, HookDetails, ModifyHookPayload, TokenPayload, Token, XAdsRegion, Region } from "@aps_sdk/webhooks";
 import { SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager"; // Assuming a default export
 import { WebhooksClient } from "@aps_sdk/webhooks";
 import { setScope } from "@aps_sdk/webhooks";
-
+import 'dotenv/config';
 
 const sdkManager = SdkManagerBuilder.create().build(); // Initialize the SDKManager as needed
 const webhooksClient = new WebhooksClient(sdkManager);
 
 // Define your access token and other required parameters
-const accessToken = "<token>"; // Replace with your actual access token
+const accessToken = process.env.accessToken; // Replace with your actual access token
 const system = Systems.Data; // Replace with the desired system from the Systems enum
 const event = Events.DmVersionAdded; // Replace with the desired event from the Events enum
-const hookId = "<hookId>";
+const hookId =process.env.hookId;;
 
 // create system event hooks
 async function createSystemEventhook(): Promise<any> {

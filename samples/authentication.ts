@@ -1,5 +1,3 @@
-//process.env['LOG_LEVEL'] = 'info'; /* The default log level is `Error`.*/ 
-
 import { ApiResponse, SdkManager, SdkManagerBuilder } from '@aps_sdk/autodesk-sdkmanager'
 import { AuthenticationClient, ResponseType, Scopes, TokenTypeHint } from '@aps_sdk/authentication';
 import 'dotenv/config';

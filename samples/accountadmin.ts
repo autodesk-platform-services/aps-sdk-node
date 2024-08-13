@@ -1,8 +1,7 @@
-//process.env['LOG_LEVEL'] = 'info'; /* The default log level is `Error`.*/
 import { AdminClient, BusinessUnitsRequestPyload, BusinessUnitsResponse, Classification, Company, CompanyImportResponse, CompanyPatchPayload, CompanyPayload, Currency, FilterTextMatch, Platform, ProductAccess, ProductKeys, Products, Project, ProjectPatchResponse, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserResponse, ProjectUsers, ProjectUsersImportPayload, ProjectUsersImportResponse, ProjectUsersUpdatePayload, Projects, Region, SortBy, Status, Timezone, Trade, User, UserImportResponse, UserPatchPayload, UserPayload, UserStatus } from '@aps_sdk/construction-account-admin';
 import { SdkManager, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager"
 import * as fs from "fs";
-
+import 'dotenv/config';
 
 const sdkmanager: SdkManager = SdkManagerBuilder
     .create()
@@ -10,11 +9,10 @@ const sdkmanager: SdkManager = SdkManagerBuilder
 
 let _adminApi: AdminClient = new AdminClient(sdkmanager);
 
-const token = "<token>";
-
-const accountId = "<accountId>";
-const adminUserId = "<adminUserId>";
-const projectId = "<projectId>";
+const accessToken = process.env.accessToken;
+const accountId = process.env.accountId;
+const adminUserId = process.env.adminUserId;
+const projectId = process.env.projectId;
 
 
 
@@ -24,7 +22,7 @@ const projectId = "<projectId>";
 // list projects
 async function getProjects() {
     try {
-        const projects: Projects = await _adminApi.getProjects(token, accountId, { region: Region.Us, fields: ["accountId", "name", "country", "updatedAt", "type", "status"], filterClassification: [Classification.Production, Classification.Sample, Classification.Template], filterPlatform: [Platform.Acc], filterProducts: [Products.AccountAdministration, Products.Build, Products.Docs, Products.DesignCollaboration], filterName: "S", filterType: ["Convention Center", "Airport"], filterStatus: [Status.Active], filterUpdatedAt: "2011-06-01T00:00:00.000Z..", filterTextMatch: FilterTextMatch.StartsWith, sort: [SortBy.UpdatedAtAsc], limit: 2, offset: 1 });
+        const projects: Projects = await _adminApi.getProjects(accessToken, accountId, { region: Region.Us, fields: ["accountId", "name", "country", "updatedAt", "type", "status"], filterClassification: [Classification.Production, Classification.Sample, Classification.Template], filterPlatform: [Platform.Acc], filterProducts: [Products.AccountAdministration, Products.Build, Products.Docs, Products.DesignCollaboration], filterName: "S", filterType: ["Convention Center", "Airport"], filterStatus: [Status.Active], filterUpdatedAt: "2011-06-01T00:00:00.000Z..", filterTextMatch: FilterTextMatch.StartsWith, sort: [SortBy.UpdatedAtAsc], limit: 2, offset: 1 });
         console.log(projects);
     }
     catch (err) {
@@ -35,7 +33,7 @@ async function getProjects() {
 // fetch project details
 async function getProject() {
     try {
-        const project: Project = await _adminApi.getProject(token, projectId, { region: Region.Apac });
+        const project: Project = await _adminApi.getProject(accessToken, projectId, { region: Region.Apac });
         console.log(project);
     }
     catch (err) {
@@ -49,7 +47,7 @@ async function postProjectImage() {
         let buffer = fs.readFileSync(" /path/to/file/abc.jpg");
         const file: File = new File([buffer], "/path/to/file/abc.jpg");
 
-        const response: ProjectPatchResponse = await _adminApi.createProjectImage(token, projectId, accountId, file);
+        const response: ProjectPatchResponse = await _adminApi.createProjectImage(accessToken, projectId, accountId, file);
         console.log(response)
     }
     catch (err) {
@@ -81,7 +79,7 @@ async function createProject() {
             "platform": Platform.Acc,
             "companyCount": 3
         }
-        const response: Project = await _adminApi.createProject(token, accountId, projectPayload, { adminUserId: adminUserId, region: Region.Us });
+        const response: Project = await _adminApi.createProject(accessToken, accountId, projectPayload, { adminUserId: adminUserId, region: Region.Us });
         console.log(response)
     }
     catch (err) {
@@ -103,7 +101,7 @@ getProjects()
 // list companies in an account
 async function getCompanies() {
     try {
-        const response: Array<Company> = await _adminApi.getCompanies(token, accountId, { region: Region.Us, limit: 20, offset: 0 });
+        const response: Array<Company> = await _adminApi.getCompanies(accessToken, accountId, { region: Region.Us, limit: 20, offset: 0 });
         console.log(response);
     }
     catch (err) {
@@ -114,7 +112,7 @@ async function getCompanies() {
 // fetch company details 
 async function getCompany() {
     try {
-        const response: Company = await _adminApi.getCompany(token, "<companyId>", accountId);
+        const response: Company = await _adminApi.getCompany(accessToken, "<companyId>", accountId);
         console.log(response);
     }
     catch (err) {
@@ -125,7 +123,7 @@ async function getCompany() {
 // fetch company details 
 async function searchCompanies() {
     try {
-        const response: Array<Company> = await _adminApi.searchCompanies(token, accountId, { name: "Test Company", trade: "Architecture", operator: "AND", partial: true, sort: "name" });
+        const response: Array<Company> = await _adminApi.searchCompanies(accessToken, accountId, { name: "Test Company", trade: "Architecture", operator: "AND", partial: true, sort: "name" });
         console.log(response);
     }
     catch (err) {
@@ -136,7 +134,7 @@ async function searchCompanies() {
 // Query all the partner companies in a project
 async function getProjectCompany() {
     try {
-        const response: Array<Company> = await _adminApi.getProjectCompanies(token, accountId, projectId);
+        const response: Array<Company> = await _adminApi.getProjectCompanies(accessToken, accountId, projectId);
         console.log(response);
     }
     catch (err) {
@@ -162,7 +160,7 @@ async function createCompany() {
             "erp_id": "c79bf096-5a3e-41a4-aaf8-a771ed329047",
             "tax_id": "413-07-5767"
         }
-        const response: Company = await _adminApi.createCompany(token, accountId, companyPayload, { region: Region.Emea });
+        const response: Company = await _adminApi.createCompany(accessToken, accountId, companyPayload, { region: Region.Emea });
         console.log(response);
     }
     catch (err) {
@@ -190,7 +188,7 @@ async function importCompanies() {
                 "tax_id": "413-07-5767"
             }
         ]
-        const response: CompanyImportResponse = await _adminApi.importCompanies(token, accountId, companyPayload);
+        const response: CompanyImportResponse = await _adminApi.importCompanies(accessToken, accountId, companyPayload);
         console.log(response);
     }
     catch (err) {
@@ -206,7 +204,7 @@ async function updateCompany() {
             "trade": Trade.ConcreteCastInPlace,
             "description": "Test company for sdk team",
         }
-        const response: Company = await _adminApi.patchCompanyDetails(token, companyId, accountId, companyPatchPayload);
+        const response: Company = await _adminApi.patchCompanyDetails(accessToken, companyId, accountId, companyPatchPayload);
         console.log(response);
     }
     catch (err) {
@@ -220,7 +218,7 @@ async function updateCompanyImage() {
         let buffer = fs.readFileSync("sdkimg.jpg");
         const file: File = new File([buffer], "sdkimg.jpg");
 
-        const response: Company = await _adminApi.patchCompanyImage(token, "0cc4c32a-6ef9-471a-993e-8776c994d257", accountId, file);
+        const response: Company = await _adminApi.patchCompanyImage(accessToken, "0cc4c32a-6ef9-471a-993e-8776c994d257", accountId, file);
         console.log(response)
     }
     catch (err) {
@@ -245,7 +243,7 @@ async function updateCompanyImage() {
 // fetch account users
 async function listUsers() {
     try {
-        const response: Array<User> = await _adminApi.getUsers(token, accountId);
+        const response: Array<User> = await _adminApi.getUsers(accessToken, accountId);
         // const response:Array<User> = await _adminApi.searchUsers(token, accountId, {region: Region.Us, email: "abc@autodesk.com"});
         console.log(response);
     }
@@ -257,7 +255,7 @@ async function listUsers() {
 // fetch user details
 async function getUser() {
     try {
-        const response: User = await _adminApi.getUser(token, accountId, "50cd3099-80d7-4aa4-a7be-c5ea13c25734");
+        const response: User = await _adminApi.getUser(accessToken, accountId, "50cd3099-80d7-4aa4-a7be-c5ea13c25734");
         console.log(response);
     }
     catch (err) {
@@ -287,7 +285,7 @@ async function createUser() {
             "about_me": "Nothing here",
             "company": "Test Company"
         }
-        const response: User = await _adminApi.createUser(token, accountId, userPayload);
+        const response: User = await _adminApi.createUser(accessToken, accountId, userPayload);
         console.log(response);
     }
     catch (err) {
@@ -312,7 +310,7 @@ async function importUser() {
                 "email": "harry.potter@hmail.com",
             }
         ]
-        const response: UserImportResponse = await _adminApi.importUsers(token, accountId, userPayload);
+        const response: UserImportResponse = await _adminApi.importUsers(accessToken, accountId, userPayload);
         console.log(response);
     }
     catch (err) {
@@ -326,7 +324,7 @@ async function updateUser() {
         const userPatchPayload: UserPatchPayload = {
             "status": "active"
         }
-        const response: User = await _adminApi.patchUserDetails(token, accountId, "50cd3099-80d7-4aa4-a7be-c5ea13c25734", userPatchPayload);
+        const response: User = await _adminApi.patchUserDetails(accessToken, accountId, "50cd3099-80d7-4aa4-a7be-c5ea13c25734", userPatchPayload);
         console.log(response);
     }
     catch (err) {
@@ -348,7 +346,7 @@ async function updateUser() {
 // fetch users in the specified project
 async function getProjectUsers() {
     try {
-        const response: ProjectUsers = await _adminApi.getProjectUsers(token, projectId);
+        const response: ProjectUsers = await _adminApi.getProjectUsers(accessToken, projectId);
         console.log(response);
     }
     catch (err) {
@@ -359,7 +357,7 @@ async function getProjectUsers() {
 // fetch specified user in the project
 async function getProjectUser() {
     try {
-        const response: ProjectUser = await _adminApi.getProjectUser(token, projectId, "7e7c31fd-9e9d-4c92-8e73-aadecfd6a39b", { region: Region.Us });
+        const response: ProjectUser = await _adminApi.getProjectUser(accessToken, projectId, "7e7c31fd-9e9d-4c92-8e73-aadecfd6a39b", { region: Region.Us });
         console.log(response);
     }
     catch (err) {
@@ -379,7 +377,7 @@ async function assignProjectUser() {
                 }
             ]
         }
-        const response: ProjectUserResponse = await _adminApi.assignProjectUser(token, projectId, projectUserPayload, { region: Region.Us, adminUserId: adminUserId });
+        const response: ProjectUserResponse = await _adminApi.assignProjectUser(accessToken, projectId, projectUserPayload, { region: Region.Us, adminUserId: adminUserId });
         console.log(response)
     }
     catch (err) {
@@ -403,7 +401,7 @@ async function importProjectUsers() {
                 }
             ]
         }
-        const response: ProjectUsersImportResponse = await _adminApi.importProjectUsers(token, projectId, projectUsersImportPayload, { region: Region.Us, adminUserId: adminUserId });
+        const response: ProjectUsersImportResponse = await _adminApi.importProjectUsers(accessToken, projectId, projectUsersImportPayload, { region: Region.Us, adminUserId: adminUserId });
         console.log(response)
     }
     catch (err) {
@@ -443,7 +441,7 @@ async function updateProjectUser() {
                 }
             ]
         }
-        const response: ProjectUserResponse = await _adminApi.updateProjectUser(token, projectId, "4ca99e9a-cce9-40a1-abb7-d69a1fd79173", projectUsersUpdatePayload, { region: Region.Us, adminUserId: adminUserId });
+        const response: ProjectUserResponse = await _adminApi.updateProjectUser(accessToken, projectId, "4ca99e9a-cce9-40a1-abb7-d69a1fd79173", projectUsersUpdatePayload, { region: Region.Us, adminUserId: adminUserId });
         console.log(response);
     }
     catch (err) {
@@ -454,7 +452,7 @@ async function updateProjectUser() {
 // Remove the specified user from a project
 async function deleteProjectUser() {
     try {
-        const response: void = await _adminApi.removeProjectUser(token, projectId, "4ca99e9a-cce9-40a1-abb7-d69a1fd79173", { region: Region.Us, adminUserId: adminUserId });
+        const response: void = await _adminApi.removeProjectUser(accessToken, projectId, "4ca99e9a-cce9-40a1-abb7-d69a1fd79173", { region: Region.Us, adminUserId: adminUserId });
         console.log(response);
     }
     catch (err) {
@@ -477,7 +475,7 @@ async function deleteProjectUser() {
 // fetch all the business units in a specific account
 async function getBusinessUnits() {
     try {
-        const response: BusinessUnitsResponse = await _adminApi.getBusinessUnits(token, accountId);
+        const response: BusinessUnitsResponse = await _adminApi.getBusinessUnits(accessToken, accountId);
         console.log(response);
     }
     catch (err) {
@@ -496,7 +494,7 @@ async function putBusinessUnits() {
                 }
             ]
         }
-        const response: BusinessUnitsResponse = await _adminApi.createBusinessUnits(token, accountId, businessUnitsRequestPyload, { region: Region.Us });
+        const response: BusinessUnitsResponse = await _adminApi.createBusinessUnits(accessToken, accountId, businessUnitsRequestPyload, { region: Region.Us });
         console.log(response);
     }
     catch (err) {
