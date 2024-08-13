@@ -1,5 +1,5 @@
 import { SdkManager, SdkManagerBuilder, ApsServiceRequestConfig } from "@aps_sdk/autodesk-sdkmanager";
-import { PolicyKey, OssClient, Region } from "@aps_sdk/oss";
+import { PolicyKey, OssClient, Region, Batchsigneds3uploadObject, Batchsigneds3uploadObjectRequests } from "@aps_sdk/oss";
 import 'dotenv/config';
 
 const bucketKey = process.env.bucketKey;
@@ -41,8 +41,12 @@ async function getBuckets() {
     const response = await ossClient.getBuckets(accessToken);
     console.log(response);
 }
-async function batchSignedS3Upload() {
-    const response = await ossClient.batchSignedS3Upload(accessToken, bucketKey);
+async function batchSignedS3Upload() { 
+    const uploadObjects: Batchsigneds3uploadObject = {
+        requests: [{objectKey: objectKey}]
+    }
+ 
+            const response = await ossClient.batchSignedS3Upload(accessToken, bucketKey,uploadObjects);
     console.log(response);
 }
 
