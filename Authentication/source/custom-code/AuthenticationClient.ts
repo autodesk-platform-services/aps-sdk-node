@@ -105,14 +105,14 @@ export class AuthenticationClient {
       * For Private clients specify the client secret along with the Client ID. 
       * For Public clients only Client ID needs to be specified.         
       * @summary Refresh token.
-      * @param {string} clientId The Client Id of the application making the request. 
       * @param {string} refreshToken The refresh token used to acquire a new access token and a refresh token.
+      * @param {string} clientId The Client Id of the application making the request.  
       * @param {string} [clientSecret] The Client secret of the application making the request. This field is required for client secret
       * @param {Array<Scopes>} [scopes] Array of scopes. If specified, scopes have to be primarily same with or a subset of the scopes used to generate the refresh_token.
       * @param {*} [options] Override http request option.     
       * @returns {ThreeLeggedToken} Refreshed three legged access token.
     */
-    public async refreshToken(clientId: string, refreshToken: string, optionalArgs?: { clientSecret?: string, scopes?: Array<Scopes>, options?: ApsServiceRequestConfig }): Promise<ThreeLeggedToken> {
+    public async refreshToken(refreshToken: string, clientId: string, optionalArgs?: { clientSecret?: string, scopes?: Array<Scopes>, options?: ApsServiceRequestConfig }): Promise<ThreeLeggedToken> {
         if (optionalArgs?.clientSecret) {
             const clientIDSecret = Buffer.from(`${clientId}:${optionalArgs?.clientSecret}`).toString(`base64`);
             const response = await this.tokenApi.fetchToken(`Basic ${clientIDSecret}`, GrantType.RefreshToken, undefined, undefined, undefined, refreshToken, optionalArgs?.scopes, undefined, optionalArgs?.options);

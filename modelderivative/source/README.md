@@ -12,5 +12,5 @@ npm i @aps_sdk/model-derivative
 ```
 ## Example
 
-For usage, see [Model Derivative sample](https://github.com/autodesk-platform-services/aps-sdk-node/blob/development/samples/modelderivative.ts)
+For usage, see [Model Derivative sample](https://github.com/autodesk-platform-services/aps-sdk-node/blob/main/samples/modelderivative.ts)
 
