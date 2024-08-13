@@ -19,13 +19,13 @@ export interface SpecifyReferencesPayloadReferences {
      * @type {string}
      * @memberof SpecifyReferencesPayloadReferences
      */
-    'relativePath': string;
+    'relativePath'?: string;
     /**
      * The file name of the referenced file. By default, it is set to ``\"\"`` and the referenced file will be downloaded by its ``urn`` and placed relative to the top-level component using ``relativePath``.
      * @type {string}
      * @memberof SpecifyReferencesPayloadReferences
      */
-    'filename': string;
+    'filename'?: string;
     /**
      * An object to hold custom metadata.
      * @type {{ [key: string]: object; }}

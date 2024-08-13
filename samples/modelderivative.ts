@@ -1,16 +1,14 @@
-//process.env['LOG_LEVEL'] = 'info'; /* The default log level is `Error`.*/
-
 import { ApiResponse, ApsConfiguration, ApsServiceRequestConfig, SdkManager, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager"
 import { BeginsWith, Between, DeleteManifest, DerivativeDownload, EqualsTo, JobPayloadFormatAdvancedThumbnail, JobPayloadFormatSVFAdvancedRVT, MatchId, MatchIdType, ModelDerivativeClient } from "@aps_sdk/model-derivative";
 import { InformationalApi, SupportedFormats, JobPayloadFormatThumbnail, ExtractorVersion, JobPayloadFormatSVF2AdvancedRVT, Model2dView, JobPayloadFormatSVF2AdvancedIFC, BuildingStoreys, Width, Height, JobPayloadFormatSVFAdvancedIFC, Job, XAdsDerivativeFormat, Region, OutputType, Manifest, ModelViews, ObjectTree, ModelViewsDataMetadata, Properties, SpecificPropertiesPayload, SpecificPropertiesPayloadQuery, Payload, SpecificProperties } from "@aps_sdk/model-derivative";
 import { JobPayloadOutputDestination, JobsApi, JobPayload, JobPayloadOutput, JobPayloadInput, JobPayloadFormat, JobPayloadFormatSVF2, JobPayloadFormatSVF, View } from "@aps_sdk/model-derivative";
-
+import 'dotenv/config';
 
 
 const sdkmanager: SdkManager = SdkManagerBuilder.create().build();
 const modelDerivativeClient = new ModelDerivativeClient(sdkmanager);
 
-const token: string = process.env.token;
+const accessToken: string = process.env.accessToken;
 const urn: string = process.env.urn;
 const derivativeUrn = process.env.derivativeUrn;
 const modelGuid = process.env.modelGuid;
@@ -21,7 +19,7 @@ const modelGuid = process.env.modelGuid;
  */
 async function getFormats() {
   try {
-    const formats: SupportedFormats = await modelDerivativeClient.getFormats(token);
+    const formats: SupportedFormats = await modelDerivativeClient.getFormats(accessToken);
     console.log(formats);
   }
   catch (error) {
@@ -58,7 +56,7 @@ async function startjob() {
       }
     };
 
-    let job: Job = await modelDerivativeClient.startJob(token, jobPayload);
+    let job: Job = await modelDerivativeClient.startJob(accessToken, jobPayload);
     let result = job.result;
     console.log(job);
 
@@ -77,7 +75,7 @@ async function startjob() {
  */
 async function getManifest() {
   try {
-    let manifest: Manifest = await modelDerivativeClient.getManifest(token, urn, { region: Region.Us });
+    let manifest: Manifest = await modelDerivativeClient.getManifest(accessToken, urn, { region: Region.Us });
     let hasThumbnail = manifest.hasThumbnail;
   }
   catch (error) {
@@ -87,7 +85,7 @@ async function getManifest() {
 
 async function deleteManifest() {
   try {
-    let result: DeleteManifest = await modelDerivativeClient.deleteManifest(token, urn);
+    let result: DeleteManifest = await modelDerivativeClient.deleteManifest(accessToken, urn);
   }
   catch (error) {
     console.error(error);
@@ -103,7 +101,7 @@ async function deleteManifest() {
  */
 async function getDerivativeUrl() {
   try {
-    let derivativeDownload: DerivativeDownload = await modelDerivativeClient.getDerivativeUrl(token, derivativeUrn, urn);
+    let derivativeDownload: DerivativeDownload = await modelDerivativeClient.getDerivativeUrl(accessToken, derivativeUrn, urn);
     console.log(derivativeDownload.url);
   }
   catch (error) {
@@ -113,7 +111,7 @@ async function getDerivativeUrl() {
 
 async function getDerivativeHeaders() {
   try {
-    let derivativeHeaders: ApiResponse = await modelDerivativeClient.headCheckDerivative(token, urn, derivativeUrn);
+    let derivativeHeaders: ApiResponse = await modelDerivativeClient.headCheckDerivative(accessToken, urn, derivativeUrn);
     console.log(derivativeHeaders.response.headers);
   }
   catch (error) {
@@ -128,7 +126,7 @@ async function getDerivativeHeaders() {
  */
 async function getModelViews() {
   try {
-    let modelViews: ModelViews = await modelDerivativeClient.getModelViews(token, urn);
+    let modelViews: ModelViews = await modelDerivativeClient.getModelViews(accessToken, urn);
     let guid = modelViews.data.metadata[1].guid;
   } catch (error) {
     console.error(error);
@@ -140,7 +138,7 @@ async function getModelViews() {
 */
 async function getObjectTree() {
   try {
-    let objectTree: ObjectTree = await modelDerivativeClient.getObjectTree(token, urn, modelGuid);
+    let objectTree: ObjectTree = await modelDerivativeClient.getObjectTree(accessToken, urn, modelGuid);
     if (objectTree.isProcessing) {
       console.log(" 202 response. Call the endpoint again or iteratively to get 200 OK.");
       return;
@@ -158,7 +156,7 @@ async function getObjectTree() {
 */
 async function getAllProperties() {
   try {
-    let allProperties: Properties = await modelDerivativeClient.getAllProperties(token, urn, modelGuid)
+    let allProperties: Properties = await modelDerivativeClient.getAllProperties(accessToken, urn, modelGuid)
     if (allProperties.isProcessing) {
       console.log(" 202 response. Call the endpoint again or iteratively to get 200 OK.");
     }
@@ -180,7 +178,7 @@ async function fetchSpecificProperties() {
       query: <MatchId>{$in: [MatchIdType.ObjectId,2646]}
     };
 
-    let specificProps: SpecificProperties = await modelDerivativeClient.fetchSpecificProperties(token, urn, modelGuid, specificPropertiesPayload);
+    let specificProps: SpecificProperties = await modelDerivativeClient.fetchSpecificProperties(accessToken, urn, modelGuid, specificPropertiesPayload);
     console.log(specificProps);
   }
   catch (error) {
@@ -195,7 +193,7 @@ async function fetchSpecificProperties() {
 */
 async function getThumbnail() {
   try {
-    let response = await modelDerivativeClient.getThumbnail(token, urn);
+    let response = await modelDerivativeClient.getThumbnail(accessToken, urn);
   }
   catch (error) {
     console.error(error);

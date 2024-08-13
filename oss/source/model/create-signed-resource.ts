@@ -20,23 +20,5 @@ export interface CreateSignedResource {
      * @memberof CreateSignedResource
      */
     'singleUse'?: boolean;
-    /**
-     * The value to use as the Content-Type when downloading the object using the signed URL.  If this attribute is not provided, it defaults to the value corresponding to the object.
-     * @type {string}
-     * @memberof CreateSignedResource
-     */
-    'contentType'?: string;
-    /**
-     * The value to use as the Content-Disposition when downloading the object using the signed URL.  If this attribute is not provided, it defaults to the value corresponding to the object.
-     * @type {string}
-     * @memberof CreateSignedResource
-     */
-    'contentDisposition'?: string;
-    /**
-     * Restricts the signed URL to the specified IP addresses. Downloads and uploads will be allowed only for the list of the IP addresses in the ``X-Forwarded-For`` header received from Apigee. If not specified, use of the signed URL is not restricted.
-     * @type {string}
-     * @memberof CreateSignedResource
-     */
-    'allowedIpAddresses'?: string;
 }
 

@@ -1,8 +1,13 @@
 {
   "name": "@aps_sdk/model-derivative",
-  "version": "1.0.0-beta.1",
-  "description": "Client sdk for model-derivative API",
+  "version": "1.0.0-beta.2",
+  "description": "Client sdk for Model Derivative API",
   "license": "Apache-2.0",
+  "author": "Autodesk Platform Services",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/autodesk-platform-services/aps-sdk-node.git"
+  },
   "keywords": [
     "Autodesk Platform Services",
     "Typescript",
@@ -28,6 +33,5 @@
   "devDependencies": {
     "prettier": "^2.8.8",
     "typescript": "^5.1.5"
-  },
-  "author": "Autodesk Platform Services"
+  }
 }

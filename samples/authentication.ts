@@ -1,8 +1,6 @@
-//process.env['LOG_LEVEL'] = 'info'; /* The default log level is `Error`.*/ 
-
 import { ApiResponse, SdkManager, SdkManagerBuilder } from '@aps_sdk/autodesk-sdkmanager'
 import { AuthenticationClient, ResponseType, Scopes, TokenTypeHint } from '@aps_sdk/authentication';
-
+import 'dotenv/config';
 
 const clientId = process.env.clientId;
 const clientSecret = process.env.clientSecret;
@@ -76,7 +74,7 @@ async function getThreeLeggedToken() {
 */
 async function refreshThreeLeggedToken() {
     try {
-        const refreshedToken = await authenticationClient.refreshToken(clientId, refreshToken, { clientSecret: clientSecret });
+        const refreshedToken = await authenticationClient.refreshToken(refreshToken,clientId, { clientSecret: clientSecret });
         console.log(refreshedToken);
     }
     catch (error) {

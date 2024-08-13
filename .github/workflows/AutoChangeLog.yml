@@ -2,7 +2,7 @@ name: Auto Update Changelog
 on: 
   push:
     branches: 
-        - 'development'
+        - 'main'
     paths-ignore:
         - 'CHANGELOG.md'  
 jobs: 
