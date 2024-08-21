@@ -1,4 +1,4 @@
 export interface IAuthenticationProvider {
-    getAccessToken(): Promise<string>;
+ getAccessToken(scopes?: string[]): Promise<string>;
 }
 

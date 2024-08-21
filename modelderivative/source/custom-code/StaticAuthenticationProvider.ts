@@ -7,7 +7,7 @@ export class StaticAuthenticationProvider implements IAuthenticationProvider {
         this._accessToken = accessToken;
     }
 
-    public async getAccessToken(): Promise<string> {
+    public async getAccessToken(scopes?: string[]): Promise<string> {
             return this._accessToken;
     }
 
