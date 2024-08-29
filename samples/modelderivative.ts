@@ -1,12 +1,17 @@
-import { ApiResponse, ApsConfiguration, ApsServiceRequestConfig, SdkManager, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager"
+import { ApiResponse, ApsConfiguration, ApsServiceRequestConfig, SdkManager, SdkManagerBuilder, Logger, StaticAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager"
+import { LogLevel } from "@aps_sdk/autodesk-sdkmanager/dist/src/Logger";
 import { BeginsWith, Between, DeleteManifest, DerivativeDownload, EqualsTo, JobPayloadFormatAdvancedThumbnail, JobPayloadFormatSVFAdvancedRVT, MatchId, MatchIdType, ModelDerivativeClient } from "@aps_sdk/model-derivative";
 import { InformationalApi, SupportedFormats, JobPayloadFormatThumbnail, ExtractorVersion, JobPayloadFormatSVF2AdvancedRVT, Model2dView, JobPayloadFormatSVF2AdvancedIFC, BuildingStoreys, Width, Height, JobPayloadFormatSVFAdvancedIFC, Job, XAdsDerivativeFormat, Region, OutputType, Manifest, ModelViews, ObjectTree, ModelViewsDataMetadata, Properties, SpecificPropertiesPayload, SpecificPropertiesPayloadQuery, Payload, SpecificProperties } from "@aps_sdk/model-derivative";
 import { JobPayloadOutputDestination, JobsApi, JobPayload, JobPayloadOutput, JobPayloadInput, JobPayloadFormat, JobPayloadFormatSVF2, JobPayloadFormatSVF, View } from "@aps_sdk/model-derivative";
 import 'dotenv/config';
 
+// SdkManager can be optionally initialised to add custom logger etc.
+//const sdkmanager: SdkManager = SdkManagerBuilder.create().addLogger(new Logger(LogLevel.DEBUG)).build();
 
-const sdkmanager: SdkManager = SdkManagerBuilder.create().build();
-const modelDerivativeClient = new ModelDerivativeClient(sdkmanager);
+//Initialise Auth Provider. If not provided, access tokens will need to be passed to each method.
+const staticAuthenticationProvider = new StaticAuthenticationProvider(process.env.accessToken);
+const modelDerivativeClient = new ModelDerivativeClient({ authenticationProvider: staticAuthenticationProvider });
+
 
 const accessToken: string = process.env.accessToken;
 const urn: string = process.env.urn;
@@ -19,7 +24,7 @@ const modelGuid = process.env.modelGuid;
  */
 async function getFormats() {
   try {
-    const formats: SupportedFormats = await modelDerivativeClient.getFormats(accessToken);
+    const formats: SupportedFormats = await modelDerivativeClient.getFormats();
     console.log(formats);
   }
   catch (error) {
@@ -56,7 +61,7 @@ async function startjob() {
       }
     };
 
-    let job: Job = await modelDerivativeClient.startJob(accessToken, jobPayload);
+    let job: Job = await modelDerivativeClient.startJob(jobPayload);
     let result = job.result;
     console.log(job);
 
@@ -75,7 +80,7 @@ async function startjob() {
  */
 async function getManifest() {
   try {
-    let manifest: Manifest = await modelDerivativeClient.getManifest(accessToken, urn, { region: Region.Us });
+    let manifest: Manifest = await modelDerivativeClient.getManifest(urn, { region: Region.Us });
     let hasThumbnail = manifest.hasThumbnail;
   }
   catch (error) {
@@ -85,7 +90,7 @@ async function getManifest() {
 
 async function deleteManifest() {
   try {
-    let result: DeleteManifest = await modelDerivativeClient.deleteManifest(accessToken, urn);
+    let result: DeleteManifest = await modelDerivativeClient.deleteManifest(urn);
   }
   catch (error) {
     console.error(error);
@@ -101,7 +106,7 @@ async function deleteManifest() {
  */
 async function getDerivativeUrl() {
   try {
-    let derivativeDownload: DerivativeDownload = await modelDerivativeClient.getDerivativeUrl(accessToken, derivativeUrn, urn);
+    let derivativeDownload: DerivativeDownload = await modelDerivativeClient.getDerivativeUrl(derivativeUrn, urn);
     console.log(derivativeDownload.url);
   }
   catch (error) {
@@ -111,7 +116,7 @@ async function getDerivativeUrl() {
 
 async function getDerivativeHeaders() {
   try {
-    let derivativeHeaders: ApiResponse = await modelDerivativeClient.headCheckDerivative(accessToken, urn, derivativeUrn);
+    let derivativeHeaders: ApiResponse = await modelDerivativeClient.headCheckDerivative(urn, derivativeUrn);
     console.log(derivativeHeaders.response.headers);
   }
   catch (error) {
@@ -126,7 +131,7 @@ async function getDerivativeHeaders() {
  */
 async function getModelViews() {
   try {
-    let modelViews: ModelViews = await modelDerivativeClient.getModelViews(accessToken, urn);
+    let modelViews: ModelViews = await modelDerivativeClient.getModelViews(urn);
     let guid = modelViews.data.metadata[1].guid;
   } catch (error) {
     console.error(error);
@@ -138,7 +143,7 @@ async function getModelViews() {
 */
 async function getObjectTree() {
   try {
-    let objectTree: ObjectTree = await modelDerivativeClient.getObjectTree(accessToken, urn, modelGuid);
+    let objectTree: ObjectTree = await modelDerivativeClient.getObjectTree(urn, modelGuid);
     if (objectTree.isProcessing) {
       console.log(" 202 response. Call the endpoint again or iteratively to get 200 OK.");
       return;
@@ -156,7 +161,7 @@ async function getObjectTree() {
 */
 async function getAllProperties() {
   try {
-    let allProperties: Properties = await modelDerivativeClient.getAllProperties(accessToken, urn, modelGuid)
+    let allProperties: Properties = await modelDerivativeClient.getAllProperties(urn, modelGuid)
     if (allProperties.isProcessing) {
       console.log(" 202 response. Call the endpoint again or iteratively to get 200 OK.");
     }
@@ -175,10 +180,10 @@ async function fetchSpecificProperties() {
     // Specify the request payload
     const specificPropertiesPayload: SpecificPropertiesPayload = {
       fields: ["objectid", "name"],
-      query: <MatchId>{$in: [MatchIdType.ObjectId,2646]}
+      query: <MatchId>{ $in: [MatchIdType.ObjectId, 2646] }
     };
 
-    let specificProps: SpecificProperties = await modelDerivativeClient.fetchSpecificProperties(accessToken, urn, modelGuid, specificPropertiesPayload);
+    let specificProps: SpecificProperties = await modelDerivativeClient.fetchSpecificProperties(urn, modelGuid, specificPropertiesPayload);
     console.log(specificProps);
   }
   catch (error) {
@@ -193,7 +198,7 @@ async function fetchSpecificProperties() {
 */
 async function getThumbnail() {
   try {
-    let response = await modelDerivativeClient.getThumbnail(accessToken, urn);
+    let response = await modelDerivativeClient.getThumbnail(urn);
   }
   catch (error) {
     console.error(error);
@@ -204,15 +209,15 @@ async function getThumbnail() {
 
 //startjob();
 // getFormats();
-// getManifest();
+//getManifest();
 // deleteManifest();
-// getThumbnail();
+//getThumbnail();
 // getDerivativeUrl();
 // getDerivativeHeaders();
 // getModelViews();
-// getObjectTree();
+//getObjectTree();
 // getAllProperties();
-// fetchSpecificProperties();
+//fetchSpecificProperties();
 
 
 
