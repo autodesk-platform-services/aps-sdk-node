@@ -43,7 +43,7 @@ export class ModelDerivativeClient extends BaseClient {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
-        else if (this.authenticationProvider) {
+        else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
         const response = await this.informationalApi.getFormats(optionalArgs?.accessToken, optionalArgs?.ifModifiedSince, optionalArgs?.acceptEncoding, optionalArgs?.options);
@@ -68,7 +68,7 @@ export class ModelDerivativeClient extends BaseClient {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
-        else if (this.authenticationProvider) {
+        else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
         const response = await this.jobsApi.specifyReferences(optionalArgs?.accessToken, urn, optionalArgs?.region ?? Region.Us, specifyReferencesPayload, optionalArgs?.options);
@@ -90,7 +90,7 @@ export class ModelDerivativeClient extends BaseClient {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
-        else if (this.authenticationProvider) {
+        else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
         const response = await this.jobsApi.startJob(optionalArgs?.accessToken, optionalArgs?.xAdsForce, optionalArgs?.xAdsDerivativeFormat, optionalArgs?.region ?? Region.Us, jobPayload, optionalArgs?.options);
@@ -115,7 +115,7 @@ export class ModelDerivativeClient extends BaseClient {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
-        else if (this.authenticationProvider) {
+        else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
         const response = await this.manifestApi.getManifest(optionalArgs?.accessToken, urn, optionalArgs?.acceptEncoding, optionalArgs?.region ?? Region.Us, optionalArgs?.options);
@@ -136,7 +136,7 @@ export class ModelDerivativeClient extends BaseClient {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
-        else if (this.authenticationProvider) {
+        else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
         const response = await this.manifestApi.deleteManifest(optionalArgs?.accessToken, urn, optionalArgs?.region ?? Region.Us, optionalArgs?.options);
@@ -163,7 +163,7 @@ export class ModelDerivativeClient extends BaseClient {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
-        else if (this.authenticationProvider) {
+        else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
         const response = await this.derivativesApi.getDerivativeUrl(optionalArgs?.accessToken, derivativeUrn, urn, optionalArgs?.minutesExpiration, optionalArgs?.responseContentDisposition, optionalArgs?.region ?? Region.Us, optionalArgs?.options);
@@ -193,7 +193,7 @@ export class ModelDerivativeClient extends BaseClient {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
-        else if (this.authenticationProvider) {
+        else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
         const response = await this.derivativesApi.headCheckDerivative(optionalArgs?.accessToken, urn, derivativeUrn, optionalArgs?.region ?? Region.Us, optionalArgs?.options);
@@ -219,7 +219,7 @@ export class ModelDerivativeClient extends BaseClient {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
-        else if (this.authenticationProvider) {
+        else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
         const response = await this.thumbnailsApi.getThumbnail(optionalArgs?.accessToken, urn, optionalArgs?.region ?? Region.Us, optionalArgs?.width, optionalArgs?.height, optionalArgs?.options);
@@ -249,7 +249,7 @@ export class ModelDerivativeClient extends BaseClient {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
-        else if (this.authenticationProvider) {
+        else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
         const response = await this.metadataApi.getObjectTree(optionalArgs?.accessToken, urn, modelGuid, optionalArgs?.acceptEncoding, optionalArgs?.region ?? Region.Us, optionalArgs?.xAdsForce, optionalArgs?.xAdsDerivativeFormat, optionalArgs?.forceget, optionalArgs?.objectId, optionalArgs?.level, optionalArgs?.options);
@@ -277,7 +277,7 @@ export class ModelDerivativeClient extends BaseClient {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
-        else if (this.authenticationProvider) {
+        else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
         const response = await this.metadataApi.getModelViews(optionalArgs?.accessToken, urn, optionalArgs?.acceptEncoding, optionalArgs?.region ?? Region.Us, optionalArgs?.options);
@@ -304,7 +304,7 @@ export class ModelDerivativeClient extends BaseClient {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
-        else if (this.authenticationProvider) {
+        else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
         const response = await this.metadataApi.getAllProperties(optionalArgs?.accessToken, urn, modelGuid, optionalArgs?.acceptEncoding, optionalArgs?.xAdsForce, optionalArgs?.xAdsDerivativeFormat, optionalArgs?.region ?? Region.Us, optionalArgs?.objectId, optionalArgs?.forceget, optionalArgs?.options);
@@ -335,7 +335,7 @@ export class ModelDerivativeClient extends BaseClient {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
-        else if (this.authenticationProvider) {
+        else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
         const response = await this.metadataApi.fetchSpecificProperties(optionalArgs?.accessToken, urn, modelGuid, optionalArgs?.acceptEncoding, optionalArgs?.region ?? Region.Us, optionalArgs?.xAdsDerivativeFormat, specificPropertiesPayload, optionalArgs?.options);
