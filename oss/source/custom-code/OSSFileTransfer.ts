@@ -46,7 +46,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     // this._authentication = authentication;
     this.logger = this.sdkManager.logger;
 
-    if(!authenticationProvider){
+    if(authenticationProvider){
       this.authProvider = authenticationProvider;
     }
   }
@@ -215,7 +215,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
 
           //Yet to be implemented
           // accessToken = this.authentication.getUpdatedAccessToken();
-          accessToken = await this.authProvider.getAccessToken();
+          accessToken = await this.authProvider?.getAccessToken();
           this.logger.logInfo(`${requestId} Token expired. Trying to refresh`);
         }
         else {
@@ -271,7 +271,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
 
           //Yet to be implemented
           // accessToken = this.authentication.getUpdatedAccessToken();
-          accessToken = await this.authProvider.getAccessToken();
+          accessToken = await this.authProvider?.getAccessToken();
 
           this.logger.logInfo(`${requestId} Token expired. Trying to refresh`);
         }

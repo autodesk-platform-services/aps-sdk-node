@@ -35,7 +35,7 @@ export class OssClient extends BaseClient {
      * @throws {RequiredError}
      * @memberof OSSApiInterface
      */
-    public async upload(bucketKey: string, objectKey: string, sourceToUpload: Buffer | string, cancellationToken: AbortController = new AbortController, requestIdPrefix: string = '', optionalArgs?: { accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<ObjectDetails> {
+    public async upload(bucketKey: string, objectKey: string, sourceToUpload: Buffer | string, optionalArgs?: {cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<ObjectDetails> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
@@ -45,10 +45,10 @@ export class OssClient extends BaseClient {
         var response;
         if (typeof sourceToUpload === 'string') {
             var buffer = await fs.readFile(sourceToUpload);
-            response = await this.ossFileTransfer.upload(bucketKey, objectKey, buffer, optionalArgs?.accessToken, cancellationToken, requestIdPrefix, optionalArgs?.onProgress);
+            response = await this.ossFileTransfer.upload(bucketKey, objectKey, buffer, optionalArgs?.accessToken, optionalArgs?.cancellationToken||new AbortController, optionalArgs?.requestIdPrefix, optionalArgs?.onProgress);
         }
         else {
-            response = await this.ossFileTransfer.upload(bucketKey, objectKey, sourceToUpload, optionalArgs?.accessToken, cancellationToken, requestIdPrefix, optionalArgs?.onProgress);
+            response = await this.ossFileTransfer.upload(bucketKey, objectKey, sourceToUpload, optionalArgs?.accessToken, optionalArgs?.cancellationToken||new AbortController, optionalArgs?.requestIdPrefix, optionalArgs?.onProgress);
         }
         return response.content;
     }
@@ -64,14 +64,14 @@ export class OssClient extends BaseClient {
      * @throws {RequiredError}
      * @memberof OSSApiInterface
      */
-    public async download(bucketKey: string, objectKey: string, filePath: string, cancellationToken: AbortController = new AbortController, requestIdPrefix: string = '', optionalArgs?: { accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<void> {
+    public async download(bucketKey: string, objectKey: string, filePath: string, optionalArgs?: { cancellationToken?: AbortController , requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<void> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
         else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
-        const response = await this.ossFileTransfer.download(bucketKey, objectKey, filePath, optionalArgs?.accessToken, cancellationToken, requestIdPrefix, optionalArgs?.onProgress);
+        const response = await this.ossFileTransfer.download(bucketKey, objectKey, filePath, optionalArgs?.accessToken, optionalArgs?.cancellationToken||new AbortController, optionalArgs?.requestIdPrefix, optionalArgs?.onProgress);
     }
     /**
      * Instructs OSS to complete the object creation process for numerous objects after their bytes have been uploaded directly to S3. An object will not be accessible until you complete the object creation process, either with this endpoint or the single Complete Upload endpoint. This endpoint accepts batch sizes of up to 25. Any larger and the request will fail.
