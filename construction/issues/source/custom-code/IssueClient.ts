@@ -1,8 +1,8 @@
-import { SdkManager, ApiResponse, ApsServiceRequestConfig } from "@aps_sdk/autodesk-sdkmanager";
+import { SdkManager, ApiResponse, ApsServiceRequestConfig, BaseClient, IAuthenticationProvider, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
 import { Region, DataType, AttrDefinition, Fields, IssuePayload, SortBy, User, Issue, IssuesPage, IssueType, IssueRootCause, AttrMapping, CommentsPayload, CreatedComment, Comments } from "../model";
 import { IssueAttributeDefinitionsApi, IssueAttributeMappingsApi, IssueCommentsApi, IssueRootCauseCategoriesApi, IssueTypesApi, IssuesApi, IssuesProfileApi } from "../api";
 
-export class IssueClient {
+export class IssueClient extends BaseClient {
 
   public issueattributedefinitionsapi: IssueAttributeDefinitionsApi;
   public issueAttributemappingsapi: IssueAttributeMappingsApi;
@@ -11,14 +11,18 @@ export class IssueClient {
   public issuetypesapi: IssueTypesApi;
   public issuesapi: IssuesApi;
   public issuesprofileapi: IssuesProfileApi;
-  constructor(sdkManager: SdkManager) {
-    this.issueattributedefinitionsapi = new IssueAttributeDefinitionsApi(sdkManager);
-    this.issueAttributemappingsapi = new IssueAttributeMappingsApi(sdkManager);
-    this.issuecommentsapi = new IssueCommentsApi(sdkManager);
-    this.issuerootcausecategoriesapi = new IssueRootCauseCategoriesApi(sdkManager);
-    this.issuetypesapi = new IssueTypesApi(sdkManager);
-    this.issuesapi = new IssuesApi(sdkManager);
-    this.issuesprofileapi = new IssuesProfileApi(sdkManager);
+  constructor(optionalArgs?: { sdkManager?: SdkManager, authenticationProvider?: IAuthenticationProvider }) {
+    super(optionalArgs?.authenticationProvider);
+    if (!optionalArgs?.sdkManager) {
+      (optionalArgs ??= {}).sdkManager = SdkManagerBuilder.create().build();
+    }
+    this.issueattributedefinitionsapi = new IssueAttributeDefinitionsApi(optionalArgs.sdkManager);
+    this.issueAttributemappingsapi = new IssueAttributeMappingsApi(optionalArgs.sdkManager);
+    this.issuecommentsapi = new IssueCommentsApi(optionalArgs.sdkManager);
+    this.issuerootcausecategoriesapi = new IssueRootCauseCategoriesApi(optionalArgs.sdkManager);
+    this.issuetypesapi = new IssueTypesApi(optionalArgs.sdkManager);
+    this.issuesapi = new IssuesApi(optionalArgs.sdkManager);
+    this.issuesprofileapi = new IssuesProfileApi(optionalArgs.sdkManager);
   }
   /**
 * Retrieves information about issue custom attributes (custom fields) for a project, including the custom attribute title, description and type.
@@ -36,8 +40,14 @@ export class IssueClient {
 * @throws {RequiredError}
 * @memberof IssueAttributeDefinitionsApiInterface
 */
-  public async getAttributeDefinitions(accessToken: string, projectId: string, optionalArgs?: { xAdsRegion?: Region, limit?: number, offset?: number, filterCreatedAt?: string, filterUpdatedAt?: string, filterDeletedAt?: string, filterDataType?: Array<DataType>, options?: ApsServiceRequestConfig }): Promise<AttrDefinition> {
-    const response = await this.issueattributedefinitionsapi.getAttributeDefinitions(accessToken, projectId, optionalArgs?.xAdsRegion, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.filterCreatedAt, optionalArgs?.filterUpdatedAt, optionalArgs?.filterDeletedAt, optionalArgs?.filterDataType, optionalArgs?.options);
+  public async getAttributeDefinitions(projectId: string, optionalArgs?: { xAdsRegion?: Region, limit?: number, offset?: number, filterCreatedAt?: string, filterUpdatedAt?: string, filterDeletedAt?: string, filterDataType?: Array<DataType>, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<AttrDefinition> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+      (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    } 
+    const response = await this.issueattributedefinitionsapi.getAttributeDefinitions(optionalArgs?.accessToken, projectId, optionalArgs?.xAdsRegion, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.filterCreatedAt, optionalArgs?.filterUpdatedAt, optionalArgs?.filterDeletedAt, optionalArgs?.filterDataType, optionalArgs?.options);
     return response.content;
   }
   /**
@@ -57,22 +67,34 @@ export class IssueClient {
    * @throws {RequiredError}
    * @memberof IssueAttributeMappingsApiInterface
    */
-  public async getAttributeMappings(accessToken: string, projectId: string, optionalArgs?: { xAdsRegion?: Region, limit?: number, offset?: number, filterCreatedAt?: string, filterUpdatedAt?: string, filterDeletedAt?: string, filterAttributeDefinitionId?: string, filterMappedItemId?: string, options?: ApsServiceRequestConfig }): Promise<AttrMapping> {
-    const response = await this.issueAttributemappingsapi.getAttributeMappings(accessToken, projectId, optionalArgs?.xAdsRegion, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.filterCreatedAt, optionalArgs?.filterUpdatedAt, optionalArgs?.filterDeletedAt, optionalArgs?.filterAttributeDefinitionId, optionalArgs?.filterMappedItemId, optionalArgs?.options);
+  public async getAttributeMappings(projectId: string, optionalArgs?: { xAdsRegion?: Region, limit?: number, offset?: number, filterCreatedAt?: string, filterUpdatedAt?: string, filterDeletedAt?: string, filterAttributeDefinitionId?: string, filterMappedItemId?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<AttrMapping> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+      (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    } 
+    const response = await this.issueAttributemappingsapi.getAttributeMappings(optionalArgs?.accessToken, projectId, optionalArgs?.xAdsRegion, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.filterCreatedAt, optionalArgs?.filterUpdatedAt, optionalArgs?.filterDeletedAt, optionalArgs?.filterAttributeDefinitionId, optionalArgs?.filterMappedItemId, optionalArgs?.options);
     return response.content;
   }
   /**
-         * Creates a new comment under a specific issue.
-         * @summary 
-         * @param {string} projectId The ID of the project.
-         * @param {string} issueId The unique identifier of the issue.
-         * @param {Region} [xAdsRegion] 
-         * @param {CommentsPayload} [commentsPayload] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-  public async createComments(accessToken: string, projectId: string, issueId: string, commentsPayload: CommentsPayload, optionalArgs?: { xAdsRegion?: Region, options?: ApsServiceRequestConfig }): Promise<CreatedComment> {
-    const request = await this.issuecommentsapi.createComments(accessToken, projectId, issueId, optionalArgs?.xAdsRegion, commentsPayload, optionalArgs?.options);
+   * Creates a new comment under a specific issue.
+   * @summary 
+   * @param {string} projectId The ID of the project.
+   * @param {string} issueId The unique identifier of the issue.
+   * @param {Region} [xAdsRegion] 
+   * @param {CommentsPayload} [commentsPayload] 
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   */
+  public async createComments(projectId: string, issueId: string, commentsPayload: CommentsPayload, optionalArgs?: { xAdsRegion?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<CreatedComment> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+      (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    } 
+    const request = await this.issuecommentsapi.createComments(optionalArgs?.accessToken|| await this.authenticationProvider.getAccessToken(), projectId, issueId, optionalArgs?.xAdsRegion, commentsPayload, optionalArgs?.options);
     return request.content;
   }
   /**
@@ -87,8 +109,14 @@ export class IssueClient {
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    */
-  public async getComments(accessToken: string, projectId: string, issueId: string, optionalArgs?: { xAdsRegion?: Region, limit?: string, offset?: string, sortBy?: Array<SortBy>, options?: ApsServiceRequestConfig }): Promise<Comments> {
-    const request = await this.issuecommentsapi.getComments(accessToken, projectId, issueId, optionalArgs?.xAdsRegion, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sortBy, optionalArgs?.options);
+  public async getComments(projectId: string, issueId: string, optionalArgs?: { xAdsRegion?: Region, limit?: string, offset?: string, sortBy?: Array<SortBy>, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Comments> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+      (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    } 
+    const request = await this.issuecommentsapi.getComments(optionalArgs?.accessToken, projectId, issueId, optionalArgs?.xAdsRegion, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sortBy, optionalArgs?.options);
     return request.content;
   }
   /**
@@ -105,8 +133,14 @@ export class IssueClient {
    * @throws {RequiredError}
    * @memberof IssueRootCauseCategoriesApiInterface
    */
-  public async getRootCauseCategories(accessToken: string, projectId: string, optionalArgs?: { xAdsRegion?: Region, include?: string, limit?: number, offset?: number, filterUpdatedAt?: string, options?: ApsServiceRequestConfig }): Promise<IssueRootCause> {
-    const response = await this.issuerootcausecategoriesapi.getRootCauseCategories(accessToken, projectId, optionalArgs?.xAdsRegion, optionalArgs?.include, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.filterUpdatedAt, optionalArgs?.options);
+  public async getRootCauseCategories(projectId: string, optionalArgs?: { xAdsRegion?: Region, include?: string, limit?: number, offset?: number, filterUpdatedAt?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<IssueRootCause> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+      (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    } 
+    const response = await this.issuerootcausecategoriesapi.getRootCauseCategories(optionalArgs?.accessToken, projectId, optionalArgs?.xAdsRegion, optionalArgs?.include, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.filterUpdatedAt, optionalArgs?.options);
     return response.content;
   }
   /**
@@ -124,8 +158,14 @@ export class IssueClient {
   * @throws {RequiredError}
   * @memberof IssueTypesApiInterface
   */
-  public async getIssuesTypes(accessToken: string, projectId: string, optionalArgs?: { include?: string, limit?: number, offset?: number, filterUpdatedAt?: string, filterIsActive?: boolean, xAdsRegion?: Region, options?: ApsServiceRequestConfig }): Promise<IssueType> {
-    const response = await this.issuetypesapi.getIssuesTypes(accessToken, projectId, optionalArgs?.include, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.filterUpdatedAt, optionalArgs?.filterIsActive, optionalArgs?.xAdsRegion, optionalArgs?.options)
+  public async getIssuesTypes(projectId: string, optionalArgs?: { include?: string, limit?: number, offset?: number, filterUpdatedAt?: string, filterIsActive?: boolean, xAdsRegion?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<IssueType> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+      (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    } 
+    const response = await this.issuetypesapi.getIssuesTypes(optionalArgs?.accessToken, projectId, optionalArgs?.include, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.filterUpdatedAt, optionalArgs?.filterIsActive, optionalArgs?.xAdsRegion, optionalArgs?.options)
     return response.content;
   }
   /**
@@ -139,8 +179,14 @@ export class IssueClient {
  * @throws {RequiredError}
  * @memberof IssuesApiInterface
  */
-  public async createIssue(accessToken: string, projectId: string, issuePayload: IssuePayload, optionalArgs?: { xAdsRegion?: Region, options?: ApsServiceRequestConfig }): Promise<Issue> {
-    const response = await this.issuesapi.createIssue(accessToken, projectId, optionalArgs?.xAdsRegion, issuePayload, optionalArgs?.options);
+  public async createIssue(projectId: string, issuePayload: IssuePayload, optionalArgs?: { xAdsRegion?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Issue> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+      (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    } 
+    const response = await this.issuesapi.createIssue(optionalArgs?.accessToken, projectId, optionalArgs?.xAdsRegion, issuePayload, optionalArgs?.options);
     return response.content;
   }
 
@@ -155,8 +201,14 @@ export class IssueClient {
    * @throws {RequiredError}
    * @memberof IssuesApiInterface
    */
-  public async getIssueDetails(accessToken: string, projectId: string, issueId: string, optionalArgs?: { xAdsRegion?: Region, options?: ApsServiceRequestConfig }): Promise<Issue> {
-    const response = await this.issuesapi.getIssueDetails(accessToken, projectId, issueId, optionalArgs?.xAdsRegion, optionalArgs?.options);
+  public async getIssueDetails(projectId: string, issueId: string, optionalArgs?: { xAdsRegion?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Issue> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+      (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    } 
+    const response = await this.issuesapi.getIssueDetails(optionalArgs?.accessToken, projectId, issueId, optionalArgs?.xAdsRegion, optionalArgs?.options);
     return response.content;
   }
 
@@ -196,8 +248,14 @@ export class IssueClient {
    * @throws {RequiredError}
    * @memberof IssuesApiInterface
    */
-  public async getIssues(accessToken: string, projectId: string, optionalArgs?: { filterId?: Array<string>, filterIssueTypeId?: Array<string>, filterIssueSubtypeId?: Array<string>, filterStatus?: string, filterLinkedDocumentUrn?: Array<string>, xAdsRegion?: Region, filterDueDate?: string, filterStartDate?: string, filterCreatedAt?: string, filterCreatedBy?: Array<string>, filterUpdatedAt?: string, filterUpdatedBy?: Array<string>, filterAssignedTo?: Array<string>, filterRootCauseId?: Array<string>, filterLocationId?: Array<string>, filterSubLocationId?: Array<string>, filterClosedBy?: Array<string>, filterClosedAt?: string, filterSearch?: string, filterDisplayId?: number, filterAssignedToType?: string, filterCustomAttributes?: Array<string>, filterValid?: boolean, limit?: number, offset?: number, sortBy?: Array<SortBy>, fields?: Array<Fields>, options?: ApsServiceRequestConfig }): Promise<IssuesPage> {
-    const response = await this.issuesapi.getIssues(accessToken, projectId, optionalArgs?.filterId, optionalArgs?.filterIssueTypeId, optionalArgs?.filterIssueSubtypeId, optionalArgs?.filterStatus, optionalArgs?.filterLinkedDocumentUrn, optionalArgs?.xAdsRegion, optionalArgs?.filterDueDate, optionalArgs?.filterStartDate, optionalArgs?.filterCreatedAt, optionalArgs?.filterCreatedBy, optionalArgs?.filterUpdatedAt, optionalArgs?.filterUpdatedBy, optionalArgs?.filterAssignedTo, optionalArgs?.filterRootCauseId, optionalArgs?.filterLocationId, optionalArgs?.filterSubLocationId, optionalArgs?.filterClosedBy, optionalArgs?.filterClosedAt, optionalArgs?.filterSearch, optionalArgs?.filterDisplayId, optionalArgs?.filterAssignedToType, optionalArgs?.filterCustomAttributes, optionalArgs?.filterValid, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sortBy, optionalArgs?.fields, optionalArgs?.options);
+  public async getIssues(projectId: string, optionalArgs?: { filterId?: Array<string>, filterIssueTypeId?: Array<string>, filterIssueSubtypeId?: Array<string>, filterStatus?: string, filterLinkedDocumentUrn?: Array<string>, xAdsRegion?: Region, filterDueDate?: string, filterStartDate?: string, filterCreatedAt?: string, filterCreatedBy?: Array<string>, filterUpdatedAt?: string, filterUpdatedBy?: Array<string>, filterAssignedTo?: Array<string>, filterRootCauseId?: Array<string>, filterLocationId?: Array<string>, filterSubLocationId?: Array<string>, filterClosedBy?: Array<string>, filterClosedAt?: string, filterSearch?: string, filterDisplayId?: number, filterAssignedToType?: string, filterCustomAttributes?: Array<string>, filterValid?: boolean, limit?: number, offset?: number, sortBy?: Array<SortBy>, fields?: Array<Fields>, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<IssuesPage> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+      (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    } 
+    const response = await this.issuesapi.getIssues(optionalArgs?.accessToken, projectId, optionalArgs?.filterId, optionalArgs?.filterIssueTypeId, optionalArgs?.filterIssueSubtypeId, optionalArgs?.filterStatus, optionalArgs?.filterLinkedDocumentUrn, optionalArgs?.xAdsRegion, optionalArgs?.filterDueDate, optionalArgs?.filterStartDate, optionalArgs?.filterCreatedAt, optionalArgs?.filterCreatedBy, optionalArgs?.filterUpdatedAt, optionalArgs?.filterUpdatedBy, optionalArgs?.filterAssignedTo, optionalArgs?.filterRootCauseId, optionalArgs?.filterLocationId, optionalArgs?.filterSubLocationId, optionalArgs?.filterClosedBy, optionalArgs?.filterClosedAt, optionalArgs?.filterSearch, optionalArgs?.filterDisplayId, optionalArgs?.filterAssignedToType, optionalArgs?.filterCustomAttributes, optionalArgs?.filterValid, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sortBy, optionalArgs?.fields, optionalArgs?.options);
     return response.content;
   }
 
@@ -213,8 +271,14 @@ export class IssueClient {
    * @throws {RequiredError}
    * @memberof IssuesApiInterface
    */
-  public async patchIssueDetails(accessToken: string, projectId: string, issueId: string, issuePayload: IssuePayload, optionalArgs?: { xAdsRegion?: Region, options?: ApsServiceRequestConfig }): Promise<Issue> {
-    const response = await this.issuesapi.patchIssueDetails(accessToken, projectId, issueId, optionalArgs?.xAdsRegion, issuePayload, optionalArgs?.options);
+  public async patchIssueDetails(projectId: string, issueId: string, issuePayload: IssuePayload, optionalArgs?: { xAdsRegion?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Issue> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+      (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    } 
+    const response = await this.issuesapi.patchIssueDetails(optionalArgs?.accessToken, projectId, issueId, optionalArgs?.xAdsRegion, issuePayload, optionalArgs?.options);
     return response.content;
   }
   /**
@@ -227,8 +291,14 @@ export class IssueClient {
    * @throws {RequiredError}
    * @memberof IssuesProfileApiInterface
    */
-  public async getUserProfile(accessToken: string, projectId: string, optionalArgs?: { xAdsRegion?: Region, options?: ApsServiceRequestConfig }): Promise<User> {
-    const response = await this.issuesprofileapi.getUserProfile(accessToken, projectId, optionalArgs?.xAdsRegion, optionalArgs?.options);
+  public async getUserProfile(projectId: string, optionalArgs?: { xAdsRegion?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<User> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+      (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    } 
+    const response = await this.issuesprofileapi.getUserProfile(optionalArgs?.accessToken, projectId, optionalArgs?.xAdsRegion, optionalArgs?.options);
     return response.content;
   }
 }
