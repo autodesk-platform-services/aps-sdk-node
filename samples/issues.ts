@@ -1,5 +1,5 @@
 import { CommentsPayload, IssueClient, IssuePayload, Region, Status } from "@aps_sdk/construction-issues";
-import {StaticAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager";
+import {Logger, LogLevel, SdkManager, SdkManagerBuilder, StaticAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager";
 import 'dotenv/config';
 
 const accessToken: string = process.env.accessToken;
@@ -12,6 +12,10 @@ const issuePayload: IssuePayload = {
     issueSubtypeId: process.env.issueSubtypeId
 }
 
+// SdkManager can be optionally initialised to add custom logger etc.
+// const sdkmanager: SdkManager = SdkManagerBuilder.create().addLogger(new Logger(LogLevel.DEBUG)).build();
+
+//Initialise Auth Provider. If not provided, access tokens will need to be passed to each method.
 
 const staticAuthenticationProvider = new StaticAuthenticationProvider(accessToken);
 const issuesClient = new IssueClient({ authenticationProvider: staticAuthenticationProvider });
@@ -24,7 +28,7 @@ async function getUserProfile() {
 
 //Retrieves a project’s categories and types. 
 async function getIssuesTypes() {
-    var response = await await issuesClient.getIssuesTypes(projectId,{accessToken:"accessToken"});
+    var response = await await issuesClient.getIssuesTypes(projectId);
     console.log(response);
 }
 
@@ -87,14 +91,14 @@ async function createComments() {
     console.log(response);
 }
 
-// getUserProfile();
+getUserProfile();
 getIssuesTypes();
-// getAttributeDefinitions();
-// getAttributeMappings();
-// getRootCauseCategories();
-// getIssues();
-// createIssue();
-// getIssueDetails();
-// patchIssueDetails();
-// getComments();
-// createComments();
+getAttributeDefinitions();
+getAttributeMappings();
+getRootCauseCategories();
+getIssues();
+createIssue();
+getIssueDetails();
+patchIssueDetails();
+getComments();
+createComments();
