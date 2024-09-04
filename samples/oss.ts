@@ -1,4 +1,4 @@
-import { SdkManager, SdkManagerBuilder, ApsServiceRequestConfig, StaticAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager";
+import { SdkManager, SdkManagerBuilder, ApsServiceRequestConfig, StaticAuthenticationProvider, LogLevel, Logger } from "@aps_sdk/autodesk-sdkmanager";
 import { Batchsigneds3uploadObject, OssClient,PolicyKey,Region  } from "@aps_sdk/oss";
 import 'dotenv/config';
 
@@ -10,7 +10,9 @@ const accessToken = process.env.accessToken;
 const newObjName = process.env.newObjName;
 const hash = process.env.hash;
 
-
+// SdkManager can be optionally initialised to add custom logger etc.
+// const sdkmanager: SdkManager = SdkManagerBuilder.create().addLogger(new Logger(LogLevel.DEBUG)).build();
+//Initialise Auth Provider. If not provided, access tokens will need to be passed to each method.
 
 const staticAuthenticationProvider = new StaticAuthenticationProvider(accessToken);
 const ossClient = new OssClient({ authenticationProvider: staticAuthenticationProvider});
