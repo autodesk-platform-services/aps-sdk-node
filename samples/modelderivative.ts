@@ -1,22 +1,22 @@
-import { ApiResponse, ApsConfiguration, ApsServiceRequestConfig, SdkManager, SdkManagerBuilder, Logger, StaticAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager"
-import { LogLevel } from "@aps_sdk/autodesk-sdkmanager/dist/src/Logger";
+import { ApiResponse, ApsConfiguration, ApsServiceRequestConfig, SdkManager, SdkManagerBuilder, Logger, StaticAuthenticationProvider,LogLevel } from "@aps_sdk/autodesk-sdkmanager"
 import { BeginsWith, Between, DeleteManifest, DerivativeDownload, EqualsTo, JobPayloadFormatAdvancedThumbnail, JobPayloadFormatSVFAdvancedRVT, MatchId, MatchIdType, ModelDerivativeClient } from "@aps_sdk/model-derivative";
 import { InformationalApi, SupportedFormats, JobPayloadFormatThumbnail, ExtractorVersion, JobPayloadFormatSVF2AdvancedRVT, Model2dView, JobPayloadFormatSVF2AdvancedIFC, BuildingStoreys, Width, Height, JobPayloadFormatSVFAdvancedIFC, Job, XAdsDerivativeFormat, Region, OutputType, Manifest, ModelViews, ObjectTree, ModelViewsDataMetadata, Properties, SpecificPropertiesPayload, SpecificPropertiesPayloadQuery, Payload, SpecificProperties } from "@aps_sdk/model-derivative";
 import { JobPayloadOutputDestination, JobsApi, JobPayload, JobPayloadOutput, JobPayloadInput, JobPayloadFormat, JobPayloadFormatSVF2, JobPayloadFormatSVF, View } from "@aps_sdk/model-derivative";
 import 'dotenv/config';
-
-// SdkManager can be optionally initialised to add custom logger etc.
-//const sdkmanager: SdkManager = SdkManagerBuilder.create().addLogger(new Logger(LogLevel.DEBUG)).build();
-
-//Initialise Auth Provider. If not provided, access tokens will need to be passed to each method.
-const staticAuthenticationProvider = new StaticAuthenticationProvider(process.env.accessToken);
-const modelDerivativeClient = new ModelDerivativeClient({ authenticationProvider: staticAuthenticationProvider });
 
 
 const accessToken: string = process.env.accessToken;
 const urn: string = process.env.urn;
 const derivativeUrn = process.env.derivativeUrn;
 const modelGuid = process.env.modelGuid;
+
+// SdkManager can be optionally initialised to add custom logger etc.
+//const sdkmanager: SdkManager = SdkManagerBuilder.create().addLogger(new Logger(LogLevel.DEBUG)).build();
+
+//Initialise Auth Provider. If not provided, access tokens will need to be passed to each method.
+const staticAuthenticationProvider = new StaticAuthenticationProvider(accessToken);
+const modelDerivativeClient = new ModelDerivativeClient({authenticationProvider: staticAuthenticationProvider });
+
 
 //#region Informational 
 /**
