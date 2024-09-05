@@ -1,11 +1,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HooksData } from './hooks-data';
+import { HookDetails } from './hook-details';
 import { HooksLinks } from './hooks-links';
 
 /**
- * Retrieves a paginated list of all the webhooks. If the pageState query string is not specified, the first page is returned.
+ * A paginated list of webhooks. 
  * @export
  * @interface Hooks
  */
@@ -17,10 +17,10 @@ export interface Hooks {
      */
     'links'?: HooksLinks;
     /**
-     * 
-     * @type {Set<HooksData>}
+     * An array of objects, where each object represents a webhook.
+     * @type {Array<HookDetails>}
      * @memberof Hooks
      */
-    'data'?: Set<HooksData>;
+    'data'?: Array<HookDetails>;
 }
 
