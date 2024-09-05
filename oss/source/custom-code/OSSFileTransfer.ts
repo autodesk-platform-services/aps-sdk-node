@@ -1,4 +1,4 @@
-import { IAuthClient, SdkManager, ApiResponse, ApsServiceRequestConfig } from "@aps_sdk/autodesk-sdkmanager";
+import { IAuthClient, SdkManager, ApiResponse, ApsServiceRequestConfig, IAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager";
 import { IFileTransferConfigurations } from './FileTransferConfigurations';
 import { ObjectsApi } from "../api";
 import { Completes3uploadBody, DownloadStatus, Signeds3downloadResponse, Signeds3uploadResponse } from "../model";
@@ -28,10 +28,12 @@ export class OSSFileTransfer implements IOSSFileTransfer {
 
   private readonly accessTokenExpiredMessage: string = 'Access token provided is invalid or expired.';
   private readonly forbiddenMessage: string = '403 (Forbidden)';
+  private authProvider:IAuthenticationProvider;
 
   constructor(
     configuration: IFileTransferConfigurations,
-    sdkmanager: SdkManager
+    sdkmanager: SdkManager,
+    authenticationProvider: IAuthenticationProvider
   ) {
 
     this.sdkManager = sdkmanager;
@@ -43,6 +45,10 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     this.maxRetryOnTokenExpiry = this.configuration.getMaxRetryOnTokenExpiry();
     // this._authentication = authentication;
     this.logger = this.sdkManager.logger;
+
+    if(authenticationProvider){
+      this.authProvider = authenticationProvider;
+    }
   }
 
   public async upload(bucketKey: string, objectKey: string, sourceToUpload: Buffer, accessToken: string, cancellationToken: AbortController,requestIdPrefix: string = '', onProgress?: (percentCompleted: number) => void): Promise<ApiResponse> {
@@ -209,7 +215,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
 
           //Yet to be implemented
           // accessToken = this.authentication.getUpdatedAccessToken();
-
+          accessToken = await this.authProvider?.getAccessToken();
           this.logger.logInfo(`${requestId} Token expired. Trying to refresh`);
         }
         else {
@@ -265,6 +271,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
 
           //Yet to be implemented
           // accessToken = this.authentication.getUpdatedAccessToken();
+          accessToken = await this.authProvider?.getAccessToken();
 
           this.logger.logInfo(`${requestId} Token expired. Trying to refresh`);
         }
@@ -308,7 +315,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     const chunk = Buffer.from(data);
 
     await this.writeStreamAsync(fileStream, chunk);
-    console.log(`${requestId} Successfully downloaded file range: ${start} - ${end}`)
+   this.logger.logInfo(`${requestId} Successfully downloaded file range: ${start} - ${end}`);
   }
   protected async writeStreamAsync(stream: NodeJS.WritableStream, chunk: Buffer): Promise<void> {
     return new Promise<void>((resolve, reject) => {
