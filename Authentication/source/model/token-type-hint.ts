@@ -3,7 +3,7 @@
 
 
 /**
- * 
+ * The type of token to revoke. Possible values are: ``access_token`` and ``refresh_token``. 
  * @export
  * @enum {string}
  */

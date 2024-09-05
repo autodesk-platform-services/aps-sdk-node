@@ -39,7 +39,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        batchCompleteUpload: async (accessToken: string, bucketKey: string, requests?: BatchcompleteuploadObject,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        batchCompleteUpload: async (accessToken: string, bucketKey: string, requests: BatchcompleteuploadObject,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'bucketKey' is not null or undefined
             assertParamExists('batchCompleteUpload', 'bucketKey', bucketKey)
             const localVarPath = `/oss/v2/buckets/{bucketKey}/objects/batchcompleteupload`
@@ -59,7 +59,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -112,7 +112,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -163,7 +163,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -242,7 +242,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -267,7 +267,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        copyTo: async (accessToken: string, bucketKey: string, objectKey: string, newObjName: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        copyTo: async (accessToken: string, bucketKey: string, objectKey: string, newObjName: string,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'bucketKey' is not null or undefined
             assertParamExists('copyTo', 'bucketKey', bucketKey)
             // verify required parameter 'objectKey' is not null or undefined
@@ -290,21 +290,9 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
-            if (xAdsAcmNamespace != null) {
-                localVarHeaderParameter['x-ads-acm-namespace'] = String(xAdsAcmNamespace);
-            }
-
-            if (xAdsAcmCheckGroups != null) {
-                localVarHeaderParameter['x-ads-acm-check-groups'] = String(xAdsAcmCheckGroups);
-            }
-
-            if (xAdsAcmGroups != null) {
-                localVarHeaderParameter['x-ads-acm-groups'] = String(xAdsAcmGroups);
-            }
-
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -357,7 +345,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -381,7 +369,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteObject: async (accessToken: string, bucketKey: string, objectKey: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        deleteObject: async (accessToken: string, bucketKey: string, objectKey: string,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'bucketKey' is not null or undefined
             assertParamExists('deleteObject', 'bucketKey', bucketKey)
             // verify required parameter 'objectKey' is not null or undefined
@@ -401,21 +389,9 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
-            if (xAdsAcmNamespace != null) {
-                localVarHeaderParameter['x-ads-acm-namespace'] = String(xAdsAcmNamespace);
-            }
-
-            if (xAdsAcmCheckGroups != null) {
-                localVarHeaderParameter['x-ads-acm-check-groups'] = String(xAdsAcmCheckGroups);
-            }
-
-            if (xAdsAcmGroups != null) {
-                localVarHeaderParameter['x-ads-acm-groups'] = String(xAdsAcmGroups);
-            }
-
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -459,7 +435,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -483,7 +459,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getObjectDetails: async (accessToken: string, bucketKey: string, objectKey: string, ifModifiedSince?: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, _with?: With,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        getObjectDetails: async (accessToken: string, bucketKey: string, objectKey: string, ifModifiedSince?: string, _with?: With,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'bucketKey' is not null or undefined
             assertParamExists('getObjectDetails', 'bucketKey', bucketKey)
             // verify required parameter 'objectKey' is not null or undefined
@@ -513,21 +489,8 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
                     : JSON.stringify(ifModifiedSince);
             }
 
-            if (xAdsAcmNamespace != null) {
-                localVarHeaderParameter['x-ads-acm-namespace'] = String(xAdsAcmNamespace);
-            }
-
-            if (xAdsAcmCheckGroups != null) {
-                localVarHeaderParameter['x-ads-acm-check-groups'] = String(xAdsAcmCheckGroups);
-            }
-
-            if (xAdsAcmGroups != null) {
-                localVarHeaderParameter['x-ads-acm-groups'] = String(xAdsAcmGroups);
-            }
-
-
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -579,7 +542,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -653,7 +616,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -682,7 +645,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        signedS3Download: async (accessToken: string, bucketKey: string, objectKey: string, ifNoneMatch?: string, ifModifiedSince?: string, xAdsAcmScopes?: string, responseContentType?: string, responseContentDisposition?: string, responseCacheControl?: string, publicResourceFallback?: boolean, minutesExpiration?: number, useCdn?: boolean, redirect?: boolean,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        signedS3Download: async (accessToken: string, bucketKey: string, objectKey: string, ifNoneMatch?: string, ifModifiedSince?: string,  responseContentType?: string, responseContentDisposition?: string, responseCacheControl?: string, publicResourceFallback?: boolean, minutesExpiration?: number, useCdn?: boolean,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'bucketKey' is not null or undefined
             assertParamExists('signedS3Download', 'bucketKey', bucketKey)
             // verify required parameter 'objectKey' is not null or undefined
@@ -726,9 +689,6 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
                 localVarQueryParameter['useCdn'] = useCdn;
             }
 
-            if (redirect !== undefined) {
-                localVarQueryParameter['redirect'] = redirect;
-            }
 
             if (ifNoneMatch != null) {
                 localVarHeaderParameter['If-None-Match'] = String(ifNoneMatch);
@@ -739,14 +699,8 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
                     ? ifModifiedSince
                     : JSON.stringify(ifModifiedSince);
             }
-
-            if (xAdsAcmScopes != null) {
-                localVarHeaderParameter['x-ads-acm-scopes'] = String(xAdsAcmScopes);
-            }
-
-
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -771,7 +725,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        signedS3Upload: async (accessToken: string, bucketKey: string, objectKey: string, xAdsAcmScopes?: string, parts?: number, firstPart?: number, uploadKey?: string, minutesExpiration?: number, useAcceleration?: boolean,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        signedS3Upload: async (accessToken: string, bucketKey: string, objectKey: string,  parts?: number, firstPart?: number, uploadKey?: string, minutesExpiration?: number, useAcceleration?: boolean,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'bucketKey' is not null or undefined
             assertParamExists('signedS3Upload', 'bucketKey', bucketKey)
             // verify required parameter 'objectKey' is not null or undefined
@@ -811,13 +765,8 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
                 localVarQueryParameter['useAcceleration'] = useAcceleration;
             }
 
-            if (xAdsAcmScopes != null) {
-                localVarHeaderParameter['x-ads-acm-scopes'] = String(xAdsAcmScopes);
-            }
-
-
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -895,7 +844,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
     
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -974,7 +923,7 @@ export const ObjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConf
     
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0-beta1';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/OSS/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -1066,8 +1015,8 @@ export const ObjectsApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async copyTo(accessToken: string, bucketKey: string, objectKey: string, newObjName: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ObjectDetails>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.copyTo(accessToken, bucketKey, objectKey, newObjName, xAdsAcmNamespace, xAdsAcmCheckGroups, xAdsAcmGroups,  options);
+        async copyTo(accessToken: string, bucketKey: string, objectKey: string, newObjName: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ObjectDetails>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.copyTo(accessToken, bucketKey, objectKey, newObjName,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
@@ -1096,8 +1045,8 @@ export const ObjectsApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteObject(accessToken: string, bucketKey: string, objectKey: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteObject(accessToken, bucketKey, objectKey, xAdsAcmNamespace, xAdsAcmCheckGroups, xAdsAcmGroups,  options);
+        async deleteObject(accessToken: string, bucketKey: string, objectKey: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteObject(accessToken, bucketKey, objectKey,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
@@ -1125,8 +1074,8 @@ export const ObjectsApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getObjectDetails(accessToken: string, bucketKey: string, objectKey: string, ifModifiedSince?: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, _with?: With, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ObjectFullDetails>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getObjectDetails(accessToken, bucketKey, objectKey, ifModifiedSince, xAdsAcmNamespace, xAdsAcmCheckGroups, xAdsAcmGroups, _with,  options);
+        async getObjectDetails(accessToken: string, bucketKey: string, objectKey: string, ifModifiedSince?: string, _with?: With, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ObjectFullDetails>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getObjectDetails(accessToken, bucketKey, objectKey, ifModifiedSince, _with,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
@@ -1179,8 +1128,8 @@ export const ObjectsApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async signedS3Download(accessToken: string, bucketKey: string, objectKey: string, ifNoneMatch?: string, ifModifiedSince?: string, xAdsAcmScopes?: string, responseContentType?: string, responseContentDisposition?: string, responseCacheControl?: string, publicResourceFallback?: boolean, minutesExpiration?: number, useCdn?: boolean, redirect?: boolean, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Signeds3downloadResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.signedS3Download(accessToken, bucketKey, objectKey, ifNoneMatch, ifModifiedSince, xAdsAcmScopes, responseContentType, responseContentDisposition, responseCacheControl, publicResourceFallback, minutesExpiration, useCdn, redirect,  options);
+        async signedS3Download(accessToken: string, bucketKey: string, objectKey: string, ifNoneMatch?: string, ifModifiedSince?: string,  responseContentType?: string, responseContentDisposition?: string, responseCacheControl?: string, publicResourceFallback?: boolean, minutesExpiration?: number, useCdn?: boolean, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Signeds3downloadResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.signedS3Download(accessToken, bucketKey, objectKey, ifNoneMatch, ifModifiedSince, responseContentType, responseContentDisposition, responseCacheControl, publicResourceFallback, minutesExpiration, useCdn,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
@@ -1197,8 +1146,8 @@ export const ObjectsApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async signedS3Upload(accessToken: string, bucketKey: string, objectKey: string, xAdsAcmScopes?: string, parts?: number, firstPart?: number, uploadKey?: string, minutesExpiration?: number, useAcceleration?: boolean, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Signeds3uploadResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.signedS3Upload(accessToken, bucketKey, objectKey, xAdsAcmScopes, parts, firstPart, uploadKey, minutesExpiration, useAcceleration,  options);
+        async signedS3Upload(accessToken: string, bucketKey: string, objectKey: string,  parts?: number, firstPart?: number, uploadKey?: string, minutesExpiration?: number, useAcceleration?: boolean, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Signeds3uploadResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.signedS3Upload(accessToken, bucketKey, objectKey, parts, firstPart, uploadKey, minutesExpiration, useAcceleration,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
@@ -1317,7 +1266,7 @@ export interface ObjectsApiInterface {
      * @throws {RequiredError}
      * @memberof ObjectsApiInterface
      */
-    copyTo(accessToken: string,bucketKey: string, objectKey: string, newObjName: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    copyTo(accessToken: string,bucketKey: string, objectKey: string, newObjName: string,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Generates a signed URL that can be used to download or upload an object within the specified expiration time. If the object the signed URL points to is deleted or expires before the signed URL expires, the signed URL will no longer be valid.  In addition to this operation that generates OSS signed URLs, OSS provides operations to generate S3 signed URLs. S3 signed URLs allow direct upload/download from S3 but are restricted to bucket owners. OSS signed URLs also allow upload/download and can be configured for access by other applications, making them suitable for sharing objects across applications.  Only the application that owns the bucket containing the object can call this operation. 
@@ -1347,7 +1296,7 @@ export interface ObjectsApiInterface {
      * @throws {RequiredError}
      * @memberof ObjectsApiInterface
      */
-    deleteObject(accessToken: string,bucketKey: string, objectKey: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    deleteObject(accessToken: string,bucketKey: string, objectKey: string,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Delete an object using an OSS signed URL to access it.  Only applications that own the bucket containing the object can call this operation.  
@@ -1376,7 +1325,7 @@ export interface ObjectsApiInterface {
      * @throws {RequiredError}
      * @memberof ObjectsApiInterface
      */
-    getObjectDetails(accessToken: string,bucketKey: string, objectKey: string, ifModifiedSince?: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, _with?: With,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getObjectDetails(accessToken: string,bucketKey: string, objectKey: string, ifModifiedSince?: string, _with?: With,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Returns a list objects in the specified bucket.   Only the application that owns the bucket can call this operation. All other applications that call this operation will receive a \"403 Forbidden\" error. 
@@ -1430,7 +1379,7 @@ export interface ObjectsApiInterface {
      * @throws {RequiredError}
      * @memberof ObjectsApiInterface
      */
-    signedS3Download(accessToken: string,bucketKey: string, objectKey: string, ifNoneMatch?: string, ifModifiedSince?: string, xAdsAcmScopes?: string, responseContentType?: string, responseContentDisposition?: string, responseCacheControl?: string, publicResourceFallback?: boolean, minutesExpiration?: number, useCdn?: boolean, redirect?: boolean,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    signedS3Download(accessToken: string,bucketKey: string, objectKey: string, ifNoneMatch?: string, ifModifiedSince?: string,  responseContentType?: string, responseContentDisposition?: string, responseCacheControl?: string, publicResourceFallback?: boolean, minutesExpiration?: number, useCdn?: boolean,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Gets a signed URL to upload an object directly to S3, bypassing OSS servers. You can also request an array of signed URLs which lets you upload an object in chunks.  This signed URL expires in 2 minutes by default, but you can change this duration if needed.  You must start the upload before the signed URL expires. The upload itself can take longer. If the upload fails after the validity period of the signed URL has elapsed, you can call this operation again to obtain a fresh signed URL (or an array of signed URLs as the case may be). However, you must use the same ``uploadKey`` that was returned when you originally called this operation.   Only applications that own the bucket can call this operation.  **Note:** Once you upload all chunks you must call the [Complete Upload to S3 Signed URL](/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-signeds3upload-POST/) operation to indicate completion. This instructs OSS to assemble the chunks and reconstitute the object on OSS. You must call this operation even when using a single signed URL.   In addition to this operation that generates S3 signed URLs, OSS provides an operation to generate OSS signed URLs. S3 signed URLs allow direct upload/download from S3 but are restricted to bucket owners. OSS signed URLs also allow upload/download and can be configured for access by other applications, making them suitable for sharing objects across applications.     
@@ -1448,7 +1397,7 @@ export interface ObjectsApiInterface {
      * @throws {RequiredError}
      * @memberof ObjectsApiInterface
      */
-    signedS3Upload(accessToken: string,bucketKey: string, objectKey: string, xAdsAcmScopes?: string, parts?: number, firstPart?: number, uploadKey?: string, minutesExpiration?: number, useAcceleration?: boolean,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    signedS3Upload(accessToken: string,bucketKey: string, objectKey: string,  parts?: number, firstPart?: number, uploadKey?: string, minutesExpiration?: number, useAcceleration?: boolean,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Replaces an object that already exists on OSS, using an OSS signed URL.   The signed URL must fulfil the following conditions:  - The signed URL is valid (it has not expired as yet). - It was generated with ``write`` or ``readwrite`` for the ``access`` parameter. 
@@ -1513,8 +1462,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`batchCompleteUpload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`batchCompleteUpload Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`batchCompleteUpload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`batchCompleteUpload Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`batchCompleteUpload Request failed with no response received: ${error.request}`);
             throw new OssApiError(`batchCompleteUpload Request failed with no response received: ${error.request}`, error);
@@ -1544,8 +1494,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`batchSignedS3Download Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`batchSignedS3Download Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`batchSignedS3Download Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`batchSignedS3Download Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`batchSignedS3Download Request failed with no response received: ${error.request}`);
             throw new OssApiError(`batchSignedS3Download Request failed with no response received: ${error.request}`, error);
@@ -1575,8 +1526,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`batchSignedS3Upload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`batchSignedS3Upload Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`batchSignedS3Upload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`batchSignedS3Upload Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`batchSignedS3Upload Request failed with no response received: ${error.request}`);
             throw new OssApiError(`batchSignedS3Upload Request failed with no response received: ${error.request}`, error);
@@ -1611,8 +1563,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`completeSignedS3Upload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`completeSignedS3Upload Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`completeSignedS3Upload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`completeSignedS3Upload Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`completeSignedS3Upload Request failed with no response received: ${error.request}`);
             throw new OssApiError(`completeSignedS3Upload Request failed with no response received: ${error.request}`, error);
@@ -1635,17 +1588,18 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
      * @throws {RequiredError}
      * @memberof ObjectsApi
      */
-    public async copyTo(accessToken: string, bucketKey: string, objectKey: string, newObjName: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, options?: ApsServiceRequestConfig) {
+    public async copyTo(accessToken: string, bucketKey: string, objectKey: string, newObjName: string, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into copyTo ");
       try {
-        const request =  await ObjectsApiFp(this.sdkManager).copyTo(accessToken, bucketKey, objectKey, newObjName, xAdsAcmNamespace, xAdsAcmCheckGroups, xAdsAcmGroups,  options);
+        const request =  await ObjectsApiFp(this.sdkManager).copyTo(accessToken, bucketKey, objectKey, newObjName,  options);
         const response = await request(this.axios);
         this.logger.logInfo(`copyTo Request completed successfully with status code: ${response.status}`);
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`copyTo Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`copyTo Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`copyTo Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`copyTo Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`copyTo Request failed with no response received: ${error.request}`);
             throw new OssApiError(`copyTo Request failed with no response received: ${error.request}`, error);
@@ -1676,8 +1630,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`createSignedResource Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`createSignedResource Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`createSignedResource Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`createSignedResource Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`createSignedResource Request failed with no response received: ${error.request}`);
             throw new OssApiError(`createSignedResource Request failed with no response received: ${error.request}`, error);
@@ -1699,17 +1654,18 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
      * @throws {RequiredError}
      * @memberof ObjectsApi
      */
-    public async deleteObject(accessToken: string, bucketKey: string, objectKey: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, options?: ApsServiceRequestConfig) {
+    public async deleteObject(accessToken: string, bucketKey: string, objectKey: string, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into deleteObject ");
       try {
-        const request =  await ObjectsApiFp(this.sdkManager).deleteObject(accessToken, bucketKey, objectKey, xAdsAcmNamespace, xAdsAcmCheckGroups, xAdsAcmGroups,  options);
+        const request =  await ObjectsApiFp(this.sdkManager).deleteObject(accessToken, bucketKey, objectKey,  options);
         const response = await request(this.axios);
         this.logger.logInfo(`deleteObject Request completed successfully with status code: ${response.status}`);
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`deleteObject Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`deleteObject Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`deleteObject Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`deleteObject Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`deleteObject Request failed with no response received: ${error.request}`);
             throw new OssApiError(`deleteObject Request failed with no response received: ${error.request}`, error);
@@ -1737,8 +1693,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`deleteSignedResource Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`deleteSignedResource Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`deleteSignedResource Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`deleteSignedResource Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`deleteSignedResource Request failed with no response received: ${error.request}`);
             throw new OssApiError(`deleteSignedResource Request failed with no response received: ${error.request}`, error);
@@ -1762,17 +1719,18 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
      * @throws {RequiredError}
      * @memberof ObjectsApi
      */
-    public async getObjectDetails(accessToken: string, bucketKey: string, objectKey: string, ifModifiedSince?: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, _with?: With, options?: ApsServiceRequestConfig) {
+    public async getObjectDetails(accessToken: string, bucketKey: string, objectKey: string, ifModifiedSince?: string, _with?: With, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into getObjectDetails ");
       try {
-        const request =  await ObjectsApiFp(this.sdkManager).getObjectDetails(accessToken, bucketKey, objectKey, ifModifiedSince, xAdsAcmNamespace, xAdsAcmCheckGroups, xAdsAcmGroups, _with,  options);
+        const request =  await ObjectsApiFp(this.sdkManager).getObjectDetails(accessToken, bucketKey, objectKey, ifModifiedSince, _with,  options);
         const response = await request(this.axios);
         this.logger.logInfo(`getObjectDetails Request completed successfully with status code: ${response.status}`);
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getObjectDetails Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`getObjectDetails Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getObjectDetails Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`getObjectDetails Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getObjectDetails Request failed with no response received: ${error.request}`);
             throw new OssApiError(`getObjectDetails Request failed with no response received: ${error.request}`, error);
@@ -1802,8 +1760,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getObjects Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`getObjects Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getObjects Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`getObjects Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getObjects Request failed with no response received: ${error.request}`);
             throw new OssApiError(`getObjects Request failed with no response received: ${error.request}`, error);
@@ -1837,8 +1796,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getSignedResource Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`getSignedResource Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getSignedResource Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`getSignedResource Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getSignedResource Request failed with no response received: ${error.request}`);
             throw new OssApiError(`getSignedResource Request failed with no response received: ${error.request}`, error);
@@ -1867,17 +1827,18 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
      * @throws {RequiredError}
      * @memberof ObjectsApi
      */
-    public async signedS3Download(accessToken: string, bucketKey: string, objectKey: string, ifNoneMatch?: string, ifModifiedSince?: string, xAdsAcmScopes?: string, responseContentType?: string, responseContentDisposition?: string, responseCacheControl?: string, publicResourceFallback?: boolean, minutesExpiration?: number, useCdn?: boolean, redirect?: boolean, options?: ApsServiceRequestConfig) {
+    public async signedS3Download(accessToken: string, bucketKey: string, objectKey: string, ifNoneMatch?: string, ifModifiedSince?: string,  responseContentType?: string, responseContentDisposition?: string, responseCacheControl?: string, publicResourceFallback?: boolean, minutesExpiration?: number, useCdn?: boolean, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into signedS3Download ");
       try {
-        const request =  await ObjectsApiFp(this.sdkManager).signedS3Download(accessToken, bucketKey, objectKey, ifNoneMatch, ifModifiedSince, xAdsAcmScopes, responseContentType, responseContentDisposition, responseCacheControl, publicResourceFallback, minutesExpiration, useCdn, redirect,  options);
+        const request =  await ObjectsApiFp(this.sdkManager).signedS3Download(accessToken, bucketKey, objectKey, ifNoneMatch, ifModifiedSince, responseContentType, responseContentDisposition, responseCacheControl, publicResourceFallback, minutesExpiration, useCdn,  options);
         const response = await request(this.axios);
         this.logger.logInfo(`signedS3Download Request completed successfully with status code: ${response.status}`);
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`signedS3Download Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`signedS3Download Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`signedS3Download Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`signedS3Download Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`signedS3Download Request failed with no response received: ${error.request}`);
             throw new OssApiError(`signedS3Download Request failed with no response received: ${error.request}`, error);
@@ -1902,17 +1863,18 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
      * @throws {RequiredError}
      * @memberof ObjectsApi
      */
-    public async signedS3Upload(accessToken: string, bucketKey: string, objectKey: string, xAdsAcmScopes?: string, parts?: number, firstPart?: number, uploadKey?: string, minutesExpiration?: number, useAcceleration?: boolean, options?: ApsServiceRequestConfig) {
+    public async signedS3Upload(accessToken: string, bucketKey: string, objectKey: string,  parts?: number, firstPart?: number, uploadKey?: string, minutesExpiration?: number, useAcceleration?: boolean, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into signedS3Upload ");
       try {
-        const request =  await ObjectsApiFp(this.sdkManager).signedS3Upload(accessToken, bucketKey, objectKey, xAdsAcmScopes, parts, firstPart, uploadKey, minutesExpiration, useAcceleration,  options);
+        const request =  await ObjectsApiFp(this.sdkManager).signedS3Upload(accessToken, bucketKey, objectKey, parts, firstPart, uploadKey, minutesExpiration, useAcceleration,  options);
         const response = await request(this.axios);
         this.logger.logInfo(`signedS3Upload Request completed successfully with status code: ${response.status}`);
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`signedS3Upload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`signedS3Upload Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`signedS3Upload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`signedS3Upload Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`signedS3Upload Request failed with no response received: ${error.request}`);
             throw new OssApiError(`signedS3Upload Request failed with no response received: ${error.request}`, error);
@@ -1945,8 +1907,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`uploadSignedResource Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`uploadSignedResource Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`uploadSignedResource Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`uploadSignedResource Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`uploadSignedResource Request failed with no response received: ${error.request}`);
             throw new OssApiError(`uploadSignedResource Request failed with no response received: ${error.request}`, error);
@@ -1979,8 +1942,9 @@ export class ObjectsApi extends BaseApi implements ObjectsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`uploadSignedResourcesChunk Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new OssApiError(`uploadSignedResourcesChunk Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`uploadSignedResourcesChunk Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new OssApiError(`uploadSignedResourcesChunk Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`uploadSignedResourcesChunk Request failed with no response received: ${error.request}`);
             throw new OssApiError(`uploadSignedResourcesChunk Request failed with no response received: ${error.request}`, error);

@@ -10,36 +10,51 @@ import {
   TokenPayload,
   Token,
   XAdsRegion,
-  Region
+  Region,
+  StatusFilter,
+  Sort
 } from '../model';
 import {
   SdkManager,
-  ApsServiceRequestConfig
+  ApsServiceRequestConfig,
+  SdkManagerBuilder,
+  IAuthenticationProvider,
+  BaseClient
 } from '@aps_sdk/autodesk-sdkmanager'; // Assuming a default export
 
-export class WebhooksClient {
+export class WebhooksClient extends BaseClient {
   public hooksApi: HooksApi;
   public tokensApi: TokensApi;
 
-  constructor(sdkManager: SdkManager) {
-    this.hooksApi = new HooksApi(sdkManager);
-    this.tokensApi = new TokensApi(sdkManager);
+  constructor(optionalArgs?: { sdkManager?: SdkManager, authenticationProvider?: IAuthenticationProvider }) {
+    super(optionalArgs?.authenticationProvider);
+    if (!optionalArgs?.sdkManager) {
+        (optionalArgs ??= {}).sdkManager = SdkManagerBuilder.create().build();
+    }
+    this.hooksApi = new HooksApi(optionalArgs.sdkManager);
+    this.tokensApi = new TokensApi(optionalArgs.sdkManager);
   }
 
   //#region HooksAPi
   public async createSystemEventHook(
-    accessToken: string,
-    system: Systems,
-    event: Events,
+    system: Systems | string,
+    event: Events | string,
     hookPayload: HookPayload,
     optionalArgs?: {
       xAdsRegion?: XAdsRegion,
       region?: Region,
+      accessToken?: string,
       options?: ApsServiceRequestConfig,
     }
   ): Promise<void> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+        (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    }
     const response = await this.hooksApi.createSystemEventHook(
-      accessToken,
+      optionalArgs?.accessToken,
       system,
       event,
       optionalArgs?.xAdsRegion,
@@ -51,17 +66,23 @@ export class WebhooksClient {
   }
 
   public async createSystemHook(
-    accessToken: string,
-    system: Systems,
+    system: Systems | string,
     hookPayload: HookPayload,
     optionalArgs?: {
       xAdsRegion?: XAdsRegion,
       region?: Region,
+      accessToken?: string,
       options?: ApsServiceRequestConfig
     }
   ): Promise<Hook> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+        (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    }
     const response = await this.hooksApi.createSystemHook(
-      accessToken,
+      optionalArgs?.accessToken,
       system,
       optionalArgs?.xAdsRegion,
       optionalArgs?.region,
@@ -72,18 +93,24 @@ export class WebhooksClient {
   }
 
   public async deleteSystemEventHook(
-    accessToken: string,
-    system: Systems,
-    event: Events,
+    system: Systems | string,
+    event: Events | string,
     hookId: string,
     optionalArgs?: {
       xAdsRegion?: XAdsRegion,
       region?: Region,
+      accessToken?: string,
       options?: ApsServiceRequestConfig
     }
   ): Promise<void> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+        (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    }
     const response = await this.hooksApi.deleteSystemEventHook(
-      accessToken,
+      optionalArgs?.accessToken,
       system,
       event,
       hookId,
@@ -95,18 +122,24 @@ export class WebhooksClient {
   }
 
   public async getAppHooks(
-    accessToken: string,
     optionalArgs?: {
       xAdsRegion?: XAdsRegion,
       pageState?: string,
-      status?: string,
-      sort?: string,
+      status?: StatusFilter,
+      sort?: Sort,
       region?: Region,
+      accessToken?: string,
       options?: ApsServiceRequestConfig
     }
   ): Promise<Hooks> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+        (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    }
     const response = await this.hooksApi.getAppHooks(
-      accessToken,
+      optionalArgs?.accessToken,
       optionalArgs?.xAdsRegion,
       optionalArgs?.pageState,
       optionalArgs?.status,
@@ -118,18 +151,24 @@ export class WebhooksClient {
   }
 
   public async getHookDetails(
-    accessToken: string,
-    system: Systems,
-    event: Events,
+    system: Systems | string,
+    event: Events | string,
     hookId: string,
     optionalArgs?: {
       xAdsRegion?: XAdsRegion,
       region?: Region,
+      accessToken?: string,
       options?: ApsServiceRequestConfig
     }
   ): Promise<HookDetails> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+        (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    }
     const response = await this.hooksApi.getHookDetails(
-      accessToken,
+      optionalArgs?.accessToken,
       system,
       event,
       hookId,
@@ -141,17 +180,23 @@ export class WebhooksClient {
   }
 
   public async getHooks(
-    accessToken: string,
     optionalArgs?: {
       pageState?: string,
-      status?: string,
+      status?: StatusFilter,
       region?: Region,
       xAdsRegion?: XAdsRegion;
+      accessToken?: string,
       options?: ApsServiceRequestConfig
     }
   ): Promise<Hooks> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+        (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    }
     const response = await this.hooksApi.getHooks(
-      accessToken,
+      optionalArgs?.accessToken,
       optionalArgs?.pageState,
       optionalArgs?.status,
       optionalArgs?.region,
@@ -162,20 +207,26 @@ export class WebhooksClient {
   }
 
   public async getSystemEventHooks(
-    accessToken: string,
-    system: Systems,
-    event: Events,
+    system: Systems | string,
+    event: Events | string,
     optionalArgs?: {
       xAdsRegion?: XAdsRegion;
       region?: Region,
       scopeName?: string,
       pageState?: string,
-      status?: string,
+      status?: StatusFilter,
+      accessToken?: string,
       options?: ApsServiceRequestConfig
     }
   ): Promise<Hooks> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+        (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    }
     const response = await this.hooksApi.getSystemEventHooks(
-      accessToken,
+      optionalArgs?.accessToken,
       system,
       event,
       optionalArgs?.xAdsRegion,
@@ -189,18 +240,24 @@ export class WebhooksClient {
   }
 
   public async getSystemHooks(
-    accessToken: string,
-    system: Systems,
+    system: Systems | string,
     optionalArgs?: {
       xAdsRegion?: XAdsRegion;
-      status?: string,
+      status?: StatusFilter,
       pageState?: string,
       region?: Region,
+      accessToken?: string,
       options?: ApsServiceRequestConfig
     }
   ): Promise<Hooks> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+        (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    }
     const response = await this.hooksApi.getSystemHooks(
-      accessToken,
+      optionalArgs?.accessToken,
       system,
       optionalArgs?.xAdsRegion,
       optionalArgs?.status,
@@ -212,19 +269,25 @@ export class WebhooksClient {
   }
 
   public async patchSystemEventHook(
-    accessToken: string,
-    system: Systems,
-    event: Events,
+    system: Systems | string,
+    event: Events | string,
     hookId: string,
     modifyHookPayload: ModifyHookPayload,
     optionalArgs?: {
       xAdsRegion?: XAdsRegion;
       region?: Region,
+      accessToken?: string,
       options?: ApsServiceRequestConfig
     }
   ): Promise<void> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+        (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    }
     const response = await this.hooksApi.patchSystemEventHook(
-      accessToken,
+      optionalArgs?.accessToken,
       system,
       event,
       hookId,
@@ -237,16 +300,22 @@ export class WebhooksClient {
   }
 
   public async createToken(
-    accessToken: string,
     tokenPayload: TokenPayload,
     optionalArgs?: {
       xAdsRegion?: XAdsRegion;
       region?: Region,
+      accessToken?: string,
       options?: ApsServiceRequestConfig
     }
   ): Promise<Token> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+        (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    }
     const response = await this.tokensApi.createToken(
-      accessToken,
+      optionalArgs?.accessToken,
       optionalArgs?.xAdsRegion,
       optionalArgs?.region,
       tokenPayload,
@@ -256,15 +325,21 @@ export class WebhooksClient {
   }
 
   public async deleteToken(
-    accessToken: string,
     optionalArgs?: {
       xAdsRegion?: XAdsRegion,
       region?: Region,
+      accessToken?: string,
       options?: ApsServiceRequestConfig
     }
   ): Promise<void> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+        (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    }
     const response = await this.tokensApi.deleteToken(
-      accessToken,
+      optionalArgs?.accessToken,
       optionalArgs?.xAdsRegion,
       optionalArgs?.region,
       optionalArgs?.options
@@ -273,16 +348,22 @@ export class WebhooksClient {
   }
 
   public async putToken(
-    accessToken: string,
     tokenPayload: TokenPayload,
     optionalArgs?: {
       xAdsRegion?: XAdsRegion,
       region?: Region,
+      accessToken?: string,
       options?: ApsServiceRequestConfig
     }
   ): Promise<void> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+        (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    }
     const response = await this.tokensApi.putToken(
-      accessToken,
+      optionalArgs?.accessToken,
       optionalArgs?.xAdsRegion,
       optionalArgs?.region,
       tokenPayload,

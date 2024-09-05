@@ -9,7 +9,7 @@
  */
 export interface Result {
     /**
-     * 
+     * A human friendly description of the state of processing.
      * @type {string}
      * @memberof Result
      */

@@ -3,22 +3,22 @@
 
 
 /**
- * 
+ * An object that represents the successful response of a Specify References operation. 
  * @export
- * @interface SpecifyReferences200Response
+ * @interface SpecifyReferences
  */
 export interface SpecifyReferences {
     /**
-     * reporting success status
+     * The result of the operation. Always ``success`` for status ``200``.
      * @type {string}
      * @memberof SpecifyReferences
      */
     'result'?: string;
     /**
-     * the urn identifier of the source file
+     * The URN of the top level component.
      * @type {string}
      * @memberof SpecifyReferences
      */
-    'urn'?: string;
+    'urn': string;
 }
 

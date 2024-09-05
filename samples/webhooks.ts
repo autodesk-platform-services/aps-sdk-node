@@ -1,24 +1,26 @@
-import { Systems, Events, Scopes, HookPayload, Hooks, HookDetails, ModifyHookPayload, TokenPayload, Token, XAdsRegion, Region } from "@aps_sdk/webhooks";
-import { SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager"; // Assuming a default export
+import { Systems, Events, HookPayload, Hooks, HookDetails, ModifyHookPayload, TokenPayload, Token, XAdsRegion, Region, StatusFilter, Sort } from "@aps_sdk/webhooks";
+import { Logger, LogLevel, SdkManager, SdkManagerBuilder, StaticAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager"; // Assuming a default export
 import { WebhooksClient } from "@aps_sdk/webhooks";
-import { setScope } from "@aps_sdk/webhooks";
+import 'dotenv/config';
 
+// SdkManager can be optionally initialised to add custom logger etc.
+// const sdkManager: SdkManager = SdkManagerBuilder.create().addLogger(new Logger(LogLevel.DEBUG)).build();
 
-const sdkManager = SdkManagerBuilder.create().build(); // Initialize the SDKManager as needed
-const webhooksClient = new WebhooksClient(sdkManager);
+//Initialise Auth Provider. If not provided, access tokens will need to be passed to each method.
+const staticAuthenticationProvider = new StaticAuthenticationProvider(process.env.accessToken);
+const webhooksClient = new WebhooksClient({authenticationProvider: staticAuthenticationProvider});
 
 // Define your access token and other required parameters
-const accessToken = "<token>"; // Replace with your actual access token
+const accessToken = process.env.accessToken; // Replace with your actual access token
 const system = Systems.Data; // Replace with the desired system from the Systems enum
 const event = Events.DmVersionAdded; // Replace with the desired event from the Events enum
-const hookId = "<token>";
+const hookId =process.env.hookId;
 
 // create system event hooks
 async function createSystemEventhook(): Promise<any> {
   const hookPayload: HookPayload = {
     callbackUrl: "https://example.com/callback_four_new",
-    // @ts-ignore
-    scope: setScope({}, Scopes.Folder, "urn:adsk.wipprod:fs.folder:co.k4WX5oe6QDuWg0yxRS6-HQ"),
+    scope: { "folder": "urn:adsk.wipprod:fs.folder:co.k4WX5oe6QDuWg0yxRS6-HQ"},
     "autoReactivateHook": false,
     "hookAttribute": {
       /* Custom metadata */
@@ -28,67 +30,67 @@ async function createSystemEventhook(): Promise<any> {
         "abc": true
       }
     },
-    "hookExpiry": "2024-02-10T17:04:10.444Z"
+    "hookExpiry": "2024-09-04T17:04:10.444Z"
   };
 
   try {
-    const response = await webhooksClient.createSystemEventHook(accessToken, system, event, hookPayload);
+    const response = await webhooksClient.createSystemEventHook(system, event, hookPayload);
     console.log(response);
   } catch (error) {
-    console.error(`Failed to create system event hook:`, error);
+    console.error(`Failed to create system event hook:`, error.message);
   }
 }
 
 // get a list of paginated hooks
 async function getHooks(): Promise<any> {
   try {
-    const response: Hooks = await webhooksClient.getHooks(accessToken);
+    const response: Hooks = await webhooksClient.getHooks();
     console.log(response);
     console.log(response.links.next);
   } catch (error) {
-    console.error(`Failed to get hooks:`, error);
+    console.error(`Failed to get hooks:`, error.message);
   }
 }
 
 // get a list of system event hooks
 async function getSystemEventHooks(): Promise<any> {
   try {
-    const response: Hooks = await webhooksClient.getSystemEventHooks(accessToken, system, event, {scopeName: "folder", status: "active"});
+    const response: Hooks = await webhooksClient.getSystemEventHooks(system, Events.DmFolderCopied, {scopeName: "folder", status: "active"});
     console.log(response);
     console.log(response.links.next);
   } catch (error) {
-    console.error(`Failed to get hooks:`, error);
+    console.error(`Failed to get hooks:`, error.message);
   }
 }
 
 // get a list of system hooks
 async function getSystemHooks(): Promise<any> {
   try {
-    const response: Hooks = await webhooksClient.getSystemHooks(accessToken, system, {status: "active", region: Region.Us});
+    const response: Hooks = await webhooksClient.getSystemHooks(system, {status: "active", region: Region.Us});
     console.log(response);
     console.log(response.links.next);
   } catch (error) {
-    console.error(`Failed to get hooks:`, error);
+    console.error(`Failed to get hooks:`, error.message);
   }
 }
 
 // get details of a webhook based on its webhook Id
 async function getHookDetails(): Promise<any> {
   try {
-    const response: HookDetails = await webhooksClient.getHookDetails(accessToken, system, event, hookId, {xAdsRegion: XAdsRegion.Us});
+    const response: HookDetails = await webhooksClient.getHookDetails(system, event, hookId, {xAdsRegion: XAdsRegion.Us});
     console.log(response);
   } catch (error) {
-    console.error(`Failed to get hook details:`, error);
+    console.error(`Failed to get hook details:`, error.message);
   }
 }
 
 // get a paginated list of webhooks created in the context of a Client or Application. This API accepts 2-legged token of the application only. If the pageState query string is not specified, the first page is returned.
 async function getAppHooks(): Promise<any> {
   try {
-    const response: Hooks = await webhooksClient.getAppHooks(accessToken, {xAdsRegion: XAdsRegion.Apac, status: "active", sort:"asc"});
+    const response: Hooks = await webhooksClient.getAppHooks({xAdsRegion: XAdsRegion.Apac, status: StatusFilter.Active, sort: Sort.Asc, accessToken: "test-token"});
     console.log(response);
   } catch (error) {
-    console.error(`Failed to get app hooks:`, error);
+    console.error(`Failed to get app hooks:`, error.message);
   }
 }
 
@@ -101,13 +103,12 @@ async function patchSystemEventHook(): Promise<any> {
       "val": 76,
       "projectId": "someURN",
     },
-    "hookExpiry": "2024-03-12T17:04:10.444Z",
+    "hookExpiry": "2024-09-05T17:04:10Z",
     "status": "active"
   };
 
   try {
     const response = await webhooksClient.patchSystemEventHook(
-      accessToken,
       system,
       event,
       hookId,
@@ -115,7 +116,7 @@ async function patchSystemEventHook(): Promise<any> {
     );
     console.log(response);
   } catch (error) {
-    console.error(`Failed to update system event hook:`, error);
+    console.error(`Failed to update system event hook:`, error.message);
   }
 }
 
@@ -123,8 +124,7 @@ async function patchSystemEventHook(): Promise<any> {
 async function createSystemHook(): Promise<any> {
   const hookPayload: HookPayload = {
     callbackUrl: "https://example.com/callback_four_new",
-    // @ts-ignore
-    scope: setScope({}, Scopes.Folder, "urn:adsk.wipprod:fs.folder:co.k4WX5oe6QDuWg0yxRS6-HQ"),
+    "scope": { "folder": "urn:adsk.wipprod:fs.folder:co.k4WX5oe6QDuWg0yxRS6-HQ"},
     "autoReactivateHook": false,
     "hookAttribute": {
       /* Custom metadata */
@@ -134,28 +134,27 @@ async function createSystemHook(): Promise<any> {
         "abc": true
       }
     },
-    "hookExpiry": "2024-02-10T17:04:10.444Z"
+    "hookExpiry": "2024-09-06T17:04:10.444Z"
   };
 
   try {
     const response = await webhooksClient.createSystemHook(
-      accessToken,
       system,
       hookPayload
     );
     console.log(response);
   } catch (error) {
-    console.error(`Failed to create system hook:`, error);
+    console.error(`Failed to create system hook:`, error.message);
   }
 }
 
 // deletes a webhook based on webhook ID
 async function deleteSystemEventHook(): Promise<any> {
   try {
-    const response = await webhooksClient.deleteSystemEventHook(accessToken, system, event, hookId);
+    const response = await webhooksClient.deleteSystemEventHook(system, event, hookId);
     console.log(response);
   } catch (error) {
-    console.error(`Failed to delete hook:`, error);
+    console.error(`Failed to delete hook:`, error.message);
   }
 }
 
@@ -166,20 +165,20 @@ async function createToken(): Promise<any> {
   };
 
   try {
-    const response:Token = await webhooksClient.createToken(accessToken, tokenPayload);
+    const response:Token = await webhooksClient.createToken(tokenPayload);
     console.log(response);
   } catch (error) {
-    console.error(`Failed to create token:`, error);
+    console.error(`Failed to create token:`, error.message);
   }
 }
 
 // delete a Webhook secret token. Please note that the secret token can still be available for up to 10 mins depending on the latest event delivery attempt.
 async function deleteToken(): Promise<any> {
   try {
-    const response = await webhooksClient.deleteToken(accessToken);
+    const response = await webhooksClient.deleteToken();
     console.log(response);
   } catch (error) {
-    console.error(`Failed to delete token:`, error);
+    console.error(`Failed to delete token:`, error.message);
   }
 }
 
@@ -190,10 +189,10 @@ async function putToken(): Promise<any> {
   };
 
   try {
-    const response = await webhooksClient.putToken(accessToken, tokenPayload);
+    const response = await webhooksClient.putToken(tokenPayload);
     console.log(response);
   } catch (error) {
-    console.error(`Failed to update token:`, error);
+    console.error(`Failed to update token:`, error.message);
   }
 }
 

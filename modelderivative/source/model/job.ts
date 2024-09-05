@@ -4,7 +4,7 @@
 import { JobAcceptedJobs } from './job-accepted-jobs';
 
 /**
- * 
+ * An object that represents the successful response of a Create Translation Job operation.
  * @export
  * @interface Job
  */

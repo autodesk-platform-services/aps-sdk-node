@@ -2,7 +2,7 @@
 
 [![node.js](https://img.shields.io/badge/Node.js-16.16-blue.svg)](https://nodejs.org)
 [![npm](https://img.shields.io/badge/npm-8.11-blue.svg)](https://www.npmjs.com/)
-[![license](https://img.shields.io/:license-mit-green.svg)](https://opensource.org/licenses/MIT)
+[![license](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
 The **Autodesk Platform Services (APS) SDK for NodeJs** helps NodeJs developer create applications that leverage the various APS services: Model Derivative, Data Management, OSS, Webhooks. More services soon.
 
@@ -23,6 +23,15 @@ The Developer Portal has everything APS:
 
 ## Node Packages
 
-- [Data Management](datamanagement/source/README.md)
-- [Model Derivative](modelderivative/source/README.md)
-- [Webhooks](webhooks/source/README.md)
+- [Authentication](https://www.npmjs.com/package/@aps_sdk/authentication)
+- [ACC Account Admin](https://www.npmjs.com/package/@aps_sdk/construction-account-admin)
+- [ACC Issues](https://www.npmjs.com/package/@aps_sdk/construction-issues)
+- [Data Management](https://www.npmjs.com/package/@aps_sdk/data-management)
+- [Model Derivative](https://www.npmjs.com/package/@aps_sdk/model-derivative)
+- [OSS](https://www.npmjs.com/package/@aps_sdk/oss)
+- [SDK Manager](https://www.npmjs.com/package/@aps_sdk/autodesk-sdkmanager)
+- [Webhooks](https://www.npmjs.com/package/@aps_sdk/webhooks)
+
+## Contributions
+
+ Contributions are welcome! Please make sure to read the [contribution guidelines](CONTRIBUTING.md).

@@ -1,13 +1,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { SpecificPropertiesData } from './specific-properties-data';
+import { Properties } from './properties';
+import { PropertiesData } from './properties-data';
 import { SpecificPropertiesPagination } from './specific-properties-pagination';
 
 /**
- * 
+ * An object that represents the successful response of a Fetch Specific Properties operation.
  * @export
- * @interface SpecificProperties
+ * @class SpecificProperties
  */
 export class SpecificProperties {
     private _isProcessing: boolean;
@@ -30,9 +31,9 @@ export class SpecificProperties {
     'pagination': SpecificPropertiesPagination;
     /**
      * 
-     * @type {SpecificPropertiesData}
+     * @type {PropertiesData}
      * @memberof SpecificProperties
      */
-    'data': SpecificPropertiesData;
+    'data': PropertiesData;
 }
 

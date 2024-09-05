@@ -152,10 +152,10 @@ export interface ProjectUser {
     'companyName'?: string;
     /**
      * A list of IDs of the roles that the user belongs to in the project.
-     * @type {string}
+     * @type {Array<string>}
      * @memberof ProjectUser
      */
-    'roleIds'?: string;
+    'roleIds'?: Array<string>;
     /**
      * A list of the role IDs and names that are associated with the user in the project.
      * @type {Array<ProjectUserRoles>}

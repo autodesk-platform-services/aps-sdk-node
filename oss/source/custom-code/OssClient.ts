@@ -1,36 +1,77 @@
-import { SdkManager, ApiResponse, ApsServiceRequestConfig } from "@aps_sdk/autodesk-sdkmanager";
+import { SdkManager, ApiResponse, ApsServiceRequestConfig, SdkManagerBuilder, BaseClient, IAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager";
 import { OSSFileTransfer } from "./OSSFileTransfer";
-import { BucketsApi,ObjectsApi } from "../api";
+import { BucketsApi, ObjectsApi } from "../api";
 import { FileTransferConfigurations } from "./FileTransferConfigurations";
 import { CreateBucketsPayload, ObjectDetails, ObjectFullDetails, Bucket, Buckets, BucketObjects, BatchcompleteuploadResponse, BatchcompleteuploadObject, Batchsigneds3downloadObject, Batchsigneds3downloadResponse, Batchsigneds3uploadObject, Batchsigneds3uploadResponse, Completes3uploadBody, CreateObjectSigned, CreateSignedResource, Signeds3downloadResponse, Signeds3uploadResponse, Region, With, Access } from "../model";
-import * as fs from "fs";
+import { promises as fs } from "fs";
 
-export class OssClient {
+export class OssClient extends BaseClient {
 
     public objectApi: ObjectsApi;
     public bucketApi: BucketsApi;
 
     public ossFileTransfer: OSSFileTransfer;
 
-    constructor(sdkManager: SdkManager) {
-        this.objectApi = new ObjectsApi(sdkManager);
-        this.bucketApi = new BucketsApi(sdkManager);
-
-        this.ossFileTransfer = new OSSFileTransfer(new FileTransferConfigurations(3), sdkManager);
+    constructor(optionalArgs?: { sdkManager?: SdkManager, authenticationProvider?: IAuthenticationProvider }) {
+        super(optionalArgs?.authenticationProvider);
+        if (!optionalArgs?.sdkManager) {
+            (optionalArgs ??= {}).sdkManager = SdkManagerBuilder.create().build();
+        }
+        this.objectApi = new ObjectsApi(optionalArgs.sdkManager);
+        this.bucketApi = new BucketsApi(optionalArgs.sdkManager);
+        this.ossFileTransfer = new OSSFileTransfer(new FileTransferConfigurations(3), optionalArgs.sdkManager, optionalArgs.authenticationProvider);
 
     }
 
     /**
-     * The below helper method takes care of the complete upload process, i.e. 
-     * the steps 2 to 4 in this link (https://aps.autodesk.com/en/docs/data/v2/tutorials/app-managed-bucket/)
+     * Instructs OSS to complete the object creation process for numerous objects after their bytes have been uploaded directly to S3. An object will not be accessible until you complete the object creation process, either with this endpoint or the single Complete Upload endpoint. This endpoint accepts batch sizes of up to 25. Any larger and the request will fail.
+     * @param {string} bucketKey URL-encoded bucket key
+     * @param {string} objectKey URL-encoded object name
+     * @param {Buffer|string} sourceToUpload The Path of the file to be uploaded or the buffer of the file . 
+     * @param accessToken bearer access token
+     * @param {AbortController} cancellationToken
+     * @param {string} requestIdPrefix
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OSSApiInterface
      */
-    public async upload(bucketKey: string, filename: string, filepath: string, accessToken: string, cancellationToken: AbortController = new AbortController, projectScope: string = '', requestIdPrefix: string = '', optionalArgs?: { onProgress?: (percentCompleted: number) => void }): Promise<ObjectDetails> {
-        const buffer = fs.readFileSync(filepath);
-        const response = await this.ossFileTransfer.upload(bucketKey, filename, buffer, accessToken, cancellationToken, projectScope, requestIdPrefix, optionalArgs?.onProgress);
+    public async upload(bucketKey: string, objectKey: string, sourceToUpload: Buffer | string, optionalArgs?: {cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<ObjectDetails> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        var response;
+        if (typeof sourceToUpload === 'string') {
+            var buffer = await fs.readFile(sourceToUpload);
+            response = await this.ossFileTransfer.upload(bucketKey, objectKey, buffer, optionalArgs?.accessToken, optionalArgs?.cancellationToken||new AbortController, optionalArgs?.requestIdPrefix, optionalArgs?.onProgress);
+        }
+        else {
+            response = await this.ossFileTransfer.upload(bucketKey, objectKey, sourceToUpload, optionalArgs?.accessToken, optionalArgs?.cancellationToken||new AbortController, optionalArgs?.requestIdPrefix, optionalArgs?.onProgress);
+        }
         return response.content;
     }
-    public async download(bucketKey: string, objectKey: string, filePath: string, accessToken: string, cancellationToken: AbortController = new AbortController, projectScope: string = '', requestIdPrefix: string = '', optionalArgs?: { onProgress?: (percentCompleted: number) => void }): Promise<void> {
-        const response = await this.ossFileTransfer.download(bucketKey, objectKey, filePath, accessToken, cancellationToken, projectScope, requestIdPrefix, optionalArgs?.onProgress);
+    /**
+     *Downloads a file by transparently handling operations like obtaining signed download URLs and chunking large files for optimal transfer.
+     * @param {string} bucketKey URL-encoded bucket key
+     * @param {string} objectKey URL-encoded object name
+     * @param {string} filePath The Path of the file where should be downloaded 
+     * @param accessToken bearer access token
+     * @param {AbortController} cancellationToken
+     * @param {string} requestIdPrefix
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OSSApiInterface
+     */
+    public async download(bucketKey: string, objectKey: string, filePath: string, optionalArgs?: { cancellationToken?: AbortController , requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<void> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.ossFileTransfer.download(bucketKey, objectKey, filePath, optionalArgs?.accessToken, optionalArgs?.cancellationToken||new AbortController, optionalArgs?.requestIdPrefix, optionalArgs?.onProgress);
     }
     /**
      * Instructs OSS to complete the object creation process for numerous objects after their bytes have been uploaded directly to S3. An object will not be accessible until you complete the object creation process, either with this endpoint or the single Complete Upload endpoint. This endpoint accepts batch sizes of up to 25. Any larger and the request will fail.
@@ -41,8 +82,14 @@ export class OssClient {
      * @throws {RequiredError}
      * @memberof OSSApiInterface
      */
-    public async batchCompleteUpload(accessToken: string, bucketKey: string, optionalArgs?: { requests?: BatchcompleteuploadObject, options?: ApsServiceRequestConfig }): Promise<BatchcompleteuploadResponse> {
-        const response = await this.objectApi.batchCompleteUpload(accessToken, bucketKey, optionalArgs?.requests, optionalArgs?.options);
+    public async batchCompleteUpload(bucketKey: string, requests: BatchcompleteuploadObject, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<BatchcompleteuploadResponse> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.objectApi.batchCompleteUpload(optionalArgs?.accessToken, bucketKey, requests, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -54,8 +101,14 @@ export class OssClient {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-    public async batchSignedS3Download(accessToken: string, bucketKey: string, requests: Batchsigneds3downloadObject, optionalArgs?: { publicResourceFallback?: boolean, minutesExpiration?: number, options?: ApsServiceRequestConfig }): Promise<BatchcompleteuploadResponse> {
-        const response = await this.objectApi.batchSignedS3Download(accessToken, bucketKey, requests, optionalArgs?.publicResourceFallback, optionalArgs?.minutesExpiration, optionalArgs?.options);
+    public async batchSignedS3Download(bucketKey: string, requests: Batchsigneds3downloadObject, optionalArgs?: { publicResourceFallback?: boolean, minutesExpiration?: number, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<BatchcompleteuploadResponse> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.objectApi.batchSignedS3Download(optionalArgs?.accessToken, bucketKey, requests, optionalArgs?.publicResourceFallback, optionalArgs?.minutesExpiration, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -69,8 +122,14 @@ export class OssClient {
      * @throws {RequiredError}
      * @memberof OSSApi
      */
-    public async batchSignedS3Upload(accessToken: string, bucketKey: string, optionalArgs?: { useAcceleration?: boolean, minutesExpiration?: number, requests?: Batchsigneds3uploadObject, options?: ApsServiceRequestConfig }): Promise<Batchsigneds3uploadResponse> {
-        const response = await this.objectApi.batchSignedS3Upload(accessToken, bucketKey, optionalArgs?.useAcceleration, optionalArgs?.minutesExpiration, optionalArgs?.requests, optionalArgs?.options);
+    public async batchSignedS3Upload(bucketKey: string, requests: Batchsigneds3uploadObject, optionalArgs?: { useAcceleration?: boolean, minutesExpiration?: number, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Batchsigneds3uploadResponse> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.objectApi.batchSignedS3Upload(optionalArgs?.accessToken, bucketKey, optionalArgs?.useAcceleration, optionalArgs?.minutesExpiration, requests, optionalArgs?.options);
         return response.content;
     }
 
@@ -88,8 +147,14 @@ export class OssClient {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-    public async completeSignedS3Upload(accessToken: string, bucketKey: string, objectKey: string, contentType: string, body: Completes3uploadBody, optionalArgs?: { xAdsMetaContentType?: string, xAdsMetaContentDisposition?: string, xAdsMetaContentEncoding?: string, xAdsMetaCacheControl?: string, xAdsUserDefinedMetadata?: string, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
-        const response = await this.objectApi.completeSignedS3Upload(accessToken, bucketKey, objectKey, contentType, body, optionalArgs?.xAdsMetaContentType, optionalArgs?.xAdsMetaContentDisposition, optionalArgs?.xAdsMetaContentEncoding, optionalArgs?.xAdsMetaCacheControl, optionalArgs?.xAdsUserDefinedMetadata, optionalArgs?.options);
+    public async completeSignedS3Upload(bucketKey: string, objectKey: string, contentType: string, body: Completes3uploadBody, optionalArgs?: { xAdsMetaContentType?: string, xAdsMetaContentDisposition?: string, xAdsMetaContentEncoding?: string, xAdsMetaCacheControl?: string, xAdsUserDefinedMetadata?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.objectApi.completeSignedS3Upload(optionalArgs?.accessToken, bucketKey, objectKey, contentType, body, optionalArgs?.xAdsMetaContentType, optionalArgs?.xAdsMetaContentDisposition, optionalArgs?.xAdsMetaContentEncoding, optionalArgs?.xAdsMetaCacheControl, optionalArgs?.xAdsUserDefinedMetadata, optionalArgs?.options);
         return response.content;
     }
 
@@ -104,22 +169,34 @@ export class OssClient {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-    public async copyTo(accessToken: string, bucketKey: string, objectKey: string, newObjName: string, optionalArgs?: { xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, options?: ApsServiceRequestConfig }): Promise<ObjectDetails> {
-        const response = await this.objectApi.copyTo(accessToken, bucketKey, objectKey, newObjName, optionalArgs?.xAdsAcmNamespace, optionalArgs?.xAdsAcmCheckGroups, optionalArgs?.xAdsAcmGroups, optionalArgs?.options);
+    public async copyTo(bucketKey: string, objectKey: string, newObjName: string, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ObjectDetails> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.objectApi.copyTo(optionalArgs?.accessToken, bucketKey, objectKey, newObjName, optionalArgs?.options);
         return response.content;
     }
 
     /**
      * Use this endpoint to create a bucket. Buckets are arbitrary spaces created and owned by applications. Bucket keys are globally unique across all regions, regardless of where they were created, and they cannot be changed. The application creating the bucket is the owner of the bucket. 
-     * @param {CreateBucketXAdsRegionEnum} xAdsRegion The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; 
-     * @param {CreateBucketsPayload} policyKey Length of time for objects in the bucket to exist; &#x60;transient&#x60; (24h),  &#x60;temporary&#x60; (30d), or &#x60;persistent&#x60; (until delete request). 
+     * @param {Region} xAdsRegion The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; 
+     * @param {CreateBucketsPayload} bucketPayload Length of time for objects in the bucket to exist; &#x60;transient&#x60; (24h),  &#x60;temporary&#x60; (30d), or &#x60;persistent&#x60; (until delete request). 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OSSApiInterface
      */
-    public async createBucket(accessToken: string, xAdsRegion: Region, bucketPayload: CreateBucketsPayload, optionalArgs?: { options?: ApsServiceRequestConfig }): Promise<Bucket> {
-        const response = await this.bucketApi.createBucket(accessToken, bucketPayload, xAdsRegion, optionalArgs?.options);
+    public async createBucket(xAdsRegion: Region, bucketPayload: CreateBucketsPayload, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Bucket> {
+         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.bucketApi.createBucket(optionalArgs?.accessToken, bucketPayload, xAdsRegion, optionalArgs?.options);
         return response.content;
     }
 
@@ -127,14 +204,20 @@ export class OssClient {
          * This endpoint creates a signed URL that can be used to download an object within the specified expiration time. Be aware that if the object the signed URL points to is deleted or expires before the signed URL expires, then the signed URL will no longer be valid. A successful call to this endpoint requires bucket owner access.
          * @param {string} bucketKey URL-encoded bucket key
          * @param {string} objectKey URL-encoded object name
-         * @param {CreateSignedResourceAccessEnum} [access] Access for signed resource Acceptable values: &#x60;read&#x60;, &#x60;write&#x60;, &#x60;readwrite&#x60;. Default value: &#x60;read&#x60; 
+         * @param {Access} [access] Access for signed resource Acceptable values: &#x60;read&#x60;, &#x60;write&#x60;, &#x60;readwrite&#x60;. Default value: &#x60;read&#x60; 
          * @param {boolean} [useCdn] When this is provided, OSS will return a URL that does not point to https://developer.api.autodesk.com.... , but instead points towards an alternate domain. A client can then interact with this public resource exactly as they would for a classic public resource in OSS, i.e. make a GET request to download an object or a PUT request to upload an object.
          * @param {CreateSignedResource} [createSignedResource] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-    public async createSignedResource(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { access?: Access, useCdn?: boolean, createSignedResource?: CreateSignedResource, options?: ApsServiceRequestConfig }): Promise<CreateObjectSigned> {
-        const response = await this.objectApi.createSignedResource(accessToken, bucketKey, objectKey, optionalArgs?.access, optionalArgs?.useCdn, optionalArgs?.createSignedResource, optionalArgs?.options);
+    public async createSignedResource(bucketKey: string, objectKey: string, optionalArgs?: { access?: Access, useCdn?: boolean, createSignedResource?: CreateSignedResource, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<CreateObjectSigned> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.objectApi.createSignedResource(optionalArgs?.accessToken, bucketKey, objectKey, optionalArgs?.access, optionalArgs?.useCdn, optionalArgs?.createSignedResource, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -145,8 +228,14 @@ export class OssClient {
    * @throws {RequiredError}
    * @memberof OSSApiInterface
    */
-    public async deleteBucket(accessToken: string, bucketKey: string, optionalArgs?: { options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
-        const response = await this.bucketApi.deleteBucket(accessToken, bucketKey, optionalArgs?.options);
+    public async deleteBucket(bucketKey: string, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.bucketApi.deleteBucket(optionalArgs?.accessToken, bucketKey, optionalArgs?.options);
         return response.content;
     }
 
@@ -163,20 +252,32 @@ export class OssClient {
   * @throws {RequiredError}
   * @memberof OSSApiInterface
   */
-    public async deleteObject(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { AdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
-        const response = await this.objectApi.deleteObject(accessToken, bucketKey, objectKey, optionalArgs?.AdsAcmNamespace, optionalArgs?.xAdsAcmCheckGroups, optionalArgs?.xAdsAcmGroups, optionalArgs?.options);
+    public async deleteObject(bucketKey: string, objectKey: string, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken){
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.objectApi.deleteObject(optionalArgs?.accessToken, bucketKey, objectKey, optionalArgs?.options);
         return response.content;
 
     }
     /**
-         * Delete a signed URL. A successful call to this endpoint requires bucket owner access.
-         * @param {string} hash Hash of signed resource
-         * @param {DeleteSignedResourceRegionEnum} [region] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-    public async deleteSignedResource(accessToken: string, hash: string, optionalArgs?: { region?: Region, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
-        const response = await this.objectApi.deleteSignedResource(accessToken, hash, optionalArgs?.region, optionalArgs?.options);
+     * Delete a signed URL. A successful call to this endpoint requires bucket owner access.
+     * @param {string} hash Hash of signed resource
+     * @param {Region} [region] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public async deleteSignedResource(hash: string, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.objectApi.deleteSignedResource(optionalArgs?.accessToken, hash, optionalArgs?.region, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -187,13 +288,19 @@ export class OssClient {
      * @throws {RequiredError}
      * @memberof OSSApiInterface
      */
-    public async getBucketDetails(accessToken: string, bucketKey: string, optionalArgs?: { options?: ApsServiceRequestConfig }): Promise<Bucket> {
-        const response = await this.bucketApi.getBucketDetails(accessToken, bucketKey, optionalArgs?.options);
+    public async getBucketDetails(bucketKey: string, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Bucket> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.bucketApi.getBucketDetails(optionalArgs?.accessToken, bucketKey, optionalArgs?.options);
         return response.content;
     }
     /**
         * This endpoint will return the buckets owned by the application. This endpoint supports pagination. 
-        * @param {GetBucketsRegionEnum} [region] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
+        * @param {Region} [region] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
         * @param {number} [limit] Limit to the response size, Acceptable values: 1-100 Default &#x3D; 10 
         * @param {string} [startAt] Key to use as an offset to continue pagination This is typically the last bucket key found in a preceding GET buckets response 
         * @param accessToken bearer access token
@@ -201,8 +308,14 @@ export class OssClient {
         * @throws {RequiredError}
         * @memberof OSSApiInterface
         */
-    public async getBuckets(accessToken: string, optionalArgs?: { region?: Region, limit?: number, startAt?: string, options?: ApsServiceRequestConfig }): Promise<Buckets> {
-        const response = await this.bucketApi.getBuckets(accessToken, optionalArgs?.region, optionalArgs?.limit, optionalArgs?.startAt, optionalArgs?.options);
+    public async getBuckets(optionalArgs?: { region?: Region, limit?: number, startAt?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Buckets> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.bucketApi.getBuckets(optionalArgs?.accessToken, optionalArgs?.region, optionalArgs?.limit, optionalArgs?.startAt, optionalArgs?.options);
         return response.content;
 
     }
@@ -214,15 +327,21 @@ export class OssClient {
         * @param {string} [xAdsAcmNamespace] This header is used to let the OSS Api Proxy know if ACM is used to authorize access to the given object. If this authorization is used by your service, then you must provide the name of the namespace you want to validate access control policies against.
         * @param {string} [xAdsAcmCheckGroups] Informs the OSS Api Proxy know if your service requires ACM authorization to also validate against Oxygen groups. If so, you must pass this header with a value of \&#39;true\&#39;. Otherwise, the assumption is that checking authorization against Oxygen groups is not required.
         * @param {string} [xAdsAcmGroups] Use this header to pass the Oxygen groups you want the OSS Api Proxy to use for group validation for the given user in the OAuth2 token.
-        * @param {GetObjectDetailsWithEnum} [_with] Extra information in details; multiple uses are supported Acceptable values: &#x60;createdDate&#x60;, &#x60;lastAccessedDate&#x60;, &#x60;lastModifiedDate&#x60;, &#x60;userDefinedMetadata&#x60; 
+        * @param {With} [_with] Extra information in details; multiple uses are supported Acceptable values: &#x60;createdDate&#x60;, &#x60;lastAccessedDate&#x60;, &#x60;lastModifiedDate&#x60;, &#x60;userDefinedMetadata&#x60; 
         * @param accessToken bearer access token
         * @param {*} [options] Override http request option.
         * @throws {RequiredError}
         * @memberof OSSApiInterface
         */
 
-    public async getObjectDetails(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { ifModifiedSince?: string, xAdsAcmNamespace?: string, xAdsAcmCheckGroups?: string, xAdsAcmGroups?: string, _with?: With, options?: ApsServiceRequestConfig }): Promise<ObjectFullDetails> {
-        const response = await this.objectApi.getObjectDetails(accessToken, bucketKey, objectKey, optionalArgs?.ifModifiedSince, optionalArgs?.xAdsAcmNamespace, optionalArgs?.xAdsAcmCheckGroups, optionalArgs?.xAdsAcmGroups, optionalArgs?._with, optionalArgs?.options);
+    public async getObjectDetails(bucketKey: string, objectKey: string, optionalArgs?: { ifModifiedSince?: string, _with?: With, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ObjectFullDetails> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.objectApi.getObjectDetails(optionalArgs?.accessToken, bucketKey, objectKey, optionalArgs?.ifModifiedSince, optionalArgs?._with, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -236,8 +355,14 @@ export class OssClient {
      * @throws {RequiredError}
      * @memberof OSSApiInterface
      */
-    public async getObjects(accessToken: string, bucketKey: string, optionalArgs?: { limit?: number, beginsWith?: string, startAt?: string }): Promise<BucketObjects> {
-        const response = await this.objectApi.getObjects(accessToken, bucketKey, optionalArgs?.limit, optionalArgs?.beginsWith, optionalArgs?.startAt);
+    public async getObjects(bucketKey: string, optionalArgs?: { limit?: number, beginsWith?: string, startAt?: string, accessToken?: string, }): Promise<BucketObjects> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.objectApi.getObjects(optionalArgs?.accessToken, bucketKey, optionalArgs?.limit, optionalArgs?.beginsWith, optionalArgs?.startAt);
         return response.content;
     }
 
@@ -248,14 +373,20 @@ export class OssClient {
         * @param {string} [ifNoneMatch] The value of this header is compared to the ETAG of the object. If they match, the body will not be included in the response. Only the object information will be included.
         * @param {string} [ifModifiedSince] If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body. 
         * @param {string} [acceptEncoding] When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used. 
-        * @param {GetSignedResourceRegionEnum} [region] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
+        * @param {Region} [region] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
         * @param {string} [responseContentDisposition] Value of the Content-Disposition HTTP header you expect to receive. If the parameter is not provided, the value associated with the object is used.
         * @param {string} [responseContentType] Value of the Content-Type HTTP header you expect to receive in the download response.
         * @param {*} [options] Override http request option.
         * @throws {RequiredError}
         */
-    public async getSignedResource(accessToken: string, hash: string, optionalArgs?: { range?: string, ifNoneMatch?: string, ifModifiedSince?: string, acceptEncoding?: string, region?: Region, responseContentDisposition?: string, responseContentType?: string, options?: ApsServiceRequestConfig }): Promise<File> {
-        const response = await this.objectApi.getSignedResource(accessToken, hash, optionalArgs?.range, optionalArgs?.ifNoneMatch, optionalArgs?.ifModifiedSince, optionalArgs?.acceptEncoding, optionalArgs?.region, optionalArgs?.responseContentDisposition, optionalArgs?.responseContentType, optionalArgs?.options);
+    public async getSignedResource(hash: string, optionalArgs?: { range?: string, ifNoneMatch?: string, ifModifiedSince?: string, acceptEncoding?: string, region?: Region, responseContentDisposition?: string, responseContentType?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<File> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.objectApi.getSignedResource(optionalArgs?.accessToken, hash, optionalArgs?.range, optionalArgs?.ifNoneMatch, optionalArgs?.ifModifiedSince, optionalArgs?.acceptEncoding, optionalArgs?.region, optionalArgs?.responseContentDisposition, optionalArgs?.responseContentType, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -275,8 +406,14 @@ export class OssClient {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public async signedS3Download(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { ifNoneMatch?: string, ifModifiedSince?: string, xAdsAcmScopes?: string, responseContentType?: string, responseContentDisposition?: string, responseCacheControl?: string, publicResourceFallback?: boolean, minutesExpiration?: number, useCdn?: boolean, redirect?: boolean, options?: ApsServiceRequestConfig }): Promise<Signeds3downloadResponse> {
-        const response = await this.objectApi.signedS3Download(accessToken, bucketKey, objectKey, optionalArgs?.ifNoneMatch, optionalArgs?.ifModifiedSince, optionalArgs?.xAdsAcmScopes, optionalArgs?.responseContentType, optionalArgs?.responseContentDisposition, optionalArgs?.responseCacheControl, optionalArgs?.publicResourceFallback, optionalArgs?.minutesExpiration, optionalArgs?.useCdn, optionalArgs?.redirect, optionalArgs?.options);
+    public async signedS3Download(bucketKey: string, objectKey: string, optionalArgs?: { ifNoneMatch?: string, ifModifiedSince?: string, responseContentType?: string, responseContentDisposition?: string, responseCacheControl?: string, publicResourceFallback?: boolean, minutesExpiration?: number, useCdn?: boolean, redirect?: boolean, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Signeds3downloadResponse> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.objectApi.signedS3Download(optionalArgs?.accessToken, bucketKey, objectKey, optionalArgs?.ifNoneMatch, optionalArgs?.ifModifiedSince, optionalArgs?.responseContentType, optionalArgs?.responseContentDisposition, optionalArgs?.responseCacheControl, optionalArgs?.publicResourceFallback, optionalArgs?.minutesExpiration, optionalArgs?.useCdn, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -291,8 +428,14 @@ export class OssClient {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public async signedS3Upload(accessToken: string, bucketKey: string, objectKey: string, optionalArgs?: { xAdsAcmScopes?: string, parts?: number, firstPart?: number, uploadKey?: string, minutesExpiration?: number, useAcceleration?: boolean, options?: ApsServiceRequestConfig }): Promise<Signeds3uploadResponse> {
-        const response = await this.objectApi.signedS3Upload(accessToken, bucketKey, objectKey, optionalArgs?.xAdsAcmScopes, optionalArgs?.parts, optionalArgs?.firstPart, optionalArgs?.uploadKey, optionalArgs?.minutesExpiration, optionalArgs.useAcceleration, optionalArgs?.options);
+    public async signedS3Upload(bucketKey: string, objectKey: string, optionalArgs?: { parts?: number, firstPart?: number, uploadKey?: string, minutesExpiration?: number, useAcceleration?: boolean, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Signeds3uploadResponse> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.objectApi.signedS3Upload(optionalArgs?.accessToken, bucketKey, objectKey, optionalArgs?.parts, optionalArgs?.firstPart, optionalArgs?.uploadKey, optionalArgs?.minutesExpiration, optionalArgs.useAcceleration, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -302,13 +445,19 @@ export class OssClient {
      * @param {File} body The object to upload.
      * @param {string} [contentType] The MIME type of the object to upload; can be any type except \&#39;multipart/form-data\&#39;. This can be omitted, but we recommend adding it.
      * @param {string} [contentDisposition] The suggested default filename when downloading this object to a file after it has been uploaded.
-     * @param {UploadSignedResourceXAdsRegionEnum} [xAdsRegion] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
+     * @param {Region} [xAdsRegion] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
      * @param {string} [ifMatch] If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written. 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public async uploadSignedResource(accessToken: string, hash: string, contentLength: number, body: File, optionalArgs?: { contentType?: string, contentDisposition?: string, xAdsRegion?: Region, ifMatch?: string, options?: ApsServiceRequestConfig }): Promise<ObjectDetails> {
-        const response = await this.objectApi.uploadSignedResource(accessToken, hash, contentLength, body, optionalArgs?.contentType, optionalArgs?.contentDisposition, optionalArgs?.xAdsRegion, optionalArgs?.ifMatch, optionalArgs?.options);
+    public async uploadSignedResource(hash: string, contentLength: number, body: File, optionalArgs?: { contentType?: string, contentDisposition?: string, xAdsRegion?: Region, ifMatch?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ObjectDetails> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.objectApi.uploadSignedResource(optionalArgs?.accessToken, hash, contentLength, body, optionalArgs?.contentType, optionalArgs?.contentDisposition, optionalArgs?.xAdsRegion, optionalArgs?.ifMatch, optionalArgs?.options);
         return response.content;
     }
     /**
@@ -319,12 +468,18 @@ export class OssClient {
      * @param {File} body The chunk to upload.
      * @param {string} [contentType] The MIME type of the object to upload; can be any type except \&#39;multipart/form-data\&#39;. This can be omitted, but we recommend adding it.
      * @param {string} [contentDisposition] The suggested default filename when downloading this object to a file after it has been uploaded.
-     * @param {UploadSignedResourcesChunkXAdsRegionEnum} [xAdsRegion] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
+     * @param {Region} [xAdsRegion] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public async uploadSignedResourcesChunk(accessToken: string, hash: string, contentRange: string, sessionId: string, body: File, optionalArgs?: { contentType?: string, contentDisposition?: string, xAdsRegion?: Region, options?: ApsServiceRequestConfig }): Promise<ObjectDetails> {
-        const response = await this.objectApi.uploadSignedResourcesChunk(accessToken, hash, contentRange, sessionId, body, optionalArgs?.contentType, optionalArgs?.contentDisposition, optionalArgs?.xAdsRegion, optionalArgs?.options);
+    public async uploadSignedResourcesChunk(hash: string, contentRange: string, sessionId: string, body: File, optionalArgs?: { contentType?: string, contentDisposition?: string, xAdsRegion?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ObjectDetails> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.objectApi.uploadSignedResourcesChunk(optionalArgs?.accessToken, hash, contentRange, sessionId, body, optionalArgs?.contentType, optionalArgs?.contentDisposition, optionalArgs?.xAdsRegion, optionalArgs?.options);
         return response.content;
     }
 }
