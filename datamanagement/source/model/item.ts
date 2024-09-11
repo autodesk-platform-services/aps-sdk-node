@@ -1,40 +1,16 @@
-/* tslint:disable */
-/* eslint-disable */
 
-import { HubsJsonapi } from './hubs-jsonapi';
-import { HubsLinks } from './hubs-links';
-import { ItemData } from './item-data';
-import { ItemIncluded } from './item-included';
+import { ItemAllOfMeta } from './itemAllOfMeta';
+import { ItemData } from './itemData';
+import { ItemObject } from './itemObject';
+import { JsonApiLinksSelf } from './jsonApiLinksSelf';
+import { JsonApiVersion } from './jsonApiVersion';
+import { VersionData } from './versionData';
 
 /**
- * Successful retrieval of a specific item.
+ * @type Item
+ * An object that represents an item.
  * @export
- * @interface Item
  */
-export interface Item {
-    /**
-     * 
-     * @type {HubsJsonapi}
-     * @memberof Item
-     */
-    'jsonapi'?: HubsJsonapi;
-    /**
-     * 
-     * @type {HubsLinks}
-     * @memberof Item
-     */
-    'links'?: HubsLinks;
-    /**
-     * 
-     * @type {ItemData}
-     * @memberof Item
-     */
-    'data'?: ItemData;
-    /**
-     * 
-     * @type {Set<ItemIncluded>}
-     * @memberof Item
-     */
-    'included'?: Set<ItemIncluded>;
-}
+export type Item = ItemObject;
+
 
