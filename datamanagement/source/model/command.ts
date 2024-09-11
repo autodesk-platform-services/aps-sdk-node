@@ -1,26 +1,24 @@
-/* tslint:disable */
-/* eslint-disable */
 
-import { CommandData } from './command-data';
-import { HubsJsonapi } from './hubs-jsonapi';
+import { CommandData } from './commandData';
+import { JsonApiVersion } from './jsonApiVersion';
 
 /**
- * Successful Retrieval of C4R Model Publish Status (200)
+ * The request body\'s ``data`` object defines the command to execute and contains any required input data.
  * @export
  * @interface Command
  */
 export interface Command {
     /**
      * 
+     * @type {JsonApiVersion}
+     * @memberof Command
+     */
+    'jsonapi'?: JsonApiVersion;
+    /**
+     * 
      * @type {CommandData}
      * @memberof Command
      */
     'data'?: CommandData;
-    /**
-     * 
-     * @type {HubsJsonapi}
-     * @memberof Command
-     */
-    'jsonapi'?: HubsJsonapi;
 }
 

@@ -1,9 +1,7 @@
-/* tslint:disable */
-/* eslint-disable */
 
-import { DownloadsData } from './downloads-data';
-import { HubsJsonapi } from './hubs-jsonapi';
-import { HubsLinks } from './hubs-links';
+import { DownloadData } from './downloadData';
+import { JsonApiLinksSelf } from './jsonApiLinksSelf';
+import { JsonApiVersion } from './jsonApiVersion';
 
 /**
  * Successful retrieval of the available downloads collection associated with a specific version.
@@ -13,21 +11,21 @@ import { HubsLinks } from './hubs-links';
 export interface Downloads {
     /**
      * 
-     * @type {HubsJsonapi}
+     * @type {JsonApiVersion}
      * @memberof Downloads
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi'?: JsonApiVersion;
     /**
      * 
-     * @type {HubsLinks}
+     * @type {JsonApiLinksSelf}
      * @memberof Downloads
      */
-    'links'?: HubsLinks;
+    'links'?: JsonApiLinksSelf;
     /**
      * 
-     * @type {Set<DownloadsData>}
+     * @type {Set<DownloadData>}
      * @memberof Downloads
      */
-    'data'?: Set<DownloadsData>;
+    'data'?: Set<DownloadData>;
 }
 

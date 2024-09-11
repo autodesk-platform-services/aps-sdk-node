@@ -1,6 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
-
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import globalAxios, {AxiosError} from 'axios';
 import {ApsServiceRequestConfig, ISdkError, SdkManager} from "@aps_sdk/autodesk-sdkmanager";
@@ -9,7 +6,7 @@ import {ApsServiceRequestConfig, ISdkError, SdkManager} from "@aps_sdk/autodesk-
  *
  * @export
  */
-export const COLLECTION_FORMATS = {
+export const CollectionFormats = {
     csv: ",",
     ssv: " ",
     tsv: "\t",

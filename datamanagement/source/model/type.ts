@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 
 /**
@@ -11,9 +9,12 @@
 export const Type = {
     Objects: 'objects',
     Folders: 'folders',
+    Hubs: 'hubs',
+    Projects: 'projects',
     Downloads: 'downloads',
     Versions: 'versions',
     Items: 'items',
+    DownloadFormats: 'downloadFormats',
     ItemsautodeskBim360File: 'items:autodesk.bim360:File',
     ItemsautodeskCoreFile: 'items:autodesk.core:File',
     Commands: 'commands',

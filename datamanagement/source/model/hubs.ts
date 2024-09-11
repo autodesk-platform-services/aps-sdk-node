@@ -1,9 +1,7 @@
-/* tslint:disable */
-/* eslint-disable */
 
-import { HubsData } from './hubs-data';
-import { HubsJsonapi } from './hubs-jsonapi';
-import { HubsLinks } from './hubs-links';
+import { HubData } from './hubData';
+import { JsonApiLinksSelf } from './jsonApiLinksSelf';
+import { JsonApiVersion } from './jsonApiVersion';
 
 /**
  * Successful retrieval of the hubs collection.
@@ -13,21 +11,21 @@ import { HubsLinks } from './hubs-links';
 export interface Hubs {
     /**
      * 
-     * @type {HubsJsonapi}
+     * @type {JsonApiVersion}
      * @memberof Hubs
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi'?: JsonApiVersion;
     /**
      * 
-     * @type {HubsLinks}
+     * @type {JsonApiLinksSelf}
      * @memberof Hubs
      */
-    'links'?: HubsLinks;
+    'links'?: JsonApiLinksSelf;
     /**
-     * 
-     * @type {Set<HubsData>}
+     * An array of objects where each object represents a hub.
+     * @type {Array<HubData>}
      * @memberof Hubs
      */
-    'data'?: Set<HubsData>;
+    'data'?: Array<HubData>;
 }
 
