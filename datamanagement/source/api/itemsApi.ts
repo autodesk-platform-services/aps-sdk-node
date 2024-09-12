@@ -2,10 +2,8 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { CollectionFormats, RequestArgs, BaseApi, RequiredError, DataManagementApiError } from '../base';
+import { RequestArgs, BaseApi, DataManagementApiError } from '../base';
 import { Folder } from '../model';
-import { GetHubs401Response } from '../model';
-import { GetHubs403Response } from '../model';
 import { Item } from '../model';
 import { ItemPayload } from '../model';
 import { ItemTip } from '../model';

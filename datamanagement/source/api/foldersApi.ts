@@ -2,13 +2,11 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { CollectionFormats, RequestArgs, BaseApi, RequiredError, DataManagementApiError } from '../base';
+import { RequestArgs, BaseApi, DataManagementApiError } from '../base';
 import { Folder } from '../model';
 import { FolderContents } from '../model';
 import { FolderPayload } from '../model';
 import { FolderRefs } from '../model';
-import { GetHubs401Response } from '../model';
-import { GetHubs403Response } from '../model';
 import { ModifyFolderPayload } from '../model';
 import { RelationshipLinks } from '../model';
 import { RelationshipRefs } from '../model';

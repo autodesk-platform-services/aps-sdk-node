@@ -158,8 +158,8 @@ async function getHub() {
   }
 }
 
-// getHubs();
-// getHub();
+getHubs();
+getHub();
 
 //------------------------------------------------------------------------Projects-------------------------------------------------------------//
 
@@ -282,7 +282,7 @@ async function startDownload() {
         type: Type.Downloads,
         attributes: <DownloadPayloadDataAttributes>{
           format: <DownloadPayloadDataAttributesFormat>{
-            fileType: "dwf",
+            fileType: "rvt",
           },
         },
         relationships: <DownloadPayloadDataRelationships>{
@@ -490,7 +490,7 @@ async function createFolder() {
       attributes: <FolderPayloadDataAttributes>{
         name: "Harun's Folder",
         extension: <FolderPayloadDataAttributesExtension>{
-          type: Type.FoldersautodeskCoreFolder,
+          type: Type.FoldersautodeskBim360Folder,
           version: VersionNumber._10,
         },
       },
@@ -860,6 +860,7 @@ async function getVersion() {
 
     console.log(versionId);
     console.log(versionType);
+    console.log(versionData.attributes.extension.type);
   } catch (err) {
     console.error(err.message);
   }
@@ -878,6 +879,7 @@ async function getVersionDownloadFormats() {
 
     console.log(downloadFormatsId);
     console.log(downloadFormatsType);
+    console.log(downloadFormatsData.attributes.formats);
   } catch (err) {
     console.error(err.message);
   }

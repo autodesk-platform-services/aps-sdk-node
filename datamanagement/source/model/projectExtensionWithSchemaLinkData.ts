@@ -7,8 +7,6 @@ import { ProjectTypeBim360Acc } from './projectTypeBim360Acc';
  * @interface ProjectExtensionWithSchemaLinkData
  */
 export interface ProjectExtensionWithSchemaLinkData {
-    [key: string]: ProjectTypeBim360Acc | object;
-
     /**
      * 
      * @type {ProjectTypeBim360Acc}
