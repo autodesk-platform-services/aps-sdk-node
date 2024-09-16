@@ -1,6 +1,6 @@
 
 import { JsonApiRelationshipsRefsDataMeta } from './jsonApiRelationshipsRefsDataMeta';
-import { Type } from './type';
+import { TypeVersion } from './typeVersion';
 
 /**
  * 
@@ -10,10 +10,10 @@ import { Type } from './type';
 export interface JsonApiRelationshipsRefsData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeVersion}
      * @memberof JsonApiRelationshipsRefsData
      */
-    'type': Type;
+    'type': TypeVersion;
     /**
      * A URN indicating the storage location of the version. 
      * @type {string}

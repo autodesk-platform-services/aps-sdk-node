@@ -2,7 +2,7 @@
 import { ItemAttributes } from './itemAttributes';
 import { ItemDataRelationships } from './itemDataRelationships';
 import { JsonApiLinksSelfAndWebView } from './jsonApiLinksSelfAndWebView';
-import { Type } from './type';
+import { TypeItem } from './typeItem';
 
 /**
  * A container of data describing an item.
@@ -12,10 +12,10 @@ import { Type } from './type';
 export interface ItemData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeItem}
      * @memberof ItemData
      */
-    'type': Type;
+    'type': TypeItem;
     /**
      * The unique identifier of the item.
      * @type {string}

@@ -13,10 +13,8 @@ import {
   Job,
   JobData,
   CreatedDownload,
-  Type,
   DownloadPayload,
   VersionNumber,
-  JsonApiLink,
   JsonApiVersion,
   DownloadPayloadData,
   DownloadPayloadDataAttributes,
@@ -24,7 +22,6 @@ import {
   DownloadPayloadDataRelationships,
   DownloadPayloadDataRelationshipsSourceData,
   DownloadPayloadDataRelationshipsSource,
-  CreatedDownloadData,
   StoragePayload,
   StoragePayloadData,
   StoragePayloadDataAttributes,
@@ -73,16 +70,10 @@ import {
   ItemPayloadIncluded,
   ItemPayloadIncludedAttributes,
   ItemPayloadIncludedAttributesExtension,
-  VersionDetails,
+  Version,
   DownloadFormats,
   DownloadFormatsData,
   Downloads,
-  GetVersionRefsFilterTypeEnum,
-  GetItemRelationshipsRefsFilterTypeEnum,
-  GetItemRefsFilterTypeEnum,
-  GetFolderRelationshipsRefsFilterTypeEnum,
-  GetFolderRefsFilterTypeEnum,
-  GetVersionRelationshipsRefsFilterTypeEnum,
   ModifyVersionPayload,
   ModifyVersionPayloadData,
   ModifyVersionPayloadDataAttributes,
@@ -100,9 +91,61 @@ import {
   CheckPermissionPayloadAttributesExtensionData,
   CheckPermissionPayloadAttributes,
   CheckPermissionPayloadAttributesExtension,
-  RequiredActions,
   CheckPermissionPayloadRelationships,
   CheckPermissionPayloadRelationshipsResources,
+  TypeCommands,
+  TypeCommandtypeCheckPermission,
+  RequireActions,
+  TypeFolder,
+  TypeEntity,
+  TypeVersion,
+  TypeItem,
+  TypeFilter,
+  TypeObject,
+  TypeDownloads,
+  TypeFolderExtension,
+  TypeItemExtension,
+  TypeItemIncludedExtension,
+  ListRefs,
+  ListRefsPayload,
+  TypeCommandtypeListRefs,
+  ListRefsPayloadAttributes,
+  ListRefsPayloadAttributesExtension,
+  ListRefsPayloadRelationships,
+  ListRefsPayloadRelationshipsResources,
+  ListItems,
+  ListItemsPayload,
+  ListItemsPayloadAttributes,
+  ListItemsPayloadAttributesExtension,
+  TypeCommandtypeListItems,
+  ListItemsPayloadAttributesExtensionData,
+  ListItemsPayloadRelationships,
+  ListItemsPayloadRelationshipsResources,
+  PublishModelPayload,
+  PublishModelPayloadAttributes,
+  PublishModelPayloadAttributesExtension,
+  TypeCommandtypePublishmodel,
+  PublishModelPayloadRelationships,
+  PublishModelPayloadRelationshipsResources,
+  PublishModel,
+  PublishWithoutLinksPayload,
+  PublishWithoutLinksPayloadAttributes,
+  PublishWithoutLinksPayloadAttributesExtension,
+  TypeCommandtypePublishWithoutLinks,
+  PublishWithoutLinks,
+  GetPublishModelJobPayload,
+  GetPublishModelJobPayloadAttributes,
+  GetPublishModelJobPayloadAttributesExtension,
+  TypeCommandtypeGetPublishModelJob,
+  GetPublishModelJobPayloadRelationships,
+  GetPublishModelJobPayloadRelationshipsResources,
+  GetPublishModelJob,
+  TypeAttributeExtension,
+  ItemPayloadIncludedRelationships,
+  ItemPayloadIncludedRelationshipsStorage,
+  ItemPayloadIncludedRelationshipsStorageData,
+  VersionPayloadDataRelationshipsStorage,
+  VersionPayloadDataRelationshipsStorageData,
 } from "@aps_sdk/data-management";
 import "dotenv/config";
 
@@ -114,6 +157,9 @@ const job_id = process.env.job_id;
 const version_id = process.env.version_id;
 const folder_id = process.env.folder_id;
 const item_id = process.env.item_id;
+const project_top_folder_one_id = process.env.project_top_folder_one_id;
+const project_top_folder_two_id = process.env.project_top_folder_two_id;
+const storage_urn = process.env.storage_urn;
 
 const staticAuthenticationProvider = new StaticAuthenticationProvider(
   accessToken
@@ -127,16 +173,19 @@ const dataManagementClient = new DataManagementClient({
 async function getHubs() {
   try {
     const hubs: Hubs = await dataManagementClient.getHubs({
+      filterId: ["b.a4f95080-84fe-4281-8d0a-bd8c885695e0"],
       filterName: ["Autodesk Forge Partner Development"],
+      filterExtensionType: ["hubs:autodesk.bim360:Account"],
     });
     hubs.data.forEach((current) => {
       const hubId: string = current.id;
-      const hubType: Type = current.type;
+      const hubType: string = current.type;
 
       console.log(hubId);
       console.log(hubType);
 
       console.log(current.attributes.name);
+      console.log(current.attributes.extension.type);
     });
   } catch (err) {
     console.error(err.message);
@@ -148,7 +197,7 @@ async function getHub() {
     const hub: Hub = await dataManagementClient.getHub(hub_id);
     const hubData: HubData = hub.data;
     const hubId: string = hubData.id;
-    const hubType: Type = hubData.type;
+    const hubType: string = hubData.type;
 
     console.log(hubId);
     console.log(hubType);
@@ -158,8 +207,8 @@ async function getHub() {
   }
 }
 
-getHubs();
-getHub();
+// getHubs();
+// getHub();
 
 //------------------------------------------------------------------------Projects-------------------------------------------------------------//
 
@@ -167,11 +216,19 @@ async function getHubProjects() {
   try {
     const projects: Projects = await dataManagementClient.getHubProjects(
       hub_id,
-      { filterExtensionType: ["projects:autodesk.bim360:Project"] }
+      {
+        filterId: [
+          "b.27c2ce48-93fe-4211-9599-0e900bb6ea89",
+          "b.180e1bc8-6687-4029-a069-319f611de8a9",
+        ],
+        filterExtensionType: ["projects:autodesk.bim360:Project"],
+        pageNumber: 0,
+        pageLimit: 1,
+      }
     );
     projects.data.forEach((current) => {
       const projectId: string = current.id;
-      const projectType: Type = current.type;
+      const projectType: string = current.type;
 
       console.log(projectId);
       console.log(projectType);
@@ -191,7 +248,7 @@ async function getProject() {
     );
     const projectData: ProjectData = project.data;
     const projectId: string = projectData.id;
-    const projectType: Type = projectData.type;
+    const projectType: string = projectData.type;
 
     console.log(projectId);
     console.log(projectType);
@@ -209,7 +266,7 @@ async function getProjectHub() {
     );
     const hubData: HubData = hub.data;
     const hubId: string = hubData.id;
-    const hubType: Type = hubData.type;
+    const hubType: string = hubData.type;
 
     console.log(hubId);
     console.log(hubType);
@@ -224,11 +281,11 @@ async function getProjectTopFolders() {
     const topFolders: TopFolders =
       await dataManagementClient.getProjectTopFolders(hub_id, project_id, {
         excludeDeleted: true,
-        projectFilesOnly: true,
+        projectFilesOnly: false,
       });
     topFolders.data.forEach((current) => {
       const topFolderId: string = current.id;
-      const topFolderType: Type = current.type;
+      const topFolderType: string = current.type;
 
       console.log(topFolderId);
       console.log(topFolderType);
@@ -248,7 +305,7 @@ async function getDownload() {
     );
     const downloadData: DownloadData = download.data;
     const downloadId: string = downloadData.id;
-    const downloadType: Type = downloadData.type;
+    const downloadType: string = downloadData.type;
 
     console.log(downloadId);
     console.log(downloadType);
@@ -265,7 +322,7 @@ async function getDownloadJob() {
     );
     const jobData: JobData = downloadJob.data;
     const jobId: string = jobData.id;
-    const jobType: Type = jobData.type;
+    const jobType: string = jobData.type;
 
     console.log(jobId);
     console.log(jobType);
@@ -279,16 +336,16 @@ async function startDownload() {
     let downloadPayload: DownloadPayload = {
       jsonapi: <JsonApiVersion>{ version: VersionNumber._10 },
       data: <DownloadPayloadData>{
-        type: Type.Downloads,
+        type: TypeDownloads.Downloads,
         attributes: <DownloadPayloadDataAttributes>{
           format: <DownloadPayloadDataAttributesFormat>{
-            fileType: "rvt",
+            fileType: "dwg",
           },
         },
         relationships: <DownloadPayloadDataRelationships>{
           source: <DownloadPayloadDataRelationshipsSource>{
             data: <DownloadPayloadDataRelationshipsSourceData>{
-              type: Type.Versions,
+              type: TypeVersion.Versions,
               id: version_id,
             },
           },
@@ -308,14 +365,14 @@ async function createStorage() {
     let storagePayload: StoragePayload = {
       jsonapi: <JsonApiVersion>{ version: VersionNumber._10 },
       data: <StoragePayloadData>{
-        type: Type.Objects,
+        type: TypeObject.Objects,
         attributes: <StoragePayloadDataAttributes>{
           name: "drawing.dwg",
         },
         relationships: <StoragePayloadDataRelationships>{
           target: <StoragePayloadDataRelationshipsTarget>{
             data: <StoragePayloadDataRelationshipsTargetData>{
-              type: Type.Folders,
+              type: TypeFolder.Folders,
               id: folder_id,
             },
           },
@@ -338,7 +395,7 @@ async function createStorage() {
 // getProjectTopFolders();
 // getDownload();
 // getDownloadJob();
-// startDownload();
+// startDownload(); --
 // createStorage();
 
 //----------------------------------------------------------------------Folders-------------------------------------------------------//
@@ -351,7 +408,7 @@ async function getFolder() {
     );
     const folderData: FolderData = folder.data;
     const folderId: string = folderData.id;
-    const folderType: Type = folderData.type;
+    const folderType: string = folderData.type;
 
     console.log(folderId);
     console.log(folderType);
@@ -367,16 +424,36 @@ async function getFolderContents() {
     const folderContents: FolderContents =
       await dataManagementClient.getFolderContents(project_id, folder_id, {
         filterType: ["items"],
+        filterId: [
+          "urn:adsk.wipprod:dm.lineage:-RRLDElBTuuuO74_-r6XLg",
+          "urn:adsk.wipprod:dm.lineage:8By2tOWmTjGXK70wJDlzgg",
+        ],
+        filterExtensionType: ["items:autodesk.bim360:File"],
+        pageNumber: 1,
+        pageLimit: 1,
+        includeHidden: true,
       });
     folderContents.data.forEach((current) => {
       const folderId: string = current.id;
-      const folderType: Type = current.type;
+      const folderType: string = current.type;
 
       console.log(folderId);
       console.log(folderType);
 
       console.log(current.attributes.displayName);
-      console.log(current.relationships.refs);
+      console.log(current.attributes.lastModifiedTime);
+      console.log(current.relationships);
+      console.log(current.attributes.extension.type);
+    });
+    folderContents.included.forEach((current) => {
+      const versionId: string = current.id;
+      const versionType: string = current.type;
+
+      console.log(versionId);
+      console.log(versionType);
+
+      console.log(current.attributes.displayName);
+      console.log(current.relationships.storage.data.id);
     });
   } catch (err) {
     console.error(err.message);
@@ -391,7 +468,7 @@ async function getFolderParent() {
     );
     const folderData: FolderData = folder.data;
     const folderId: string = folderData.id;
-    const folderType: Type = folderData.type;
+    const folderType: string = folderData.type;
 
     console.log(folderId);
     console.log(folderType);
@@ -407,11 +484,11 @@ async function getFolderRefs() {
     const folderRefs: FolderRefs = await dataManagementClient.getFolderRefs(
       project_id,
       folder_id,
-      { filterType: [GetFolderRefsFilterTypeEnum.Folders] }
+      { filterType: [TypeFilter.Folders] }
     );
     folderRefs.data.forEach((current) => {
       const folderId: string = current.id;
-      const folderType: Type = current.type;
+      const folderType: string = current.type;
 
       console.log(folderId);
       console.log(folderType);
@@ -433,7 +510,7 @@ async function getFolderRelationshipsLinks() {
       );
     relationshipLinks.data.forEach((current) => {
       const relationshipId: string = current.id;
-      const relationshipType: Type = current.type;
+      const relationshipType: string = current.type;
 
       console.log(relationshipId);
       console.log(relationshipType);
@@ -449,11 +526,11 @@ async function getFolderRelationshipsRefs() {
       await dataManagementClient.getFolderRelationshipsRefs(
         folder_id,
         project_id,
-        { filterType: [GetFolderRelationshipsRefsFilterTypeEnum.Folders] }
+        { filterType: [TypeFilter.Folders] }
       );
     relationshipRefs.data.forEach((current) => {
       const relationshipId: string = current.id;
-      const relationshipType: Type = current.type;
+      const relationshipType: string = current.type;
 
       console.log(relationshipId);
       console.log(relationshipType);
@@ -469,10 +546,9 @@ async function getFolderSearch() {
       project_id,
       folder_id
     );
-    console.log(search);
     search.data.forEach((current) => {
       const folderId: string = current.id;
-      const folderType: Type = current.type;
+      const folderType: string = current.type;
 
       console.log(folderId);
       console.log(folderType);
@@ -486,18 +562,18 @@ async function createFolder() {
   let folderPayload: FolderPayload = {
     jsonapi: <JsonApiVersion>{ version: VersionNumber._10 },
     data: <FolderPayloadData>{
-      type: Type.Folders,
+      type: TypeFolder.Folders,
       attributes: <FolderPayloadDataAttributes>{
-        name: "Harun's Folder",
+        name: "Kredo Folder",
         extension: <FolderPayloadDataAttributesExtension>{
-          type: Type.FoldersautodeskBim360Folder,
+          type: TypeFolderExtension.Bim360Folder,
           version: VersionNumber._10,
         },
       },
       relationships: <FolderPayloadDataRelationships>{
         parent: <FolderPayloadDataRelationshipsParent>{
           data: <FolderPayloadDataRelationshipsParentData>{
-            type: Type.Folders,
+            type: TypeFolder.Folders,
             id: folder_id,
           },
         },
@@ -510,11 +586,12 @@ async function createFolder() {
       folderPayload
     );
     const folderData: FolderData = folder.data;
-    const folderType: Type = folderData.type;
+    const folderType: string = folderData.type;
     const folderId: string = folderData.id;
 
     console.log(folderType);
     console.log(folderId);
+    console.log(folderData.attributes.displayName);
   } catch (err) {
     console.error(err.message);
   }
@@ -524,11 +601,11 @@ async function createFolderRelationshipsRef() {
   let relationshipRefsPayload: RelationshipRefsPayload = {
     jsonapi: <JsonApiVersion>{ version: VersionNumber._10 },
     data: <RelationshipRefsPayloadData>{
-      type: Type.Versions,
+      type: TypeVersion.Versions,
       id: version_id,
       meta: <RelationshipRefsPayloadDataMeta>{
         extension: <BaseAttributesExtensionObjectWithoutSchemaLink>{
-          type: Type.AuxiliaryautodeskCoreAttachment,
+          type: TypeAttributeExtension.AuxiliaryautodeskCoreAttachment,
           version: VersionNumber._10,
         },
       },
@@ -553,10 +630,10 @@ async function patchFolder() {
   let modifyFolderPayload: ModifyFolderPayload = {
     jsonapi: <JsonApiVersion>{ version: VersionNumber._10 },
     data: <ModifyFolderPayloadData>{
-      type: Type.Folders,
+      type: TypeFolder.Folders,
       id: folder_id,
       attributes: <ModifyFolderPayloadDataAttributes>{
-        name: "Project F New Folder",
+        name: "Kredo Y New Folder",
       },
     },
   };
@@ -567,7 +644,7 @@ async function patchFolder() {
       modifyFolderPayload
     );
     const folderData: FolderData = folder.data;
-    const folderType: Type = folderData.type;
+    const folderType: string = folderData.type;
     const folderId: string = folderData.id;
 
     console.log(folderType);
@@ -583,7 +660,7 @@ async function patchFolder() {
 // getFolderRefs();
 // getFolderRelationshipsLinks();
 // getFolderRelationshipsRefs();
-// getFolderSearch(); //
+// getFolderSearch(); -- filter
 // createFolder();
 // createFolderRelationshipsRef();
 // patchFolder();
@@ -595,7 +672,7 @@ async function getItem() {
     const item: Item = await dataManagementClient.getItem(project_id, item_id);
     const itemData: ItemData = item.data;
     const itemId: string = itemData.id;
-    const itemType: Type = itemData.type;
+    const itemType: string = itemData.type;
 
     console.log(itemId);
     console.log(itemType);
@@ -613,7 +690,7 @@ async function getItemParentFolder() {
       item_id
     );
     const folderData: FolderData = folder.data;
-    const folderType: Type = folderData.type;
+    const folderType: string = folderData.type;
     const folderId: string = folderData.id;
 
     console.log(folderType);
@@ -630,11 +707,11 @@ async function getItemRefs() {
     const refs: Refs = await dataManagementClient.getItemRefs(
       project_id,
       item_id,
-      { filterType: [GetItemRefsFilterTypeEnum.Folders] }
+      { filterType: [TypeFilter.Folders] }
     );
     refs.data.forEach((current) => {
       const refsId: string = current.id;
-      const refsType: Type = current.type;
+      const refsType: string = current.type;
 
       console.log(refsId);
       console.log(refsType);
@@ -650,7 +727,7 @@ async function getItemRelationshipsLinks() {
       await dataManagementClient.getItemRelationshipsLinks(project_id, item_id);
     relationshipLinks.data.forEach((current) => {
       const relationshipId: string = current.id;
-      const relationshipType: Type = current.type;
+      const relationshipType: string = current.type;
 
       console.log(relationshipId);
       console.log(relationshipType);
@@ -664,11 +741,11 @@ async function getItemRelationshipsRefs() {
   try {
     const relationshipRefs: RelationshipRefs =
       await dataManagementClient.getItemRelationshipsRefs(project_id, item_id, {
-        filterType: [GetItemRelationshipsRefsFilterTypeEnum.Folders],
+        filterType: [TypeFilter.Folders],
       });
     relationshipRefs.data.forEach((current) => {
       const relationshipId: string = current.id;
-      const relationshipType: Type = current.type;
+      const relationshipType: string = current.type;
 
       console.log(relationshipId);
       console.log(relationshipType);
@@ -687,7 +764,7 @@ async function getItemTip() {
 
     const versionData: VersionData = itemTip.data;
     const versionId: string = versionData.id;
-    const versionType: Type = versionData.type;
+    const versionType: string = versionData.type;
 
     console.log(versionId);
     console.log(versionType);
@@ -703,13 +780,13 @@ async function getItemVersions() {
       item_id,
       {
         filterId: [
-          "urn:adsk.wipprod:fs.file:vf.DixLrxYDQv-rXovqKhFLWQ?version=1",
+          "urn:adsk.wipprod:fs.file:vf.-RRLDElBTuuuO74_-r6XLg?version=1",
         ],
       }
     );
     versions.data.forEach((current) => {
       const versionsId: string = current.id;
-      const versionsType: Type = current.type;
+      const versionsType: string = current.type;
 
       console.log(versionsId);
       console.log(versionsType);
@@ -724,24 +801,24 @@ async function createItem() {
     let itemPayload: ItemPayload = {
       jsonapi: <JsonApiVersion>{ version: VersionNumber._10 },
       data: <ItemPayloadData>{
-        type: Type.Items,
+        type: TypeItem.Items,
         attributes: <ItemPayloadDataAttributes>{
-          displayName: "itemf.dwg",
+          displayName: "New Item Name",
           extension: <ItemPayloadDataAttributesExtension>{
-            type: Type.ItemsautodeskBim360File,
+            type: TypeItemExtension.Bim360File,
             version: VersionNumber._10,
           },
         },
         relationships: <ItemPayloadDataRelationships>{
           tip: <ItemPayloadDataRelationshipsTip>{
             data: <ItemPayloadDataRelationshipsTipData>{
-              type: Type.Versions,
-              id: "1",
+              type: TypeVersion.Versions,
+              id: version_id,
             },
           },
           parent: <ItemPayloadDataRelationshipsParent>{
             data: <ItemPayloadDataRelationshipsParentData>{
-              type: Type.Folders,
+              type: TypeFolder.Folders,
               id: folder_id,
             },
           },
@@ -749,13 +826,21 @@ async function createItem() {
       },
       included: new Set<ItemPayloadIncluded>([
         {
-          type: Type.Versions,
+          type: TypeVersion.Versions,
           id: "1",
           attributes: <ItemPayloadIncludedAttributes>{
-            name: "drawing4.dwg",
+            name: "mydrawingnew",
             extension: <ItemPayloadIncludedAttributesExtension>{
-              type: Type.VersionsautodeskBim360File,
+              type: TypeItemIncludedExtension.Bim360File,
               version: VersionNumber._10,
+            },
+          },
+          relationships: <ItemPayloadIncludedRelationships>{
+            storage: <ItemPayloadIncludedRelationshipsStorage>{
+              data: <ItemPayloadIncludedRelationshipsStorageData>{
+                type: TypeObject.Objects,
+                id: storage_urn,
+              },
             },
           },
         },
@@ -767,7 +852,7 @@ async function createItem() {
     );
     const itemData: ItemData = item.data;
     const itemId: string = itemData.id;
-    const ItemType: Type = itemData.type;
+    const ItemType: string = itemData.type;
 
     console.log(itemId);
     console.log(ItemType);
@@ -783,11 +868,11 @@ async function createItemRelationshipsRef() {
     let relationshipRefsPayload: RelationshipRefsPayload = {
       jsonapi: <JsonApiVersion>{ version: VersionNumber._10 },
       data: <RelationshipRefsPayloadData>{
-        type: Type.Versions,
+        type: TypeVersion.Versions,
         id: version_id,
         meta: <RelationshipRefsPayloadDataMeta>{
           extension: <BaseAttributesExtensionObjectWithoutSchemaLink>{
-            type: Type.AuxiliaryautodeskCoreAttachment,
+            type: TypeAttributeExtension.AuxiliaryautodeskCoreAttachment,
             version: VersionNumber._10,
           },
         },
@@ -812,13 +897,14 @@ async function patchItem() {
     let modifyItemPayload: ModifyItemPayload = {
       jsonapi: <JsonApiVersion>{ version: VersionNumber._10 },
       data: <ModifyItemPayloadData>{
-        type: Type.Items,
+        type: TypeItem.Items,
         id: item_id,
         attributes: <ModifyItemPayloadDataAttributes>{
-          displayName: "itemf",
+          displayName: "plans.dwg",
         },
       },
     };
+    console.log(modifyItemPayload);
     const item: Item = await dataManagementClient.patchItem(
       project_id,
       item_id,
@@ -826,7 +912,7 @@ async function patchItem() {
     );
     const itemData: ItemData = item.data;
     const itemId: string = itemData.id;
-    const ItemType: Type = itemData.type;
+    const ItemType: string = itemData.type;
 
     console.log(itemId);
     console.log(ItemType);
@@ -844,23 +930,26 @@ async function patchItem() {
 // getItemRelationshipsRefs();
 // getItemTip();
 // getItemVersions();
-// createItem(); -- //
+// createItem(); --
 // createItemRelationshipsRef();
-// patchItem(); -- //
+// patchItem(); --
 
 //-----------------------------------------------------------------Versions---------------------------------------------------------//
 
 async function getVersion() {
   try {
-    const versionDetails: VersionDetails =
-      await dataManagementClient.getVersion(project_id, version_id);
+    const versionDetails: Version = await dataManagementClient.getVersion(
+      project_id,
+      version_id
+    );
     const versionData: VersionData = versionDetails.data;
     const versionId: string = versionData.id;
-    const versionType: Type = versionData.type;
+    const versionType: string = versionData.type;
 
     console.log(versionId);
     console.log(versionType);
     console.log(versionData.attributes.extension.type);
+    console.log(versionData.relationships.storage.data.id);
   } catch (err) {
     console.error(err.message);
   }
@@ -875,7 +964,7 @@ async function getVersionDownloadFormats() {
       );
     const downloadFormatsData: DownloadFormatsData = downloadFormats.data;
     const downloadFormatsId: string = downloadFormatsData.id;
-    const downloadFormatsType: Type = downloadFormatsData.type;
+    const downloadFormatsType: string = downloadFormatsData.type;
 
     console.log(downloadFormatsId);
     console.log(downloadFormatsType);
@@ -892,9 +981,10 @@ async function getVersionDownloads() {
       version_id,
       { filterFormatFileType: ["pdf"] }
     );
+    console.log(downloads);
     downloads.data.forEach((current) => {
       const downloadId: string = current.id;
-      const downloadType: Type = current.type;
+      const downloadType: string = current.type;
 
       console.log(downloadId);
       console.log(downloadType);
@@ -913,7 +1003,7 @@ async function getVersionItem() {
     );
     const itemData: ItemData = item.data;
     const itemId: string = itemData.id;
-    const itemType: Type = itemData.type;
+    const itemType: string = itemData.type;
 
     console.log(itemId);
     console.log(itemType);
@@ -929,12 +1019,12 @@ async function getVersionRefs() {
     const refs: Refs = await dataManagementClient.getVersionRefs(
       project_id,
       version_id,
-      { filterType: [GetVersionRefsFilterTypeEnum.Versions] }
+      { filterType: [TypeFilter.Versions] }
     );
     console.log(refs);
     refs.data.forEach((current) => {
       const refsId: string = current.id;
-      const refsType: Type = current.type;
+      const refsType: string = current.type;
 
       console.log(refsId);
       console.log(refsType);
@@ -953,7 +1043,7 @@ async function getVersionRelationshipsLinks() {
       );
     relationshipLinks.data.forEach((current) => {
       const relationshipId: string = current.id;
-      const relationshipType: Type = current.type;
+      const relationshipType: string = current.type;
 
       console.log(relationshipId);
       console.log(relationshipType);
@@ -969,11 +1059,11 @@ async function getVersionRelationshipsRefs() {
       await dataManagementClient.getVersionRelationshipsRefs(
         project_id,
         version_id,
-        { filterType: [GetVersionRelationshipsRefsFilterTypeEnum.Versions] }
+        { filterType: [TypeFilter.Versions] }
       );
     relationshipRefs.data.forEach((current) => {
       const relationshipId: string = current.id;
-      const relationshipType: Type = current.type;
+      const relationshipType: string = current.type;
 
       console.log(relationshipId);
       console.log(relationshipType);
@@ -988,19 +1078,25 @@ async function createVersion() {
     let versionPayload: VersionPayload = {
       jsonapi: <JsonApiVersion>{ version: VersionNumber._10 },
       data: <VersionPayloadData>{
-        type: Type.Versions,
+        type: TypeVersion.Versions,
         attributes: <VersionPayloadDataAttributes>{
-          name: "versionfg",
+          name: "myplans.dwg",
           extension: <VersionPayloadDataAttributesExtension>{
-            type: Type.VersionsautodeskCoreFile,
+            type: TypeItemIncludedExtension.Bim360File,
             version: VersionNumber._10,
           },
         },
         relationships: <VersionPayloadDataRelationships>{
           item: <VersionPayloadDataRelationshipsItem>{
             data: <VersionPayloadDataRelationshipsItemData>{
-              type: Type.Items,
+              type: TypeItem.Items,
               id: item_id,
+            },
+          },
+          storage: <VersionPayloadDataRelationshipsStorage>{
+            data: <VersionPayloadDataRelationshipsStorageData>{
+              type: TypeObject.Objects,
+              id: storage_urn,
             },
           },
         },
@@ -1010,7 +1106,7 @@ async function createVersion() {
       await dataManagementClient.createVersion(project_id, versionPayload);
     const createdVersionData: CreatedVersionData = createdVersion.data;
     const createdVersionId: string = createdVersionData.id;
-    const createdVersionType: Type = createdVersionData.type;
+    const createdVersionType: string = createdVersionData.type;
 
     console.log(createdVersionId);
     console.log(createdVersionType);
@@ -1024,11 +1120,11 @@ async function createVersionRelationshipsRef() {
     let relationshipRefsPayload: RelationshipRefsPayload = {
       jsonapi: <JsonApiVersion>{ version: VersionNumber._10 },
       data: <RelationshipRefsPayloadData>{
-        type: Type.Versions,
+        type: TypeEntity.Versions,
         id: version_id,
         meta: <RelationshipRefsPayloadDataMeta>{
           extension: <BaseAttributesExtensionObjectWithoutSchemaLink>{
-            type: Type.AuxiliaryautodeskCoreAttachment,
+            type: TypeAttributeExtension.AuxiliaryautodeskCoreAttachment,
             version: VersionNumber._10,
           },
         },
@@ -1053,22 +1149,21 @@ async function patchVersion() {
     let modifyVersionPayload: ModifyVersionPayload = {
       jsonapi: <JsonApiVersion>{ version: VersionNumber._10 },
       data: <ModifyVersionPayloadData>{
-        type: Type.Versions,
+        type: TypeVersion.Versions,
         id: version_id,
         attributes: <ModifyVersionPayloadDataAttributes>{
-          name: "versionf",
+          name: "myversion.dwg",
         },
       },
     };
-    const versionDetails: VersionDetails =
-      await dataManagementClient.patchVersion(
-        project_id,
-        version_id,
-        modifyVersionPayload
-      );
+    const versionDetails: Version = await dataManagementClient.patchVersion(
+      project_id,
+      version_id,
+      modifyVersionPayload
+    );
     const versionData: VersionData = versionDetails.data;
     const versionId: string = versionData.id;
-    const versionType: Type = versionData.type;
+    const versionType: string = versionData.type;
 
     console.log(versionId);
     console.log(versionType);
@@ -1079,13 +1174,13 @@ async function patchVersion() {
 
 // getVersion();
 // getVersionDownloadFormats();
-// getVersionDownloads();
+// getVersionDownloads(); --
 // getVersionItem();
 // getVersionRefs();
 // getVersionRelationshipsLinks();
 // getVersionRelationshipsRefs();
 // createVersion();
-// createVersionRelationshipsRef(); //
+// createVersionRelationshipsRef();
 // patchVersion();
 
 //--------------------------------------------------------------------Commands------------------------------------------------------------//
@@ -1093,13 +1188,13 @@ async function patchVersion() {
 async function executeCheckPermissionCommand() {
   try {
     let checkPermissionPayload: CheckPermissionPayload = {
-      type: Type.Commands,
+      type: TypeCommands.Commands,
       attributes: <CheckPermissionPayloadAttributes>{
         extension: <CheckPermissionPayloadAttributesExtension>{
-          type: Type.CommandsautodeskCoreCheckPermission,
+          type: TypeCommandtypeCheckPermission.CommandsautodeskCoreCheckPermission,
           version: "1.0.0",
           data: <CheckPermissionPayloadAttributesExtensionData>{
-            requiredActions: [RequiredActions.View, RequiredActions.Download],
+            requiredActions: [RequireActions.View, RequireActions.Download],
           },
         },
       },
@@ -1107,7 +1202,7 @@ async function executeCheckPermissionCommand() {
         resources: <CheckPermissionPayloadRelationshipsResources>{
           data: [
             {
-              type: Type.Folders,
+              type: TypeEntity.Folders,
               id: folder_id,
             },
           ],
@@ -1126,4 +1221,177 @@ async function executeCheckPermissionCommand() {
   }
 }
 
+async function executeListRefsCommand() {
+  try {
+    let listRefsPayload: ListRefsPayload = {
+      type: TypeCommands.Commands,
+      attributes: <ListRefsPayloadAttributes>{
+        extension: <ListRefsPayloadAttributesExtension>{
+          type: TypeCommandtypeListRefs.CommandsautodeskCoreListRefs,
+          version: "1.0.0",
+        },
+      },
+      relationships: <ListRefsPayloadRelationships>{
+        resources: <ListRefsPayloadRelationshipsResources>{
+          data: [
+            {
+              type: TypeEntity.Versions,
+              id: version_id,
+            },
+          ],
+        },
+      },
+    };
+    const listRefs: ListRefs =
+      await dataManagementClient.executeListRefsCommand(
+        project_id,
+        listRefsPayload
+      );
+
+    console.log(listRefs);
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+async function executeListItemsCommand() {
+  try {
+    let listItemsPayload: ListItemsPayload = {
+      type: TypeCommands.Commands,
+      attributes: <ListItemsPayloadAttributes>{
+        extension: <ListItemsPayloadAttributesExtension>{
+          type: TypeCommandtypeListItems.CommandsautodeskCoreListItems,
+          version: "1.1.0",
+          data: <ListItemsPayloadAttributesExtensionData>{
+            includePathInProject: true,
+          },
+        },
+      },
+      relationships: <ListItemsPayloadRelationships>{
+        resources: <ListItemsPayloadRelationshipsResources>{
+          data: [
+            {
+              type: TypeEntity.Items,
+              id: item_id,
+            },
+          ],
+        },
+      },
+    };
+    const listItems: ListItems =
+      await dataManagementClient.executeListItemsCommand(
+        project_id,
+        listItemsPayload
+      );
+
+    console.log(listItems);
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+async function executePublishModelCommand() {
+  try {
+    let publishModelPayload: PublishModelPayload = {
+      type: TypeCommands.Commands,
+      attributes: <PublishModelPayloadAttributes>{
+        extension: <PublishModelPayloadAttributesExtension>{
+          type: TypeCommandtypePublishmodel.CommandsautodeskBim360C4RModelPublish,
+          version: "1.0.0",
+        },
+      },
+      relationships: <PublishModelPayloadRelationships>{
+        resources: <PublishModelPayloadRelationshipsResources>{
+          data: [
+            {
+              type: TypeEntity.Items,
+              id: item_id,
+            },
+          ],
+        },
+      },
+    };
+    const publishModel: PublishModel =
+      await dataManagementClient.executePublishModelCommand(
+        project_id,
+        publishModelPayload
+      );
+
+    console.log(publishModel);
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+async function executePublishWithoutLinksCommand() {
+  try {
+    let publishWithoutLinksPayload: PublishWithoutLinksPayload = {
+      type: TypeCommands.Commands,
+      attributes: <PublishWithoutLinksPayloadAttributes>{
+        extension: <PublishWithoutLinksPayloadAttributesExtension>{
+          type: TypeCommandtypePublishWithoutLinks.CommandsautodeskBim360C4RPublishWithoutLinks,
+          version: "1.0.0",
+        },
+      },
+      relationships: <PublishModelPayloadRelationships>{
+        resources: <PublishModelPayloadRelationshipsResources>{
+          data: [
+            {
+              type: TypeEntity.Items,
+              id: item_id,
+            },
+          ],
+        },
+      },
+    };
+    const publishWithoutLinks: PublishWithoutLinks =
+      await dataManagementClient.executePublishWithoutLinksCommand(
+        project_id,
+        publishWithoutLinksPayload
+      );
+
+    console.log(publishWithoutLinks);
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+async function executeGetPublishModelJobCommand() {
+  try {
+    let getPublishModelJobPayload: GetPublishModelJobPayload = {
+      type: TypeCommands.Commands,
+      attributes: <GetPublishModelJobPayloadAttributes>{
+        extension: <GetPublishModelJobPayloadAttributesExtension>{
+          type: TypeCommandtypeGetPublishModelJob.CommandsautodeskBim360C4RModelGetPublishJob,
+          version: "1.0.0",
+        },
+      },
+      relationships: <GetPublishModelJobPayloadRelationships>{
+        resources: <GetPublishModelJobPayloadRelationshipsResources>{
+          data: [
+            {
+              type: TypeEntity.Items,
+              id: item_id,
+            },
+          ],
+        },
+      },
+    };
+    const getPublishModelJob: GetPublishModelJob =
+      await dataManagementClient.executeGetPublishModelJobCommand(
+        project_id,
+        getPublishModelJobPayload
+      );
+
+    console.log(getPublishModelJob);
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
 // executeCheckPermissionCommand();
+// executeListRefsCommand();
+// executeListItemsCommand();
+// executePublishModelCommand();
+// executePublishWithoutLinksCommand();
+// executeGetPublishModelJobCommand();

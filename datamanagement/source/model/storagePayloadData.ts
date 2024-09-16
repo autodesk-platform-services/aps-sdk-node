@@ -1,7 +1,7 @@
 
 import { StoragePayloadDataAttributes } from './storagePayloadDataAttributes';
 import { StoragePayloadDataRelationships } from './storagePayloadDataRelationships';
-import { Type } from './type';
+import { TypeObject } from './typeObject';
 
 /**
  * A container of data describing a storage location.
@@ -11,10 +11,10 @@ import { Type } from './type';
 export interface StoragePayloadData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeObject}
      * @memberof StoragePayloadData
      */
-    'type': Type;
+    'type': TypeObject;
     /**
      * 
      * @type {StoragePayloadDataAttributes}

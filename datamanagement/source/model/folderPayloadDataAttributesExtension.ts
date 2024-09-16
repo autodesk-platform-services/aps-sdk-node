@@ -1,6 +1,6 @@
 
-import { Type } from './type';
-import { VersionNumber } from './versionNumber';
+import { FolderVersionNumber } from './folderVersionNumber';
+import { TypeFolderExtension } from './typeFolderExtension';
 
 /**
  * A container of additional properties that extends the default properties of this resource.
@@ -10,16 +10,16 @@ import { VersionNumber } from './versionNumber';
 export interface FolderPayloadDataAttributesExtension {
     /**
      * 
-     * @type {Type}
+     * @type {TypeFolderExtension}
      * @memberof FolderPayloadDataAttributesExtension
      */
-    'type': Type;
+    'type': TypeFolderExtension;
     /**
      * 
-     * @type {VersionNumber}
+     * @type {FolderVersionNumber}
      * @memberof FolderPayloadDataAttributesExtension
      */
-    'version': VersionNumber;
+    'version': FolderVersionNumber;
     /**
      * The container of additional properties.  The additional properties must follow the schema specified by ``type`` and ``version``. Properties that don\'t follow the schema will be ignored.
      * @type {object}

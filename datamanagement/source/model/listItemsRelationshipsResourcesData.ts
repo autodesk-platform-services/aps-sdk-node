@@ -1,6 +1,6 @@
 
 import { ItemData } from './itemData';
-import { Type } from './type';
+import { TypeItem } from './typeItem';
 
 /**
  * 
@@ -10,10 +10,10 @@ import { Type } from './type';
 export interface ListItemsRelationshipsResourcesData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeItem}
      * @memberof ListItemsRelationshipsResourcesData
      */
-    'type'?: Type;
+    'type'?: TypeItem;
     /**
      * The URN of the item.
      * @type {string}

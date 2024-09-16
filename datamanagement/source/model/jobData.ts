@@ -1,7 +1,7 @@
 
 import { JobDataAttributes } from './jobDataAttributes';
 import { JsonApiLinksSelf } from './jsonApiLinksSelf';
-import { Type } from './type';
+import { TypeJob } from './typeJob';
 
 /**
  * Contains information about the download creation job.
@@ -11,10 +11,10 @@ import { Type } from './type';
 export interface JobData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeJob}
      * @memberof JobData
      */
-    'type'?: Type;
+    'type'?: TypeJob;
     /**
      * The Job ID of the job creating the download.
      * @type {string}

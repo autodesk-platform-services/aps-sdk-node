@@ -1,7 +1,7 @@
 
 import { CheckPermissionAttributes } from './checkPermissionAttributes';
 import { CheckPermissionRelationships } from './checkPermissionRelationships';
-import { Type } from './type';
+import { TypeCommands } from './typeCommands';
 
 /**
  * The ``data`` object returned by the CheckPermission command.
@@ -11,10 +11,10 @@ import { Type } from './type';
 export interface CheckPermission {
     /**
      * 
-     * @type {Type}
+     * @type {TypeCommands}
      * @memberof CheckPermission
      */
-    'type'?: Type;
+    'type'?: TypeCommands;
     /**
      * A unique ID assigned to the process executing the command.
      * @type {string}

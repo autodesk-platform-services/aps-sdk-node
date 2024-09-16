@@ -1,6 +1,6 @@
 
 import { PublishWithoutLinksAttributes } from './publishWithoutLinksAttributes';
-import { Type } from './type';
+import { TypeCommands } from './typeCommands';
 
 /**
  * The ``data`` object returned by the PublishWithoutLinks command.
@@ -10,10 +10,10 @@ import { Type } from './type';
 export interface PublishWithoutLinks {
     /**
      * 
-     * @type {Type}
+     * @type {TypeCommands}
      * @memberof PublishWithoutLinks
      */
-    'type'?: Type;
+    'type'?: TypeCommands;
     /**
      * 
      * @type {PublishWithoutLinksAttributes}

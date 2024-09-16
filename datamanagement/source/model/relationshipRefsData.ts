@@ -1,6 +1,6 @@
 
 import { MetaRefs } from './metaRefs';
-import { Type } from './type';
+import { TypeEntity } from './typeEntity';
 
 /**
  * 
@@ -10,10 +10,10 @@ import { Type } from './type';
 export interface RelationshipRefsData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeEntity}
      * @memberof RelationshipRefsData
      */
-    'type'?: Type;
+    'type'?: TypeEntity;
     /**
      * The ID that uniquely identifies the resource.
      * @type {string}

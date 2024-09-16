@@ -1,5 +1,5 @@
 
-import { Type } from './type';
+import { TypeItem } from './typeItem';
 
 /**
  * 
@@ -9,10 +9,10 @@ import { Type } from './type';
 export interface ListItemsTestRelationshipsResourcesData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeItem}
      * @memberof ListItemsTestRelationshipsResourcesData
      */
-    'type'?: Type;
+    'type'?: TypeItem;
     /**
      * 
      * @type {string}

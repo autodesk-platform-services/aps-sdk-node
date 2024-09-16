@@ -1,5 +1,5 @@
 
-import { Type } from './type';
+import { TypeObject } from './typeObject';
 
 /**
  * The data about the location of binary data.
@@ -9,10 +9,10 @@ import { Type } from './type';
 export interface ItemPayloadIncludedRelationshipsStorageData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeObject}
      * @memberof ItemPayloadIncludedRelationshipsStorageData
      */
-    'type': Type;
+    'type': TypeObject;
     /**
      * The URN indicating the location of the binary data. This is represented by the ``objectId``  returned when [uploading the file](/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectKey-PUT/).
      * @type {string}

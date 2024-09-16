@@ -2,7 +2,7 @@
 import { CreatedVersionIncludedLinks } from './createdVersionIncludedLinks';
 import { CreatedVersionIncludedRelationships } from './createdVersionIncludedRelationships';
 import { ItemAttributes } from './itemAttributes';
-import { Type } from './type';
+import { TypeItem } from './typeItem';
 
 /**
  * 
@@ -12,10 +12,10 @@ import { Type } from './type';
 export interface CreatedVersionIncluded {
     /**
      * 
-     * @type {Type}
+     * @type {TypeItem}
      * @memberof CreatedVersionIncluded
      */
-    'type': Type;
+    'type': TypeItem;
     /**
      * The ID to uniquely identify the resource.
      * @type {string}

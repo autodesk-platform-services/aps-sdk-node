@@ -1,6 +1,6 @@
 
 import { CheckPermissionAttributesExtensionDataPermissionsDetails } from './checkPermissionAttributesExtensionDataPermissionsDetails';
-import { Type } from './type';
+import { TypeEntity } from './typeEntity';
 
 /**
  * 
@@ -10,10 +10,10 @@ import { Type } from './type';
 export interface CheckPermissionAttributesExtensionDataPermissions {
     /**
      * 
-     * @type {Type}
+     * @type {TypeEntity}
      * @memberof CheckPermissionAttributesExtensionDataPermissions
      */
-    'type'?: Type;
+    'type'?: TypeEntity;
     /**
      * The URN of the resource.
      * @type {string}

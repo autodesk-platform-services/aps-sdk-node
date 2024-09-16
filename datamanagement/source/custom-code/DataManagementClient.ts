@@ -12,19 +12,7 @@ import {
   ItemsApi,
   ProjectsApi,
   FoldersApi,
-  GetVersionRelationshipsRefsFilterTypeEnum,
-  GetItemRelationshipsRefsFilterTypeEnum,
-  GetVersionRefsFilterTypeEnum,
-  VersionsApi,
-  GetItemRefsFilterTypeEnum,
-  GetFolderRelationshipsRefsFilterRefTypeEnum,
-  GetFolderRelationshipsRefsFilterDirectionEnum,
-  GetItemRelationshipsRefsFilterRefTypeEnum,
-  GetItemRelationshipsRefsFilterDirectionEnum,
-  GetVersionRelationshipsRefsFilterRefTypeEnum,
-  GetFolderRefsFilterTypeEnum,
-  GetVersionRelationshipsRefsFilterDirectionEnum,
-  GetFolderRelationshipsRefsFilterTypeEnum
+  VersionsApi
 } from '../api';
 import {
   Command,
@@ -59,7 +47,6 @@ import {
   CreatedVersion,
   VersionPayload,
   Versions,
-  VersionDetails,
   CheckPermissionPayload,
   VersionNumber,
   JsonApiVersion,
@@ -73,7 +60,11 @@ import {
   PublishModelPayload,
   PublishModel,
   PublishWithoutLinksPayload,
-  PublishWithoutLinks
+  PublishWithoutLinks,
+  TypeFilter,
+  TypeRef,
+  MetarefsDirection,
+  Version
 } from '../model';
 
 export class DataManagementClient extends BaseClient {
@@ -187,7 +178,7 @@ export class DataManagementClient extends BaseClient {
     optionalArgs?: {
       accessToken?: string;
       xUserId?: string;
-      filterType?: Array<string>;
+      filterType?: Array<TypeFilter>;
       filterId?: Array<string>;
       filterExtensionType?: Array<string>;
       filterLastModifiedTimeRollup?: Array<string>;
@@ -255,7 +246,7 @@ export class DataManagementClient extends BaseClient {
     optionalArgs?: {
       accessToken?: string;
       xUserId?: string;
-      filterType?: Array<GetFolderRefsFilterTypeEnum>;
+      filterType?: Array<TypeFilter>;
       filterId?: Array<string>;
       filterExtensionType?: Array<string>;
       options?: ApsServiceRequestConfig;
@@ -315,10 +306,10 @@ export class DataManagementClient extends BaseClient {
     optionalArgs?: {
       accessToken?: string;
       xUserId?: string;
-      filterType?: Array<GetFolderRelationshipsRefsFilterTypeEnum>;
+      filterType?: Array<TypeFilter>;
       filterId?: Array<string>;
-      filterRefType?: GetFolderRelationshipsRefsFilterRefTypeEnum;
-      filterDirection?: GetFolderRelationshipsRefsFilterDirectionEnum;
+      filterRefType?: TypeRef;
+      filterDirection?: MetarefsDirection;
       filterExtensionType?: Array<string>;
       options?: ApsServiceRequestConfig;
     }
@@ -522,7 +513,7 @@ export class DataManagementClient extends BaseClient {
     optionalArgs?: {
       accessToken?: string;
       xUserId?: string;
-      filterType?: Array<GetItemRefsFilterTypeEnum>;
+      filterType?: Array<TypeFilter>;
       filterId?: Array<string>;
       filterExtensionType?: Array<string>;
       options?: ApsServiceRequestConfig;
@@ -582,10 +573,10 @@ export class DataManagementClient extends BaseClient {
     optionalArgs?: {
       accessToken?: string;
       xUserId?: string;
-      filterType?: Array<GetItemRelationshipsRefsFilterTypeEnum>;
+      filterType?: Array<TypeFilter>;
       filterId?: Array<string>;
-      filterRefType?: GetItemRelationshipsRefsFilterRefTypeEnum;
-      filterDirection?: GetItemRelationshipsRefsFilterDirectionEnum;
+      filterRefType?: TypeRef;
+      filterDirection?: MetarefsDirection;
       filterExtensionType?: Array<string>;
       options?: ApsServiceRequestConfig;
     }
@@ -835,7 +826,7 @@ export class DataManagementClient extends BaseClient {
       (optionalArgs ??= {}).accessToken =
         await this.authenticationProvider.getAccessToken();
     }
-    const response = await this.projectsApi.startDownload(
+    const response = await this.projectsApi.createDownload(
       optionalArgs?.accessToken,
       projectId,
       optionalArgs?.xUserId,
@@ -998,7 +989,7 @@ export class DataManagementClient extends BaseClient {
       xUserId?: string;
       options?: ApsServiceRequestConfig;
     }
-  ): Promise<VersionDetails> {
+  ): Promise<Version> {
     if (!optionalArgs?.accessToken && !this.authenticationProvider) {
       throw new Error(
         'Please provide a valid access token or an authentication provider'
@@ -1106,7 +1097,7 @@ export class DataManagementClient extends BaseClient {
     optionalArgs?: {
       accessToken?: string;
       xUserId?: string;
-      filterType?: Array<GetVersionRefsFilterTypeEnum>;
+      filterType?: Array<TypeFilter>;
       filterId?: Array<string>;
       filterExtensionType?: Array<string>;
       options?: ApsServiceRequestConfig;
@@ -1166,10 +1157,10 @@ export class DataManagementClient extends BaseClient {
     optionalArgs?: {
       accessToken?: string;
       xUserId?: string;
-      filterType?: Array<GetVersionRelationshipsRefsFilterTypeEnum>;
+      filterType?: Array<TypeFilter>;
       filterId?: Array<string>;
-      filterRefType?: GetVersionRelationshipsRefsFilterRefTypeEnum;
-      filterDirection?: GetVersionRelationshipsRefsFilterDirectionEnum;
+      filterRefType?: TypeRef;
+      filterDirection?: MetarefsDirection;
       filterExtensionType?: Array<string>;
       options?: ApsServiceRequestConfig;
     }
@@ -1202,7 +1193,7 @@ export class DataManagementClient extends BaseClient {
     versionId: string,
     modifyVersionPayload: ModifyVersionPayload,
     optionalArgs?: { accessToken?: string; options?: ApsServiceRequestConfig }
-  ): Promise<VersionDetails> {
+  ): Promise<Version> {
     if (!optionalArgs?.accessToken && !this.authenticationProvider) {
       throw new Error(
         'Please provide a valid access token or an authentication provider'

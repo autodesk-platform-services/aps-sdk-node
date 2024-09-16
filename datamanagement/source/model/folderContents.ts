@@ -24,10 +24,10 @@ export interface FolderContents {
     'links': FolderContentsLinks;
     /**
      * The properties of an item or folder, as the case may be.
-     * @type {Array<FolderContentsData>}
+     * @type {Set<FolderContentsData>}
      * @memberof FolderContents
      */
-    'data'?: Array<FolderContentsData>;
+    'data'?: Set<FolderContentsData>;
     /**
      * An array of objects, where each element represents a resource included within this resource.
      * @type {Array<VersionData>}

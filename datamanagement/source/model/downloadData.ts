@@ -2,7 +2,7 @@
 import { DownloadDataAttributes } from './downloadDataAttributes';
 import { DownloadDataRelationships } from './downloadDataRelationships';
 import { JsonApiLinksSelf } from './jsonApiLinksSelf';
-import { Type } from './type';
+import { TypeDownloads } from './typeDownloads';
 
 /**
  * A container of the details of the download object.
@@ -12,10 +12,10 @@ import { Type } from './type';
 export interface DownloadData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeDownloads}
      * @memberof DownloadData
      */
-    'type'?: Type;
+    'type'?: TypeDownloads;
     /**
      * An ID to uniquely identify this download. It is identical to the Job ID that was used to generate this download.
      * @type {string}

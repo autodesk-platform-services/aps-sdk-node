@@ -1,5 +1,5 @@
 
-import { Type } from './type';
+import { TypeVersion } from './typeVersion';
 
 /**
  * The data about the version to be created.
@@ -9,10 +9,10 @@ import { Type } from './type';
 export interface ItemPayloadDataRelationshipsTipData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeVersion}
      * @memberof ItemPayloadDataRelationshipsTipData
      */
-    'type': Type;
+    'type': TypeVersion;
     /**
      * An ID to uniquely identify the version.
      * @type {string}

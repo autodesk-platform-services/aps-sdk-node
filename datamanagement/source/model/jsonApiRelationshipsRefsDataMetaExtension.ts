@@ -1,6 +1,7 @@
 
+import { ItemIncludedRelationshipExtensionVersionNumber } from './itemIncludedRelationshipExtensionVersionNumber';
 import { JsonApiRelationshipsRefsDataMetaExtensionData } from './jsonApiRelationshipsRefsDataMetaExtensionData';
-import { Type } from './type';
+import { TypeCoreXref } from './typeCoreXref';
 
 /**
  * A container of additional properties that extends the default properties of this resource.
@@ -10,16 +11,16 @@ import { Type } from './type';
 export interface JsonApiRelationshipsRefsDataMetaExtension {
     /**
      * 
-     * @type {Type}
+     * @type {TypeCoreXref}
      * @memberof JsonApiRelationshipsRefsDataMetaExtension
      */
-    'type': Type;
+    'type': TypeCoreXref;
     /**
-     * The version of the type. The current version is ``1.1.0``. 
-     * @type {string}
+     * 
+     * @type {ItemIncludedRelationshipExtensionVersionNumber}
      * @memberof JsonApiRelationshipsRefsDataMetaExtension
      */
-    'version': string;
+    'version': ItemIncludedRelationshipExtensionVersionNumber;
     /**
      * 
      * @type {JsonApiRelationshipsRefsDataMetaExtensionData}

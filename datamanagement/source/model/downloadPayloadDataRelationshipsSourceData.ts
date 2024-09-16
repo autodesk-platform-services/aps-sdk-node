@@ -1,5 +1,5 @@
 
-import { Type } from './type';
+import { TypeVersion } from './typeVersion';
 
 /**
  * Contains information about the version the download format is being created for.
@@ -9,10 +9,10 @@ import { Type } from './type';
 export interface DownloadPayloadDataRelationshipsSourceData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeVersion}
      * @memberof DownloadPayloadDataRelationshipsSourceData
      */
-    'type': Type;
+    'type': TypeVersion;
     /**
      * The URN of the version the download is being created for.   **Note**: Must be the raw string, not the URL encoded string.
      * @type {string}

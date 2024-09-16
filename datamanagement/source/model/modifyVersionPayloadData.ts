@@ -1,6 +1,6 @@
 
 import { ModifyVersionPayloadDataAttributes } from './modifyVersionPayloadDataAttributes';
-import { Type } from './type';
+import { TypeVersion } from './typeVersion';
 
 /**
  * Contains the information to update
@@ -10,10 +10,10 @@ import { Type } from './type';
 export interface ModifyVersionPayloadData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeVersion}
      * @memberof ModifyVersionPayloadData
      */
-    'type': Type;
+    'type': TypeVersion;
     /**
      * The URN of the version. Must be the raw URN, and not the URL enocoded URN.
      * @type {string}

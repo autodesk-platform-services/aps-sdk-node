@@ -1,7 +1,7 @@
 
 import { CheckPermissionAttributesExtensionData } from './checkPermissionAttributesExtensionData';
 import { CheckPermissionAttributesExtensionSchema } from './checkPermissionAttributesExtensionSchema';
-import { Type } from './type';
+import { TypeCommandtypeCheckPermission } from './typeCommandtypeCheckPermission';
 
 /**
  * An object that contains properties  specific to the CheckPermissions command,   extending the default properties of a command.
@@ -11,10 +11,10 @@ import { Type } from './type';
 export interface CheckPermissionAttributesExtension {
     /**
      * 
-     * @type {Type}
+     * @type {TypeCommandtypeCheckPermission}
      * @memberof CheckPermissionAttributesExtension
      */
-    'type'?: Type;
+    'type'?: TypeCommandtypeCheckPermission;
     /**
      * The version of the schema. Must be ``1.0.0``  for the CheckPermission command. 
      * @type {string}

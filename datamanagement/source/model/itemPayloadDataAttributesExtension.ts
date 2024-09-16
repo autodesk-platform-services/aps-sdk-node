@@ -1,6 +1,6 @@
 
-import { Type } from './type';
-import { VersionNumber } from './versionNumber';
+import { ItemVersionNumber } from './itemVersionNumber';
+import { TypeItemExtension } from './typeItemExtension';
 
 /**
  * The Type ID of the schema that defines the structure of the ``extension.data`` object
@@ -10,16 +10,16 @@ import { VersionNumber } from './versionNumber';
 export interface ItemPayloadDataAttributesExtension {
     /**
      * 
-     * @type {Type}
+     * @type {TypeItemExtension}
      * @memberof ItemPayloadDataAttributesExtension
      */
-    'type'?: Type;
+    'type'?: TypeItemExtension;
     /**
      * 
-     * @type {VersionNumber}
+     * @type {ItemVersionNumber}
      * @memberof ItemPayloadDataAttributesExtension
      */
-    'version'?: VersionNumber;
+    'version'?: ItemVersionNumber;
     /**
      * The container of additional properties.  The additional properties must follow the schema specified by ``extensions.type`` and ``extensions.version``. Properties that don\'t follow the schema will be ignored. 
      * @type {{ [key: string]: object; }}

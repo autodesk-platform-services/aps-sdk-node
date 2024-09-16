@@ -1,5 +1,5 @@
 
-import { Type } from './type';
+import { TypeCommandtypePublishmodel } from './typeCommandtypePublishmodel';
 
 /**
  * An object that contains properties  specific to the PublishModel command,   extending the default properties of a command.
@@ -9,10 +9,10 @@ import { Type } from './type';
 export interface PublishModelPayloadAttributesExtension {
     /**
      * 
-     * @type {Type}
+     * @type {TypeCommandtypePublishmodel}
      * @memberof PublishModelPayloadAttributesExtension
      */
-    'type'?: Type;
+    'type'?: TypeCommandtypePublishmodel;
     /**
      * The version of the schema. Must be ``1.0.0``  for the PublishModel command. 
      * @type {string}

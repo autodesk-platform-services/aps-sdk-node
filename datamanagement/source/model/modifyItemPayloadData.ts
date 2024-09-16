@@ -1,6 +1,6 @@
 
 import { ModifyItemPayloadDataAttributes } from './modifyItemPayloadDataAttributes';
-import { Type } from './type';
+import { TypeItem } from './typeItem';
 
 /**
  * The data that describes what must be modified.
@@ -10,10 +10,10 @@ import { Type } from './type';
 export interface ModifyItemPayloadData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeItem}
      * @memberof ModifyItemPayloadData
      */
-    'type': Type;
+    'type': TypeItem;
     /**
      * The ID of the item to be patched.
      * @type {string}

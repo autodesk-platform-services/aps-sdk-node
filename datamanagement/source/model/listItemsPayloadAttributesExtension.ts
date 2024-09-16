@@ -1,6 +1,6 @@
 
 import { ListItemsPayloadAttributesExtensionData } from './listItemsPayloadAttributesExtensionData';
-import { Type } from './type';
+import { TypeCommandtypeListItems } from './typeCommandtypeListItems';
 
 /**
  * An object that contains properties  specific to the ListItems command,   extending the default properties of a command.
@@ -10,10 +10,10 @@ import { Type } from './type';
 export interface ListItemsPayloadAttributesExtension {
     /**
      * 
-     * @type {Type}
+     * @type {TypeCommandtypeListItems}
      * @memberof ListItemsPayloadAttributesExtension
      */
-    'type'?: Type;
+    'type'?: TypeCommandtypeListItems;
     /**
      * The version of the schema. Must be ``1.0.0``  for the ListItems command. 
      * @type {string}

@@ -1,6 +1,6 @@
 
 import { JsonApiLinksSelfAndWebView } from './jsonApiLinksSelfAndWebView';
-import { Type } from './type';
+import { TypeVersion } from './typeVersion';
 import { VersionAttributes } from './versionAttributes';
 
 /**
@@ -11,10 +11,10 @@ import { VersionAttributes } from './versionAttributes';
 export interface CreatedVersionData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeVersion}
      * @memberof CreatedVersionData
      */
-    'type'?: Type;
+    'type'?: TypeVersion;
     /**
      * The ID that uniquely identifies the version (Version ID). The Version ID is the URN of the version.
      * @type {string}

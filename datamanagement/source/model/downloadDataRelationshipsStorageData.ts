@@ -1,5 +1,5 @@
 
-import { Type } from './type';
+import { TypeObject } from './typeObject';
 
 /**
  * Contains information about the storage location of the download.
@@ -9,10 +9,10 @@ import { Type } from './type';
 export interface DownloadDataRelationshipsStorageData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeObject}
      * @memberof DownloadDataRelationshipsStorageData
      */
-    'type'?: Type;
+    'type'?: TypeObject;
     /**
      * The URN of the storage location.
      * @type {string}

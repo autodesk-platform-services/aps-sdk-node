@@ -1,7 +1,7 @@
 
 import { ListItemsPayloadAttributes } from './listItemsPayloadAttributes';
 import { ListItemsPayloadRelationships } from './listItemsPayloadRelationships';
-import { Type } from './type';
+import { TypeCommands } from './typeCommands';
 
 /**
  * An object that contains the input data required to execute the ListItems command.  The ListItems command retrieves metadata for up to 50 specified items. For example, an item name, or the date it was created. It also returns the tip (latest) version of the items.
@@ -11,10 +11,10 @@ import { Type } from './type';
 export interface ListItemsPayload {
     /**
      * 
-     * @type {Type}
+     * @type {TypeCommands}
      * @memberof ListItemsPayload
      */
-    'type'?: Type;
+    'type'?: TypeCommands;
     /**
      * 
      * @type {ListItemsPayloadAttributes}

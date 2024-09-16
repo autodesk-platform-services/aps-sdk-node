@@ -1,6 +1,6 @@
 
 import { DownloadFormatsDataAttributes } from './downloadFormatsDataAttributes';
-import { Type } from './type';
+import { TypeDownloadformats } from './typeDownloadformats';
 
 /**
  * Contains information about the file formats the version can be downloaded as.
@@ -10,10 +10,10 @@ import { Type } from './type';
 export interface DownloadFormatsData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeDownloadformats}
      * @memberof DownloadFormatsData
      */
-    'type'?: Type;
+    'type'?: TypeDownloadformats;
     /**
      * The URN of the version.
      * @type {string}

@@ -2,9 +2,11 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import {  RequestArgs, BaseApi, DataManagementApiError } from '../base';
+import { CollectionFormats, RequestArgs, BaseApi, RequiredError, DataManagementApiError } from '../base';
 import { Command } from '../model';
 import { CommandPayload } from '../model';
+import { GetHubs401Response } from '../model';
+import { GetHubs403Response } from '../model';
 /**
  * CommandsApi - axios parameter creator
  * @export
@@ -45,7 +47,7 @@ export const CommandsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
 
     
             localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};

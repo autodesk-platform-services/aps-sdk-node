@@ -1,7 +1,7 @@
 
 import { DownloadPayloadDataAttributes } from './downloadPayloadDataAttributes';
 import { DownloadPayloadDataRelationships } from './downloadPayloadDataRelationships';
-import { Type } from './type';
+import { TypeDownloads } from './typeDownloads';
 
 /**
  * Contains information about the desired download format and the version of the item to convert to this format.
@@ -11,10 +11,10 @@ import { Type } from './type';
 export interface DownloadPayloadData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeDownloads}
      * @memberof DownloadPayloadData
      */
-    'type': Type;
+    'type': TypeDownloads;
     /**
      * 
      * @type {DownloadPayloadDataAttributes}

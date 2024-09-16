@@ -1,6 +1,6 @@
 
 import { GetPublishModelJobAttributes } from './getPublishModelJobAttributes';
-import { Type } from './type';
+import { TypeCommands } from './typeCommands';
 
 /**
  * The ``data`` object returned by the GetPublishModelJob command, if the model needs publishing. If the model is already published, the ``data`` object will bed ``null``. 
@@ -10,10 +10,10 @@ import { Type } from './type';
 export interface GetPublishModelJob {
     /**
      * 
-     * @type {Type}
+     * @type {TypeCommands}
      * @memberof GetPublishModelJob
      */
-    'type'?: Type;
+    'type'?: TypeCommands;
     /**
      * A unique ID assigned to the process executing the command.
      * @type {string}

@@ -1,7 +1,7 @@
 
 import { ItemPayloadDataAttributes } from './itemPayloadDataAttributes';
 import { ItemPayloadDataRelationships } from './itemPayloadDataRelationships';
-import { Type } from './type';
+import { TypeItem } from './typeItem';
 
 /**
  * The data that describes the item to be created.
@@ -11,10 +11,10 @@ import { Type } from './type';
 export interface ItemPayloadData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeItem}
      * @memberof ItemPayloadData
      */
-    'type': Type;
+    'type': TypeItem;
     /**
      * 
      * @type {ItemPayloadDataAttributes}

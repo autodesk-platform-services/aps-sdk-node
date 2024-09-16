@@ -2,7 +2,7 @@
 import { FolderAttributesWithExtensions } from './folderAttributesWithExtensions';
 import { FolderDataRelationships } from './folderDataRelationships';
 import { JsonApiLinksSelfAndWebView } from './jsonApiLinksSelfAndWebView';
-import { Type } from './type';
+import { TypeFolder } from './typeFolder';
 
 /**
  * A container of data describing a folder.
@@ -12,10 +12,10 @@ import { Type } from './type';
 export interface FolderData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeFolder}
      * @memberof FolderData
      */
-    'type': Type;
+    'type': TypeFolder;
     /**
      * The unique identifier of the folder.
      * @type {string}

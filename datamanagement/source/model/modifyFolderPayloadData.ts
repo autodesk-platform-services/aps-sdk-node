@@ -1,7 +1,7 @@
 
 import { ModifyFolderPayloadDataAttributes } from './modifyFolderPayloadDataAttributes';
 import { ModifyFolderPayloadDataRelationships } from './modifyFolderPayloadDataRelationships';
-import { Type } from './type';
+import { TypeFolder } from './typeFolder';
 
 /**
  * The data that describes what must be modified.
@@ -11,10 +11,10 @@ import { Type } from './type';
 export interface ModifyFolderPayloadData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeFolder}
      * @memberof ModifyFolderPayloadData
      */
-    'type': Type;
+    'type': TypeFolder;
     /**
      * The URN of the folder.  For information on how to find the URN, see the initial steps of the [Download a File](/en/docs/data/v2/tutorials/download-file/) tutorial.  Note that this should NOT be URL-encoded.
      * @type {string}

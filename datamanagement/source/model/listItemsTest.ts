@@ -1,7 +1,7 @@
 
 import { ListItemsAttributes } from './listItemsAttributes';
 import { ListItemsTestRelationships } from './listItemsTestRelationships';
-import { Type } from './type';
+import { TypeCommands } from './typeCommands';
 
 /**
  * The ``data`` object returned by the ListItems command.
@@ -11,10 +11,10 @@ import { Type } from './type';
 export interface ListItemsTest {
     /**
      * 
-     * @type {Type}
+     * @type {TypeCommands}
      * @memberof ListItemsTest
      */
-    'type'?: Type;
+    'type'?: TypeCommands;
     /**
      * A unique ID assigned to the process executing the command.
      * @type {string}

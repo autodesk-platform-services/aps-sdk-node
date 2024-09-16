@@ -2,7 +2,7 @@
 import { JsonApiLinksSelfAndWebView } from './jsonApiLinksSelfAndWebView';
 import { ProjectDataAttributes } from './projectDataAttributes';
 import { ProjectDataRelationships } from './projectDataRelationships';
-import { Type } from './type';
+import { TypeProject } from './typeProject';
 
 /**
  * A container of data describing a project.
@@ -12,10 +12,10 @@ import { Type } from './type';
 export interface ProjectData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeProject}
      * @memberof ProjectData
      */
-    'type': Type;
+    'type': TypeProject;
     /**
      * The ID that uniquely identifies the project.
      * @type {string}

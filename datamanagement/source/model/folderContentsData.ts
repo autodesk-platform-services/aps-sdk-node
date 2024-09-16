@@ -4,12 +4,45 @@ import { ItemAttributes } from './itemAttributes';
 import { ItemData } from './itemData';
 import { ItemDataRelationships } from './itemDataRelationships';
 import { JsonApiLinksSelfAndWebView } from './jsonApiLinksSelfAndWebView';
-import { Type } from './type';
+import { TypeItem } from './typeItem';
 
 /**
- * @type FolderContentsData
+ * 
  * @export
+ * @interface FolderContentsData
  */
-export type FolderContentsData = FolderData | ItemData;
+export interface FolderContentsData {
+    /**
+     * 
+     * @type {TypeItem}
+     * @memberof FolderContentsData
+     */
+    'type': TypeItem;
+    /**
+     * The unique identifier of the item.
+     * @type {string}
+     * @memberof FolderContentsData
+     */
+    'id': string;
+    /**
+     * 
+     * @type {ItemAttributes}
+     * @memberof FolderContentsData
+     */
+    'attributes': ItemAttributes;
+    /**
+     * 
+     * @type {JsonApiLinksSelfAndWebView}
+     * @memberof FolderContentsData
+     */
+    'links': JsonApiLinksSelfAndWebView;
+    /**
+     * 
+     * @type {ItemDataRelationships}
+     * @memberof FolderContentsData
+     */
+    'relationships': ItemDataRelationships;
+}
+
 
 

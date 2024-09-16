@@ -1,5 +1,5 @@
 
-import { Type } from './type';
+import { TypeCommandtypePublishWithoutLinks } from './typeCommandtypePublishWithoutLinks';
 
 /**
  * An object that contains properties  specific to the PublishWithoutLinks command,   extending the default properties of a command.
@@ -9,10 +9,10 @@ import { Type } from './type';
 export interface PublishWithoutLinksAttributesExtension {
     /**
      * 
-     * @type {Type}
+     * @type {TypeCommandtypePublishWithoutLinks}
      * @memberof PublishWithoutLinksAttributesExtension
      */
-    'type'?: Type;
+    'type'?: TypeCommandtypePublishWithoutLinks;
     /**
      * The version of the schema. Always ``1.0.0``  for the PublishModel command. 
      * @type {string}

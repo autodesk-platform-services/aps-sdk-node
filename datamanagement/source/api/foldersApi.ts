@@ -2,16 +2,21 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { RequestArgs, BaseApi, DataManagementApiError } from '../base';
+import { CollectionFormats, RequestArgs, BaseApi, RequiredError, DataManagementApiError } from '../base';
 import { Folder } from '../model';
 import { FolderContents } from '../model';
 import { FolderPayload } from '../model';
 import { FolderRefs } from '../model';
+import { GetHubs401Response } from '../model';
+import { GetHubs403Response } from '../model';
+import { MetarefsDirection } from '../model';
 import { ModifyFolderPayload } from '../model';
 import { RelationshipLinks } from '../model';
 import { RelationshipRefs } from '../model';
 import { RelationshipRefsPayload } from '../model';
 import { Search } from '../model';
+import { TypeFilter } from '../model';
+import { TypeRef } from '../model';
 /**
  * FoldersApi - axios parameter creator
  * @export
@@ -52,7 +57,7 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
     
             localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -101,7 +106,7 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
     
             localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -155,7 +160,7 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -171,7 +176,7 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
          * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} folderId The unique identifier of a folder.
          * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-         * @param {Array<string>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
+         * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
          * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
          * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param {Array<string>} [filterLastModifiedTimeRollup] Filter by the &#x60;&#x60;lastModifiedTimeRollup&#x60;&#x60; attribute. Supported values are date-time string in the form &#x60;&#x60;YYYY-MM-DDTHH:MM:SS.000000Z&#x60;&#x60; or &#x60;&#x60;YYYY-MM-DDTHH:MM:SS&#x60;&#x60; based on RFC3339.
@@ -182,7 +187,7 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFolderContents: async (accessToken: string, projectId: string, folderId: string, xUserId?: string, filterType?: Array<string>, filterId?: Array<string>, filterExtensionType?: Array<string>, filterLastModifiedTimeRollup?: Array<string>, pageNumber?: number, pageLimit?: number, includeHidden?: boolean,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        getFolderContents: async (accessToken: string, projectId: string, folderId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterExtensionType?: Array<string>, filterLastModifiedTimeRollup?: Array<string>, pageNumber?: number, pageLimit?: number, includeHidden?: boolean,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getFolderContents', 'projectId', projectId)
             // verify required parameter 'folderId' is not null or undefined
@@ -236,7 +241,7 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -282,7 +287,7 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -298,14 +303,14 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
          * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} folderId The unique identifier of a folder.
          * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-         * @param {Array<GetFolderRefsFilterTypeEnum>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+         * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
          * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
          * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFolderRefs: async (accessToken: string, projectId: string, folderId: string, xUserId?: string, filterType?: Array<GetFolderRefsFilterTypeEnum>, filterId?: Array<string>, filterExtensionType?: Array<string>,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        getFolderRefs: async (accessToken: string, projectId: string, folderId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterExtensionType?: Array<string>,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getFolderRefs', 'projectId', projectId)
             // verify required parameter 'folderId' is not null or undefined
@@ -343,7 +348,7 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -389,7 +394,7 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -405,16 +410,16 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
          * @param {string} folderId The unique identifier of a folder.
          * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-         * @param {Array<GetFolderRelationshipsRefsFilterTypeEnum>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+         * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
          * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
-         * @param {GetFolderRelationshipsRefsFilterRefTypeEnum} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
-         * @param {GetFolderRelationshipsRefsFilterDirectionEnum} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
+         * @param {TypeRef} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
+         * @param {MetarefsDirection} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
          * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFolderRelationshipsRefs: async (accessToken: string, folderId: string, projectId: string, xUserId?: string, filterType?: Array<GetFolderRelationshipsRefsFilterTypeEnum>, filterId?: Array<string>, filterRefType?: GetFolderRelationshipsRefsFilterRefTypeEnum, filterDirection?: GetFolderRelationshipsRefsFilterDirectionEnum, filterExtensionType?: Array<string>,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        getFolderRelationshipsRefs: async (accessToken: string, folderId: string, projectId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterRefType?: TypeRef, filterDirection?: MetarefsDirection, filterExtensionType?: Array<string>,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'folderId' is not null or undefined
             assertParamExists('getFolderRelationshipsRefs', 'folderId', folderId)
             // verify required parameter 'projectId' is not null or undefined
@@ -460,7 +465,7 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -511,7 +516,7 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -559,7 +564,7 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
     
             localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -627,7 +632,7 @@ export const FoldersApiFp = function(sdkManager?: SdkManager) {
          * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} folderId The unique identifier of a folder.
          * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-         * @param {Array<string>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
+         * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
          * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
          * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param {Array<string>} [filterLastModifiedTimeRollup] Filter by the &#x60;&#x60;lastModifiedTimeRollup&#x60;&#x60; attribute. Supported values are date-time string in the form &#x60;&#x60;YYYY-MM-DDTHH:MM:SS.000000Z&#x60;&#x60; or &#x60;&#x60;YYYY-MM-DDTHH:MM:SS&#x60;&#x60; based on RFC3339.
@@ -637,7 +642,7 @@ export const FoldersApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFolderContents(accessToken: string, projectId: string, folderId: string, xUserId?: string, filterType?: Array<string>, filterId?: Array<string>, filterExtensionType?: Array<string>, filterLastModifiedTimeRollup?: Array<string>, pageNumber?: number, pageLimit?: number, includeHidden?: boolean, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FolderContents>> {
+        async getFolderContents(accessToken: string, projectId: string, folderId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterExtensionType?: Array<string>, filterLastModifiedTimeRollup?: Array<string>, pageNumber?: number, pageLimit?: number, includeHidden?: boolean, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FolderContents>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getFolderContents(accessToken, projectId, folderId, xUserId, filterType, filterId, filterExtensionType, filterLastModifiedTimeRollup, pageNumber, pageLimit, includeHidden,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -660,13 +665,13 @@ export const FoldersApiFp = function(sdkManager?: SdkManager) {
          * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} folderId The unique identifier of a folder.
          * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-         * @param {Array<GetFolderRefsFilterTypeEnum>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+         * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
          * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
          * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFolderRefs(accessToken: string, projectId: string, folderId: string, xUserId?: string, filterType?: Array<GetFolderRefsFilterTypeEnum>, filterId?: Array<string>, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FolderRefs>> {
+        async getFolderRefs(accessToken: string, projectId: string, folderId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FolderRefs>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getFolderRefs(accessToken, projectId, folderId, xUserId, filterType, filterId, filterExtensionType,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -689,15 +694,15 @@ export const FoldersApiFp = function(sdkManager?: SdkManager) {
          * @param {string} folderId The unique identifier of a folder.
          * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-         * @param {Array<GetFolderRelationshipsRefsFilterTypeEnum>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+         * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
          * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
-         * @param {GetFolderRelationshipsRefsFilterRefTypeEnum} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
-         * @param {GetFolderRelationshipsRefsFilterDirectionEnum} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
+         * @param {TypeRef} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
+         * @param {MetarefsDirection} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
          * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFolderRelationshipsRefs(accessToken: string, folderId: string, projectId: string, xUserId?: string, filterType?: Array<GetFolderRelationshipsRefsFilterTypeEnum>, filterId?: Array<string>, filterRefType?: GetFolderRelationshipsRefsFilterRefTypeEnum, filterDirection?: GetFolderRelationshipsRefsFilterDirectionEnum, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RelationshipRefs>> {
+        async getFolderRelationshipsRefs(accessToken: string, folderId: string, projectId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterRefType?: TypeRef, filterDirection?: MetarefsDirection, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RelationshipRefs>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getFolderRelationshipsRefs(accessToken, folderId, projectId, xUserId, filterType, filterId, filterRefType, filterDirection, filterExtensionType,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -785,7 +790,7 @@ export interface FoldersApiInterface {
      * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} folderId The unique identifier of a folder.
      * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-     * @param {Array<string>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
+     * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
      * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
      * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param {Array<string>} [filterLastModifiedTimeRollup] Filter by the &#x60;&#x60;lastModifiedTimeRollup&#x60;&#x60; attribute. Supported values are date-time string in the form &#x60;&#x60;YYYY-MM-DDTHH:MM:SS.000000Z&#x60;&#x60; or &#x60;&#x60;YYYY-MM-DDTHH:MM:SS&#x60;&#x60; based on RFC3339.
@@ -797,7 +802,7 @@ export interface FoldersApiInterface {
      * @throws {RequiredError}
      * @memberof FoldersApiInterface
      */
-    getFolderContents(accessToken: string,projectId: string, folderId: string, xUserId?: string, filterType?: Array<string>, filterId?: Array<string>, filterExtensionType?: Array<string>, filterLastModifiedTimeRollup?: Array<string>, pageNumber?: number, pageLimit?: number, includeHidden?: boolean,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getFolderContents(accessToken: string,projectId: string, folderId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterExtensionType?: Array<string>, filterLastModifiedTimeRollup?: Array<string>, pageNumber?: number, pageLimit?: number, includeHidden?: boolean,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Returns the parent folder of the specified folder. In a project, folders are organized in a hierarchy. Each folder except for the root folder has a parent folder.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
@@ -818,7 +823,7 @@ export interface FoldersApiInterface {
      * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} folderId The unique identifier of a folder.
      * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-     * @param {Array<GetFolderRefsFilterTypeEnum>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+     * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
      * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
      * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param accessToken bearer access token
@@ -826,7 +831,7 @@ export interface FoldersApiInterface {
      * @throws {RequiredError}
      * @memberof FoldersApiInterface
      */
-    getFolderRefs(accessToken: string,projectId: string, folderId: string, xUserId?: string, filterType?: Array<GetFolderRefsFilterTypeEnum>, filterId?: Array<string>, filterExtensionType?: Array<string>,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getFolderRefs(accessToken: string,projectId: string, folderId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterExtensionType?: Array<string>,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Returns a list of links for the specified folder.   Custom relationships can be established between a folder and other external resources residing outside the data domain service. A link’s ``href`` attribute defines the target URI to access a resource.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
@@ -847,17 +852,17 @@ export interface FoldersApiInterface {
      * @param {string} folderId The unique identifier of a folder.
      * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-     * @param {Array<GetFolderRelationshipsRefsFilterTypeEnum>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+     * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
      * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
-     * @param {GetFolderRelationshipsRefsFilterRefTypeEnum} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
-     * @param {GetFolderRelationshipsRefsFilterDirectionEnum} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
+     * @param {TypeRef} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
+     * @param {MetarefsDirection} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
      * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FoldersApiInterface
      */
-    getFolderRelationshipsRefs(accessToken: string,folderId: string, projectId: string, xUserId?: string, filterType?: Array<GetFolderRelationshipsRefsFilterTypeEnum>, filterId?: Array<string>, filterRefType?: GetFolderRelationshipsRefsFilterRefTypeEnum, filterDirection?: GetFolderRelationshipsRefsFilterDirectionEnum, filterExtensionType?: Array<string>,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getFolderRelationshipsRefs(accessToken: string,folderId: string, projectId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterRefType?: TypeRef, filterDirection?: MetarefsDirection, filterExtensionType?: Array<string>,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Searches the specified folder and its subfolders and returns a list of the latest versions of the items you can access.   Use the ``filter`` query string parameter to narrow down the list as appropriate. You can filter by the following properties of the version payload:   - ``type`` property,  - ``id`` property,  - any of the attributes object properties.   For example, you can filter by ``createTime`` and ``mimeType``. It returns tip versions (latest versions) of properties where the filter conditions are satisfied. To verify the properties of the attributes object for a specific version, use the [Get a Version](/en/docs/data/v2/reference/http/projects-project_id-versions-version_id-GET/) operation.  To list the immediate contents of the folder without parsing subfolders, use the [List Folder Contents](/en/docs/data/v2/reference/http/projects-project_id-folders-folder_id-contents-GET/) operation.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
@@ -1001,7 +1006,7 @@ export class FoldersApi extends BaseApi implements FoldersApiInterface {
      * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} folderId The unique identifier of a folder.
      * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-     * @param {Array<string>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
+     * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
      * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
      * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param {Array<string>} [filterLastModifiedTimeRollup] Filter by the &#x60;&#x60;lastModifiedTimeRollup&#x60;&#x60; attribute. Supported values are date-time string in the form &#x60;&#x60;YYYY-MM-DDTHH:MM:SS.000000Z&#x60;&#x60; or &#x60;&#x60;YYYY-MM-DDTHH:MM:SS&#x60;&#x60; based on RFC3339.
@@ -1013,7 +1018,7 @@ export class FoldersApi extends BaseApi implements FoldersApiInterface {
      * @throws {RequiredError}
      * @memberof FoldersApi
      */
-    public async getFolderContents(accessToken: string, projectId: string, folderId: string, xUserId?: string, filterType?: Array<string>, filterId?: Array<string>, filterExtensionType?: Array<string>, filterLastModifiedTimeRollup?: Array<string>, pageNumber?: number, pageLimit?: number, includeHidden?: boolean, options?: ApsServiceRequestConfig) {
+    public async getFolderContents(accessToken: string, projectId: string, folderId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterExtensionType?: Array<string>, filterLastModifiedTimeRollup?: Array<string>, pageNumber?: number, pageLimit?: number, includeHidden?: boolean, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into getFolderContents ");
       try {
         const request =  await FoldersApiFp(this.sdkManager).getFolderContents(accessToken, projectId, folderId, xUserId, filterType, filterId, filterExtensionType, filterLastModifiedTimeRollup, pageNumber, pageLimit, includeHidden,  options);
@@ -1072,7 +1077,7 @@ export class FoldersApi extends BaseApi implements FoldersApiInterface {
      * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} folderId The unique identifier of a folder.
      * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-     * @param {Array<GetFolderRefsFilterTypeEnum>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+     * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
      * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
      * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param accessToken bearer access token
@@ -1080,7 +1085,7 @@ export class FoldersApi extends BaseApi implements FoldersApiInterface {
      * @throws {RequiredError}
      * @memberof FoldersApi
      */
-    public async getFolderRefs(accessToken: string, projectId: string, folderId: string, xUserId?: string, filterType?: Array<GetFolderRefsFilterTypeEnum>, filterId?: Array<string>, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig) {
+    public async getFolderRefs(accessToken: string, projectId: string, folderId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into getFolderRefs ");
       try {
         const request =  await FoldersApiFp(this.sdkManager).getFolderRefs(accessToken, projectId, folderId, xUserId, filterType, filterId, filterExtensionType,  options);
@@ -1139,17 +1144,17 @@ export class FoldersApi extends BaseApi implements FoldersApiInterface {
      * @param {string} folderId The unique identifier of a folder.
      * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-     * @param {Array<GetFolderRelationshipsRefsFilterTypeEnum>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+     * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
      * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
-     * @param {GetFolderRelationshipsRefsFilterRefTypeEnum} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
-     * @param {GetFolderRelationshipsRefsFilterDirectionEnum} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
+     * @param {TypeRef} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
+     * @param {MetarefsDirection} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
      * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FoldersApi
      */
-    public async getFolderRelationshipsRefs(accessToken: string, folderId: string, projectId: string, xUserId?: string, filterType?: Array<GetFolderRelationshipsRefsFilterTypeEnum>, filterId?: Array<string>, filterRefType?: GetFolderRelationshipsRefsFilterRefTypeEnum, filterDirection?: GetFolderRelationshipsRefsFilterDirectionEnum, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig) {
+    public async getFolderRelationshipsRefs(accessToken: string, folderId: string, projectId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterRefType?: TypeRef, filterDirection?: MetarefsDirection, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into getFolderRelationshipsRefs ");
       try {
         const request =  await FoldersApiFp(this.sdkManager).getFolderRelationshipsRefs(accessToken, folderId, projectId, xUserId, filterType, filterId, filterRefType, filterDirection, filterExtensionType,  options);
@@ -1237,40 +1242,3 @@ export class FoldersApi extends BaseApi implements FoldersApiInterface {
     }
 }
 
-/**
- * @export
- */
-export const GetFolderRefsFilterTypeEnum = {
-    Folders: 'folders',
-    Items: 'items',
-    Versions: 'versions'
-} as const;
-export type GetFolderRefsFilterTypeEnum = typeof GetFolderRefsFilterTypeEnum[keyof typeof GetFolderRefsFilterTypeEnum];
-/**
- * @export
- */
-export const GetFolderRelationshipsRefsFilterTypeEnum = {
-    Folders: 'folders',
-    Items: 'items',
-    Versions: 'versions'
-} as const;
-export type GetFolderRelationshipsRefsFilterTypeEnum = typeof GetFolderRelationshipsRefsFilterTypeEnum[keyof typeof GetFolderRelationshipsRefsFilterTypeEnum];
-/**
- * @export
- */
-export const GetFolderRelationshipsRefsFilterRefTypeEnum = {
-    Derived: 'derived',
-    Dependencies: 'dependencies',
-    Auxiliary: 'auxiliary',
-    Xrefs: 'xrefs',
-    Includes: 'includes'
-} as const;
-export type GetFolderRelationshipsRefsFilterRefTypeEnum = typeof GetFolderRelationshipsRefsFilterRefTypeEnum[keyof typeof GetFolderRelationshipsRefsFilterRefTypeEnum];
-/**
- * @export
- */
-export const GetFolderRelationshipsRefsFilterDirectionEnum = {
-    From: 'from',
-    To: 'to'
-} as const;
-export type GetFolderRelationshipsRefsFilterDirectionEnum = typeof GetFolderRelationshipsRefsFilterDirectionEnum[keyof typeof GetFolderRelationshipsRefsFilterDirectionEnum];

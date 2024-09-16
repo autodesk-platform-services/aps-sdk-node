@@ -1,5 +1,5 @@
 
-import { Type } from './type';
+import { TypeFolder } from './typeFolder';
 
 /**
  * Contains information about the folder containing the item or version the storage location is reserved for.
@@ -9,10 +9,10 @@ import { Type } from './type';
 export interface StorageDataRelationshipsTargetData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeFolder}
      * @memberof StorageDataRelationshipsTargetData
      */
-    'type'?: Type;
+    'type'?: TypeFolder;
     /**
      * The ID to uniquely identify the resource.
      * @type {string}

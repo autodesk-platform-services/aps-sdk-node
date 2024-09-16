@@ -1,5 +1,5 @@
 
-import { Type } from './type';
+import { TypeVersion } from './typeVersion';
 import { VersionPayloadDataAttributes } from './versionPayloadDataAttributes';
 import { VersionPayloadDataRelationships } from './versionPayloadDataRelationships';
 
@@ -11,10 +11,10 @@ import { VersionPayloadDataRelationships } from './versionPayloadDataRelationshi
 export interface VersionPayloadData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeVersion}
      * @memberof VersionPayloadData
      */
-    'type': Type;
+    'type': TypeVersion;
     /**
      * 
      * @type {VersionPayloadDataAttributes}

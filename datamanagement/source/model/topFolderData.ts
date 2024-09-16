@@ -2,7 +2,7 @@
 import { JsonApiLinksSelfAndWebView } from './jsonApiLinksSelfAndWebView';
 import { TopFolderAttributesWithExtensions } from './topFolderAttributesWithExtensions';
 import { TopFolderDataRelationships } from './topFolderDataRelationships';
-import { Type } from './type';
+import { TypeFolder } from './typeFolder';
 
 /**
  * An object containing information about a top-level folder.
@@ -12,10 +12,10 @@ import { Type } from './type';
 export interface TopFolderData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeFolder}
      * @memberof TopFolderData
      */
-    'type': Type;
+    'type': TypeFolder;
     /**
      * The unique identifier of the folder.
      * @type {string}

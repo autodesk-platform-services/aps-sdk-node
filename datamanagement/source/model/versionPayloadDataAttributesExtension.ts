@@ -1,6 +1,4 @@
 
-import { Type } from './type';
-import { VersionNumber } from './versionNumber';
 
 /**
  * A container of additional properties that extends the default properties of the version to be created.
@@ -9,17 +7,17 @@ import { VersionNumber } from './versionNumber';
  */
 export interface VersionPayloadDataAttributesExtension {
     /**
-     * 
-     * @type {Type}
+     * The Type ID of the schema that defines the structure of the ``extension.data`` object.
+     * @type {string}
      * @memberof VersionPayloadDataAttributesExtension
      */
-    'type': Type;
+    'type': string;
     /**
-     * 
-     * @type {VersionNumber}
+     * The version of the schema that applies to the ``extension.data`` object.
+     * @type {string}
      * @memberof VersionPayloadDataAttributesExtension
      */
-    'version': VersionNumber;
+    'version': string;
     /**
      * The container of additional properties.  The additional properties must follow the schema specified by ``extensions.type`` and ``extensions.version``. Properties that don\'t follow the schema will be ignored. 
      * @type {object}
@@ -27,6 +25,4 @@ export interface VersionPayloadDataAttributesExtension {
      */
     'data'?: object;
 }
-
-
 

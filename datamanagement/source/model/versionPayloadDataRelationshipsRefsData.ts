@@ -1,5 +1,5 @@
 
-import { Type } from './type';
+import { TypeVersion } from './typeVersion';
 import { VersionPayloadDataRelationshipsRefsDataMeta } from './versionPayloadDataRelationshipsRefsDataMeta';
 
 /**
@@ -10,10 +10,10 @@ import { VersionPayloadDataRelationshipsRefsDataMeta } from './versionPayloadDat
 export interface VersionPayloadDataRelationshipsRefsData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeVersion}
      * @memberof VersionPayloadDataRelationshipsRefsData
      */
-    'type': Type;
+    'type': TypeVersion;
     /**
      * The URN (Version ID) of the referenced version.
      * @type {string}

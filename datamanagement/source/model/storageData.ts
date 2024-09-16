@@ -1,6 +1,6 @@
 
 import { StorageDataRelationships } from './storageDataRelationships';
-import { Type } from './type';
+import { TypeObject } from './typeObject';
 
 /**
  * An object containing information on the storage location.
@@ -10,10 +10,10 @@ import { Type } from './type';
 export interface StorageData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeObject}
      * @memberof StorageData
      */
-    'type'?: Type;
+    'type'?: TypeObject;
     /**
      * The ID to uniquely identify the storage location.
      * @type {string}

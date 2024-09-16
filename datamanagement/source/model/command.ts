@@ -3,7 +3,7 @@ import { CommandData } from './commandData';
 import { JsonApiVersion } from './jsonApiVersion';
 
 /**
- * The request body\'s ``data`` object defines the command to execute and contains any required input data.
+ * Command Payload
  * @export
  * @interface Command
  */

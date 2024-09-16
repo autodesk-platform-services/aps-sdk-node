@@ -1,5 +1,5 @@
 
-import { Type } from './type';
+import { TypeFolderItemsForStorage } from './typeFolderItemsForStorage';
 
 /**
  * Contains information about the resources related to the item or version the storage location will contain.
@@ -9,10 +9,10 @@ import { Type } from './type';
 export interface StoragePayloadDataRelationshipsTargetData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeFolderItemsForStorage}
      * @memberof StoragePayloadDataRelationshipsTargetData
      */
-    'type': Type;
+    'type': TypeFolderItemsForStorage;
     /**
      * The ID to uniquely identify the resource.
      * @type {string}

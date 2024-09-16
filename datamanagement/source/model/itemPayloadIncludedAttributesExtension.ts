@@ -1,6 +1,6 @@
 
-import { Type } from './type';
-import { VersionNumber } from './versionNumber';
+import { ItemIncludedVersionNumber } from './itemIncludedVersionNumber';
+import { TypeItemIncludedExtension } from './typeItemIncludedExtension';
 
 /**
  * A container of additional properties that extends the default properties of this resource.
@@ -10,16 +10,16 @@ import { VersionNumber } from './versionNumber';
 export interface ItemPayloadIncludedAttributesExtension {
     /**
      * 
-     * @type {Type}
+     * @type {TypeItemIncludedExtension}
      * @memberof ItemPayloadIncludedAttributesExtension
      */
-    'type'?: Type;
+    'type'?: TypeItemIncludedExtension;
     /**
      * 
-     * @type {VersionNumber}
+     * @type {ItemIncludedVersionNumber}
      * @memberof ItemPayloadIncludedAttributesExtension
      */
-    'version'?: VersionNumber;
+    'version'?: ItemIncludedVersionNumber;
     /**
      * The container of the additional properties.  The additional properties must follow the schema specified by ``extensions.type`` and ``extensions.version``. Properties that don\'t follow the schema will be ignored.
      * @type {{ [key: string]: object; }}

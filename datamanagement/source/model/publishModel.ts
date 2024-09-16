@@ -1,6 +1,6 @@
 
 import { PublishModelAttributes } from './publishModelAttributes';
-import { Type } from './type';
+import { TypeCommands } from './typeCommands';
 
 /**
  * The ``data`` object returned by the PublishModel command.
@@ -10,10 +10,10 @@ import { Type } from './type';
 export interface PublishModel {
     /**
      * 
-     * @type {Type}
+     * @type {TypeCommands}
      * @memberof PublishModel
      */
-    'type'?: Type;
+    'type'?: TypeCommands;
     /**
      * 
      * @type {PublishModelAttributes}

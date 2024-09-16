@@ -3,7 +3,7 @@ import { HubDataAttributes } from './hubDataAttributes';
 import { HubDataRelationships } from './hubDataRelationships';
 import { JsonApiLinksSelf } from './jsonApiLinksSelf';
 import { Region } from './region';
-import { Type } from './type';
+import { TypeHub } from './typeHub';
 
 /**
  * The object containing information about the hub.
@@ -13,10 +13,10 @@ import { Type } from './type';
 export interface HubData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeHub}
      * @memberof HubData
      */
-    'type'?: Type;
+    'type'?: TypeHub;
     /**
      * The hub ID, which uniquely identifies the hub.
      * @type {string}

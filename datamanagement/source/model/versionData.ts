@@ -1,6 +1,6 @@
 
 import { JsonApiLinksSelfAndWebView } from './jsonApiLinksSelfAndWebView';
-import { Type } from './type';
+import { TypeVersion } from './typeVersion';
 import { VersionAttributes } from './versionAttributes';
 import { VersionDataRelationships } from './versionDataRelationships';
 
@@ -12,10 +12,10 @@ import { VersionDataRelationships } from './versionDataRelationships';
 export interface VersionData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeVersion}
      * @memberof VersionData
      */
-    'type': Type;
+    'type': TypeVersion;
     /**
      * URN of the version object.
      * @type {string}

@@ -1,5 +1,5 @@
 
-import { Type } from './type';
+import { TypeObject } from './typeObject';
 
 /**
  * A container of data on the storage location.
@@ -9,10 +9,10 @@ import { Type } from './type';
 export interface VersionPayloadDataRelationshipsStorageData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeObject}
      * @memberof VersionPayloadDataRelationshipsStorageData
      */
-    'type': Type;
+    'type': TypeObject;
     /**
      * The ID that uniquely identifies the storage location.
      * @type {string}

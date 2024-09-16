@@ -1,7 +1,7 @@
 
 import { GetPublishModelJobPayloadAttributes } from './getPublishModelJobPayloadAttributes';
 import { GetPublishModelJobPayloadRelationships } from './getPublishModelJobPayloadRelationships';
-import { Type } from './type';
+import { TypeCommands } from './typeCommands';
 
 /**
  * An object that contains the input data required to execute the GetPublishModelJob command.  The ListRefs verifies whether a Collaboration for Revit (C4R) model needs to be published to BIM 360 Docs. For more information, see the [GetPublishModelJob topic in the overview section](/en/docs/data/v2/developers_guide/commands/getpublishmodeljob).
@@ -11,10 +11,10 @@ import { Type } from './type';
 export interface GetPublishModelJobPayload {
     /**
      * 
-     * @type {Type}
+     * @type {TypeCommands}
      * @memberof GetPublishModelJobPayload
      */
-    'type'?: Type;
+    'type'?: TypeCommands;
     /**
      * A unique ID assigned to the process executing the command.
      * @type {string}

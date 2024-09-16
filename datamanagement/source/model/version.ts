@@ -6,25 +6,25 @@ import { VersionData } from './versionData';
 /**
  * An object that represdents a version.
  * @export
- * @interface VersionDetails
+ * @interface Version
  */
-export interface VersionDetails {
+export interface Version {
     /**
      * 
      * @type {JsonApiVersion}
-     * @memberof VersionDetails
+     * @memberof Version
      */
     'jsonapi'?: JsonApiVersion;
     /**
      * 
      * @type {JsonApiLinksSelf}
-     * @memberof VersionDetails
+     * @memberof Version
      */
     'links'?: JsonApiLinksSelf;
     /**
      * 
      * @type {VersionData}
-     * @memberof VersionDetails
+     * @memberof Version
      */
     'data'?: VersionData;
 }

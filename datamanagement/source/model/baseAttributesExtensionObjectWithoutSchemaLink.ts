@@ -1,5 +1,5 @@
 
-import { Type } from './type';
+import { TypeAttributeExtension } from './typeAttributeExtension';
 import { VersionNumber } from './versionNumber';
 
 /**
@@ -10,10 +10,10 @@ import { VersionNumber } from './versionNumber';
 export interface BaseAttributesExtensionObjectWithoutSchemaLink {
     /**
      * 
-     * @type {Type}
+     * @type {TypeAttributeExtension}
      * @memberof BaseAttributesExtensionObjectWithoutSchemaLink
      */
-    'type': Type;
+    'type': TypeAttributeExtension;
     /**
      * 
      * @type {VersionNumber}

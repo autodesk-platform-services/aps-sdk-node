@@ -2,7 +2,7 @@
 import { ListRefsAttributes } from './listRefsAttributes';
 import { ListRefsIncluded } from './listRefsIncluded';
 import { ListRefsRelationships } from './listRefsRelationships';
-import { Type } from './type';
+import { TypeCommands } from './typeCommands';
 
 /**
  * The ``data`` object returned by the ListRefs command.
@@ -12,10 +12,10 @@ import { Type } from './type';
 export interface ListRefs {
     /**
      * 
-     * @type {Type}
+     * @type {TypeCommands}
      * @memberof ListRefs
      */
-    'type'?: Type;
+    'type'?: TypeCommands;
     /**
      * A unique ID assigned to the process executing the command.
      * @type {string}

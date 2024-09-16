@@ -1,5 +1,5 @@
 
-import { Type } from './type';
+import { TypeFolder } from './typeFolder';
 
 /**
  * A container for the data that defines the parent of this folder.
@@ -9,10 +9,10 @@ import { Type } from './type';
 export interface ModifyFolderPayloadDataRelationshipsParentData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeFolder}
      * @memberof ModifyFolderPayloadDataRelationshipsParentData
      */
-    'type': Type;
+    'type': TypeFolder;
     /**
      * The URN of the parent folder to which you want to move a folder to.
      * @type {string}

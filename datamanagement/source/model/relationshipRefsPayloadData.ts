@@ -1,6 +1,6 @@
 
 import { RelationshipRefsPayloadDataMeta } from './relationshipRefsPayloadDataMeta';
-import { Type } from './type';
+import { TypeEntity } from './typeEntity';
 
 /**
  * A container for the data that describes the custom relationship.
@@ -10,10 +10,10 @@ import { Type } from './type';
 export interface RelationshipRefsPayloadData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeEntity}
      * @memberof RelationshipRefsPayloadData
      */
-    'type': Type;
+    'type': TypeEntity;
     /**
      * The ID that uniquely identifies the resource.
      * @type {string}

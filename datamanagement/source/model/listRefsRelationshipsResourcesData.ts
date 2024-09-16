@@ -1,6 +1,6 @@
 
 import { MetaRefs } from './metaRefs';
-import { Type } from './type';
+import { TypeVersion } from './typeVersion';
 
 /**
  * 
@@ -10,10 +10,10 @@ import { Type } from './type';
 export interface ListRefsRelationshipsResourcesData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeVersion}
      * @memberof ListRefsRelationshipsResourcesData
      */
-    'type'?: Type;
+    'type'?: TypeVersion;
     /**
      * The URN of the version.
      * @type {string}

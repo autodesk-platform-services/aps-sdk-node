@@ -1,8 +1,10 @@
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
-import { assertParamExists, setBearerAuthToObject, setSearchParams, toPathString, createRequestFunction } from '../common';
-import { RequestArgs, BaseApi, DataManagementApiError } from '../base';
+import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { CollectionFormats, RequestArgs, BaseApi, RequiredError, DataManagementApiError } from '../base';
+import { GetHubs401Response } from '../model';
+import { GetHubs403Response } from '../model';
 import { Hub } from '../model';
 import { Hubs } from '../model';
 /**
@@ -43,7 +45,7 @@ export const HubsApiAxiosParamCreator = function (apsConfiguration?: IApsConfigu
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -96,7 +98,7 @@ export const HubsApiAxiosParamCreator = function (apsConfiguration?: IApsConfigu
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};

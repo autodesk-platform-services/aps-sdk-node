@@ -1,6 +1,6 @@
 
 import { RelationshipLinksDataMeta } from './relationshipLinksDataMeta';
-import { Type } from './type';
+import { TypeLink } from './typeLink';
 
 /**
  * 
@@ -10,10 +10,10 @@ import { Type } from './type';
 export interface RelationshipLinksData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeLink}
      * @memberof RelationshipLinksData
      */
-    'type'?: Type;
+    'type'?: TypeLink;
     /**
      * The ID of the resource.
      * @type {string}

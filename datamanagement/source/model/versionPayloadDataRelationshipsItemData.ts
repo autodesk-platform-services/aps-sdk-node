@@ -1,5 +1,5 @@
 
-import { Type } from './type';
+import { TypeItem } from './typeItem';
 
 /**
  * A container of data on the item.
@@ -9,10 +9,10 @@ import { Type } from './type';
 export interface VersionPayloadDataRelationshipsItemData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeItem}
      * @memberof VersionPayloadDataRelationshipsItemData
      */
-    'type': Type;
+    'type': TypeItem;
     /**
      * The ID that uniquely identifies the item.
      * @type {string}

@@ -1,7 +1,7 @@
 
 import { PublishModelPayloadAttributes } from './publishModelPayloadAttributes';
 import { PublishModelPayloadRelationships } from './publishModelPayloadRelationships';
-import { Type } from './type';
+import { TypeCommands } from './typeCommands';
 
 /**
  * An object that contains the input required to execute the PublishModel command.  The PublishModel Command publishes the latest version of a Collaboration for Revit (C4R) model to BIM 360 Docs.  See the [Developer\'s Guide topic on the PublishModel command](/en/docs/data/v2/developers_guide/commands/publishmodel/) for more information. 
@@ -11,10 +11,10 @@ import { Type } from './type';
 export interface PublishModelPayload {
     /**
      * 
-     * @type {Type}
+     * @type {TypeCommands}
      * @memberof PublishModelPayload
      */
-    'type'?: Type;
+    'type'?: TypeCommands;
     /**
      * 
      * @type {PublishModelPayloadAttributes}

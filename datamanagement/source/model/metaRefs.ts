@@ -1,7 +1,7 @@
 
 import { BaseAttributesExtensionObjectWithSchemaLink } from './baseAttributesExtensionObjectWithSchemaLink';
 import { MetarefsDirection } from './metarefsDirection';
-import { Type } from './type';
+import { TypeEntity } from './typeEntity';
 import { TypeRef } from './typeRef';
 
 /**
@@ -30,10 +30,10 @@ export interface MetaRefs {
     'fromId'?: string;
     /**
      * 
-     * @type {Type}
+     * @type {TypeEntity}
      * @memberof MetaRefs
      */
-    'fromType'?: Type;
+    'fromType'?: TypeEntity;
     /**
      * The ID of the resource to where the data flows.
      * @type {string}
@@ -42,10 +42,10 @@ export interface MetaRefs {
     'toId'?: string;
     /**
      * 
-     * @type {Type}
+     * @type {TypeEntity}
      * @memberof MetaRefs
      */
-    'toType'?: Type;
+    'toType'?: TypeEntity;
     /**
      * 
      * @type {BaseAttributesExtensionObjectWithSchemaLink}

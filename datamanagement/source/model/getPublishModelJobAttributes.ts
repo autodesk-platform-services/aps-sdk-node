@@ -1,6 +1,6 @@
 
 import { CommandExecutionStatus } from './commandExecutionStatus';
-import { GetPublishModelJobPayloadAttributesExtension } from './getPublishModelJobPayloadAttributesExtension';
+import { GetPublishModelJobAttributesExtension } from './getPublishModelJobAttributesExtension';
 
 /**
  * Contains the properties of the response to the GetPublishModelJob command.
@@ -16,10 +16,10 @@ export interface GetPublishModelJobAttributes {
     'status'?: CommandExecutionStatus;
     /**
      * 
-     * @type {GetPublishModelJobPayloadAttributesExtension}
+     * @type {GetPublishModelJobAttributesExtension}
      * @memberof GetPublishModelJobAttributes
      */
-    'extension'?: GetPublishModelJobPayloadAttributesExtension;
+    'extension'?: GetPublishModelJobAttributesExtension;
 }
 
 

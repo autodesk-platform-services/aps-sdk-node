@@ -1,5 +1,5 @@
 
-import { Type } from './type';
+import { TypeEntity } from './typeEntity';
 
 /**
  * 
@@ -9,10 +9,10 @@ import { Type } from './type';
 export interface CheckPermissionRelationshipsResourcesData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeEntity}
      * @memberof CheckPermissionRelationshipsResourcesData
      */
-    'type'?: Type;
+    'type'?: TypeEntity;
     /**
      * The URN of the resource.
      * @type {string}

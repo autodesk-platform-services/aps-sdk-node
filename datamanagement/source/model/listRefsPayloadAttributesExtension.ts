@@ -1,5 +1,5 @@
 
-import { Type } from './type';
+import { TypeCommandtypeListRefs } from './typeCommandtypeListRefs';
 
 /**
  * An object that contains properties  specific to the ListRefs command,   extending the default properties of a command.
@@ -9,10 +9,10 @@ import { Type } from './type';
 export interface ListRefsPayloadAttributesExtension {
     /**
      * 
-     * @type {Type}
+     * @type {TypeCommandtypeListRefs}
      * @memberof ListRefsPayloadAttributesExtension
      */
-    'type'?: Type;
+    'type'?: TypeCommandtypeListRefs;
     /**
      * The version of the schema. Must be ``1.0.0``  for the ListRefs command. 
      * @type {string}

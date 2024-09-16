@@ -1,7 +1,7 @@
 
 import { ItemPayloadIncludedAttributes } from './itemPayloadIncludedAttributes';
 import { ItemPayloadIncludedRelationships } from './itemPayloadIncludedRelationships';
-import { Type } from './type';
+import { TypeVersion } from './typeVersion';
 
 /**
  * 
@@ -11,10 +11,10 @@ import { Type } from './type';
 export interface ItemPayloadIncluded {
     /**
      * 
-     * @type {Type}
+     * @type {TypeVersion}
      * @memberof ItemPayloadIncluded
      */
-    'type': Type;
+    'type': TypeVersion;
     /**
      * The version number. Will always be ``1``.
      * @type {string}

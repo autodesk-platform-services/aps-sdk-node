@@ -1,6 +1,5 @@
 
-import { Type } from './type';
-import { VersionNumber } from './versionNumber';
+import { TypeCoreXref } from './typeCoreXref';
 import { VersionPayloadDataRelationshipsRefsDataMetaExtensionData } from './versionPayloadDataRelationshipsRefsDataMetaExtensionData';
 
 /**
@@ -11,16 +10,16 @@ import { VersionPayloadDataRelationshipsRefsDataMetaExtensionData } from './vers
 export interface VersionPayloadDataRelationshipsRefsDataMetaExtension {
     /**
      * 
-     * @type {Type}
+     * @type {TypeCoreXref}
      * @memberof VersionPayloadDataRelationshipsRefsDataMetaExtension
      */
-    'type'?: Type;
+    'type'?: TypeCoreXref;
     /**
-     * 
-     * @type {VersionNumber}
+     * The version of the xref type. Currently must be ``1.1.0``.
+     * @type {string}
      * @memberof VersionPayloadDataRelationshipsRefsDataMetaExtension
      */
-    'version'?: VersionNumber;
+    'version'?: string;
     /**
      * 
      * @type {VersionPayloadDataRelationshipsRefsDataMetaExtensionData}

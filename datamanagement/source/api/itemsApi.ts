@@ -2,16 +2,22 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { RequestArgs, BaseApi, DataManagementApiError } from '../base';
+import { CollectionFormats, RequestArgs, BaseApi, RequiredError, DataManagementApiError } from '../base';
+import { CreatedItem } from '../model';
 import { Folder } from '../model';
+import { GetHubs401Response } from '../model';
+import { GetHubs403Response } from '../model';
 import { Item } from '../model';
 import { ItemPayload } from '../model';
 import { ItemTip } from '../model';
+import { MetarefsDirection } from '../model';
 import { ModifyItemPayload } from '../model';
 import { Refs } from '../model';
 import { RelationshipLinks } from '../model';
 import { RelationshipRefs } from '../model';
 import { RelationshipRefsPayload } from '../model';
+import { TypeFilter } from '../model';
+import { TypeRef } from '../model';
 import { Versions } from '../model';
 /**
  * ItemsApi - axios parameter creator
@@ -58,7 +64,7 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
     
             localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -107,7 +113,7 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
     
             localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -159,7 +165,7 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -205,7 +211,7 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -221,14 +227,14 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
          * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
          * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-         * @param {Array<GetItemRefsFilterTypeEnum>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+         * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
          * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
          * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getItemRefs: async (accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<GetItemRefsFilterTypeEnum>, filterId?: Array<string>, filterExtensionType?: Array<string>,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        getItemRefs: async (accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterExtensionType?: Array<string>,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getItemRefs', 'projectId', projectId)
             // verify required parameter 'itemId' is not null or undefined
@@ -266,7 +272,7 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -312,7 +318,7 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -328,16 +334,16 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
          * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
          * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-         * @param {Array<GetItemRelationshipsRefsFilterTypeEnum>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+         * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
          * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
-         * @param {GetItemRelationshipsRefsFilterRefTypeEnum} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
-         * @param {GetItemRelationshipsRefsFilterDirectionEnum} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
+         * @param {TypeRef} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
+         * @param {MetarefsDirection} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
          * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getItemRelationshipsRefs: async (accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<GetItemRelationshipsRefsFilterTypeEnum>, filterId?: Array<string>, filterRefType?: GetItemRelationshipsRefsFilterRefTypeEnum, filterDirection?: GetItemRelationshipsRefsFilterDirectionEnum, filterExtensionType?: Array<string>,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        getItemRelationshipsRefs: async (accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterRefType?: TypeRef, filterDirection?: MetarefsDirection, filterExtensionType?: Array<string>,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getItemRelationshipsRefs', 'projectId', projectId)
             // verify required parameter 'itemId' is not null or undefined
@@ -383,7 +389,7 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -429,7 +435,7 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -500,7 +506,7 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -548,7 +554,7 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
     
             localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -579,7 +585,7 @@ export const ItemsApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createItem(accessToken: string, projectId: string, copyFrom?: string, xUserId?: string, itemPayload?: ItemPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Item>> {
+        async createItem(accessToken: string, projectId: string, copyFrom?: string, xUserId?: string, itemPayload?: ItemPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreatedItem>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createItem(accessToken, projectId, copyFrom, xUserId, itemPayload,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -630,13 +636,13 @@ export const ItemsApiFp = function(sdkManager?: SdkManager) {
          * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
          * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-         * @param {Array<GetItemRefsFilterTypeEnum>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+         * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
          * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
          * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getItemRefs(accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<GetItemRefsFilterTypeEnum>, filterId?: Array<string>, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Refs>> {
+        async getItemRefs(accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Refs>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getItemRefs(accessToken, projectId, itemId, xUserId, filterType, filterId, filterExtensionType,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -659,15 +665,15 @@ export const ItemsApiFp = function(sdkManager?: SdkManager) {
          * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
          * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-         * @param {Array<GetItemRelationshipsRefsFilterTypeEnum>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+         * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
          * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
-         * @param {GetItemRelationshipsRefsFilterRefTypeEnum} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
-         * @param {GetItemRelationshipsRefsFilterDirectionEnum} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
+         * @param {TypeRef} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
+         * @param {MetarefsDirection} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
          * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getItemRelationshipsRefs(accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<GetItemRelationshipsRefsFilterTypeEnum>, filterId?: Array<string>, filterRefType?: GetItemRelationshipsRefsFilterRefTypeEnum, filterDirection?: GetItemRelationshipsRefsFilterDirectionEnum, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RelationshipRefs>> {
+        async getItemRelationshipsRefs(accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterRefType?: TypeRef, filterDirection?: MetarefsDirection, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RelationshipRefs>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getItemRelationshipsRefs(accessToken, projectId, itemId, xUserId, filterType, filterId, filterRefType, filterDirection, filterExtensionType,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -786,7 +792,7 @@ export interface ItemsApiInterface {
      * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
      * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-     * @param {Array<GetItemRefsFilterTypeEnum>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+     * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
      * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
      * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param accessToken bearer access token
@@ -794,7 +800,7 @@ export interface ItemsApiInterface {
      * @throws {RequiredError}
      * @memberof ItemsApiInterface
      */
-    getItemRefs(accessToken: string,projectId: string, itemId: string, xUserId?: string, filterType?: Array<GetItemRefsFilterTypeEnum>, filterId?: Array<string>, filterExtensionType?: Array<string>,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getItemRefs(accessToken: string,projectId: string, itemId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterExtensionType?: Array<string>,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Returns a list of links for the specified item.   Custom relationships can be established between an item and other external resources residing outside the data domain service. A link’s ``href`` attribute defines the target URI to access a resource.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
@@ -815,17 +821,17 @@ export interface ItemsApiInterface {
      * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
      * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-     * @param {Array<GetItemRelationshipsRefsFilterTypeEnum>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+     * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
      * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
-     * @param {GetItemRelationshipsRefsFilterRefTypeEnum} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
-     * @param {GetItemRelationshipsRefsFilterDirectionEnum} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
+     * @param {TypeRef} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
+     * @param {MetarefsDirection} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
      * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ItemsApiInterface
      */
-    getItemRelationshipsRefs(accessToken: string,projectId: string, itemId: string, xUserId?: string, filterType?: Array<GetItemRelationshipsRefsFilterTypeEnum>, filterId?: Array<string>, filterRefType?: GetItemRelationshipsRefsFilterRefTypeEnum, filterDirection?: GetItemRelationshipsRefsFilterDirectionEnum, filterExtensionType?: Array<string>,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getItemRelationshipsRefs(accessToken: string,projectId: string, itemId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterRefType?: TypeRef, filterDirection?: MetarefsDirection, filterExtensionType?: Array<string>,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Returns the latest version of the specified item. A project can contain multiple versions of a resource item. The latest version is referred to as the tip version, which is returned by this operation.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
@@ -1019,7 +1025,7 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
      * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
      * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-     * @param {Array<GetItemRefsFilterTypeEnum>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+     * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
      * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
      * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param accessToken bearer access token
@@ -1027,7 +1033,7 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
      * @throws {RequiredError}
      * @memberof ItemsApi
      */
-    public async getItemRefs(accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<GetItemRefsFilterTypeEnum>, filterId?: Array<string>, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig) {
+    public async getItemRefs(accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into getItemRefs ");
       try {
         const request =  await ItemsApiFp(this.sdkManager).getItemRefs(accessToken, projectId, itemId, xUserId, filterType, filterId, filterExtensionType,  options);
@@ -1086,17 +1092,17 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
      * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
      * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-     * @param {Array<GetItemRelationshipsRefsFilterTypeEnum>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+     * @param {Array<TypeFilter>} [filterType] Filter by the type of the objects in the folder. Supported values are &#x60;&#x60;folders&#x60;&#x60; and &#x60;&#x60;items&#x60;&#x60;.
      * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
-     * @param {GetItemRelationshipsRefsFilterRefTypeEnum} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
-     * @param {GetItemRelationshipsRefsFilterDirectionEnum} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
+     * @param {TypeRef} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
+     * @param {MetarefsDirection} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
      * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ItemsApi
      */
-    public async getItemRelationshipsRefs(accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<GetItemRelationshipsRefsFilterTypeEnum>, filterId?: Array<string>, filterRefType?: GetItemRelationshipsRefsFilterRefTypeEnum, filterDirection?: GetItemRelationshipsRefsFilterDirectionEnum, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig) {
+    public async getItemRelationshipsRefs(accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<TypeFilter>, filterId?: Array<string>, filterRefType?: TypeRef, filterDirection?: MetarefsDirection, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into getItemRelationshipsRefs ");
       try {
         const request =  await ItemsApiFp(this.sdkManager).getItemRelationshipsRefs(accessToken, projectId, itemId, xUserId, filterType, filterId, filterRefType, filterDirection, filterExtensionType,  options);
@@ -1220,40 +1226,3 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
     }
 }
 
-/**
- * @export
- */
-export const GetItemRefsFilterTypeEnum = {
-    Folders: 'folders',
-    Items: 'items',
-    Versions: 'versions'
-} as const;
-export type GetItemRefsFilterTypeEnum = typeof GetItemRefsFilterTypeEnum[keyof typeof GetItemRefsFilterTypeEnum];
-/**
- * @export
- */
-export const GetItemRelationshipsRefsFilterTypeEnum = {
-    Folders: 'folders',
-    Items: 'items',
-    Versions: 'versions'
-} as const;
-export type GetItemRelationshipsRefsFilterTypeEnum = typeof GetItemRelationshipsRefsFilterTypeEnum[keyof typeof GetItemRelationshipsRefsFilterTypeEnum];
-/**
- * @export
- */
-export const GetItemRelationshipsRefsFilterRefTypeEnum = {
-    Derived: 'derived',
-    Dependencies: 'dependencies',
-    Auxiliary: 'auxiliary',
-    Xrefs: 'xrefs',
-    Includes: 'includes'
-} as const;
-export type GetItemRelationshipsRefsFilterRefTypeEnum = typeof GetItemRelationshipsRefsFilterRefTypeEnum[keyof typeof GetItemRelationshipsRefsFilterRefTypeEnum];
-/**
- * @export
- */
-export const GetItemRelationshipsRefsFilterDirectionEnum = {
-    From: 'from',
-    To: 'to'
-} as const;
-export type GetItemRelationshipsRefsFilterDirectionEnum = typeof GetItemRelationshipsRefsFilterDirectionEnum[keyof typeof GetItemRelationshipsRefsFilterDirectionEnum];

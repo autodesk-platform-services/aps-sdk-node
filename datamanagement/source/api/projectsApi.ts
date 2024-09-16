@@ -2,10 +2,12 @@
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { RequestArgs, BaseApi, DataManagementApiError } from '../base';
+import { CollectionFormats, RequestArgs, BaseApi, RequiredError, DataManagementApiError } from '../base';
 import { CreatedDownload } from '../model';
 import { Download } from '../model';
 import { DownloadPayload } from '../model';
+import { GetHubs401Response } from '../model';
+import { GetHubs403Response } from '../model';
 import { Hub } from '../model';
 import { Job } from '../model';
 import { Project } from '../model';
@@ -19,6 +21,51 @@ import { TopFolders } from '../model';
  */
 export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsConfiguration) {
     return {
+        /**
+         * Kicks off a job to generate the specified download format of the version. Once the job completes, the specified format becomes available for download.  
+         * @summary Create Download
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+         * @param {DownloadPayload} [downloadPayload] 
+         * @param accessToken bearer access token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createDownload: async (accessToken: string, projectId: string, xUserId?: string, downloadPayload?: DownloadPayload,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('createDownload', 'projectId', projectId)
+            const localVarPath = `/data/v1/projects/{project_id}/downloads`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
+            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
+            let baseOptions;
+            if (apsConfiguration) {
+                baseOptions = apsConfiguration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            await setBearerAuthToObject(localVarHeaderParameter, accessToken)
+
+            if (xUserId != null) {
+                localVarHeaderParameter['x-user-id'] = String(xUserId);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(downloadPayload, localVarRequestOptions, apsConfiguration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * Creates a placeholder for an item or a version of an item in the OSS. Later, you can upload the binary content for the item or version to this storage location.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
          * @summary Create a Storage Location in OSS
@@ -53,7 +100,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
 
     
             localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -100,7 +147,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -146,7 +193,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -208,7 +255,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -254,7 +301,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -300,7 +347,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -356,55 +403,10 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT-API/TypeScript/2.0.3';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Kicks off a job to generate the specified download format of the version. Once the job completes, the specified format becomes available for download.  
-         * @summary Create Download
-         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
-         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-         * @param {DownloadPayload} [downloadPayload] 
-         * @param accessToken bearer access token
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        startDownload: async (accessToken: string, projectId: string, xUserId?: string, downloadPayload?: DownloadPayload,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'projectId' is not null or undefined
-            assertParamExists('startDownload', 'projectId', projectId)
-            const localVarPath = `/data/v1/projects/{project_id}/downloads`
-                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
-            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
-            let baseOptions;
-            if (apsConfiguration) {
-                baseOptions = apsConfiguration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            await setBearerAuthToObject(localVarHeaderParameter, accessToken)
-
-            if (xUserId != null) {
-                localVarHeaderParameter['x-user-id'] = String(xUserId);
-            }
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/2.0.3';
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(downloadPayload, localVarRequestOptions, apsConfiguration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -421,6 +423,19 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
 export const ProjectsApiFp = function(sdkManager?: SdkManager) {
     const localVarAxiosParamCreator = ProjectsApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
+        /**
+         * Kicks off a job to generate the specified download format of the version. Once the job completes, the specified format becomes available for download.  
+         * @summary Create Download
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+         * @param {DownloadPayload} [downloadPayload] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createDownload(accessToken: string, projectId: string, xUserId?: string, downloadPayload?: DownloadPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreatedDownload>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createDownload(accessToken, projectId, xUserId, downloadPayload,  options);
+            return createRequestFunction(localVarAxiosArgs, sdkManager);
+        },
         /**
          * Creates a placeholder for an item or a version of an item in the OSS. Later, you can upload the binary content for the item or version to this storage location.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
          * @summary Create a Storage Location in OSS
@@ -517,19 +532,6 @@ export const ProjectsApiFp = function(sdkManager?: SdkManager) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectTopFolders(accessToken, hubId, projectId, xUserId, excludeDeleted, projectFilesOnly,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
-        /**
-         * Kicks off a job to generate the specified download format of the version. Once the job completes, the specified format becomes available for download.  
-         * @summary Create Download
-         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
-         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-         * @param {DownloadPayload} [downloadPayload] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async startDownload(accessToken: string, projectId: string, xUserId?: string, downloadPayload?: DownloadPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreatedDownload>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.startDownload(accessToken, projectId, xUserId, downloadPayload,  options);
-            return createRequestFunction(localVarAxiosArgs, sdkManager);
-        },
     }
 };
 
@@ -539,6 +541,19 @@ export const ProjectsApiFp = function(sdkManager?: SdkManager) {
  * @interface ProjectsApi
  */
 export interface ProjectsApiInterface {
+    /**
+     * Kicks off a job to generate the specified download format of the version. Once the job completes, the specified format becomes available for download.  
+     * @summary Create Download
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+     * @param {DownloadPayload} [downloadPayload] 
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApiInterface
+     */
+    createDownload(accessToken: string,projectId: string, xUserId?: string, downloadPayload?: DownloadPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+
     /**
      * Creates a placeholder for an item or a version of an item in the OSS. Later, you can upload the binary content for the item or version to this storage location.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
      * @summary Create a Storage Location in OSS
@@ -635,19 +650,6 @@ export interface ProjectsApiInterface {
      */
     getProjectTopFolders(accessToken: string,hubId: string, projectId: string, xUserId?: string, excludeDeleted?: boolean, projectFilesOnly?: boolean,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
-    /**
-     * Kicks off a job to generate the specified download format of the version. Once the job completes, the specified format becomes available for download.  
-     * @summary Create Download
-     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
-     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-     * @param {DownloadPayload} [downloadPayload] 
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ProjectsApiInterface
-     */
-    startDownload(accessToken: string,projectId: string, xUserId?: string, downloadPayload?: DownloadPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
-
 }
 
 /**
@@ -658,6 +660,38 @@ export interface ProjectsApiInterface {
  */
 export class ProjectsApi extends BaseApi implements ProjectsApiInterface {
     private logger = this.sdkManager.logger;
+    /**
+     * Kicks off a job to generate the specified download format of the version. Once the job completes, the specified format becomes available for download.  
+     * @summary Create Download
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+     * @param {DownloadPayload} [downloadPayload] 
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApi
+     */
+    public async createDownload(accessToken: string, projectId: string, xUserId?: string, downloadPayload?: DownloadPayload, options?: ApsServiceRequestConfig) {
+      this.logger.logInfo("Entered into createDownload ");
+      try {
+        const request =  await ProjectsApiFp(this.sdkManager).createDownload(accessToken, projectId, xUserId, downloadPayload,  options);
+        const response = await request(this.axios);
+        this.logger.logInfo(`createDownload Request completed successfully with status code: ${response.status}`);
+        return new ApiResponse(response,response.data);
+      } catch (error) {
+        if (error.response) {
+            const responseData = error.response.data;
+            const errorMessage = responseData.developerMessage || responseData.reason || responseData.message || error.message;
+            this.logger.logError(`createDownload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new DataManagementApiError(`createDownload Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
+        } else if (error.request) {
+            this.logger.logError(`createDownload Request failed with no response received: ${error.request}`);
+            throw new DataManagementApiError(`createDownload Request failed with no response received: ${error.request}`, error);
+        }
+        throw error;
+      }
+    }
+
     /**
      * Creates a placeholder for an item or a version of an item in the OSS. Later, you can upload the binary content for the item or version to this storage location.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
      * @summary Create a Storage Location in OSS
@@ -882,38 +916,6 @@ export class ProjectsApi extends BaseApi implements ProjectsApiInterface {
         } else if (error.request) {
             this.logger.logError(`getProjectTopFolders Request failed with no response received: ${error.request}`);
             throw new DataManagementApiError(`getProjectTopFolders Request failed with no response received: ${error.request}`, error);
-        }
-        throw error;
-      }
-    }
-
-    /**
-     * Kicks off a job to generate the specified download format of the version. Once the job completes, the specified format becomes available for download.  
-     * @summary Create Download
-     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
-     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-     * @param {DownloadPayload} [downloadPayload] 
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ProjectsApi
-     */
-    public async startDownload(accessToken: string, projectId: string, xUserId?: string, downloadPayload?: DownloadPayload, options?: ApsServiceRequestConfig) {
-      this.logger.logInfo("Entered into startDownload ");
-      try {
-        const request =  await ProjectsApiFp(this.sdkManager).startDownload(accessToken, projectId, xUserId, downloadPayload,  options);
-        const response = await request(this.axios);
-        this.logger.logInfo(`startDownload Request completed successfully with status code: ${response.status}`);
-        return new ApiResponse(response,response.data);
-      } catch (error) {
-        if (error.response) {
-            const responseData = error.response.data;
-            const errorMessage = responseData.developerMessage || responseData.reason || responseData.message || error.message;
-            this.logger.logError(`startDownload Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
-            throw new DataManagementApiError(`startDownload Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
-        } else if (error.request) {
-            this.logger.logError(`startDownload Request failed with no response received: ${error.request}`);
-            throw new DataManagementApiError(`startDownload Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
