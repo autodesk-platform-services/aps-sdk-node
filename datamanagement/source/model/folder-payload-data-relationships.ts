@@ -4,7 +4,7 @@
 import { FolderPayloadDataRelationshipsParent } from './folder-payload-data-relationships-parent';
 
 /**
- * 
+ * A container of links to resources that are related to the folder to be created.
  * @export
  * @interface FolderPayloadDataRelationships
  */

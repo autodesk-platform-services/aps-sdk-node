@@ -1,34 +1,30 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Type } from './type';
-import { VersionNumber } from './version-number';
 
 /**
- * 
+ * The Type ID of the schema that defines the structure of the ``extension.data`` object
  * @export
  * @interface ItemPayloadDataAttributesExtension
  */
 export interface ItemPayloadDataAttributesExtension {
     /**
-     * 
-     * @type {Type}
+     * The type of the extension.  For BIM 360 Docs files, use ``items:autodesk.bim360:File``.  For all other services, use ``items:autodesk.core:File``. 
+     * @type {string}
      * @memberof ItemPayloadDataAttributesExtension
      */
-    'type'?: Type;
+    'type'?: string;
     /**
-     * 
-     * @type {VersionNumber}
+     * The version of the schema that applies to the ``extension.data`` object.
+     * @type {string}
      * @memberof ItemPayloadDataAttributesExtension
      */
-    'version'?: VersionNumber;
+    'version'?: string;
     /**
-     * 
-     * @type {object}
+     * The container of additional properties.  The additional properties must follow the schema specified by ``extensions.type`` and ``extensions.version``. Properties that don\'t follow the schema will be ignored. 
+     * @type {{ [key: string]: object; }}
      * @memberof ItemPayloadDataAttributesExtension
      */
-    'data'?: object;
+    'data'?: { [key: string]: object; };
 }
-
-
 

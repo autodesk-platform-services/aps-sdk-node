@@ -1,40 +1,40 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HubsJsonapi } from './hubs-jsonapi';
+import { JsonApiVersion } from './json-api-version';
 import { RelationshipRefsData } from './relationship-refs-data';
 import { RelationshipRefsIncluded } from './relationship-refs-included';
-import { TopFoldersDataRelationshipsRefsLinks } from './top-folders-data-relationships-refs-links';
+import { RelationshipRefsLinks } from './relationship-refs-links';
 
 /**
- * Successful retrieval of the refs collection associated with a specific resource.
+ * 
  * @export
  * @interface RelationshipRefs
  */
 export interface RelationshipRefs {
     /**
      * 
-     * @type {HubsJsonapi}
+     * @type {JsonApiVersion}
      * @memberof RelationshipRefs
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi'?: JsonApiVersion;
     /**
      * 
-     * @type {TopFoldersDataRelationshipsRefsLinks}
+     * @type {RelationshipRefsLinks}
      * @memberof RelationshipRefs
      */
-    'links'?: TopFoldersDataRelationshipsRefsLinks;
+    'links'?: RelationshipRefsLinks;
     /**
-     * 
+     * An array of objects where each object represents the data of a folder, item, or resource.
      * @type {Set<RelationshipRefsData>}
      * @memberof RelationshipRefs
      */
     'data'?: Set<RelationshipRefsData>;
     /**
-     * 
-     * @type {Set<RelationshipRefsIncluded>}
+     * An array of objects, where each object represents a folder, item, or version included within this resource.
+     * @type {Array<RelationshipRefsIncluded>}
      * @memberof RelationshipRefs
      */
-    'included'?: Set<RelationshipRefsIncluded>;
+    'included'?: Array<RelationshipRefsIncluded>;
 }
 

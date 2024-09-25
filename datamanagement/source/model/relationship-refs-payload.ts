@@ -1,21 +1,21 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ModifyFolderPayloadJsonapi } from './modify-folder-payload-jsonapi';
+import { JsonApiVersion } from './json-api-version';
 import { RelationshipRefsPayloadData } from './relationship-refs-payload-data';
 
 /**
- * Describe the ref to be created.
+ * An object that describes the custom relationship to be created.
  * @export
  * @interface RelationshipRefsPayload
  */
 export interface RelationshipRefsPayload {
     /**
      * 
-     * @type {ModifyFolderPayloadJsonapi}
+     * @type {JsonApiVersion}
      * @memberof RelationshipRefsPayload
      */
-    'jsonapi': ModifyFolderPayloadJsonapi;
+    'jsonapi': JsonApiVersion;
     /**
      * 
      * @type {RelationshipRefsPayloadData}

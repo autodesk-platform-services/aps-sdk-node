@@ -1,33 +1,33 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HubsJsonapi } from './hubs-jsonapi';
-import { HubsLinks } from './hubs-links';
-import { TopFoldersData } from './top-folders-data';
+import { JsonApiLinksSelf } from './json-api-links-self';
+import { JsonApiVersion } from './json-api-version';
+import { TopFolderData } from './top-folder-data';
 
 /**
- * Successful retrieval of the top folders’ details.
+ * An object that reporesents a top-level folder.
  * @export
  * @interface TopFolders
  */
 export interface TopFolders {
     /**
      * 
-     * @type {HubsJsonapi}
+     * @type {JsonApiVersion}
      * @memberof TopFolders
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi': JsonApiVersion;
     /**
      * 
-     * @type {HubsLinks}
+     * @type {JsonApiLinksSelf}
      * @memberof TopFolders
      */
-    'links'?: HubsLinks;
+    'links': JsonApiLinksSelf;
     /**
-     * 
-     * @type {Set<TopFoldersData>}
+     * Array of objects where each object represents a top-level folder.
+     * @type {Set<TopFolderData>}
      * @memberof TopFolders
      */
-    'data'?: Set<TopFoldersData>;
+    'data'?: Set<TopFolderData>;
 }
 

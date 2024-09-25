@@ -1,37 +1,37 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HubsLinksSelf } from './hubs-links-self';
+import { JsonApiLink } from './json-api-link';
 
 /**
- * 
+ * Information on links for this resource. ``first``, ``prev``, and ``next`` are available only when the response is paginated.
  * @export
  * @interface FolderContentsLinks
  */
 export interface FolderContentsLinks {
     /**
      * 
-     * @type {HubsLinksSelf}
+     * @type {JsonApiLink}
      * @memberof FolderContentsLinks
      */
-    'self'?: HubsLinksSelf;
+    'self': JsonApiLink;
     /**
      * 
-     * @type {HubsLinksSelf}
+     * @type {JsonApiLink}
      * @memberof FolderContentsLinks
      */
-    'first'?: HubsLinksSelf;
+    'first'?: JsonApiLink;
     /**
      * 
-     * @type {HubsLinksSelf}
+     * @type {JsonApiLink}
      * @memberof FolderContentsLinks
      */
-    'prev'?: HubsLinksSelf;
+    'prev'?: JsonApiLink;
     /**
      * 
-     * @type {HubsLinksSelf}
+     * @type {JsonApiLink}
      * @memberof FolderContentsLinks
      */
-    'next'?: HubsLinksSelf;
+    'next'?: JsonApiLink;
 }
 

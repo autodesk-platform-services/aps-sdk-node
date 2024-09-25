@@ -2,23 +2,25 @@
 /* eslint-disable */
 
 import { HubDataAttributes } from './hub-data-attributes';
-import { HubsDataRelationships } from './hubs-data-relationships';
-import { HubsLinks } from './hubs-links';
+import { HubDataRelationships } from './hub-data-relationships';
+import { JsonApiLinksSelf } from './json-api-links-self';
+import { Region } from './region';
+import { TypeHub } from './type-hub';
 
 /**
- * 
+ * The object containing information about the hub.
  * @export
  * @interface HubData
  */
 export interface HubData {
     /**
      * 
-     * @type {string}
+     * @type {TypeHub}
      * @memberof HubData
      */
-    'type'?: string;
+    'type'?: TypeHub;
     /**
-     * 
+     * The hub ID, which uniquely identifies the hub.
      * @type {string}
      * @memberof HubData
      */
@@ -31,15 +33,23 @@ export interface HubData {
     'attributes'?: HubDataAttributes;
     /**
      * 
-     * @type {HubsDataRelationships}
+     * @type {Region}
      * @memberof HubData
      */
-    'relationships'?: HubsDataRelationships;
+    'region'?: Region;
     /**
      * 
-     * @type {HubsLinks}
+     * @type {HubDataRelationships}
      * @memberof HubData
      */
-    'links'?: HubsLinks;
+    'relationships'?: HubDataRelationships;
+    /**
+     * 
+     * @type {JsonApiLinksSelf}
+     * @memberof HubData
+     */
+    'links': JsonApiLinksSelf;
 }
+
+
 

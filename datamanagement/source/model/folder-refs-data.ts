@@ -1,9 +1,13 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { FolderRefsDataAttributes } from './folder-refs-data-attributes';
-import { FolderRefsDataLinks } from './folder-refs-data-links';
-import { TopFoldersDataRelationships } from './top-folders-data-relationships';
+import { FolderData } from './folder-data';
+import { ItemData } from './item-data';
+import { JsonApiLinksSelfAndWebView } from './json-api-links-self-and-web-view';
+import { TypeVersion } from './type-version';
+import { VersionAttributes } from './version-attributes';
+import { VersionData } from './version-data';
+import { VersionDataRelationships } from './version-data-relationships';
 
 /**
  * 
@@ -13,33 +17,35 @@ import { TopFoldersDataRelationships } from './top-folders-data-relationships';
 export interface FolderRefsData {
     /**
      * 
+     * @type {TypeVersion}
+     * @memberof FolderRefsData
+     */
+    'type': TypeVersion;
+    /**
+     * URN of the version object.
      * @type {string}
      * @memberof FolderRefsData
      */
-    'type'?: string;
+    'id': string;
     /**
      * 
-     * @type {string}
+     * @type {VersionAttributes}
      * @memberof FolderRefsData
      */
-    'id'?: string;
+    'attributes': VersionAttributes;
     /**
      * 
-     * @type {FolderRefsDataAttributes}
+     * @type {JsonApiLinksSelfAndWebView}
      * @memberof FolderRefsData
      */
-    'attributes'?: FolderRefsDataAttributes;
+    'links': JsonApiLinksSelfAndWebView;
     /**
      * 
-     * @type {FolderRefsDataLinks}
+     * @type {VersionDataRelationships}
      * @memberof FolderRefsData
      */
-    'links'?: FolderRefsDataLinks;
-    /**
-     * 
-     * @type {TopFoldersDataRelationships}
-     * @memberof FolderRefsData
-     */
-    'relationships'?: TopFoldersDataRelationships;
+    'relationships': VersionDataRelationships;
 }
+
+
 

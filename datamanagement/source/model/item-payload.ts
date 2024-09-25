@@ -3,8 +3,8 @@
 
 import { ItemPayloadData } from './item-payload-data';
 import { ItemPayloadIncluded } from './item-payload-included';
-import { ItemPayloadMeta } from './item-payload-meta';
-import { ModifyFolderPayloadJsonapi } from './modify-folder-payload-jsonapi';
+import { JsonApiVersion } from './json-api-version';
+import { MetaForWebhooks } from './meta-for-webhooks';
 
 /**
  * Describe the item to be created.
@@ -14,10 +14,10 @@ import { ModifyFolderPayloadJsonapi } from './modify-folder-payload-jsonapi';
 export interface ItemPayload {
     /**
      * 
-     * @type {ModifyFolderPayloadJsonapi}
+     * @type {JsonApiVersion}
      * @memberof ItemPayload
      */
-    'jsonapi': ModifyFolderPayloadJsonapi;
+    'jsonapi': JsonApiVersion;
     /**
      * 
      * @type {ItemPayloadData}
@@ -25,16 +25,16 @@ export interface ItemPayload {
      */
     'data': ItemPayloadData;
     /**
-     * 
+     * An array of objects, where each object represents a version of the item to be created. In this case there will only be one element in the array.
      * @type {Set<ItemPayloadIncluded>}
      * @memberof ItemPayload
      */
-    'included': Array<ItemPayloadIncluded>;
+    'included': Set<ItemPayloadIncluded>;
     /**
      * 
-     * @type {ItemPayloadMeta}
+     * @type {MetaForWebhooks}
      * @memberof ItemPayload
      */
-    'meta'?: ItemPayloadMeta;
+    'meta'?: MetaForWebhooks;
 }
 

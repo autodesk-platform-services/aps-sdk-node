@@ -1,31 +1,25 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HubDataAttributesExtension } from './hub-data-attributes-extension';
+import { BaseAttributesExtensionObjectWithSchemaLink } from './base-attributes-extension-object-with-schema-link';
 
 /**
- * 
+ * The properties of the hub.
  * @export
  * @interface HubDataAttributes
  */
 export interface HubDataAttributes {
     /**
-     * 
+     * A human friendly name to identify the hub.
      * @type {string}
      * @memberof HubDataAttributes
      */
     'name'?: string;
     /**
      * 
-     * @type {HubDataAttributesExtension}
+     * @type {BaseAttributesExtensionObjectWithSchemaLink}
      * @memberof HubDataAttributes
      */
-    'extension'?: HubDataAttributesExtension;
-    /**
-     * 
-     * @type {string}
-     * @memberof HubDataAttributes
-     */
-    'region'?: string;
+    'extension'?: BaseAttributesExtensionObjectWithSchemaLink;
 }
 

@@ -1,25 +1,26 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { FolderPayloadDataRelationshipsParent } from './folder-payload-data-relationships-parent';
+import { ItemPayloadDataRelationshipsParent } from './item-payload-data-relationships-parent';
+import { ItemPayloadDataRelationshipsTip } from './item-payload-data-relationships-tip';
 
 /**
- * 
+ * A container of links to resources that are related to the item to be created.
  * @export
  * @interface ItemPayloadDataRelationships
  */
 export interface ItemPayloadDataRelationships {
     /**
      * 
-     * @type {FolderPayloadDataRelationshipsParent}
+     * @type {ItemPayloadDataRelationshipsTip}
      * @memberof ItemPayloadDataRelationships
      */
-    'tip': FolderPayloadDataRelationshipsParent;
+    'tip': ItemPayloadDataRelationshipsTip;
     /**
      * 
-     * @type {FolderPayloadDataRelationshipsParent}
+     * @type {ItemPayloadDataRelationshipsParent}
      * @memberof ItemPayloadDataRelationships
      */
-    'parent': FolderPayloadDataRelationshipsParent;
+    'parent': ItemPayloadDataRelationshipsParent;
 }
 

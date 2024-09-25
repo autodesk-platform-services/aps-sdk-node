@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 import { FolderPayloadData } from './folder-payload-data';
-import { ModifyFolderPayloadJsonapi } from './modify-folder-payload-jsonapi';
+import { JsonApiVersion } from './json-api-version';
 
 /**
  * Describe the folder to be created.
@@ -12,10 +12,10 @@ import { ModifyFolderPayloadJsonapi } from './modify-folder-payload-jsonapi';
 export interface FolderPayload {
     /**
      * 
-     * @type {ModifyFolderPayloadJsonapi}
+     * @type {JsonApiVersion}
      * @memberof FolderPayload
      */
-    'jsonapi': ModifyFolderPayloadJsonapi;
+    'jsonapi': JsonApiVersion;
     /**
      * 
      * @type {FolderPayloadData}

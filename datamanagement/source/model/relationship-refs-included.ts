@@ -1,9 +1,13 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ProjectsDataLinks } from './projects-data-links';
-import { RefsDataRelationships } from './refs-data-relationships';
-import { RelationshipRefsIncludedAttributes } from './relationship-refs-included-attributes';
+import { FolderData } from './folder-data';
+import { ItemData } from './item-data';
+import { JsonApiLinksSelfAndWebView } from './json-api-links-self-and-web-view';
+import { TypeVersion } from './type-version';
+import { VersionAttributes } from './version-attributes';
+import { VersionData } from './version-data';
+import { VersionDataRelationships } from './version-data-relationships';
 
 /**
  * 
@@ -13,33 +17,35 @@ import { RelationshipRefsIncludedAttributes } from './relationship-refs-included
 export interface RelationshipRefsIncluded {
     /**
      * 
+     * @type {TypeVersion}
+     * @memberof RelationshipRefsIncluded
+     */
+    'type': TypeVersion;
+    /**
+     * URN of the version object.
      * @type {string}
      * @memberof RelationshipRefsIncluded
      */
-    'type'?: string;
+    'id': string;
     /**
      * 
-     * @type {string}
+     * @type {VersionAttributes}
      * @memberof RelationshipRefsIncluded
      */
-    'id'?: string;
+    'attributes': VersionAttributes;
     /**
      * 
-     * @type {RelationshipRefsIncludedAttributes}
+     * @type {JsonApiLinksSelfAndWebView}
      * @memberof RelationshipRefsIncluded
      */
-    'attributes'?: RelationshipRefsIncludedAttributes;
+    'links': JsonApiLinksSelfAndWebView;
     /**
      * 
-     * @type {ProjectsDataLinks}
+     * @type {VersionDataRelationships}
      * @memberof RelationshipRefsIncluded
      */
-    'links'?: ProjectsDataLinks;
-    /**
-     * 
-     * @type {RefsDataRelationships}
-     * @memberof RelationshipRefsIncluded
-     */
-    'relationships'?: RefsDataRelationships;
+    'relationships': VersionDataRelationships;
 }
+
+
 

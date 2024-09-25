@@ -1,19 +1,19 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { RelationshipRefsPayloadDataMetaExtension } from './relationship-refs-payload-data-meta-extension';
+import { BaseAttributesExtensionObjectWithoutSchemaLink } from './base-attributes-extension-object-without-schema-link';
 
 /**
- * 
+ * The meta-information about this resource.
  * @export
  * @interface RelationshipRefsPayloadDataMeta
  */
 export interface RelationshipRefsPayloadDataMeta {
     /**
      * 
-     * @type {RelationshipRefsPayloadDataMetaExtension}
+     * @type {BaseAttributesExtensionObjectWithoutSchemaLink}
      * @memberof RelationshipRefsPayloadDataMeta
      */
-    'extension': RelationshipRefsPayloadDataMetaExtension;
+    'extension': BaseAttributesExtensionObjectWithoutSchemaLink;
 }
 

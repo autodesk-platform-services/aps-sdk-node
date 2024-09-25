@@ -1,33 +1,33 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HubsJsonapi } from './hubs-jsonapi';
-import { HubsLinks } from './hubs-links';
-import { ItemTipData } from './item-tip-data';
+import { JsonApiLink } from './json-api-link';
+import { JsonApiVersion } from './json-api-version';
+import { VersionData } from './version-data';
 
 /**
- * Successful retrieval of a specific version.
+ * An object that represents the tip version of an item.
  * @export
  * @interface ItemTip
  */
 export interface ItemTip {
     /**
      * 
-     * @type {HubsJsonapi}
+     * @type {JsonApiVersion}
      * @memberof ItemTip
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi'?: JsonApiVersion;
     /**
      * 
-     * @type {HubsLinks}
+     * @type {JsonApiLink}
      * @memberof ItemTip
      */
-    'links'?: HubsLinks;
+    'links'?: JsonApiLink;
     /**
      * 
-     * @type {ItemTipData}
+     * @type {VersionData}
      * @memberof ItemTip
      */
-    'data'?: ItemTipData;
+    'data'?: VersionData;
 }
 

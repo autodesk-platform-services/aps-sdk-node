@@ -1,9 +1,13 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HubsLinks } from './hubs-links';
-import { RefsDataAttributes } from './refs-data-attributes';
-import { RefsDataRelationships } from './refs-data-relationships';
+import { FolderData } from './folder-data';
+import { ItemData } from './item-data';
+import { JsonApiLinksSelfAndWebView } from './json-api-links-self-and-web-view';
+import { TypeVersion } from './type-version';
+import { VersionAttributes } from './version-attributes';
+import { VersionData } from './version-data';
+import { VersionDataRelationships } from './version-data-relationships';
 
 /**
  * 
@@ -13,33 +17,35 @@ import { RefsDataRelationships } from './refs-data-relationships';
 export interface RefsData {
     /**
      * 
+     * @type {TypeVersion}
+     * @memberof RefsData
+     */
+    'type': TypeVersion;
+    /**
+     * URN of the version object.
      * @type {string}
      * @memberof RefsData
      */
-    'type'?: string;
+    'id': string;
     /**
      * 
-     * @type {string}
+     * @type {VersionAttributes}
      * @memberof RefsData
      */
-    'id'?: string;
+    'attributes': VersionAttributes;
     /**
      * 
-     * @type {RefsDataAttributes}
+     * @type {JsonApiLinksSelfAndWebView}
      * @memberof RefsData
      */
-    'attributes'?: RefsDataAttributes;
+    'links': JsonApiLinksSelfAndWebView;
     /**
      * 
-     * @type {HubsLinks}
+     * @type {VersionDataRelationships}
      * @memberof RefsData
      */
-    'links'?: HubsLinks;
-    /**
-     * 
-     * @type {RefsDataRelationships}
-     * @memberof RefsData
-     */
-    'relationships'?: RefsDataRelationships;
+    'relationships': VersionDataRelationships;
 }
+
+
 

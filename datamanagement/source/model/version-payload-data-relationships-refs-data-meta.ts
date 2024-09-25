@@ -1,28 +1,28 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Direction } from './direction';
-import { RefType } from './ref-type';
+import { MetarefsDirection } from './metarefs-direction';
+import { ReftypesXref } from './reftypes-xref';
 import { VersionPayloadDataRelationshipsRefsDataMetaExtension } from './version-payload-data-relationships-refs-data-meta-extension';
 
 /**
- * 
+ * Contains meta information about the reference.
  * @export
  * @interface VersionPayloadDataRelationshipsRefsDataMeta
  */
 export interface VersionPayloadDataRelationshipsRefsDataMeta {
     /**
      * 
-     * @type {RefType}
+     * @type {ReftypesXref}
      * @memberof VersionPayloadDataRelationshipsRefsDataMeta
      */
-    'refType': RefType;
+    'refType': ReftypesXref;
     /**
      * 
-     * @type {Direction}
+     * @type {MetarefsDirection}
      * @memberof VersionPayloadDataRelationshipsRefsDataMeta
      */
-    'direction': Direction;
+    'direction': MetarefsDirection;
     /**
      * 
      * @type {VersionPayloadDataRelationshipsRefsDataMetaExtension}

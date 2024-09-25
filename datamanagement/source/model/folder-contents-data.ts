@@ -1,9 +1,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { FolderContentsDataAttributes } from './folder-contents-data-attributes';
-import { HubsLinks } from './hubs-links';
-import { TopFoldersDataRelationships } from './top-folders-data-relationships';
+import { FolderData } from './folder-data';
+import { ItemAttributes } from './item-attributes';
+import { ItemData } from './item-data';
+import { ItemDataRelationships } from './item-data-relationships';
+import { JsonApiLinksSelfAndWebView } from './json-api-links-self-and-web-view';
+import { TypeItem } from './type-item';
 
 /**
  * 
@@ -13,33 +16,35 @@ import { TopFoldersDataRelationships } from './top-folders-data-relationships';
 export interface FolderContentsData {
     /**
      * 
+     * @type {TypeItem}
+     * @memberof FolderContentsData
+     */
+    'type': TypeItem;
+    /**
+     * The unique identifier of the item.
      * @type {string}
      * @memberof FolderContentsData
      */
-    'type'?: string;
+    'id': string;
     /**
      * 
-     * @type {string}
+     * @type {ItemAttributes}
      * @memberof FolderContentsData
      */
-    'id'?: string;
+    'attributes': ItemAttributes;
     /**
      * 
-     * @type {FolderContentsDataAttributes}
+     * @type {JsonApiLinksSelfAndWebView}
      * @memberof FolderContentsData
      */
-    'attributes'?: FolderContentsDataAttributes;
+    'links': JsonApiLinksSelfAndWebView;
     /**
      * 
-     * @type {HubsLinks}
+     * @type {ItemDataRelationships}
      * @memberof FolderContentsData
      */
-    'links'?: HubsLinks;
-    /**
-     * 
-     * @type {TopFoldersDataRelationships}
-     * @memberof FolderContentsData
-     */
-    'relationships'?: TopFoldersDataRelationships;
+    'relationships': ItemDataRelationships;
 }
+
+
 

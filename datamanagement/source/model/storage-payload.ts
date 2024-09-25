@@ -1,21 +1,21 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ModifyFolderPayloadJsonapi } from './modify-folder-payload-jsonapi';
+import { JsonApiVersion } from './json-api-version';
 import { StoragePayloadData } from './storage-payload-data';
 
 /**
- * Describe storage to be created.
+ * An object representing a placeholder (storage location) for data.
  * @export
  * @interface StoragePayload
  */
 export interface StoragePayload {
     /**
      * 
-     * @type {ModifyFolderPayloadJsonapi}
+     * @type {JsonApiVersion}
      * @memberof StoragePayload
      */
-    'jsonapi': ModifyFolderPayloadJsonapi;
+    'jsonapi': JsonApiVersion;
     /**
      * 
      * @type {StoragePayloadData}

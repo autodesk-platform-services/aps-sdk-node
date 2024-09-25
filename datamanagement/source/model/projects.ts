@@ -1,33 +1,33 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HubsJsonapi } from './hubs-jsonapi';
-import { ProjectsData } from './projects-data';
-import { ProjectsLinks } from './projects-links';
+import { JsonApiVersion } from './json-api-version';
+import { PaginationInfo } from './pagination-info';
+import { ProjectData } from './project-data';
 
 /**
- * Successful retrieval of the projects collection associated with a specific hub.
+ * An object representing a collection of projects within a hub.
  * @export
  * @interface Projects
  */
 export interface Projects {
     /**
      * 
-     * @type {HubsJsonapi}
+     * @type {JsonApiVersion}
      * @memberof Projects
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi'?: JsonApiVersion;
     /**
      * 
-     * @type {ProjectsLinks}
+     * @type {PaginationInfo}
      * @memberof Projects
      */
-    'links'?: ProjectsLinks;
+    'links'?: PaginationInfo;
     /**
-     * 
-     * @type {Set<ProjectsData>}
+     * An array of objects where each object represents a project.
+     * @type {Set<ProjectData>}
      * @memberof Projects
      */
-    'data'?: Set<ProjectsData>;
+    'data'?: Set<ProjectData>;
 }
 

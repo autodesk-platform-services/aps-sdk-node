@@ -1,7 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { RelationshipRefsDataMeta } from './relationship-refs-data-meta';
+import { MetaRefs } from './meta-refs';
+import { TypeEntity } from './type-entity';
 
 /**
  * 
@@ -11,21 +12,23 @@ import { RelationshipRefsDataMeta } from './relationship-refs-data-meta';
 export interface RelationshipRefsData {
     /**
      * 
-     * @type {string}
+     * @type {TypeEntity}
      * @memberof RelationshipRefsData
      */
-    'type'?: string;
+    'type'?: TypeEntity;
     /**
-     * 
+     * The ID that uniquely identifies the resource.
      * @type {string}
      * @memberof RelationshipRefsData
      */
     'id'?: string;
     /**
      * 
-     * @type {RelationshipRefsDataMeta}
+     * @type {MetaRefs}
      * @memberof RelationshipRefsData
      */
-    'meta'?: RelationshipRefsDataMeta;
+    'meta'?: MetaRefs;
 }
+
+
 

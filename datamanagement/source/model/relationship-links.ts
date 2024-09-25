@@ -1,30 +1,30 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HubsJsonapi } from './hubs-jsonapi';
-import { HubsLinks } from './hubs-links';
+import { JsonApiLinksSelf } from './json-api-links-self';
+import { JsonApiVersion } from './json-api-version';
 import { RelationshipLinksData } from './relationship-links-data';
 
 /**
- * Successful retrieval of the links collection associated with a specific resource.
+ * An object containing relationship links of a resource.
  * @export
  * @interface RelationshipLinks
  */
 export interface RelationshipLinks {
     /**
      * 
-     * @type {HubsJsonapi}
+     * @type {JsonApiVersion}
      * @memberof RelationshipLinks
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi'?: JsonApiVersion;
     /**
      * 
-     * @type {HubsLinks}
+     * @type {JsonApiLinksSelf}
      * @memberof RelationshipLinks
      */
-    'links'?: HubsLinks;
+    'links'?: JsonApiLinksSelf;
     /**
-     * 
+     * An array of objects where each object represents link.
      * @type {Set<RelationshipLinksData>}
      * @memberof RelationshipLinks
      */

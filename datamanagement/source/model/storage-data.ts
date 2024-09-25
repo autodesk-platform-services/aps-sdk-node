@@ -2,22 +2,22 @@
 /* eslint-disable */
 
 import { StorageDataRelationships } from './storage-data-relationships';
-import { Type } from './type';
+import { TypeObject } from './type-object';
 
 /**
- * 
+ * An object containing information on the storage location.
  * @export
  * @interface StorageData
  */
 export interface StorageData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeObject}
      * @memberof StorageData
      */
-    'type'?: Type;
+    'type'?: TypeObject;
     /**
-     * 
+     * The ID to uniquely identify the storage location.
      * @type {string}
      * @memberof StorageData
      */

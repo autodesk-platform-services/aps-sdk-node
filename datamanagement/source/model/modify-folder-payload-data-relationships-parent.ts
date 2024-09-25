@@ -4,7 +4,7 @@
 import { ModifyFolderPayloadDataRelationshipsParentData } from './modify-folder-payload-data-relationships-parent-data';
 
 /**
- * 
+ * Information about the parent folder of this folder.
  * @export
  * @interface ModifyFolderPayloadDataRelationshipsParent
  */

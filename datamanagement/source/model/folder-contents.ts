@@ -2,9 +2,9 @@
 /* eslint-disable */
 
 import { FolderContentsData } from './folder-contents-data';
-import { FolderContentsIncluded } from './folder-contents-included';
 import { FolderContentsLinks } from './folder-contents-links';
-import { HubsJsonapi } from './hubs-jsonapi';
+import { JsonApiVersion } from './json-api-version';
+import { VersionData } from './version-data';
 
 /**
  * Successful retrieval of the folder contents collection associated with a specific folder.
@@ -14,27 +14,27 @@ import { HubsJsonapi } from './hubs-jsonapi';
 export interface FolderContents {
     /**
      * 
-     * @type {HubsJsonapi}
+     * @type {JsonApiVersion}
      * @memberof FolderContents
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi': JsonApiVersion;
     /**
      * 
      * @type {FolderContentsLinks}
      * @memberof FolderContents
      */
-    'links'?: FolderContentsLinks;
+    'links': FolderContentsLinks;
     /**
-     * 
+     * The properties of an item or folder, as the case may be.
      * @type {Set<FolderContentsData>}
      * @memberof FolderContents
      */
     'data'?: Set<FolderContentsData>;
     /**
-     * 
-     * @type {Set<FolderContentsIncluded>}
+     * An array of objects, where each element represents a resource included within this resource.
+     * @type {Array<VersionData>}
      * @memberof FolderContents
      */
-    'included'?: Set<FolderContentsIncluded>;
+    'included'?: Array<VersionData>;
 }
 

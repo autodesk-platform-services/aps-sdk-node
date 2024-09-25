@@ -4,7 +4,7 @@
 import { ModifyFolderPayloadDataRelationshipsParent } from './modify-folder-payload-data-relationships-parent';
 
 /**
- * 
+ * Contains links to resources that are directly related to this folder.
  * @export
  * @interface ModifyFolderPayloadDataRelationships
  */

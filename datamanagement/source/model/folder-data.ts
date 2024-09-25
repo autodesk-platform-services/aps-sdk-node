@@ -1,45 +1,48 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { FolderDataAttributes } from './folder-data-attributes';
-import { ProjectsDataLinks } from './projects-data-links';
-import { TopFoldersDataRelationships } from './top-folders-data-relationships';
+import { FolderAttributesWithExtensions } from './folder-attributes-with-extensions';
+import { FolderDataRelationships } from './folder-data-relationships';
+import { JsonApiLinksSelfAndWebView } from './json-api-links-self-and-web-view';
+import { TypeFolder } from './type-folder';
 
 /**
- * 
+ * A container of data describing a folder.
  * @export
  * @interface FolderData
  */
 export interface FolderData {
     /**
      * 
+     * @type {TypeFolder}
+     * @memberof FolderData
+     */
+    'type': TypeFolder;
+    /**
+     * The unique identifier of the folder.
      * @type {string}
      * @memberof FolderData
      */
-    'type'?: string;
+    'id': string;
     /**
      * 
-     * @type {string}
+     * @type {FolderAttributesWithExtensions}
      * @memberof FolderData
      */
-    'id'?: string;
+    'attributes': FolderAttributesWithExtensions;
     /**
      * 
-     * @type {FolderDataAttributes}
+     * @type {JsonApiLinksSelfAndWebView}
      * @memberof FolderData
      */
-    'attributes'?: FolderDataAttributes;
+    'links': JsonApiLinksSelfAndWebView;
     /**
      * 
-     * @type {ProjectsDataLinks}
+     * @type {FolderDataRelationships}
      * @memberof FolderData
      */
-    'links'?: ProjectsDataLinks;
-    /**
-     * 
-     * @type {TopFoldersDataRelationships}
-     * @memberof FolderData
-     */
-    'relationships'?: TopFoldersDataRelationships;
+    'relationships': FolderDataRelationships;
 }
+
+
 

@@ -2,20 +2,20 @@
 /* eslint-disable */
 
 import { DownloadPayloadData } from './download-payload-data';
-import { ModifyFolderPayloadJsonapi } from './modify-folder-payload-jsonapi';
+import { JsonApiVersion } from './json-api-version';
 
 /**
- * Describe the download to be created.
+ * The payload for creating a download of a specified format.
  * @export
  * @interface DownloadPayload
  */
 export interface DownloadPayload {
     /**
      * 
-     * @type {ModifyFolderPayloadJsonapi}
+     * @type {JsonApiVersion}
      * @memberof DownloadPayload
      */
-    'jsonapi': ModifyFolderPayloadJsonapi;
+    'jsonapi': JsonApiVersion;
     /**
      * 
      * @type {DownloadPayloadData}

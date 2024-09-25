@@ -2,22 +2,21 @@
 /* eslint-disable */
 
 import { ModifyItemPayloadDataAttributes } from './modify-item-payload-data-attributes';
-import { Type } from './type';
 
 /**
- * 
+ * The data that describes what must be modified.
  * @export
  * @interface ModifyItemPayloadData
  */
 export interface ModifyItemPayloadData {
     /**
-     * 
-     * @type {Type}
+     * The type of the resource. Must always be ``items``.
+     * @type {string}
      * @memberof ModifyItemPayloadData
      */
-    'type': Type;
+    'type': string;
     /**
-     * 
+     * The ID of the item to be patched.
      * @type {string}
      * @memberof ModifyItemPayloadData
      */
@@ -29,6 +28,4 @@ export interface ModifyItemPayloadData {
      */
     'attributes'?: ModifyItemPayloadDataAttributes;
 }
-
-
 
