@@ -1,20 +1,24 @@
-import { ApsServiceRequestConfig, SdkManager } from "@aps_sdk/autodesk-sdkmanager"; 
-import {CompaniesApi, ProjectsApi, ProjectUsersApi, AccountUsersApi, BusinessUnitsApi} from "../api";
+import { ApsServiceRequestConfig, BaseClient, IAuthenticationProvider, SdkManager, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
+import { CompaniesApi, ProjectsApi, ProjectUsersApi, AccountUsersApi, BusinessUnitsApi } from "../api";
 import { AccessLevels, BusinessUnitsRequestPyload, BusinessUnitsResponse, Classification, Company, CompanyImportResponse, CompanyPatchPayload, CompanyPayload, CompanyResponse, Fields, FilterTextMatch, OrFilters, Platform, Products, Project, ProjectPatchResponse, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserResponse, ProjectUsers, ProjectUsersImportPayload, ProjectUsersImportResponse, ProjectUsersUpdatePayload, Projects, Region, SortBy, Status, StatusFilter, User, UserFields, UserImportResponse, UserPatchPayload, UserPayload, UserSortBy } from "../model";
 
-export class AdminClient {
+export class AdminClient extends BaseClient {
     public companiesApi: CompaniesApi;
     public projectsApi: ProjectsApi;
     public projectUsersApi: ProjectUsersApi;
     public accountUsersApi: AccountUsersApi;
     public businessUnitAPI: BusinessUnitsApi;
 
-    constructor(sdkManager: SdkManager) {
-        this.companiesApi = new CompaniesApi(sdkManager);
-        this.accountUsersApi = new AccountUsersApi(sdkManager);
-        this.projectsApi = new ProjectsApi(sdkManager);
-        this.projectUsersApi = new ProjectUsersApi(sdkManager);
-        this.businessUnitAPI = new BusinessUnitsApi(sdkManager);
+    constructor(optionalArgs?: { sdkManager?: SdkManager, authenticationProvider?: IAuthenticationProvider }) {
+        super(optionalArgs?.authenticationProvider);
+        if (!optionalArgs?.sdkManager) {
+            (optionalArgs ??= {}).sdkManager = SdkManagerBuilder.create().build();
+        }
+        this.companiesApi = new CompaniesApi(optionalArgs.sdkManager);
+        this.accountUsersApi = new AccountUsersApi(optionalArgs.sdkManager);
+        this.projectsApi = new ProjectsApi(optionalArgs.sdkManager);
+        this.projectUsersApi = new ProjectUsersApi(optionalArgs.sdkManager);
+        this.businessUnitAPI = new BusinessUnitsApi(optionalArgs.sdkManager);
     }
 
     // Project API
@@ -30,8 +34,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectsApi
      */
-    public async getProject(accessToken: string, projectId: string, optionalArgs?:{region?: Region, fields?: Array<Fields>, options?: ApsServiceRequestConfig}): Promise<Project> {
-        const response = await this.projectsApi.getProject(accessToken, projectId, null, optionalArgs?.region, null, optionalArgs?.fields, optionalArgs?.options);
+    public async getProject(projectId: string, optionalArgs?: { region?: Region, fields?: Array<Fields>, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Project> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.projectsApi.getProject(optionalArgs?.accessToken, projectId, null, optionalArgs?.region, null, optionalArgs?.fields, optionalArgs?.options);
         return response.content;
     }
 
@@ -59,8 +69,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectsApi
      */
-    public async getProjects(accessToken: string, accountId: string, optionalArgs?:{region?: Region, fields?: Array<Fields>, filterClassification?: Array<Classification>, filterPlatform?: Array<Platform>, filterProducts?: Array<Products>, filterName?: string, filterType?: Array<string>, filterStatus?: Array<Status>, filterBusinessUnitId?: string, filterJobNumber?: string, filterUpdatedAt?: string, filterTextMatch?: FilterTextMatch, sort?: Array<SortBy>, limit?: number, offset?: number, options?: ApsServiceRequestConfig}): Promise<Projects> {
-        const response = await this.projectsApi.getProjects(accessToken, accountId, null, optionalArgs?.region, null, optionalArgs?.fields, optionalArgs?.filterClassification, optionalArgs?.filterPlatform, optionalArgs?.filterProducts, optionalArgs?.filterName, optionalArgs?.filterType, optionalArgs?.filterStatus, optionalArgs?.filterBusinessUnitId, optionalArgs?.filterJobNumber, optionalArgs?.filterUpdatedAt, optionalArgs?.filterTextMatch, optionalArgs?.sort, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.options);
+    public async getProjects(accountId: string, optionalArgs?: { region?: Region, fields?: Array<Fields>, filterClassification?: Array<Classification>, filterPlatform?: Array<Platform>, filterProducts?: Array<Products>, filterName?: string, filterType?: Array<string>, filterStatus?: Array<Status>, filterBusinessUnitId?: string, filterJobNumber?: string, filterUpdatedAt?: string, filterTextMatch?: FilterTextMatch, sort?: Array<SortBy>, limit?: number, offset?: number, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Projects> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.projectsApi.getProjects(optionalArgs?.accessToken, accountId, null, optionalArgs?.region, null, optionalArgs?.fields, optionalArgs?.filterClassification, optionalArgs?.filterPlatform, optionalArgs?.filterProducts, optionalArgs?.filterName, optionalArgs?.filterType, optionalArgs?.filterStatus, optionalArgs?.filterBusinessUnitId, optionalArgs?.filterJobNumber, optionalArgs?.filterUpdatedAt, optionalArgs?.filterTextMatch, optionalArgs?.sort, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.options);
         return response.content;
     }
 
@@ -76,8 +92,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectsApi
      */
-    public async createProject(accessToken: string, accountId: string, projectPayload: ProjectPayload, optionalArgs?:{region?: Region, adminUserId?: string, options?: ApsServiceRequestConfig}): Promise<Project> {
-        const response = await this.projectsApi.createProject(accessToken, accountId, null, optionalArgs?.region, optionalArgs?.adminUserId, projectPayload, optionalArgs?.options);
+    public async createProject(accountId: string, projectPayload: ProjectPayload, optionalArgs?: { region?: Region, adminUserId?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Project> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.projectsApi.createProject(optionalArgs?.accessToken, accountId, null, optionalArgs?.region, optionalArgs?.adminUserId, projectPayload, optionalArgs?.options);
         return response.content;
     }
 
@@ -93,8 +115,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectsApi
      */
-    public async createProjectImage(accessToken: string, projectId: string, accountId: string, body: File, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<ProjectPatchResponse> {
-        const response = await this.projectsApi.createProjectImage(accessToken, projectId, accountId, body, optionalArgs?.region, optionalArgs?.options);
+    public async createProjectImage(projectId: string, accountId: string, body: File, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ProjectPatchResponse> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.projectsApi.createProjectImage(optionalArgs?.accessToken, projectId, accountId, body, optionalArgs?.region, optionalArgs?.options);
         return response.content;
     }
 
@@ -120,8 +148,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof CompaniesApi
      */
-    public async searchCompanies(accessToken: string, accountId: string, optionalArgs?:{region?: Region, name?: string, trade?: string, operator?: string, partial?: boolean, limit?: number, offset?: number, sort?: string, field?: string, options?: ApsServiceRequestConfig}): Promise<Array<Company>> {
-        const response = await this.companiesApi.searchCompanies(accessToken, accountId, optionalArgs?.region, optionalArgs?.name, optionalArgs?.trade, optionalArgs?.operator, optionalArgs?.partial, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sort, optionalArgs?.field, optionalArgs?.options);
+    public async searchCompanies(accountId: string, optionalArgs?: { region?: Region, name?: string, trade?: string, operator?: string, partial?: boolean, limit?: number, offset?: number, sort?: string, field?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Array<Company>> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.companiesApi.searchCompanies(optionalArgs?.accessToken, accountId, optionalArgs?.region, optionalArgs?.name, optionalArgs?.trade, optionalArgs?.operator, optionalArgs?.partial, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sort, optionalArgs?.field, optionalArgs?.options);
         return response.content;
     }
 
@@ -137,8 +171,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof CompaniesApi
      */
-    public async patchCompanyImage(accessToken: string, companyId: string, accountId: string, body: File, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<Company> {
-        const response = await this.companiesApi.patchCompanyImage(accessToken, companyId, accountId, body, optionalArgs?.region, optionalArgs?.options);
+    public async patchCompanyImage(companyId: string, accountId: string, body: File, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Company> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.companiesApi.patchCompanyImage(optionalArgs?.accessToken, companyId, accountId, body, optionalArgs?.region, optionalArgs?.options);
         return response.content;
     }
 
@@ -154,8 +194,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof CompaniesApi
      */
-    public async patchCompanyDetails(accessToken: string, companyId: string, accountId: string, companyPatchPayload: CompanyPatchPayload, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<Company> {
-        const response = await this.companiesApi.patchCompanyDetails(accessToken, companyId, accountId, optionalArgs?.region, companyPatchPayload, optionalArgs?.options);
+    public async patchCompanyDetails(companyId: string, accountId: string, companyPatchPayload: CompanyPatchPayload, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Company> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.companiesApi.patchCompanyDetails(optionalArgs?.accessToken, companyId, accountId, optionalArgs?.region, companyPatchPayload, optionalArgs?.options);
         return response.content;
     }
 
@@ -170,8 +216,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof CompaniesApi
      */
-    public async importCompanies(accessToken: string, accountId: string, companyPayload: Array<CompanyPayload>, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<CompanyImportResponse> {
-        const response = await this.companiesApi.importCompanies(accessToken, accountId, optionalArgs?.region, companyPayload, optionalArgs?.options);
+    public async importCompanies(accountId: string, companyPayload: Array<CompanyPayload>, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<CompanyImportResponse> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.companiesApi.importCompanies(optionalArgs?.accessToken, accountId, optionalArgs?.region, companyPayload, optionalArgs?.options);
         return response.content;
     }
 
@@ -190,8 +242,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof CompaniesApi
      */
-    public async getProjectCompanies(accessToken: string, accountId: string, projectId: string, optionalArgs?:{region?: Region, limit?: number, offset?: number, sort?: string, field?: string, options?: ApsServiceRequestConfig}): Promise<Array<CompanyResponse>> {
-        const response = await this.companiesApi.getProjectCompanies(accessToken, accountId, projectId, optionalArgs?.region, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sort, optionalArgs?.field, optionalArgs?.options);
+    public async getProjectCompanies(accountId: string, projectId: string, optionalArgs?: { region?: Region, limit?: number, offset?: number, sort?: string, field?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Array<CompanyResponse>> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.companiesApi.getProjectCompanies(optionalArgs?.accessToken, accountId, projectId, optionalArgs?.region, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sort, optionalArgs?.field, optionalArgs?.options);
         return response.content;
     }
 
@@ -206,8 +264,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof CompaniesApi
      */
-    public async getCompany(accessToken: string, companyId: string, accountId: string, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<Company> {
-        const response = await this.companiesApi.getCompany(accessToken, companyId, accountId, optionalArgs?.region, optionalArgs?.options);
+    public async getCompany(companyId: string, accountId: string, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Company> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.companiesApi.getCompany(optionalArgs?.accessToken, companyId, accountId, optionalArgs?.region, optionalArgs?.options);
         return response.content;
     }
 
@@ -225,8 +289,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof CompaniesApi
      */
-    public async getCompanies(accessToken: string, accountId: string, optionalArgs?:{region?: Region, limit?: number, offset?: number, sort?: string, field?: string, options?: ApsServiceRequestConfig}): Promise<Array<Company>> {
-        const response = await this.companiesApi.getCompanies(accessToken, accountId, optionalArgs?.region, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sort, optionalArgs?.field, optionalArgs?.options);
+    public async getCompanies(accountId: string, optionalArgs?: { region?: Region, limit?: number, offset?: number, sort?: string, field?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Array<Company>> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.companiesApi.getCompanies(optionalArgs?.accessToken, accountId, optionalArgs?.region, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sort, optionalArgs?.field, optionalArgs?.options);
         return response.content;
     }
 
@@ -241,12 +311,18 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof CompaniesApi
      */
-    public async createCompany(accessToken: string, accountId: string, companyPayload: CompanyPayload, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<Company> {
-        const response = await this.companiesApi.createCompany(accessToken, accountId, optionalArgs?.region, companyPayload, optionalArgs?.options);
+    public async createCompany(accountId: string, companyPayload: CompanyPayload, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Company> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.companiesApi.createCompany(optionalArgs?.accessToken, accountId, optionalArgs?.region, companyPayload, optionalArgs?.options);
         return response.content;
     }
 
-    
+
     // Project-User API
 
 
@@ -262,8 +338,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectUsersApi
      */
-    public async getProjectUser(accessToken: string, projectId: string, userId: string, optionalArgs?:{region?: Region, fields?: any, options?: ApsServiceRequestConfig}): Promise<ProjectUser> {
-        const response = await this.projectUsersApi.getProjectUser(accessToken, projectId, userId, null, optionalArgs?.region, null, optionalArgs?.fields, optionalArgs?.options);
+    public async getProjectUser(projectId: string, userId: string, optionalArgs?: { region?: Region, fields?: any, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ProjectUser> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.projectUsersApi.getProjectUser(optionalArgs?.accessToken, projectId, userId, null, optionalArgs?.region, null, optionalArgs?.fields, optionalArgs?.options);
         return response.content;
     }
 
@@ -279,8 +361,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectUsersApi
      */
-    public async assignProjectUser(accessToken: string, projectId: string, projectUserPayload: ProjectUserPayload, optionalArgs?:{region?: Region, adminUserId?: string, options?: ApsServiceRequestConfig}): Promise<ProjectUserResponse> {
-        const response = await this.projectUsersApi.assignProjectUser(accessToken, projectId, null, optionalArgs?.region, optionalArgs?.adminUserId, projectUserPayload, optionalArgs?.options);
+    public async assignProjectUser(projectId: string, projectUserPayload: ProjectUserPayload, optionalArgs?: { region?: Region, adminUserId?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ProjectUserResponse> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.projectUsersApi.assignProjectUser(optionalArgs?.accessToken, projectId, null, optionalArgs?.region, optionalArgs?.adminUserId, projectUserPayload, optionalArgs?.options);
         return response.content;
     }
 
@@ -311,8 +399,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectUsersApi
      */
-    public async getProjectUsers(accessToken: string, projectId: string, optionalArgs?:{region?: Region, filterProducts?: Array<Products>, filterName?: string, filterEmail?: string, filterStatus?: Array<StatusFilter>, filterAccessLevels?: Array<AccessLevels>, filterCompanyId?: string, filterCompanyName?: string, filterAutodeskId?: Array<string>, filterId?: Array<string>, filterRoleId?: string, filterRoleIds?: Array<string>, sort?: Array<UserSortBy>, fields?: Array<UserFields>, orFilters?: Array<OrFilters>, filterTextMatch?: FilterTextMatch, limit?: number, offset?: number, options?: ApsServiceRequestConfig}): Promise<ProjectUsers> {
-        const response = await this.projectUsersApi.getProjectUsers(accessToken, projectId, null, optionalArgs?.region, null, optionalArgs?.filterProducts, optionalArgs?.filterName, optionalArgs?.filterEmail, optionalArgs?.filterStatus, optionalArgs?.filterAccessLevels, optionalArgs?.filterCompanyId, optionalArgs?.filterCompanyName, optionalArgs?.filterAutodeskId, optionalArgs?.filterId, optionalArgs?.filterRoleId, optionalArgs?.filterRoleIds, optionalArgs?.sort, optionalArgs?.fields, optionalArgs?.orFilters, optionalArgs?.filterTextMatch, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.options);
+    public async getProjectUsers(projectId: string, optionalArgs?: { region?: Region, filterProducts?: Array<Products>, filterName?: string, filterEmail?: string, filterStatus?: Array<StatusFilter>, filterAccessLevels?: Array<AccessLevels>, filterCompanyId?: string, filterCompanyName?: string, filterAutodeskId?: Array<string>, filterId?: Array<string>, filterRoleId?: string, filterRoleIds?: Array<string>, sort?: Array<UserSortBy>, fields?: Array<UserFields>, orFilters?: Array<OrFilters>, filterTextMatch?: FilterTextMatch, limit?: number, offset?: number, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ProjectUsers> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.projectUsersApi.getProjectUsers(optionalArgs?.accessToken, projectId, null, optionalArgs?.region, null, optionalArgs?.filterProducts, optionalArgs?.filterName, optionalArgs?.filterEmail, optionalArgs?.filterStatus, optionalArgs?.filterAccessLevels, optionalArgs?.filterCompanyId, optionalArgs?.filterCompanyName, optionalArgs?.filterAutodeskId, optionalArgs?.filterId, optionalArgs?.filterRoleId, optionalArgs?.filterRoleIds, optionalArgs?.sort, optionalArgs?.fields, optionalArgs?.orFilters, optionalArgs?.filterTextMatch, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.options);
         return response.content;
     }
 
@@ -328,8 +422,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectUsersApi
      */
-    public async importProjectUsers(accessToken: string, projectId: string, projectUsersImportPayload: ProjectUsersImportPayload, optionalArgs?:{region?: Region, adminUserId?: string, options?: ApsServiceRequestConfig}): Promise<ProjectUsersImportResponse> {
-        const response = await this.projectUsersApi.importProjectUsers(accessToken, projectId, null, optionalArgs?.region, optionalArgs?.adminUserId, projectUsersImportPayload, optionalArgs?.options);
+    public async importProjectUsers(projectId: string, projectUsersImportPayload: ProjectUsersImportPayload, optionalArgs?: { region?: Region, adminUserId?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ProjectUsersImportResponse> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.projectUsersApi.importProjectUsers(optionalArgs?.accessToken, projectId, null, optionalArgs?.region, optionalArgs?.adminUserId, projectUsersImportPayload, optionalArgs?.options);
         return response.content;
     }
 
@@ -345,8 +445,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectUsersApi
      */
-    public async removeProjectUser(accessToken: string, projectId: string, userId: string, optionalArgs?:{region?: Region, adminUserId?: string, options?: ApsServiceRequestConfig}): Promise<void> {
-        const response = await this.projectUsersApi.removeProjectUser(accessToken, projectId, userId, null, optionalArgs?.region, optionalArgs?.adminUserId, optionalArgs?.options);
+    public async removeProjectUser(projectId: string, userId: string, optionalArgs?: { region?: Region, adminUserId?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<void> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.projectUsersApi.removeProjectUser(optionalArgs?.accessToken, projectId, userId, null, optionalArgs?.region, optionalArgs?.adminUserId, optionalArgs?.options);
         return response.content;
     }
 
@@ -363,8 +469,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof ProjectUsersApi
      */
-    public async updateProjectUser(accessToken: string, projectId: string, userId: string, projectUsersUpdatePayload: ProjectUsersUpdatePayload, optionalArgs?:{region?: Region, adminUserId?: string, options?: ApsServiceRequestConfig}): Promise<ProjectUserResponse> {
-        const response = await this.projectUsersApi.updateProjectUser(accessToken, projectId, userId, null, optionalArgs?.region, optionalArgs?.adminUserId, projectUsersUpdatePayload, optionalArgs?.options);
+    public async updateProjectUser(projectId: string, userId: string, projectUsersUpdatePayload: ProjectUsersUpdatePayload, optionalArgs?: { region?: Region, adminUserId?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ProjectUserResponse> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.projectUsersApi.updateProjectUser(optionalArgs?.accessToken, projectId, userId, null, optionalArgs?.region, optionalArgs?.adminUserId, projectUsersUpdatePayload, optionalArgs?.options);
         return response.content;
     }
 
@@ -383,8 +495,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof AccountUsersApi
      */
-    public async createUser(accessToken: string, accountId: string, userPayload: UserPayload, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<User> {
-        const response = await this.accountUsersApi.createUser(accessToken, accountId, optionalArgs?.region, userPayload, optionalArgs?.options);
+    public async createUser(accountId: string, userPayload: UserPayload, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<User> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.accountUsersApi.createUser(optionalArgs?.accessToken, accountId, optionalArgs?.region, userPayload, optionalArgs?.options);
         return response.content;
     }
 
@@ -399,8 +517,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof AccountUsersApi
      */
-    public async getUser(accessToken: string, accountId: string, userId: string, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<User> {
-        const response = await this.accountUsersApi.getUser(accessToken, accountId, userId, optionalArgs?.region, optionalArgs?.options);
+    public async getUser(accountId: string, userId: string, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<User> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.accountUsersApi.getUser(optionalArgs?.accessToken, accountId, userId, optionalArgs?.region, optionalArgs?.options);
         return response.content;
     }
 
@@ -418,8 +542,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof AccountUsersApi
      */
-    public async getUsers(accessToken: string, accountId: string, optionalArgs?:{region?: Region, limit?: number, offset?: number, sort?: string, field?: string, options?: ApsServiceRequestConfig}): Promise<Array<User>> {
-        const response = await this.accountUsersApi.getUsers(accessToken, accountId, optionalArgs?.region, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sort, optionalArgs?.field, optionalArgs?.options);
+    public async getUsers(accountId: string, optionalArgs?: { region?: Region, limit?: number, offset?: number, sort?: string, field?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Array<User>> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.accountUsersApi.getUsers(optionalArgs?.accessToken, accountId, optionalArgs?.region, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sort, optionalArgs?.field, optionalArgs?.options);
         return response.content;
     }
 
@@ -434,8 +564,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof AccountUsersApi
      */
-    public async importUsers(accessToken: string, accountId: string, userPayload: Array<UserPayload>, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<UserImportResponse> {
-        const response = await this.accountUsersApi.importUsers(accessToken, accountId, optionalArgs?.region, userPayload, optionalArgs?.options);
+    public async importUsers(accountId: string, userPayload: Array<UserPayload>, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<UserImportResponse> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.accountUsersApi.importUsers(optionalArgs?.accessToken, accountId, optionalArgs?.region, userPayload, optionalArgs?.options);
         return response.content;
     }
 
@@ -451,8 +587,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof AccountUsersApi
      */
-    public async patchUserDetails(accessToken: string, accountId: string, userId: string, userPatchPayload: UserPatchPayload, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<User> {
-        const response = await this.accountUsersApi.patchUserDetails(accessToken, accountId, userId, optionalArgs?.region, userPatchPayload, optionalArgs?.options);
+    public async patchUserDetails(accountId: string, userId: string, userPatchPayload: UserPatchPayload, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<User> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.accountUsersApi.patchUserDetails(optionalArgs?.accessToken, accountId, userId, optionalArgs?.region, userPatchPayload, optionalArgs?.options);
         return response.content;
     }
 
@@ -475,8 +617,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof AccountUsersApi
      */
-    public async searchUsers(accessToken: string, accountId: string, optionalArgs?:{region?: Region, name?: string, email?: string, companyName?: string, operator?: string, partial?: boolean, limit?: number, offset?: number, sort?: string, field?: string, options?: ApsServiceRequestConfig}): Promise<Array<User>> {
-        const response = await this.accountUsersApi.searchUsers(accessToken, accountId, optionalArgs?.region, optionalArgs?.name, optionalArgs?.email, optionalArgs?.companyName, optionalArgs?.operator, optionalArgs?.partial, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sort, optionalArgs?.field, optionalArgs?.options);
+    public async searchUsers(accountId: string, optionalArgs?: { region?: Region, name?: string, email?: string, companyName?: string, operator?: string, partial?: boolean, limit?: number, offset?: number, sort?: string, field?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Array<User>> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.accountUsersApi.searchUsers(optionalArgs?.accessToken, accountId, optionalArgs?.region, optionalArgs?.name, optionalArgs?.email, optionalArgs?.companyName, optionalArgs?.operator, optionalArgs?.partial, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sort, optionalArgs?.field, optionalArgs?.options);
         return response.content;
     }
 
@@ -494,8 +642,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof BusinessUnitsApi
      */
-    public async getBusinessUnits(accessToken: string, accountId: string, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<BusinessUnitsResponse> {
-        const response = await this.businessUnitAPI.getBusinessUnits(accessToken, accountId, optionalArgs?.region, optionalArgs?.options);
+    public async getBusinessUnits(accountId: string, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<BusinessUnitsResponse> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.businessUnitAPI.getBusinessUnits(optionalArgs?.accessToken, accountId, optionalArgs?.region, optionalArgs?.options);
         return response.content;
     }
 
@@ -510,8 +664,14 @@ export class AdminClient {
      * @throws {RequiredError}
      * @memberof BusinessUnitsApi
      */
-    public async createBusinessUnits(accessToken: string, accountId: string, businessUnitsRequestPyload: BusinessUnitsRequestPyload, optionalArgs?:{region?: Region, options?: ApsServiceRequestConfig}): Promise<BusinessUnitsResponse> {
-        const response = await this.businessUnitAPI.createBusinessUnits(accessToken, accountId, optionalArgs?.region, businessUnitsRequestPyload, optionalArgs?.options);
+    public async createBusinessUnits(accountId: string, businessUnitsRequestPyload: BusinessUnitsRequestPyload, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<BusinessUnitsResponse> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.businessUnitAPI.createBusinessUnits(optionalArgs?.accessToken, accountId, optionalArgs?.region, businessUnitsRequestPyload, optionalArgs?.options);
         return response.content;
     }
 }
