@@ -54,6 +54,7 @@ export * from './downloadPayloadDataRelationships';
 export * from './downloadPayloadDataRelationshipsSource';
 export * from './downloadPayloadDataRelationshipsSourceData';
 export * from './downloads';
+export * from './downloadsStatus';
 export * from './folder';
 export * from './folderAttributesWithExtensions';
 export * from './folderContents';

@@ -146,6 +146,11 @@ import {
   ItemPayloadIncludedRelationshipsStorageData,
   VersionPayloadDataRelationshipsStorage,
   VersionPayloadDataRelationshipsStorageData,
+  StorageData,
+  Storage,
+  CreatedItem,
+  ItemVersionNumber,
+  ItemIncludedVersionNumber,
 } from "@aps_sdk/data-management";
 import "dotenv/config";
 
@@ -158,7 +163,7 @@ const version_id = process.env.version_id;
 const folder_id = process.env.folder_id;
 const item_id = process.env.item_id;
 const project_top_folder_one_id = process.env.project_top_folder_one_id;
-const project_top_folder_two_id = process.env.project_top_folder_two_id;
+const storage_folder_id = process.env.storage_folder_id;
 const storage_urn = process.env.storage_urn;
 
 const staticAuthenticationProvider = new StaticAuthenticationProvider(
@@ -183,7 +188,6 @@ async function getHubs() {
 
       console.log(hubId);
       console.log(hubType);
-
       console.log(current.attributes.name);
       console.log(current.attributes.extension.type);
     });
@@ -202,6 +206,7 @@ async function getHub() {
     console.log(hubId);
     console.log(hubType);
     console.log(hubData.attributes.name);
+    console.log(hubData.attributes.extension.type);
   } catch (err) {
     console.error(err.message);
   }
@@ -232,7 +237,6 @@ async function getHubProjects() {
 
       console.log(projectId);
       console.log(projectType);
-
       console.log(current.attributes.extension.type);
     });
   } catch (err) {
@@ -339,7 +343,7 @@ async function startDownload() {
         type: TypeDownloads.Downloads,
         attributes: <DownloadPayloadDataAttributes>{
           format: <DownloadPayloadDataAttributesFormat>{
-            fileType: "dwg",
+            fileType: "rvt",
           },
         },
         relationships: <DownloadPayloadDataRelationships>{
@@ -352,6 +356,7 @@ async function startDownload() {
         },
       },
     };
+    console.log(downloadPayload);
     const createdDownload: CreatedDownload =
       await dataManagementClient.startDownload(project_id, downloadPayload);
     console.log(createdDownload);
@@ -367,23 +372,30 @@ async function createStorage() {
       data: <StoragePayloadData>{
         type: TypeObject.Objects,
         attributes: <StoragePayloadDataAttributes>{
-          name: "drawing.dwg",
+          name: "ractproj.rvt",
         },
         relationships: <StoragePayloadDataRelationships>{
           target: <StoragePayloadDataRelationshipsTarget>{
             data: <StoragePayloadDataRelationshipsTargetData>{
               type: TypeFolder.Folders,
-              id: folder_id,
+              id: storage_folder_id,
             },
           },
         },
       },
     };
-    const storage: Storage = await dataManagementClient.createStorage(
+    const storageDetails = await dataManagementClient.createStorage(
       project_id,
       storagePayload
     );
-    console.log(storage);
+
+    const storageData: StorageData = storageDetails.data;
+    const storageType: string = storageData.type;
+    const storageId: string = storageData.id;
+
+    console.log(storageType);
+    console.log(storageId);
+    console.log(storageData.relationships.target.data.id);
   } catch (err) {
     console.error(err.message);
   }
@@ -395,7 +407,7 @@ async function createStorage() {
 // getProjectTopFolders();
 // getDownload();
 // getDownloadJob();
-// startDownload(); --
+// startDownload(); -- request input is badly formatted
 // createStorage();
 
 //----------------------------------------------------------------------Folders-------------------------------------------------------//
@@ -422,8 +434,9 @@ async function getFolder() {
 async function getFolderContents() {
   try {
     const folderContents: FolderContents =
-      await dataManagementClient.getFolderContents(project_id, folder_id, {
-        filterType: ["items"],
+      await dataManagementClient.getFolderContents(project_id, folder_id, 
+        {
+        filterType: [TypeFilter.Items],
         filterId: [
           "urn:adsk.wipprod:dm.lineage:-RRLDElBTuuuO74_-r6XLg",
           "urn:adsk.wipprod:dm.lineage:8By2tOWmTjGXK70wJDlzgg",
@@ -432,7 +445,8 @@ async function getFolderContents() {
         pageNumber: 1,
         pageLimit: 1,
         includeHidden: true,
-      });
+      }
+    );
     folderContents.data.forEach((current) => {
       const folderId: string = current.id;
       const folderType: string = current.type;
@@ -633,7 +647,7 @@ async function patchFolder() {
       type: TypeFolder.Folders,
       id: folder_id,
       attributes: <ModifyFolderPayloadDataAttributes>{
-        name: "Kredo Y New Folder",
+        name: "Autodesk POCS",
       },
     },
   };
@@ -649,6 +663,7 @@ async function patchFolder() {
 
     console.log(folderType);
     console.log(folderId);
+    console.log(folderData.attributes.displayName);
   } catch (err) {
     console.error(err.message);
   }
@@ -662,7 +677,7 @@ async function patchFolder() {
 // getFolderRelationshipsRefs();
 // getFolderSearch(); -- filter
 // createFolder();
-// createFolderRelationshipsRef();
+// createFolderRelationshipsRef(); 
 // patchFolder();
 
 // ----------------------------------------------------------Items---------------------------------------------------------//
@@ -678,6 +693,19 @@ async function getItem() {
     console.log(itemType);
 
     console.log(itemData.attributes.displayName);
+    console.log(itemData.relationships.tip.data.type);
+    console.log(itemData.relationships.tip.data.id);
+
+    item.included.forEach((current) => {
+      const versionId: string = current.id;
+      const versionType: string = current.type;
+
+      console.log(versionId);
+      console.log(versionType);
+      console.log(current.attributes.displayName);
+      console.log(current.attributes.fileType);
+      console.log(current.relationships.storage.data.id);
+    });
   } catch (err) {
     console.error(err.message);
   }
@@ -803,17 +831,17 @@ async function createItem() {
       data: <ItemPayloadData>{
         type: TypeItem.Items,
         attributes: <ItemPayloadDataAttributes>{
-          displayName: "New Item Name",
+          displayName: "autodeskPocsDrawings.dwg",
           extension: <ItemPayloadDataAttributesExtension>{
             type: TypeItemExtension.Bim360File,
-            version: VersionNumber._10,
+            version: ItemVersionNumber._10,
           },
         },
         relationships: <ItemPayloadDataRelationships>{
           tip: <ItemPayloadDataRelationshipsTip>{
             data: <ItemPayloadDataRelationshipsTipData>{
               type: TypeVersion.Versions,
-              id: version_id,
+              id: "1",
             },
           },
           parent: <ItemPayloadDataRelationshipsParent>{
@@ -824,29 +852,21 @@ async function createItem() {
           },
         },
       },
-      included: new Set<ItemPayloadIncluded>([
+      included: [
         {
           type: TypeVersion.Versions,
           id: "1",
           attributes: <ItemPayloadIncludedAttributes>{
-            name: "mydrawingnew",
+            name: "autodeskPocsDrawings.dwg",
             extension: <ItemPayloadIncludedAttributesExtension>{
               type: TypeItemIncludedExtension.Bim360File,
-              version: VersionNumber._10,
-            },
-          },
-          relationships: <ItemPayloadIncludedRelationships>{
-            storage: <ItemPayloadIncludedRelationshipsStorage>{
-              data: <ItemPayloadIncludedRelationshipsStorageData>{
-                type: TypeObject.Objects,
-                id: storage_urn,
-              },
+              version: ItemIncludedVersionNumber._10,
             },
           },
         },
-      ]),
+      ],
     };
-    const item: Item = await dataManagementClient.createItem(
+    const item: CreatedItem = await dataManagementClient.createItem(
       project_id,
       itemPayload
     );
@@ -856,7 +876,6 @@ async function createItem() {
 
     console.log(itemId);
     console.log(ItemType);
-
     console.log(itemData.attributes.displayName);
   } catch (err) {
     console.error(err.message);
@@ -900,7 +919,7 @@ async function patchItem() {
         type: TypeItem.Items,
         id: item_id,
         attributes: <ModifyItemPayloadDataAttributes>{
-          displayName: "plans.dwg",
+          displayName: "autodesk-poc-racadvanced.rvt",
         },
       },
     };
@@ -930,9 +949,9 @@ async function patchItem() {
 // getItemRelationshipsRefs();
 // getItemTip();
 // getItemVersions();
-// createItem(); --
+// createItem();
 // createItemRelationshipsRef();
-// patchItem(); --
+// patchItem(); -- One or more input values in the request were bad
 
 //-----------------------------------------------------------------Versions---------------------------------------------------------//
 
@@ -949,6 +968,7 @@ async function getVersion() {
     console.log(versionId);
     console.log(versionType);
     console.log(versionData.attributes.extension.type);
+    console.log(versionData.attributes.displayName);
     console.log(versionData.relationships.storage.data.id);
   } catch (err) {
     console.error(err.message);
@@ -1080,7 +1100,7 @@ async function createVersion() {
       data: <VersionPayloadData>{
         type: TypeVersion.Versions,
         attributes: <VersionPayloadDataAttributes>{
-          name: "myplans.dwg",
+          name: "2c8107a7-e797-4bcc-ac45-2567870267c0.rvt",
           extension: <VersionPayloadDataAttributesExtension>{
             type: TypeItemIncludedExtension.Bim360File,
             version: VersionNumber._10,
@@ -1152,7 +1172,7 @@ async function patchVersion() {
         type: TypeVersion.Versions,
         id: version_id,
         attributes: <ModifyVersionPayloadDataAttributes>{
-          name: "myversion.dwg",
+          name: "myversion.rvt",
         },
       },
     };
@@ -1174,7 +1194,7 @@ async function patchVersion() {
 
 // getVersion();
 // getVersionDownloadFormats();
-// getVersionDownloads(); --
+// getVersionDownloads(); 
 // getVersionItem();
 // getVersionRefs();
 // getVersionRelationshipsLinks();
@@ -1215,7 +1235,8 @@ async function executeCheckPermissionCommand() {
         checkPermissionPayload
       );
 
-    console.log(checkPermission);
+    console.log(checkPermission.attributes.extension.type);
+    console.log(checkPermission.id);
   } catch (err) {
     console.error(err.message);
   }
@@ -1248,7 +1269,8 @@ async function executeListRefsCommand() {
         listRefsPayload
       );
 
-    console.log(listRefs);
+    console.log(listRefs.id);
+    console.log(listRefs.attributes.extension.type);
   } catch (err) {
     console.error(err.message);
   }
@@ -1284,7 +1306,8 @@ async function executeListItemsCommand() {
         listItemsPayload
       );
 
-    console.log(listItems);
+    console.log(listItems.id);
+    console.log(listItems.attributes.extension.type);
   } catch (err) {
     console.error(err.message);
   }
@@ -1317,7 +1340,7 @@ async function executePublishModelCommand() {
         publishModelPayload
       );
 
-    console.log(publishModel);
+    console.log(publishModel.attributes.extension.type);
   } catch (err) {
     console.error(err.message);
   }

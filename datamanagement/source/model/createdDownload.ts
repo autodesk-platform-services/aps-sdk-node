@@ -22,10 +22,10 @@ export interface CreatedDownload {
      */
     'links'?: JsonApiLinksSelf;
     /**
-     * An array of objects containing a single object, which represents the job that was kicked off.
-     * @type {Array<CreatedDownloadData>}
+     * 
+     * @type {CreatedDownloadData}
      * @memberof CreatedDownload
      */
-    'data'?: Array<CreatedDownloadData>;
+    'data'?: CreatedDownloadData;
 }
 

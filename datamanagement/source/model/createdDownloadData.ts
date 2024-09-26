@@ -4,7 +4,7 @@ import { JsonApiLinksSelf } from './jsonApiLinksSelf';
 import { TypeJob } from './typeJob';
 
 /**
- * 
+ * An array of objects containing a single object, which represents the job that was kicked off.
  * @export
  * @interface CreatedDownloadData
  */
@@ -16,7 +16,7 @@ export interface CreatedDownloadData {
      */
     'type'?: TypeJob;
     /**
-     * A unique ID assigned to identify the job that creates the download. This ID doubles up as the unique ID to identify the download.
+     * 
      * @type {string}
      * @memberof CreatedDownloadData
      */

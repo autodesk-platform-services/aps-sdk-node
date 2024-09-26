@@ -27,7 +27,7 @@ export interface ItemPayload {
      * @type {Set<ItemPayloadIncluded>}
      * @memberof ItemPayload
      */
-    'included': Set<ItemPayloadIncluded>;
+    'included': Array<ItemPayloadIncluded>;
     /**
      * 
      * @type {MetaForWebhooks}
