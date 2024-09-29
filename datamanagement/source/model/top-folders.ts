@@ -25,9 +25,9 @@ export interface TopFolders {
     'links': JsonApiLinksSelf;
     /**
      * Array of objects where each object represents a top-level folder.
-     * @type {Set<TopFolderData>}
+     * @type {Array<TopFolderData>}
      * @memberof TopFolders
      */
-    'data'?: Set<TopFolderData>;
+    'data'?: Array<TopFolderData>;
 }
 

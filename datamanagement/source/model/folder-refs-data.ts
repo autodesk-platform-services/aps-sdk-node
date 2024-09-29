@@ -10,42 +10,9 @@ import { VersionData } from './version-data';
 import { VersionDataRelationships } from './version-data-relationships';
 
 /**
- * 
+ * @type FolderRefsData
  * @export
- * @interface FolderRefsData
  */
-export interface FolderRefsData {
-    /**
-     * 
-     * @type {TypeVersion}
-     * @memberof FolderRefsData
-     */
-    'type': TypeVersion;
-    /**
-     * URN of the version object.
-     * @type {string}
-     * @memberof FolderRefsData
-     */
-    'id': string;
-    /**
-     * 
-     * @type {VersionAttributes}
-     * @memberof FolderRefsData
-     */
-    'attributes': VersionAttributes;
-    /**
-     * 
-     * @type {JsonApiLinksSelfAndWebView}
-     * @memberof FolderRefsData
-     */
-    'links': JsonApiLinksSelfAndWebView;
-    /**
-     * 
-     * @type {VersionDataRelationships}
-     * @memberof FolderRefsData
-     */
-    'relationships': VersionDataRelationships;
-}
-
+export type FolderRefsData = FolderData | ItemData | VersionData;
 
 

@@ -9,8 +9,6 @@ import { ConformingStatus } from './conforming-status';
  * @interface VersionExtensionWithSchemaLinkData
  */
 export interface VersionExtensionWithSchemaLinkData {
-    [key: string]: object | any;
-
     /**
      * 
      * @type {ConformingStatus}

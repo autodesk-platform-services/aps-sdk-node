@@ -25,9 +25,9 @@ export interface RelationshipLinks {
     'links'?: JsonApiLinksSelf;
     /**
      * An array of objects where each object represents link.
-     * @type {Set<RelationshipLinksData>}
+     * @type {Array<RelationshipLinksData>}
      * @memberof RelationshipLinks
      */
-    'data'?: Set<RelationshipLinksData>;
+    'data'?: Array<RelationshipLinksData>;
 }
 

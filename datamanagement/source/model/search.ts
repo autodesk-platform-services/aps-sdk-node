@@ -26,15 +26,15 @@ export interface Search {
     'links': PaginationInfo;
     /**
      * The object containing information on this resource.
-     * @type {Set<VersionData>}
+     * @type {Array<VersionData>}
      * @memberof Search
      */
-    'data': Set<VersionData>;
+    'data': Array<VersionData>;
     /**
      * Information on the latest versions of the items in this resource.
-     * @type {Set<ItemData>}
+     * @type {Array<ItemData>}
      * @memberof Search
      */
-    'included'?: Set<ItemData>;
+    'included'?: Array<ItemData>;
 }
 

@@ -26,10 +26,10 @@ export interface ItemPayload {
     'data': ItemPayloadData;
     /**
      * An array of objects, where each object represents a version of the item to be created. In this case there will only be one element in the array.
-     * @type {Set<ItemPayloadIncluded>}
+     * @type {Array<ItemPayloadIncluded>}
      * @memberof ItemPayload
      */
-    'included': Set<ItemPayloadIncluded>;
+    'included': Array<ItemPayloadIncluded>;
     /**
      * 
      * @type {MetaForWebhooks}

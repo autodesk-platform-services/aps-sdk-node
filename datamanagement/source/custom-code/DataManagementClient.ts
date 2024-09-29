@@ -38,7 +38,7 @@ export class DataManagementClient extends BaseClient {
         const response = await this.hubsApi.getHub(optionalArgs?.accessToken, hubId, optionalArgs?.xUserId, optionalArgs?.options);
         return response.content;
     }
-    public async getHubs(optionalArgs?: { xUserId?: string, filterId?: Array<string>, filterName?: string, filterExtensionType?: Array<string>, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Hubs> {
+    public async getHubs(optionalArgs?: { xUserId?: string, filterId?: Array<string>, filterName?: Array<string>, filterExtensionType?: Array<string>, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Hubs> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }

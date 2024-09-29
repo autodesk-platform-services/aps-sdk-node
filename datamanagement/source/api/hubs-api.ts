@@ -60,13 +60,13 @@ export const HubsApiAxiosParamCreator = function (apsConfiguration?: IApsConfigu
          * @summary List Hubs
          * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
          * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
-         * @param {string} [filterName] Filter by the &#x60;&#x60;name&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+         * @param {Array<string>} [filterName] Filter by the &#x60;&#x60;name&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
          * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getHubs: async (accessToken: string, xUserId?: string, filterId?: Array<string>, filterName?: string, filterExtensionType?: Array<string>,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        getHubs: async (accessToken: string, xUserId?: string, filterId?: Array<string>, filterName?: Array<string>, filterExtensionType?: Array<string>,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/project/v1/hubs`;
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
@@ -84,7 +84,7 @@ export const HubsApiAxiosParamCreator = function (apsConfiguration?: IApsConfigu
                 localVarQueryParameter['filter[id]'] = filterId;
             }
 
-            if (filterName !== undefined) {
+            if (filterName) {
                 localVarQueryParameter['filter[name]'] = filterName;
             }
 
@@ -135,12 +135,12 @@ export const HubsApiFp = function(sdkManager?: SdkManager) {
          * @summary List Hubs
          * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
          * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
-         * @param {string} [filterName] Filter by the &#x60;&#x60;name&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+         * @param {Array<string>} [filterName] Filter by the &#x60;&#x60;name&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
          * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getHubs(accessToken: string, xUserId?: string, filterId?: Array<string>, filterName?: string, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Hubs>> {
+        async getHubs(accessToken: string, xUserId?: string, filterId?: Array<string>, filterName?: Array<string>, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Hubs>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getHubs(accessToken, xUserId, filterId, filterName, filterExtensionType,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -170,14 +170,14 @@ export interface HubsApiInterface {
      * @summary List Hubs
      * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
      * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
-     * @param {string} [filterName] Filter by the &#x60;&#x60;name&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+     * @param {Array<string>} [filterName] Filter by the &#x60;&#x60;name&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
      * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof HubsApiInterface
      */
-    getHubs(accessToken: string,xUserId?: string, filterId?: Array<string>, filterName?: string, filterExtensionType?: Array<string>,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getHubs(accessToken: string,xUserId?: string, filterId?: Array<string>, filterName?: Array<string>, filterExtensionType?: Array<string>,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
 }
 
@@ -224,14 +224,14 @@ export class HubsApi extends BaseApi implements HubsApiInterface {
      * @summary List Hubs
      * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
      * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
-     * @param {string} [filterName] Filter by the &#x60;&#x60;name&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+     * @param {Array<string>} [filterName] Filter by the &#x60;&#x60;name&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
      * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof HubsApi
      */
-    public async getHubs(accessToken: string, xUserId?: string, filterId?: Array<string>, filterName?: string, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig) {
+    public async getHubs(accessToken: string, xUserId?: string, filterId?: Array<string>, filterName?: Array<string>, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into getHubs ");
       try {
         const request =  await HubsApiFp(this.sdkManager).getHubs(accessToken, xUserId, filterId, filterName, filterExtensionType,  options);

@@ -11,9 +11,9 @@ import { DownloadFormatsDataAttributesFormats } from './download-formats-data-at
 export interface DownloadFormatsDataAttributes {
     /**
      * An array of objects, where each object corresponds to a file format.
-     * @type {Set<DownloadFormatsDataAttributesFormats>}
+     * @type {Array<DownloadFormatsDataAttributesFormats>}
      * @memberof DownloadFormatsDataAttributes
      */
-    'formats'?: Set<DownloadFormatsDataAttributesFormats>;
+    'formats'?: Array<DownloadFormatsDataAttributesFormats>;
 }
 

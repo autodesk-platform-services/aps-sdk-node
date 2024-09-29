@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ListItemsResponseAttributes } from './list-items-response-attributes';
+import { ListItemsAttributes } from './list-items-attributes';
 import { ListItemsTestRelationships } from './list-items-test-relationships';
 import { TypeCommands } from './type-commands';
 
@@ -25,10 +25,10 @@ export interface ListItemsTest {
     'id'?: string;
     /**
      * 
-     * @type {ListItemsResponseAttributes}
+     * @type {ListItemsAttributes}
      * @memberof ListItemsTest
      */
-    'attributes'?: ListItemsResponseAttributes;
+    'attributes'?: ListItemsAttributes;
     /**
      * 
      * @type {ListItemsTestRelationships}

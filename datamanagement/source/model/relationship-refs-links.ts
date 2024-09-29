@@ -11,6 +11,6 @@ import { JsonApiLinksSelfSelf } from './json-api-links-self-self';
  * Information on links to this resource.
  * @export
  */
-export type RelationshipRefsLinks = JsonApiLinksRelated & JsonApiLinksSelf;
+export type RelationshipRefsLinks = JsonApiLinksRelated | JsonApiLinksSelf;
 
 

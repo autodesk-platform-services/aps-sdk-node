@@ -25,9 +25,9 @@ export interface Versions {
     'links'?: PaginationInfo;
     /**
      * An array of objects, where each object represents a version.
-     * @type {Set<VersionData>}
+     * @type {Array<VersionData>}
      * @memberof Versions
      */
-    'data'?: Set<VersionData>;
+    'data'?: Array<VersionData>;
 }
 

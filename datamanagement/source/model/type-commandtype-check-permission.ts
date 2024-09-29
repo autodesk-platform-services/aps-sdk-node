@@ -9,7 +9,7 @@
  */
 
 export const TypeCommandtypeCheckPermission = {
-    CommandsautodeskBim360C4RPublishWithoutLinks: 'commands:autodesk.bim360:C4RPublishWithoutLinks'
+    CommandsautodeskCoreCheckPermission: 'commands:autodesk.core:CheckPermission'
 } as const;
 
 export type TypeCommandtypeCheckPermission = typeof TypeCommandtypeCheckPermission[keyof typeof TypeCommandtypeCheckPermission];

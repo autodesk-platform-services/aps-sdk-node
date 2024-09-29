@@ -1,14 +1,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { CheckPermissionCommand } from './check-permission-command';
-import { GetPublishModelJobCommand } from './get-publish-model-job-command';
-import { ListItemsCommand } from './list-items-command';
-import { ListItemsCommandAttributes } from './list-items-command-attributes';
-import { ListItemsCommandRelationships } from './list-items-command-relationships';
-import { ListRefsCommand } from './list-refs-command';
-import { PublishModelCommand } from './publish-model-command';
-import { PublishWithoutLinksCommand } from './publish-without-links-command';
+import { CheckPermissionPayload } from './check-permission-payload';
+import { GetPublishModelJobPayload } from './get-publish-model-job-payload';
+import { ListItemsPayload } from './list-items-payload';
+import { ListItemsPayloadAttributes } from './list-items-payload-attributes';
+import { ListItemsPayloadRelationships } from './list-items-payload-relationships';
+import { ListRefsPayload } from './list-refs-payload';
+import { PublishModelPayload } from './publish-model-payload';
+import { PublishWithoutLinksPayload } from './publish-without-links-payload';
 import { TypeCommands } from './type-commands';
 
 /**
@@ -16,6 +16,6 @@ import { TypeCommands } from './type-commands';
  * Pick one of the following data objects to capture the input data for the command you want to execute.
  * @export
  */
-export type CommandPayloadData = CheckPermissionCommand | GetPublishModelJobCommand | ListItemsCommand | ListRefsCommand | PublishModelCommand | PublishWithoutLinksCommand;
+export type CommandPayloadData = CheckPermissionPayload | GetPublishModelJobPayload | ListItemsPayload | ListRefsPayload | PublishModelPayload | PublishWithoutLinksPayload;
 
 

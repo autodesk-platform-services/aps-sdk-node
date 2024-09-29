@@ -1,19 +1,47 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { CreatedItemAllOf } from './created-item-all-of';
-import { CreatedItemAllOfMeta } from './created-item-all-of-meta';
-import { Item } from './item';
+import { CreatedItemMeta } from './created-item-meta';
 import { ItemData } from './item-data';
 import { JsonApiLinksSelf } from './json-api-links-self';
 import { JsonApiVersion } from './json-api-version';
 import { VersionData } from './version-data';
 
 /**
- * @type CreatedItem
- * Create item reponse
+ * Create item response
  * @export
+ * @interface CreatedItem
  */
-export type CreatedItem = CreatedItemAllOf & Item;
-
+export interface CreatedItem {
+    /**
+     * 
+     * @type {JsonApiVersion}
+     * @memberof CreatedItem
+     */
+    'jsonapi'?: JsonApiVersion;
+    /**
+     * 
+     * @type {JsonApiLinksSelf}
+     * @memberof CreatedItem
+     */
+    'links'?: JsonApiLinksSelf;
+    /**
+     * 
+     * @type {ItemData}
+     * @memberof CreatedItem
+     */
+    'data'?: ItemData;
+    /**
+     * An object containing information about the tip version of this item.
+     * @type {Array<VersionData>}
+     * @memberof CreatedItem
+     */
+    'included'?: Array<VersionData>;
+    /**
+     * 
+     * @type {CreatedItemMeta}
+     * @memberof CreatedItem
+     */
+    'meta'?: CreatedItemMeta;
+}
 

@@ -26,10 +26,10 @@ export interface RelationshipRefs {
     'links'?: RelationshipRefsLinks;
     /**
      * An array of objects where each object represents the data of a folder, item, or resource.
-     * @type {Set<RelationshipRefsData>}
+     * @type {Array<RelationshipRefsData>}
      * @memberof RelationshipRefs
      */
-    'data'?: Set<RelationshipRefsData>;
+    'data'?: Array<RelationshipRefsData>;
     /**
      * An array of objects, where each object represents a folder, item, or version included within this resource.
      * @type {Array<RelationshipRefsIncluded>}

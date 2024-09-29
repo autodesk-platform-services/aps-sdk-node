@@ -481,13 +481,13 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
          * @summary List Folder and Subfolder Contents
          * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} folderId The unique identifier of a folder.
-         * @param {string} [filter] Filter the data. See the [Filtering](/en/docs/data/v2/overview/filtering/) section for details.
+         * @param {Array<string>} [filter] Filter the data. See the [Filtering](/en/docs/data/v2/overview/filtering/) section for details.
          * @param {number} [pageNumber] Specifies what page to return. Page numbers are 0-based (the first page is page 0).
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFolderSearch: async (accessToken: string, projectId: string, folderId: string, filter?: string, pageNumber?: number,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        getFolderSearch: async (accessToken: string, projectId: string, folderId: string, filter?: Array<string>, pageNumber?: number,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getFolderSearch', 'projectId', projectId)
             // verify required parameter 'folderId' is not null or undefined
@@ -507,7 +507,7 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
 
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
-            if (filter !== undefined) {
+            if (filter) {
                 localVarQueryParameter['filter[*]'] = filter;
             }
 
@@ -712,12 +712,12 @@ export const FoldersApiFp = function(sdkManager?: SdkManager) {
          * @summary List Folder and Subfolder Contents
          * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} folderId The unique identifier of a folder.
-         * @param {string} [filter] Filter the data. See the [Filtering](/en/docs/data/v2/overview/filtering/) section for details.
+         * @param {Array<string>} [filter] Filter the data. See the [Filtering](/en/docs/data/v2/overview/filtering/) section for details.
          * @param {number} [pageNumber] Specifies what page to return. Page numbers are 0-based (the first page is page 0).
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFolderSearch(accessToken: string, projectId: string, folderId: string, filter?: string, pageNumber?: number, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Search>> {
+        async getFolderSearch(accessToken: string, projectId: string, folderId: string, filter?: Array<string>, pageNumber?: number, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Search>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getFolderSearch(accessToken, projectId, folderId, filter, pageNumber,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -870,14 +870,14 @@ export interface FoldersApiInterface {
      * @summary List Folder and Subfolder Contents
      * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} folderId The unique identifier of a folder.
-     * @param {string} [filter] Filter the data. See the [Filtering](/en/docs/data/v2/overview/filtering/) section for details.
+     * @param {Array<string>} [filter] Filter the data. See the [Filtering](/en/docs/data/v2/overview/filtering/) section for details.
      * @param {number} [pageNumber] Specifies what page to return. Page numbers are 0-based (the first page is page 0).
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FoldersApiInterface
      */
-    getFolderSearch(accessToken: string,projectId: string, folderId: string, filter?: string, pageNumber?: number,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getFolderSearch(accessToken: string,projectId: string, folderId: string, filter?: Array<string>, pageNumber?: number,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Renames, moves, hides, or unhides a folder. Marking a BIM 360 Docs folder as hidden effectively deletes it. You can restore it by changing its ``hidden`` attribute. You can also move BIM 360 Docs folders by changing their parent folder.  You cannot permanently delete BIM 360 Docs folders. They are tagged as hidden folders and are removed from the BIM 360 Docs UI and from regular Data Management API responses. You can use the hidden filter (``filter[hidden]=true``) to get a list of deleted folders with the [List Folder Contents](/en/docs/data/v2/reference/http/projects-project_id-folders-folder_id-contents-GET/) operation.  Before you use the Data Management API to access BIM 360 Docs folders, provision your app through the BIM 360 Account Administrator portal. For details, see the [Manage Access to Docs tutorial](/en/docs/bim360/v1/tutorials/getting-started/manage-access-to-docs/).  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](/en.docs.acc.v1/overview/introduction/). 
@@ -1173,14 +1173,14 @@ export class FoldersApi extends BaseApi implements FoldersApiInterface {
      * @summary List Folder and Subfolder Contents
      * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} folderId The unique identifier of a folder.
-     * @param {string} [filter] Filter the data. See the [Filtering](/en/docs/data/v2/overview/filtering/) section for details.
+     * @param {Array<string>} [filter] Filter the data. See the [Filtering](/en/docs/data/v2/overview/filtering/) section for details.
      * @param {number} [pageNumber] Specifies what page to return. Page numbers are 0-based (the first page is page 0).
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FoldersApi
      */
-    public async getFolderSearch(accessToken: string, projectId: string, folderId: string, filter?: string, pageNumber?: number, options?: ApsServiceRequestConfig) {
+    public async getFolderSearch(accessToken: string, projectId: string, folderId: string, filter?: Array<string>, pageNumber?: number, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into getFolderSearch ");
       try {
         const request =  await FoldersApiFp(this.sdkManager).getFolderSearch(accessToken, projectId, folderId, filter, pageNumber,  options);

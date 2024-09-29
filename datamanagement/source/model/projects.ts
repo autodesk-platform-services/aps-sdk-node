@@ -25,9 +25,9 @@ export interface Projects {
     'links'?: PaginationInfo;
     /**
      * An array of objects where each object represents a project.
-     * @type {Set<ProjectData>}
+     * @type {Array<ProjectData>}
      * @memberof Projects
      */
-    'data'?: Set<ProjectData>;
+    'data'?: Array<ProjectData>;
 }
 

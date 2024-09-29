@@ -25,9 +25,9 @@ export interface Downloads {
     'links'?: JsonApiLinksSelf;
     /**
      * 
-     * @type {Set<DownloadData>}
+     * @type {Array<DownloadData>}
      * @memberof Downloads
      */
-    'data'?: Set<DownloadData>;
+    'data'?: Array<DownloadData>;
 }
 

@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { JsonApiVersionValue } from './json-api-version-value';
 
 /**
  * The JSON API object.
@@ -9,10 +10,12 @@
  */
 export interface JsonApiVersion {
     /**
-     * The version of JSON API. Will always be ``1.0``.
-     * @type {string}
+     * 
+     * @type {JsonApiVersionValue}
      * @memberof JsonApiVersion
      */
-    'version': string;
+    'version': JsonApiVersionValue;
 }
+
+
 
