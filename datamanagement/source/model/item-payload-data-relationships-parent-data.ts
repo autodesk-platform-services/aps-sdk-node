@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { TypeFolder } from './type-folder';
 
 /**
  * The data about the parent folder.
@@ -9,11 +10,11 @@
  */
 export interface ItemPayloadDataRelationshipsParentData {
     /**
-     * The type of the resource. Must be ``folders``.
-     * @type {string}
+     * 
+     * @type {TypeFolder}
      * @memberof ItemPayloadDataRelationshipsParentData
      */
-    'type': string;
+    'type': TypeFolder;
     /**
      * The URN of the parent folder.  Note that you cannot copy files between folders in different BIM 360 Docs projects and accounts.  For information on how to find the URN, see the initial steps of the [Download a File](/en/docs/data/v2/tutorials/download-file/) tutorial. 
      * @type {string}
@@ -21,4 +22,6 @@ export interface ItemPayloadDataRelationshipsParentData {
      */
     'id': string;
 }
+
+
 

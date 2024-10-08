@@ -4,15 +4,15 @@
 import { PublishModelJobPayloadRelationshipsResourcesData } from './publish-model-job-payload-relationships-resources-data';
 
 /**
- * Contains the list of items  to check. The list can contain up to 50 versions.
+ * Contains the list of items to check.
  * @export
- * @interface ListItemsPayloadRelationshipsResources
+ * @interface PublishModelJobPayloadRelationshipsResources
  */
-export interface ListItemsPayloadRelationshipsResources {
+export interface PublishModelJobPayloadRelationshipsResources {
     /**
      * An array of objects, where each object  represents an item to check. 
      * @type {Array<PublishModelJobPayloadRelationshipsResourcesData>}
-     * @memberof ListItemsPayloadRelationshipsResources
+     * @memberof PublishModelJobPayloadRelationshipsResources
      */
     'data'?: Array<PublishModelJobPayloadRelationshipsResourcesData>;
 }

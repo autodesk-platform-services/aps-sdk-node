@@ -1,40 +1,40 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { GetPublishModelJobPayloadAttributes } from './get-publish-model-job-payload-attributes';
-import { GetPublishModelJobPayloadRelationships } from './get-publish-model-job-payload-relationships';
+import { PublishModelJobPayloadAttributes } from './publish-model-job-payload-attributes';
+import { PublishModelJobPayloadRelationships } from './publish-model-job-payload-relationships';
 import { TypeCommands } from './type-commands';
 
 /**
  * An object that contains the input data required to execute the GetPublishModelJob command.  The ListRefs verifies whether a Collaboration for Revit (C4R) model needs to be published to BIM 360 Docs. For more information, see the [GetPublishModelJob topic in the overview section](/en/docs/data/v2/developers_guide/commands/getpublishmodeljob).
  * @export
- * @interface GetPublishModelJobPayload
+ * @interface PublishModelJobPayload
  */
-export interface GetPublishModelJobPayload {
+export interface PublishModelJobPayload {
     /**
      * 
      * @type {TypeCommands}
-     * @memberof GetPublishModelJobPayload
+     * @memberof PublishModelJobPayload
      */
     'type'?: TypeCommands;
     /**
      * A unique ID assigned to the process executing the command.
      * @type {string}
-     * @memberof GetPublishModelJobPayload
+     * @memberof PublishModelJobPayload
      */
     'id'?: string;
     /**
      * 
-     * @type {GetPublishModelJobPayloadAttributes}
-     * @memberof GetPublishModelJobPayload
+     * @type {PublishModelJobPayloadAttributes}
+     * @memberof PublishModelJobPayload
      */
-    'attributes'?: GetPublishModelJobPayloadAttributes;
+    'attributes'?: PublishModelJobPayloadAttributes;
     /**
      * 
-     * @type {GetPublishModelJobPayloadRelationships}
-     * @memberof GetPublishModelJobPayload
+     * @type {PublishModelJobPayloadRelationships}
+     * @memberof PublishModelJobPayload
      */
-    'relationships'?: GetPublishModelJobPayloadRelationships;
+    'relationships'?: PublishModelJobPayloadRelationships;
 }
 
 

@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { TypeVersion } from './type-version';
 
 /**
  * The data about the version to be created.
@@ -9,11 +10,11 @@
  */
 export interface ItemPayloadDataRelationshipsTipData {
     /**
-     * The type of the resource. Must be ``versions``.
-     * @type {string}
+     * 
+     * @type {TypeVersion}
      * @memberof ItemPayloadDataRelationshipsTipData
      */
-    'type': string;
+    'type': TypeVersion;
     /**
      * An ID to uniquely identify the version.
      * @type {string}
@@ -21,4 +22,6 @@ export interface ItemPayloadDataRelationshipsTipData {
      */
     'id': string;
 }
+
+
 

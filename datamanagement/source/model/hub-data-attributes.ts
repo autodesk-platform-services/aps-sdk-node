@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { BaseAttributesExtensionObjectWithSchemaLink } from './base-attributes-extension-object-with-schema-link';
+import { Region } from './region';
 
 /**
  * The properties of the hub.
@@ -21,5 +22,13 @@ export interface HubDataAttributes {
      * @memberof HubDataAttributes
      */
     'extension'?: BaseAttributesExtensionObjectWithSchemaLink;
+    /**
+     * 
+     * @type {Region}
+     * @memberof HubDataAttributes
+     */
+    'region'?: Region;
 }
+
+
 

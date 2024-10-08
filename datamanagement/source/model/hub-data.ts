@@ -4,7 +4,6 @@
 import { HubDataAttributes } from './hub-data-attributes';
 import { HubDataRelationships } from './hub-data-relationships';
 import { JsonApiLinksSelf } from './json-api-links-self';
-import { Region } from './region';
 import { TypeHub } from './type-hub';
 
 /**
@@ -31,12 +30,6 @@ export interface HubData {
      * @memberof HubData
      */
     'attributes'?: HubDataAttributes;
-    /**
-     * 
-     * @type {Region}
-     * @memberof HubData
-     */
-    'region'?: Region;
     /**
      * 
      * @type {HubDataRelationships}

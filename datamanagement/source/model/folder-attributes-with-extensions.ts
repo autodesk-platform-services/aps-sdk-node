@@ -80,6 +80,6 @@ export interface FolderAttributesWithExtensions {
      * @type {FolderExtensionWithSchemaLink}
      * @memberof FolderAttributesWithExtensions
      */
-    'extensions'?: FolderExtensionWithSchemaLink;
+    'extension'?: FolderExtensionWithSchemaLink;
 }
 
