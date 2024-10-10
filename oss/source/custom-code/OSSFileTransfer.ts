@@ -6,6 +6,7 @@ import { OssApiError, RequestArgs } from "../base";
 import { createRequestFunctionOss } from "../common";
 import { WriteStream, createWriteStream } from "fs";
 import axios, { AxiosResponse } from "axios";
+import { PassThrough, Stream } from "stream";
 
 export interface IOSSFileTransfer {
 }
@@ -138,18 +139,20 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     const response = await request();
     return response;
   }
-  public async download(bucketKey: string, objectKey: string, filePath: string, accessToken: string, cancellationToken: AbortController, requestIdPrefix: string = '', onProgress?: (percentCompleted: number) => void): Promise<void> {
+  public async download(bucketKey: string, objectKey: string, accessToken:string, filePath?:string, cancellationToken?: AbortController, requestIdPrefix?: string, onProgress?: (percentCompleted: number) => void): Promise<Stream|void> {
 
     const requestId: any = await this.handleRequestId(requestIdPrefix, bucketKey, objectKey);
-
     onProgress?.(1);
     const response: Signeds3downloadResponse = await this.getS3SignedDownloadUrlWithRetry(bucketKey, objectKey, accessToken, requestId);
     const fileSize = response.size;
     const numberOfChunks: number = this.calculateNumberOfChunks(fileSize);
     let partsDownloaded: number = 0;
     let start: number = 0;
-    const fileStream: WriteStream = createWriteStream(filePath, { flags: 'a' });
-
+    let outStream = new  PassThrough();
+    let fileStream: WriteStream;
+    if(filePath){
+      fileStream= createWriteStream(filePath, { flags: 'a' }); 
+    }
     try {
       while (partsDownloaded < numberOfChunks) {
         this.logger.logInfo(`${requestId} Downloading part: ${partsDownloaded}`);
@@ -164,7 +167,12 @@ export class OSSFileTransfer implements IOSSFileTransfer {
           try {
             attemptCount++;
             this.logger.logInfo(`${requestId} Downloading file range: ${start}-${end}`);
-            await this.writeToFileStreamFromUrl(fileStream, response.url, start, end, requestId);
+            const partStream = await this.writeToFileStreamFromUrl(response.url, start, end, requestId);
+            
+            if(filePath){partStream.pipe(fileStream, { end: false });}
+            else
+            partStream.pipe(outStream, { end: false });    
+
             start = end + 1;
             partsDownloaded++;
             const percentCompleted = Math.floor((partsDownloaded / numberOfChunks) * 100);
@@ -177,8 +185,9 @@ export class OSSFileTransfer implements IOSSFileTransfer {
       }
     } catch (error) {
       this.logger.logError(`${requestId} Error downloading file: ${error}`);
-    } finally {
-      fileStream.end();
+    } 
+    if(!filePath){
+      return outStream;
     }
   }
   private async isFileSizeAllowed(file: Buffer): Promise<boolean> {
@@ -297,38 +306,24 @@ export class OSSFileTransfer implements IOSSFileTransfer {
       cancellationToken.signal.throwIfAborted();
     }
   }
-  protected async writeToFileStreamFromUrl(fileStream: WriteStream, Url: string, start: number, end: number, requestId: any, options?: ApsServiceRequestConfig) {
+  protected async writeToFileStreamFromUrl(Url: string, start: number, end: number, requestId: any, options?: ApsServiceRequestConfig):Promise<NodeJS.ReadableStream> {
     const localVarHeaderParameter = {} as any;
     const rangeHeaderValue = `bytes=${start}-${end}`;
     localVarHeaderParameter['x-ads-request-id'] = requestId;
     localVarHeaderParameter['Range'] = String(rangeHeaderValue);
     const localVarRequestOptions = { method: 'GET', ...options };
     localVarRequestOptions.headers = { ...localVarHeaderParameter };
-    localVarRequestOptions.responseType = "arraybuffer";
+    localVarRequestOptions.responseType = "stream";
     const localVarAxiosArgs: RequestArgs = {
       url: Url,
       options: localVarRequestOptions
     }
     const request: () => Promise<AxiosResponse> = createRequestFunctionOss(localVarAxiosArgs, this.sdkManager);
     const response = await request();
-    const data = response.data as ArrayBuffer;
-    const chunk = Buffer.from(data);
+    this.logger.logInfo(`${requestId} Successfully downloaded file range: ${start} - ${end}`);    
+    return response.data;
 
-    await this.writeStreamAsync(fileStream, chunk);
-   this.logger.logInfo(`${requestId} Successfully downloaded file range: ${start} - ${end}`);
   }
-  protected async writeStreamAsync(stream: NodeJS.WritableStream, chunk: Buffer): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      stream.write(chunk, (error: Error | null) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve();
-        }
-      });
-    });
-  }
-
 
 }
 

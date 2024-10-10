@@ -3,7 +3,8 @@ import { OSSFileTransfer } from "./OSSFileTransfer";
 import { BucketsApi, ObjectsApi } from "../api";
 import { FileTransferConfigurations } from "./FileTransferConfigurations";
 import { CreateBucketsPayload, ObjectDetails, ObjectFullDetails, Bucket, Buckets, BucketObjects, BatchcompleteuploadResponse, BatchcompleteuploadObject, Batchsigneds3downloadObject, Batchsigneds3downloadResponse, Batchsigneds3uploadObject, Batchsigneds3uploadResponse, Completes3uploadBody, CreateObjectSigned, CreateSignedResource, Signeds3downloadResponse, Signeds3uploadResponse, Region, With, Access } from "../model";
-import { promises as fs } from "fs";
+import {promises as fs} from "fs";
+import {Stream } from "stream";
 
 export class OssClient extends BaseClient {
 
@@ -22,6 +23,53 @@ export class OssClient extends BaseClient {
         this.ossFileTransfer = new OSSFileTransfer(new FileTransferConfigurations(3), optionalArgs.sdkManager, optionalArgs.authenticationProvider);
 
     }
+     /**
+     *Downloads a file by transparently handling operations like obtaining signed download URLs and chunking large files for optimal transfer.
+     * @param {string} bucketKey URL-encoded bucket key
+     * @param {string} objectKey URL-encoded object name
+     * @param {string} filePath The Path of the file where should be downloaded 
+     * @param accessToken bearer access token
+     * @param {AbortController} cancellationToken
+     * @param {string} requestIdPrefix
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OSSApiInterface
+     */
+    public async download(bucketKey: string, objectKey: string, filePath: string, optionalArgs?: { cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<void>;
+    /**
+     *Downloads a file by transparently handling operations like obtaining signed download URLs and chunking large files for optimal transfer.
+     * @param {string} bucketKey URL-encoded bucket key
+     * @param {string} objectKey URL-encoded object name
+     * @param accessToken bearer access token
+     * @param {AbortController} cancellationToken
+     * @param {string} requestIdPrefix
+     * @param {*} [options] Override http request option.
+     * @returns {Stream}
+     * @throws {RequiredError}
+     * @memberof OSSApiInterface
+     * 
+     */
+    public async download(bucketKey: string, objectKey: string, optionalArgs?: { cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<Stream>;
+    public async download(bucketKey: string, objectKey: string, filePathOrOptionalArgs: string | { cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }, optionalArgs?: { cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<void | Stream> {
+        let filePath: string | undefined;
+        if (typeof filePathOrOptionalArgs === 'string') {
+            filePath = filePathOrOptionalArgs;
+        } else {
+            optionalArgs = filePathOrOptionalArgs;
+        }
+
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        } else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+
+        if (filePath) {
+            await this.ossFileTransfer.download(bucketKey, objectKey, optionalArgs?.accessToken, filePath, optionalArgs?.cancellationToken || new AbortController(), optionalArgs?.requestIdPrefix, optionalArgs?.onProgress);
+        } else {
+            return this.ossFileTransfer.download(bucketKey, objectKey, optionalArgs?.accessToken, null, optionalArgs?.cancellationToken || new AbortController(), optionalArgs?.requestIdPrefix, optionalArgs?.onProgress);
+        }
+    }
 
     /**
      * Instructs OSS to complete the object creation process for numerous objects after their bytes have been uploaded directly to S3. An object will not be accessible until you complete the object creation process, either with this endpoint or the single Complete Upload endpoint. This endpoint accepts batch sizes of up to 25. Any larger and the request will fail.
@@ -35,7 +83,7 @@ export class OssClient extends BaseClient {
      * @throws {RequiredError}
      * @memberof OSSApiInterface
      */
-    public async upload(bucketKey: string, objectKey: string, sourceToUpload: Buffer | string, optionalArgs?: {cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<ObjectDetails> {
+    public async upload(bucketKey: string, objectKey: string, sourceToUpload: Buffer | string, optionalArgs?: { cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<ObjectDetails> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
@@ -45,33 +93,12 @@ export class OssClient extends BaseClient {
         var response;
         if (typeof sourceToUpload === 'string') {
             var buffer = await fs.readFile(sourceToUpload);
-            response = await this.ossFileTransfer.upload(bucketKey, objectKey, buffer, optionalArgs?.accessToken, optionalArgs?.cancellationToken||new AbortController, optionalArgs?.requestIdPrefix, optionalArgs?.onProgress);
+            response = await this.ossFileTransfer.upload(bucketKey, objectKey, buffer, optionalArgs?.accessToken, optionalArgs?.cancellationToken || new AbortController, optionalArgs?.requestIdPrefix, optionalArgs?.onProgress);
         }
         else {
-            response = await this.ossFileTransfer.upload(bucketKey, objectKey, sourceToUpload, optionalArgs?.accessToken, optionalArgs?.cancellationToken||new AbortController, optionalArgs?.requestIdPrefix, optionalArgs?.onProgress);
+            response = await this.ossFileTransfer.upload(bucketKey, objectKey, sourceToUpload, optionalArgs?.accessToken, optionalArgs?.cancellationToken || new AbortController, optionalArgs?.requestIdPrefix, optionalArgs?.onProgress);
         }
         return response.content;
-    }
-    /**
-     *Downloads a file by transparently handling operations like obtaining signed download URLs and chunking large files for optimal transfer.
-     * @param {string} bucketKey URL-encoded bucket key
-     * @param {string} objectKey URL-encoded object name
-     * @param {string} filePath The Path of the file where should be downloaded 
-     * @param accessToken bearer access token
-     * @param {AbortController} cancellationToken
-     * @param {string} requestIdPrefix
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OSSApiInterface
-     */
-    public async download(bucketKey: string, objectKey: string, filePath: string, optionalArgs?: { cancellationToken?: AbortController , requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<void> {
-        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
-            throw new Error("Please provide a valid access token or an authentication provider");
-        }
-        else if (!optionalArgs?.accessToken) {
-            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
-        }
-        const response = await this.ossFileTransfer.download(bucketKey, objectKey, filePath, optionalArgs?.accessToken, optionalArgs?.cancellationToken||new AbortController, optionalArgs?.requestIdPrefix, optionalArgs?.onProgress);
     }
     /**
      * Instructs OSS to complete the object creation process for numerous objects after their bytes have been uploaded directly to S3. An object will not be accessible until you complete the object creation process, either with this endpoint or the single Complete Upload endpoint. This endpoint accepts batch sizes of up to 25. Any larger and the request will fail.
@@ -190,7 +217,7 @@ export class OssClient extends BaseClient {
      * @memberof OSSApiInterface
      */
     public async createBucket(xAdsRegion: Region, bucketPayload: CreateBucketsPayload, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Bucket> {
-         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
         else if (!optionalArgs?.accessToken) {
@@ -256,7 +283,7 @@ export class OssClient extends BaseClient {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
-        else if (!optionalArgs?.accessToken){
+        else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
         const response = await this.objectApi.deleteObject(optionalArgs?.accessToken, bucketKey, objectKey, optionalArgs?.options);
