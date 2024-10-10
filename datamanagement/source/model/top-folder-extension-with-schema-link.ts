@@ -2,7 +2,6 @@
 /* eslint-disable */
 
 import { JsonApiLink } from './json-api-link';
-import { TopFolderExtensionWithSchemaLinkData } from './top-folder-extension-with-schema-link-data';
 
 /**
  * A container of additional properties that extends the default properties of this resource.
@@ -29,10 +28,10 @@ export interface TopFolderExtensionWithSchemaLink {
      */
     'schema': JsonApiLink;
     /**
-     * 
-     * @type {TopFolderExtensionWithSchemaLinkData}
+     * The object that contains the additional properties, which makes this resource extensible.
+     * @type {{ [key: string]: object; }}
      * @memberof TopFolderExtensionWithSchemaLink
      */
-    'data'?: TopFolderExtensionWithSchemaLinkData;
+    'data'?: { [key: string]: object; };
 }
 

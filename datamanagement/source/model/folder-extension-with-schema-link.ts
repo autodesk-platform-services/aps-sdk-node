@@ -1,7 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { FolderExtensionWithSchemaLinkData } from './folder-extension-with-schema-link-data';
 import { JsonApiLink } from './json-api-link';
 
 /**
@@ -29,10 +28,10 @@ export interface FolderExtensionWithSchemaLink {
      */
     'schema': JsonApiLink;
     /**
-     * 
-     * @type {FolderExtensionWithSchemaLinkData}
+     * The object that contains the additional properties, which makes this resource extensible.
+     * @type {{ [key: string]: object; }}
      * @memberof FolderExtensionWithSchemaLink
      */
-    'data'?: FolderExtensionWithSchemaLinkData;
+    'data'?: { [key: string]: object; };
 }
 

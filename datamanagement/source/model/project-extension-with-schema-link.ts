@@ -2,7 +2,6 @@
 /* eslint-disable */
 
 import { JsonApiLink } from './json-api-link';
-import { ProjectExtensionWithSchemaLinkData } from './project-extension-with-schema-link-data';
 
 /**
  * A container of additional properties that extends the default properties of this resource.
@@ -29,10 +28,10 @@ export interface ProjectExtensionWithSchemaLink {
      */
     'schema': JsonApiLink;
     /**
-     * 
-     * @type {ProjectExtensionWithSchemaLinkData}
+     * The object that contains the additional properties, which makes this resource extensible.
+     * @type {{ [key: string]: object; }}
      * @memberof ProjectExtensionWithSchemaLink
      */
-    'data'?: ProjectExtensionWithSchemaLinkData;
+    'data'?: { [key: string]: object; };
 }
 

@@ -2,7 +2,6 @@
 /* eslint-disable */
 
 import { JsonApiLink } from './json-api-link';
-import { VersionExtensionWithSchemaLinkData } from './version-extension-with-schema-link-data';
 
 /**
  * A container of additional properties that extends the default properties of a version.
@@ -29,10 +28,10 @@ export interface VersionExtensionWithSchemaLink {
      */
     'schema': JsonApiLink;
     /**
-     * 
-     * @type {VersionExtensionWithSchemaLinkData}
+     * The object that contains the additional properties, which makes this resource extensible.
+     * @type {{ [key: string]: object; }}
      * @memberof VersionExtensionWithSchemaLink
      */
-    'data'?: VersionExtensionWithSchemaLinkData;
+    'data'?: { [key: string]: object; };
 }
 
