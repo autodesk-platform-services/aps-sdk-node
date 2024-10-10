@@ -4,16 +4,16 @@
 import { VersionPayloadDataRelationshipsRefsData } from './version-payload-data-relationships-refs-data';
 
 /**
- * 
+ * Information on other resources that will share a custom relationship with the version being created.
  * @export
  * @interface VersionPayloadDataRelationshipsRefs
  */
 export interface VersionPayloadDataRelationshipsRefs {
     /**
-     * 
-     * @type {VersionPayloadDataRelationshipsRefsData}
+     * An array of object, where each object represents a reference.
+     * @type {Array<VersionPayloadDataRelationshipsRefsData>}
      * @memberof VersionPayloadDataRelationshipsRefs
      */
-    'data': VersionPayloadDataRelationshipsRefsData;
+    'data': Array<VersionPayloadDataRelationshipsRefsData>;
 }
 

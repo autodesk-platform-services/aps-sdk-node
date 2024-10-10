@@ -2,32 +2,32 @@
 /* eslint-disable */
 
 import { FolderRefsData } from './folder-refs-data';
-import { HubsJsonapi } from './hubs-jsonapi';
-import { HubsLinks } from './hubs-links';
+import { JsonApiLinksSelf } from './json-api-links-self';
+import { JsonApiVersion } from './json-api-version';
 
 /**
- * Successful retrieval of a resource collection.
+ * 
  * @export
  * @interface FolderRefs
  */
 export interface FolderRefs {
     /**
      * 
-     * @type {HubsJsonapi}
+     * @type {JsonApiVersion}
      * @memberof FolderRefs
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi'?: JsonApiVersion;
     /**
      * 
-     * @type {HubsLinks}
+     * @type {JsonApiLinksSelf}
      * @memberof FolderRefs
      */
-    'links'?: HubsLinks;
+    'links'?: JsonApiLinksSelf;
     /**
-     * 
-     * @type {Set<FolderRefsData>}
+     * An array of objects, where each object represents a folder, item, or version.
+     * @type {Array<FolderRefsData>}
      * @memberof FolderRefs
      */
-    'data'?: Set<FolderRefsData>;
+    'data'?: Array<FolderRefsData>;
 }
 

@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ModifyFolderPayloadJsonapi } from './modify-folder-payload-jsonapi';
+import { JsonApiVersion } from './json-api-version';
+import { MetaForWebhooks } from './meta-for-webhooks';
 import { VersionPayloadData } from './version-payload-data';
-import { VersionPayloadMeta } from './version-payload-meta';
 
 /**
  * Describe the version to be created.
@@ -13,10 +13,10 @@ import { VersionPayloadMeta } from './version-payload-meta';
 export interface VersionPayload {
     /**
      * 
-     * @type {ModifyFolderPayloadJsonapi}
+     * @type {JsonApiVersion}
      * @memberof VersionPayload
      */
-    'jsonapi': ModifyFolderPayloadJsonapi;
+    'jsonapi': JsonApiVersion;
     /**
      * 
      * @type {VersionPayloadData}
@@ -25,9 +25,9 @@ export interface VersionPayload {
     'data': VersionPayloadData;
     /**
      * 
-     * @type {VersionPayloadMeta}
+     * @type {MetaForWebhooks}
      * @memberof VersionPayload
      */
-    'meta'?: VersionPayloadMeta;
+    'meta'?: MetaForWebhooks;
 }
 

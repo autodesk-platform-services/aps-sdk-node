@@ -5,8 +5,11 @@ import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, DataManagementApiError } from '../base';
+import { CreatedItem } from '../model';
+import { FilterDirection } from '../model';
+import { FilterRefType } from '../model';
+import { FilterTypeVersion } from '../model';
 import { Folder } from '../model';
-import { GetHubs401Response } from '../model';
 import { Item } from '../model';
 import { ItemPayload } from '../model';
 import { ItemTip } from '../model';
@@ -23,17 +26,17 @@ import { Versions } from '../model';
 export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfiguration) {
     return {
         /**
-         * Creates the first version of a file (item). To create additional versions of an item, use POST versions.  Before you create the first version you need to create a storage location for the file, and upload the file to the storage object. For more details about the workflow, see the tutorial on uploading a file.  This endpoint also copies versions of items to other folders in the same project. The endpoint creates a new item and a first version of the item in the target folder. You cannot copy versions of items across different projects and accounts.  To copy versions of items to existng items in other folders, use POST versions. POST versions creates a new version of the existing item in the target folder.  Note that to access BIM 360 Docs files using the Data Management API you need to provision your app in the BIM 360 Account Administrator portal. For more details, see the Manage Access to Docs tutorial.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Creates the first version of a file (item)
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {string} [copyFrom] Only relevant for copying files to BIM 360 Docs - the version ID (URN) of the file to copy. For details about finding the URN, follow the initial steps in the Download a File tutorial.  You can only copy files to the Plans folder or to subfolders of the Plans folder with an item:autodesk.bim360:Document item extension type, and you can only copy files to the Project Files folder or to subfolders of the Project Files folder with an item:autodesk.bim360:File item extension type.  To verify an item’s extension type, use GET item, and check the attributes.extension.type attribute.  Note that if you copy a file to the Plans folder or to a subfolder of the Plans folder, the copied file inherits the permissions of the source file. For example, if the end user did not have permission to download files in the source folder, but does have permission to download files in the target folder, he/she will not be able to download the copied file.  Note that you cannot copy a file if it is in the middle of being uploaded, updated, or copied. To verify the current process state of a file, call GET item, and check the attributes.extension.data.processState attribute.
-         * @param {ItemPayload} [itemPayload] Describe the item to be created.
+         * Creates the first version of a file (item). To create additional versions of an item, use POST versions.  Before you create the first version of an item, you must create a placeholder for the file, and upload the file to the placeholder. For more details about the workflow, see the tutorial on uploading a file.  This operation also allows you to create a new item by copying a specific version of an existing item to another folder. The copied version becomes the first version of the new item in the target folder.  **Note:** You cannot copy versions of items across different projects and accounts.  Use the [Create Version](/en/docs/data/v2/reference/http/projects-project_id-versions-POST/) operation with the ``copyFrom`` parameter if you want to create a new version of an item by copying a specific version of another item.   Before you use the Data Management API to access BIM 360 Docs files, you must provision your app through the BIM 360 Account Administrator portal. For details, see the [Manage Access to Docs tutorial](/en/docs/bim360/v1/tutorials/getting-started/manage-access-to-docs/).  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary Create an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
+         * @param {string} [copyFrom] The Version ID (URN) of the version to copy from.   **Note**: This parameter is relevant only for copying files to BIM 360 Docs.  For information on how to find the URN, see the initial steps of the [Download a File](/en/docs/data/v2/tutorials/download-file/) tutorial.  You can only copy files to the Plans folder or to subfolders of the Plans folder with an &#x60;&#x60;item:autodesk.bim360:Document&#x60;&#x60; item extension type. You can only copy files to the Project Files folder or to subfolders of the Project Files folder with an &#x60;&#x60;item:autodesk.bim360:File&#x60;&#x60; item extension type.    To verify an item’s extension type, use the [Get an Item](/en/docs/data/v2/reference/http/projects-project_id-items-item_id-GET/) operation, and check the &#x60;&#x60;attributes.extension.type&#x60;&#x60; attribute.    Note that if you copy a file to the Plans folder or to a subfolder of the Plans folder, the copied file inherits the permissions of the source file. For example, if users of your app did not have permission to download files in the source folder, but does have permission to download files in the target folder, they will not be able to download the copied file.    Note that you cannot copy a file while it is being uploaded, updated, or copied. To verify the current process state of a file, call the [Get an Item](en/docs/data/v2/reference/http/projects-project_id-items-item_id-GET/) operation , and check the &#x60;&#x60;attributes.extension.data.processState&#x60;&#x60; attribute. 
+         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.          Note that for a three-legged OAuth flow or for a two-legged OAuth flow with user impersonation (&#x60;&#x60;x-user-id&#x60;&#x60;), the users of your app must have permission to upload files to the specified parent folder (&#x60;&#x60;data.attributes.relationships.parent.data.id&#x60;&#x60;).  For copying files, users of your app must have permission to view the source folder.   For information about managing and verifying folder permissions for BIM 360 Docs, see the section on [Managing Folder Permissions](http://help.autodesk.com/view/BIM360D/ENU/?guid&#x3D;GUID-2643FEEF-B48A-45A1-B354-797DAD628C37).\&#39; 
+         * @param {ItemPayload} [itemPayload] 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createItem: async (accessToken: string, projectId: string, xUserId?: string, copyFrom?: string, itemPayload?: ItemPayload,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        createItem: async (accessToken: string, projectId: string, copyFrom?: string, xUserId?: string, itemPayload?: ItemPayload,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('createItem', 'projectId', projectId)
             const localVarPath = `/data/v1/projects/{project_id}/items`
@@ -54,15 +57,14 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
                 localVarQueryParameter['copyFrom'] = copyFrom;
             }
 
-            if (xUserId != null) {
-                localVarHeaderParameter['x-user-id'] = String(xUserId);
+            if (xUserId !== undefined) {
+                localVarQueryParameter['x-user-id'] = xUserId;
             }
 
 
     
             localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
             localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -74,12 +76,12 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             };
         },
         /**
-         * Creates a custom relationship between an item and another resource within the data domain service (folder, item, or version)
-         * @summary Creates a custom relationship between an item and another resource within the data domain service (folder, item, or version)
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * Creates a custom relationship between an item and another resource within the data domain service (folder, item, or version).
+         * @summary Create a Custom Relationship for an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {RelationshipRefsPayload} [relationshipRefsPayload] Describe the ref to be created.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+         * @param {RelationshipRefsPayload} [relationshipRefsPayload] 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -112,7 +114,6 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
     
             localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
             localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -124,12 +125,12 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             };
         },
         /**
-         * Retrieves metadata for a specified item. Items represent word documents, fusion design files, drawings, spreadsheets, etc.  Notes:  The tip version for the item is included in the included array of the payload. To retrieve metadata for multiple items, see the ListItems command. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Retrieves metadata for a specified item
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * Retrieves an item. Items represent Word documents, Fusion 360 design files, drawings, spreadsheets, etc.  The tip version for the item is included in the included array of the payload. To retrieve multiple items, see the ListItems command.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary Get an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {boolean} [includePathInProject] Specify whether to return pathInProject attribute in response for BIM 360 Docs projects. pathInProject is the relative path of the item starting from project’s root folder. true: response will include pathInProject attribute for BIM 360 Docs projects.  false (default): response will not include pathInProject attribute for BIM 360 Docs projects.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+         * @param {boolean} [includePathInProject] Specify whether to return &#x60;&#x60;pathInProject&#x60;&#x60; attribute in response for BIM 360 Docs projects. &#x60;&#x60;pathInProject&#x60;&#x60; is the relative path of the item starting from project’s root folder.   - &#x60;&#x60;true&#x60;&#x60;: Response will include the &#x60;&#x60;pathInProject&#x60;&#x60; attribute for BIM 360 Docs projects.   - &#x60;&#x60;false&#x60;&#x60;: (Default) Response will not include &#x60;&#x60;pathInProject&#x60;&#x60; attribute for BIM 360 Docs projects. 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -164,6 +165,7 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -174,11 +176,11 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             };
         },
         /**
-         * Returns the \"parent\" folder for the given item.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Returns the \"parent\" folder for the given item
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * Returns the parent folder of the specified item.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary Get Parent of an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -209,6 +211,7 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -219,19 +222,19 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             };
         },
         /**
-         * Returns the resources (items, folders, and versions) that have a custom relationship with the given item_id. Custom relationships can be established between an item and other resources within the data domain service (folders, items, and versions).  Notes:  Each relationship is defined by the id of the object at the other end of the relationship, together with type, attributes, and relationships links. Callers will typically use a filter parameter to restrict the response to the custom relationship types (filter[meta.refType]) they are interested in. The response body will have an included array which contains the ref resources that are involved in the relationship, which is essentially the GET projects/:project_id/items/:item_id/relationships/refs endpoint. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Returns the resources (items, folders, and versions) that have a custom relationship with the given item_id
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * Returns the resources (items, folders, and versions) that have a custom relationship with the specified item. Custom relationships can be established between an item and other resources within the data domain service (folders, items, and versions).   Each relationship is defined by the ID of the object at the other end of the relationship, together with type, attributes, and relationships links. Callers will typically use a filter parameter to restrict the response to the custom relationship types (``filter[meta.refType]``) they are interested in.   **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary List Related Resources for an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {Array<string>} [filterType] Filter by the type of the objects in the folder. Supported values include folders and items.
-         * @param {Array<string>} [filterId] Filter by the id of the ref target.
-         * @param {Array<string>} [filterExtensionType] Filter by the extension type.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+         * @param {Array<FilterTypeVersion>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+         * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+         * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getItemRefs: async (accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<string>, filterId?: Array<string>, filterExtensionType?: Array<string>,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        getItemRefs: async (accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<FilterTypeVersion>, filterId?: Array<string>, filterExtensionType?: Array<string>,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getItemRefs', 'projectId', projectId)
             // verify required parameter 'itemId' is not null or undefined
@@ -252,15 +255,15 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
             if (filterType) {
-                localVarQueryParameter['filter_type'] = filterType;
+                localVarQueryParameter['filter[type]'] = filterType;
             }
 
             if (filterId) {
-                localVarQueryParameter['filter_id'] = filterId;
+                localVarQueryParameter['filter[id]'] = filterId;
             }
 
             if (filterExtensionType) {
-                localVarQueryParameter['filter_extension_type'] = filterExtensionType;
+                localVarQueryParameter['filter[extension.type]'] = filterExtensionType;
             }
 
             if (xUserId != null) {
@@ -269,6 +272,7 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -279,11 +283,11 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             };
         },
         /**
-         * Returns a collection of links for the given item_id. Custom relationships can be established between an item and other external resources residing outside the data domain service. A link’s href defines the target URI to access a resource.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Returns a collection of links for the given item_id
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * Returns a list of links for the specified item.   Custom relationships can be established between an item and other external resources residing outside the data domain service. A link’s ``href`` attribute defines the target URI to access a resource.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary List Relationship Links for an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -314,6 +318,7 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -324,21 +329,21 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             };
         },
         /**
-         * Returns the custom relationships that are associated with the given item_id. Custom relationships can be established between an item and other resources within the data domain service (folders, items, and versions).  Notes:  Each relationship is defined by the id of the object at the other end of the relationship, together with type, specific reference meta including extension data. Callers will typically use a filter parameter to restrict the response to the custom relationship types (filter[meta.refType]) they are interested in. The response body will have an included array which contains the resources that are involved in the relationship, which is essentially the GET projects/:project_id/items/:item_id/refs endpoint. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Returns the custom relationships that are associated with the given item_id
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * Returns the custom relationships that are associated with the specified item. Custom relationships can be established between an item and other resources within the ``data`` domain service (folders, items, and versions).  Each relationship is defined by the ID of the object at the other end of the relationship, together with type, specific reference meta including extension data. Callers will typically use a filter parameter to restrict the response to the custom relationship types (``filter[meta.refType]``) they are interested in. The response body will have an included array that contains the resources in the relationship, which is essentially what is returned by the [List Related Resources for an Item](/en/docs/data/v2/reference/http/projects-project_id-items-item_id-refs-GET/) operation.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary List Custom Relationships for an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {Array<string>} [filterType] Filter by the type of the objects in the folder. Supported values include folders and items.
-         * @param {Array<string>} [filterId] Filter by the id of the ref target.
-         * @param {GetItemRelationshipsRefsFilterRefTypeEnum} [filterRefType] Filter by refType. Possible values: derived, dependencies, auxiliary, xrefs, includes
-         * @param {GetItemRelationshipsRefsFilterDirectionEnum} [filterDirection] Filter by the direction of the reference. Possible values: from, to
-         * @param {Array<string>} [filterExtensionType] Filter by the extension type.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+         * @param {Array<FilterTypeVersion>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+         * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+         * @param {FilterRefType} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
+         * @param {FilterDirection} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
+         * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getItemRelationshipsRefs: async (accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<string>, filterId?: Array<string>, filterRefType?: GetItemRelationshipsRefsFilterRefTypeEnum, filterDirection?: GetItemRelationshipsRefsFilterDirectionEnum, filterExtensionType?: Array<string>,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        getItemRelationshipsRefs: async (accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<FilterTypeVersion>, filterId?: Array<string>, filterRefType?: FilterRefType, filterDirection?: FilterDirection, filterExtensionType?: Array<string>,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getItemRelationshipsRefs', 'projectId', projectId)
             // verify required parameter 'itemId' is not null or undefined
@@ -359,23 +364,23 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
             if (filterType) {
-                localVarQueryParameter['filter_type'] = filterType;
+                localVarQueryParameter['filter[type]'] = filterType;
             }
 
             if (filterId) {
-                localVarQueryParameter['filter_id'] = filterId;
+                localVarQueryParameter['filter[id]'] = filterId;
             }
 
             if (filterRefType !== undefined) {
-                localVarQueryParameter['filter_refType'] = filterRefType;
+                localVarQueryParameter['filter[refType]'] = filterRefType;
             }
 
             if (filterDirection !== undefined) {
-                localVarQueryParameter['filter_direction'] = filterDirection;
+                localVarQueryParameter['filter[direction]'] = filterDirection;
             }
 
             if (filterExtensionType) {
-                localVarQueryParameter['filter_extension_type'] = filterExtensionType;
+                localVarQueryParameter['filter[extension.type]'] = filterExtensionType;
             }
 
             if (xUserId != null) {
@@ -384,6 +389,7 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -394,11 +400,11 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             };
         },
         /**
-         * Returns the “tip” version for the given item. Multiple versions of a resource item can be uploaded in a project. The tip version is the most recent one.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Returns the “tip” version for the given item
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * Returns the latest version of the specified item. A project can contain multiple versions of a resource item. The latest version is referred to as the tip version, which is returned by this operation.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary Get Tip Version of an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -429,6 +435,7 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -439,13 +446,13 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             };
         },
         /**
-         * Returns versions for the given item. Multiple versions of a resource item can be uploaded in a project.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Returns versions for the given item
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * Lists all versions of the specified item. A project can contain multiple versions of a resource item.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary List all Versions of an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {Array<string>} [filterId] Filter by the id of the ref target.
-         * @param {Array<string>} [filterExtensionType] Filter by the extension type.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+         * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+         * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param {Array<number>} [filterVersionNumber] Filter by versionNumber.
          * @param {number} [pageNumber] Specifies what page to return. Page numbers are 0-based (the first page is page 0).
          * @param {number} [pageLimit] Specifies the maximum number of elements to return in the page. The default value is 200. The min value is 1. The max value is 200.
@@ -474,23 +481,23 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
             if (filterId) {
-                localVarQueryParameter['filter_id'] = filterId;
+                localVarQueryParameter['filter[id]'] = filterId;
             }
 
             if (filterExtensionType) {
-                localVarQueryParameter['filter_extension_type'] = filterExtensionType;
+                localVarQueryParameter['filter[extension.type]'] = filterExtensionType;
             }
 
             if (filterVersionNumber) {
-                localVarQueryParameter['filter_versionNumber'] = filterVersionNumber;
+                localVarQueryParameter['filter[versionNumber]'] = filterVersionNumber;
             }
 
             if (pageNumber !== undefined) {
-                localVarQueryParameter['page_number'] = pageNumber;
+                localVarQueryParameter['page[number]'] = pageNumber;
             }
 
             if (pageLimit !== undefined) {
-                localVarQueryParameter['page_limit'] = pageLimit;
+                localVarQueryParameter['page[limit]'] = pageLimit;
             }
 
             if (xUserId != null) {
@@ -499,6 +506,7 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -509,11 +517,11 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
             };
         },
         /**
-         * Updates the properties of the given item_id object.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Updates the properties of the given item_id object
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * Updates the ``displayName`` of the specified item. Note that updating the ``displayName`` of an item is not supported for BIM 360 Docs or ACC items.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary Update an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
          * @param {ModifyItemPayload} [modifyItemPayload] Describe the item to be patched.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
@@ -547,7 +555,6 @@ export const ItemsApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
     
             localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
             localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -569,26 +576,26 @@ export const ItemsApiFp = function(sdkManager?: SdkManager) {
     const localVarAxiosParamCreator = ItemsApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
-         * Creates the first version of a file (item). To create additional versions of an item, use POST versions.  Before you create the first version you need to create a storage location for the file, and upload the file to the storage object. For more details about the workflow, see the tutorial on uploading a file.  This endpoint also copies versions of items to other folders in the same project. The endpoint creates a new item and a first version of the item in the target folder. You cannot copy versions of items across different projects and accounts.  To copy versions of items to existng items in other folders, use POST versions. POST versions creates a new version of the existing item in the target folder.  Note that to access BIM 360 Docs files using the Data Management API you need to provision your app in the BIM 360 Account Administrator portal. For more details, see the Manage Access to Docs tutorial.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Creates the first version of a file (item)
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {string} [copyFrom] Only relevant for copying files to BIM 360 Docs - the version ID (URN) of the file to copy. For details about finding the URN, follow the initial steps in the Download a File tutorial.  You can only copy files to the Plans folder or to subfolders of the Plans folder with an item:autodesk.bim360:Document item extension type, and you can only copy files to the Project Files folder or to subfolders of the Project Files folder with an item:autodesk.bim360:File item extension type.  To verify an item’s extension type, use GET item, and check the attributes.extension.type attribute.  Note that if you copy a file to the Plans folder or to a subfolder of the Plans folder, the copied file inherits the permissions of the source file. For example, if the end user did not have permission to download files in the source folder, but does have permission to download files in the target folder, he/she will not be able to download the copied file.  Note that you cannot copy a file if it is in the middle of being uploaded, updated, or copied. To verify the current process state of a file, call GET item, and check the attributes.extension.data.processState attribute.
-         * @param {ItemPayload} [itemPayload] Describe the item to be created.
+         * Creates the first version of a file (item). To create additional versions of an item, use POST versions.  Before you create the first version of an item, you must create a placeholder for the file, and upload the file to the placeholder. For more details about the workflow, see the tutorial on uploading a file.  This operation also allows you to create a new item by copying a specific version of an existing item to another folder. The copied version becomes the first version of the new item in the target folder.  **Note:** You cannot copy versions of items across different projects and accounts.  Use the [Create Version](/en/docs/data/v2/reference/http/projects-project_id-versions-POST/) operation with the ``copyFrom`` parameter if you want to create a new version of an item by copying a specific version of another item.   Before you use the Data Management API to access BIM 360 Docs files, you must provision your app through the BIM 360 Account Administrator portal. For details, see the [Manage Access to Docs tutorial](/en/docs/bim360/v1/tutorials/getting-started/manage-access-to-docs/).  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary Create an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
+         * @param {string} [copyFrom] The Version ID (URN) of the version to copy from.   **Note**: This parameter is relevant only for copying files to BIM 360 Docs.  For information on how to find the URN, see the initial steps of the [Download a File](/en/docs/data/v2/tutorials/download-file/) tutorial.  You can only copy files to the Plans folder or to subfolders of the Plans folder with an &#x60;&#x60;item:autodesk.bim360:Document&#x60;&#x60; item extension type. You can only copy files to the Project Files folder or to subfolders of the Project Files folder with an &#x60;&#x60;item:autodesk.bim360:File&#x60;&#x60; item extension type.    To verify an item’s extension type, use the [Get an Item](/en/docs/data/v2/reference/http/projects-project_id-items-item_id-GET/) operation, and check the &#x60;&#x60;attributes.extension.type&#x60;&#x60; attribute.    Note that if you copy a file to the Plans folder or to a subfolder of the Plans folder, the copied file inherits the permissions of the source file. For example, if users of your app did not have permission to download files in the source folder, but does have permission to download files in the target folder, they will not be able to download the copied file.    Note that you cannot copy a file while it is being uploaded, updated, or copied. To verify the current process state of a file, call the [Get an Item](en/docs/data/v2/reference/http/projects-project_id-items-item_id-GET/) operation , and check the &#x60;&#x60;attributes.extension.data.processState&#x60;&#x60; attribute. 
+         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.          Note that for a three-legged OAuth flow or for a two-legged OAuth flow with user impersonation (&#x60;&#x60;x-user-id&#x60;&#x60;), the users of your app must have permission to upload files to the specified parent folder (&#x60;&#x60;data.attributes.relationships.parent.data.id&#x60;&#x60;).  For copying files, users of your app must have permission to view the source folder.   For information about managing and verifying folder permissions for BIM 360 Docs, see the section on [Managing Folder Permissions](http://help.autodesk.com/view/BIM360D/ENU/?guid&#x3D;GUID-2643FEEF-B48A-45A1-B354-797DAD628C37).\&#39; 
+         * @param {ItemPayload} [itemPayload] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createItem(accessToken: string, projectId: string, xUserId?: string, copyFrom?: string, itemPayload?: ItemPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Item>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createItem(accessToken, projectId, xUserId, copyFrom, itemPayload,  options);
+        async createItem(accessToken: string, projectId: string, copyFrom?: string, xUserId?: string, itemPayload?: ItemPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreatedItem>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createItem(accessToken, projectId, copyFrom, xUserId, itemPayload,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
-         * Creates a custom relationship between an item and another resource within the data domain service (folder, item, or version)
-         * @summary Creates a custom relationship between an item and another resource within the data domain service (folder, item, or version)
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * Creates a custom relationship between an item and another resource within the data domain service (folder, item, or version).
+         * @summary Create a Custom Relationship for an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {RelationshipRefsPayload} [relationshipRefsPayload] Describe the ref to be created.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+         * @param {RelationshipRefsPayload} [relationshipRefsPayload] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -597,12 +604,12 @@ export const ItemsApiFp = function(sdkManager?: SdkManager) {
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
-         * Retrieves metadata for a specified item. Items represent word documents, fusion design files, drawings, spreadsheets, etc.  Notes:  The tip version for the item is included in the included array of the payload. To retrieve metadata for multiple items, see the ListItems command. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Retrieves metadata for a specified item
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * Retrieves an item. Items represent Word documents, Fusion 360 design files, drawings, spreadsheets, etc.  The tip version for the item is included in the included array of the payload. To retrieve multiple items, see the ListItems command.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary Get an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {boolean} [includePathInProject] Specify whether to return pathInProject attribute in response for BIM 360 Docs projects. pathInProject is the relative path of the item starting from project’s root folder. true: response will include pathInProject attribute for BIM 360 Docs projects.  false (default): response will not include pathInProject attribute for BIM 360 Docs projects.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+         * @param {boolean} [includePathInProject] Specify whether to return &#x60;&#x60;pathInProject&#x60;&#x60; attribute in response for BIM 360 Docs projects. &#x60;&#x60;pathInProject&#x60;&#x60; is the relative path of the item starting from project’s root folder.   - &#x60;&#x60;true&#x60;&#x60;: Response will include the &#x60;&#x60;pathInProject&#x60;&#x60; attribute for BIM 360 Docs projects.   - &#x60;&#x60;false&#x60;&#x60;: (Default) Response will not include &#x60;&#x60;pathInProject&#x60;&#x60; attribute for BIM 360 Docs projects. 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -611,11 +618,11 @@ export const ItemsApiFp = function(sdkManager?: SdkManager) {
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
-         * Returns the \"parent\" folder for the given item.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Returns the \"parent\" folder for the given item
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * Returns the parent folder of the specified item.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary Get Parent of an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -624,27 +631,27 @@ export const ItemsApiFp = function(sdkManager?: SdkManager) {
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
-         * Returns the resources (items, folders, and versions) that have a custom relationship with the given item_id. Custom relationships can be established between an item and other resources within the data domain service (folders, items, and versions).  Notes:  Each relationship is defined by the id of the object at the other end of the relationship, together with type, attributes, and relationships links. Callers will typically use a filter parameter to restrict the response to the custom relationship types (filter[meta.refType]) they are interested in. The response body will have an included array which contains the ref resources that are involved in the relationship, which is essentially the GET projects/:project_id/items/:item_id/relationships/refs endpoint. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Returns the resources (items, folders, and versions) that have a custom relationship with the given item_id
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * Returns the resources (items, folders, and versions) that have a custom relationship with the specified item. Custom relationships can be established between an item and other resources within the data domain service (folders, items, and versions).   Each relationship is defined by the ID of the object at the other end of the relationship, together with type, attributes, and relationships links. Callers will typically use a filter parameter to restrict the response to the custom relationship types (``filter[meta.refType]``) they are interested in.   **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary List Related Resources for an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {Array<string>} [filterType] Filter by the type of the objects in the folder. Supported values include folders and items.
-         * @param {Array<string>} [filterId] Filter by the id of the ref target.
-         * @param {Array<string>} [filterExtensionType] Filter by the extension type.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+         * @param {Array<FilterTypeVersion>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+         * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+         * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getItemRefs(accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<string>, filterId?: Array<string>, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Refs>> {
+        async getItemRefs(accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<FilterTypeVersion>, filterId?: Array<string>, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Refs>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getItemRefs(accessToken, projectId, itemId, xUserId, filterType, filterId, filterExtensionType,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
-         * Returns a collection of links for the given item_id. Custom relationships can be established between an item and other external resources residing outside the data domain service. A link’s href defines the target URI to access a resource.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Returns a collection of links for the given item_id
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * Returns a list of links for the specified item.   Custom relationships can be established between an item and other external resources residing outside the data domain service. A link’s ``href`` attribute defines the target URI to access a resource.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary List Relationship Links for an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -653,29 +660,29 @@ export const ItemsApiFp = function(sdkManager?: SdkManager) {
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
-         * Returns the custom relationships that are associated with the given item_id. Custom relationships can be established between an item and other resources within the data domain service (folders, items, and versions).  Notes:  Each relationship is defined by the id of the object at the other end of the relationship, together with type, specific reference meta including extension data. Callers will typically use a filter parameter to restrict the response to the custom relationship types (filter[meta.refType]) they are interested in. The response body will have an included array which contains the resources that are involved in the relationship, which is essentially the GET projects/:project_id/items/:item_id/refs endpoint. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Returns the custom relationships that are associated with the given item_id
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * Returns the custom relationships that are associated with the specified item. Custom relationships can be established between an item and other resources within the ``data`` domain service (folders, items, and versions).  Each relationship is defined by the ID of the object at the other end of the relationship, together with type, specific reference meta including extension data. Callers will typically use a filter parameter to restrict the response to the custom relationship types (``filter[meta.refType]``) they are interested in. The response body will have an included array that contains the resources in the relationship, which is essentially what is returned by the [List Related Resources for an Item](/en/docs/data/v2/reference/http/projects-project_id-items-item_id-refs-GET/) operation.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary List Custom Relationships for an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {Array<string>} [filterType] Filter by the type of the objects in the folder. Supported values include folders and items.
-         * @param {Array<string>} [filterId] Filter by the id of the ref target.
-         * @param {GetItemRelationshipsRefsFilterRefTypeEnum} [filterRefType] Filter by refType. Possible values: derived, dependencies, auxiliary, xrefs, includes
-         * @param {GetItemRelationshipsRefsFilterDirectionEnum} [filterDirection] Filter by the direction of the reference. Possible values: from, to
-         * @param {Array<string>} [filterExtensionType] Filter by the extension type.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+         * @param {Array<FilterTypeVersion>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+         * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+         * @param {FilterRefType} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
+         * @param {FilterDirection} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
+         * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getItemRelationshipsRefs(accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<string>, filterId?: Array<string>, filterRefType?: GetItemRelationshipsRefsFilterRefTypeEnum, filterDirection?: GetItemRelationshipsRefsFilterDirectionEnum, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RelationshipRefs>> {
+        async getItemRelationshipsRefs(accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<FilterTypeVersion>, filterId?: Array<string>, filterRefType?: FilterRefType, filterDirection?: FilterDirection, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RelationshipRefs>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getItemRelationshipsRefs(accessToken, projectId, itemId, xUserId, filterType, filterId, filterRefType, filterDirection, filterExtensionType,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
-         * Returns the “tip” version for the given item. Multiple versions of a resource item can be uploaded in a project. The tip version is the most recent one.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Returns the “tip” version for the given item
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * Returns the latest version of the specified item. A project can contain multiple versions of a resource item. The latest version is referred to as the tip version, which is returned by this operation.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary Get Tip Version of an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -684,13 +691,13 @@ export const ItemsApiFp = function(sdkManager?: SdkManager) {
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
-         * Returns versions for the given item. Multiple versions of a resource item can be uploaded in a project.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Returns versions for the given item
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * Lists all versions of the specified item. A project can contain multiple versions of a resource item.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary List all Versions of an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {Array<string>} [filterId] Filter by the id of the ref target.
-         * @param {Array<string>} [filterExtensionType] Filter by the extension type.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+         * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+         * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param {Array<number>} [filterVersionNumber] Filter by versionNumber.
          * @param {number} [pageNumber] Specifies what page to return. Page numbers are 0-based (the first page is page 0).
          * @param {number} [pageLimit] Specifies the maximum number of elements to return in the page. The default value is 200. The min value is 1. The max value is 200.
@@ -702,11 +709,11 @@ export const ItemsApiFp = function(sdkManager?: SdkManager) {
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
-         * Updates the properties of the given item_id object.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Updates the properties of the given item_id object
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+         * Updates the ``displayName`` of the specified item. Note that updating the ``displayName`` of an item is not supported for BIM 360 Docs or ACC items.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary Update an Item
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
          * @param {string} itemId The unique identifier of an item.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
          * @param {ModifyItemPayload} [modifyItemPayload] Describe the item to be patched.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -725,26 +732,26 @@ export const ItemsApiFp = function(sdkManager?: SdkManager) {
  */
 export interface ItemsApiInterface {
     /**
-     * Creates the first version of a file (item). To create additional versions of an item, use POST versions.  Before you create the first version you need to create a storage location for the file, and upload the file to the storage object. For more details about the workflow, see the tutorial on uploading a file.  This endpoint also copies versions of items to other folders in the same project. The endpoint creates a new item and a first version of the item in the target folder. You cannot copy versions of items across different projects and accounts.  To copy versions of items to existng items in other folders, use POST versions. POST versions creates a new version of the existing item in the target folder.  Note that to access BIM 360 Docs files using the Data Management API you need to provision your app in the BIM 360 Account Administrator portal. For more details, see the Manage Access to Docs tutorial.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Creates the first version of a file (item)
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {string} [copyFrom] Only relevant for copying files to BIM 360 Docs - the version ID (URN) of the file to copy. For details about finding the URN, follow the initial steps in the Download a File tutorial.  You can only copy files to the Plans folder or to subfolders of the Plans folder with an item:autodesk.bim360:Document item extension type, and you can only copy files to the Project Files folder or to subfolders of the Project Files folder with an item:autodesk.bim360:File item extension type.  To verify an item’s extension type, use GET item, and check the attributes.extension.type attribute.  Note that if you copy a file to the Plans folder or to a subfolder of the Plans folder, the copied file inherits the permissions of the source file. For example, if the end user did not have permission to download files in the source folder, but does have permission to download files in the target folder, he/she will not be able to download the copied file.  Note that you cannot copy a file if it is in the middle of being uploaded, updated, or copied. To verify the current process state of a file, call GET item, and check the attributes.extension.data.processState attribute.
-     * @param {ItemPayload} [itemPayload] Describe the item to be created.
+     * Creates the first version of a file (item). To create additional versions of an item, use POST versions.  Before you create the first version of an item, you must create a placeholder for the file, and upload the file to the placeholder. For more details about the workflow, see the tutorial on uploading a file.  This operation also allows you to create a new item by copying a specific version of an existing item to another folder. The copied version becomes the first version of the new item in the target folder.  **Note:** You cannot copy versions of items across different projects and accounts.  Use the [Create Version](/en/docs/data/v2/reference/http/projects-project_id-versions-POST/) operation with the ``copyFrom`` parameter if you want to create a new version of an item by copying a specific version of another item.   Before you use the Data Management API to access BIM 360 Docs files, you must provision your app through the BIM 360 Account Administrator portal. For details, see the [Manage Access to Docs tutorial](/en/docs/bim360/v1/tutorials/getting-started/manage-access-to-docs/).  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary Create an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
+     * @param {string} [copyFrom] The Version ID (URN) of the version to copy from.   **Note**: This parameter is relevant only for copying files to BIM 360 Docs.  For information on how to find the URN, see the initial steps of the [Download a File](/en/docs/data/v2/tutorials/download-file/) tutorial.  You can only copy files to the Plans folder or to subfolders of the Plans folder with an &#x60;&#x60;item:autodesk.bim360:Document&#x60;&#x60; item extension type. You can only copy files to the Project Files folder or to subfolders of the Project Files folder with an &#x60;&#x60;item:autodesk.bim360:File&#x60;&#x60; item extension type.    To verify an item’s extension type, use the [Get an Item](/en/docs/data/v2/reference/http/projects-project_id-items-item_id-GET/) operation, and check the &#x60;&#x60;attributes.extension.type&#x60;&#x60; attribute.    Note that if you copy a file to the Plans folder or to a subfolder of the Plans folder, the copied file inherits the permissions of the source file. For example, if users of your app did not have permission to download files in the source folder, but does have permission to download files in the target folder, they will not be able to download the copied file.    Note that you cannot copy a file while it is being uploaded, updated, or copied. To verify the current process state of a file, call the [Get an Item](en/docs/data/v2/reference/http/projects-project_id-items-item_id-GET/) operation , and check the &#x60;&#x60;attributes.extension.data.processState&#x60;&#x60; attribute. 
+     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.          Note that for a three-legged OAuth flow or for a two-legged OAuth flow with user impersonation (&#x60;&#x60;x-user-id&#x60;&#x60;), the users of your app must have permission to upload files to the specified parent folder (&#x60;&#x60;data.attributes.relationships.parent.data.id&#x60;&#x60;).  For copying files, users of your app must have permission to view the source folder.   For information about managing and verifying folder permissions for BIM 360 Docs, see the section on [Managing Folder Permissions](http://help.autodesk.com/view/BIM360D/ENU/?guid&#x3D;GUID-2643FEEF-B48A-45A1-B354-797DAD628C37).\&#39; 
+     * @param {ItemPayload} [itemPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ItemsApiInterface
      */
-    createItem(accessToken: string,projectId: string, xUserId?: string, copyFrom?: string, itemPayload?: ItemPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    createItem(accessToken: string,projectId: string, copyFrom?: string, xUserId?: string, itemPayload?: ItemPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
-     * Creates a custom relationship between an item and another resource within the data domain service (folder, item, or version)
-     * @summary Creates a custom relationship between an item and another resource within the data domain service (folder, item, or version)
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * Creates a custom relationship between an item and another resource within the data domain service (folder, item, or version).
+     * @summary Create a Custom Relationship for an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {RelationshipRefsPayload} [relationshipRefsPayload] Describe the ref to be created.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+     * @param {RelationshipRefsPayload} [relationshipRefsPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -753,12 +760,12 @@ export interface ItemsApiInterface {
     createItemRelationshipsRef(accessToken: string,projectId: string, itemId: string, xUserId?: string, relationshipRefsPayload?: RelationshipRefsPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
-     * Retrieves metadata for a specified item. Items represent word documents, fusion design files, drawings, spreadsheets, etc.  Notes:  The tip version for the item is included in the included array of the payload. To retrieve metadata for multiple items, see the ListItems command. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Retrieves metadata for a specified item
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * Retrieves an item. Items represent Word documents, Fusion 360 design files, drawings, spreadsheets, etc.  The tip version for the item is included in the included array of the payload. To retrieve multiple items, see the ListItems command.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary Get an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {boolean} [includePathInProject] Specify whether to return pathInProject attribute in response for BIM 360 Docs projects. pathInProject is the relative path of the item starting from project’s root folder. true: response will include pathInProject attribute for BIM 360 Docs projects.  false (default): response will not include pathInProject attribute for BIM 360 Docs projects.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+     * @param {boolean} [includePathInProject] Specify whether to return &#x60;&#x60;pathInProject&#x60;&#x60; attribute in response for BIM 360 Docs projects. &#x60;&#x60;pathInProject&#x60;&#x60; is the relative path of the item starting from project’s root folder.   - &#x60;&#x60;true&#x60;&#x60;: Response will include the &#x60;&#x60;pathInProject&#x60;&#x60; attribute for BIM 360 Docs projects.   - &#x60;&#x60;false&#x60;&#x60;: (Default) Response will not include &#x60;&#x60;pathInProject&#x60;&#x60; attribute for BIM 360 Docs projects. 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -767,11 +774,11 @@ export interface ItemsApiInterface {
     getItem(accessToken: string,projectId: string, itemId: string, xUserId?: string, includePathInProject?: boolean,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
-     * Returns the \"parent\" folder for the given item.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Returns the \"parent\" folder for the given item
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * Returns the parent folder of the specified item.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary Get Parent of an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -780,27 +787,27 @@ export interface ItemsApiInterface {
     getItemParentFolder(accessToken: string,projectId: string, itemId: string, xUserId?: string,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
-     * Returns the resources (items, folders, and versions) that have a custom relationship with the given item_id. Custom relationships can be established between an item and other resources within the data domain service (folders, items, and versions).  Notes:  Each relationship is defined by the id of the object at the other end of the relationship, together with type, attributes, and relationships links. Callers will typically use a filter parameter to restrict the response to the custom relationship types (filter[meta.refType]) they are interested in. The response body will have an included array which contains the ref resources that are involved in the relationship, which is essentially the GET projects/:project_id/items/:item_id/relationships/refs endpoint. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Returns the resources (items, folders, and versions) that have a custom relationship with the given item_id
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * Returns the resources (items, folders, and versions) that have a custom relationship with the specified item. Custom relationships can be established between an item and other resources within the data domain service (folders, items, and versions).   Each relationship is defined by the ID of the object at the other end of the relationship, together with type, attributes, and relationships links. Callers will typically use a filter parameter to restrict the response to the custom relationship types (``filter[meta.refType]``) they are interested in.   **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary List Related Resources for an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {Array<string>} [filterType] Filter by the type of the objects in the folder. Supported values include folders and items.
-     * @param {Array<string>} [filterId] Filter by the id of the ref target.
-     * @param {Array<string>} [filterExtensionType] Filter by the extension type.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+     * @param {Array<FilterTypeVersion>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+     * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+     * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ItemsApiInterface
      */
-    getItemRefs(accessToken: string,projectId: string, itemId: string, xUserId?: string, filterType?: Array<string>, filterId?: Array<string>, filterExtensionType?: Array<string>,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getItemRefs(accessToken: string,projectId: string, itemId: string, xUserId?: string, filterType?: Array<FilterTypeVersion>, filterId?: Array<string>, filterExtensionType?: Array<string>,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
-     * Returns a collection of links for the given item_id. Custom relationships can be established between an item and other external resources residing outside the data domain service. A link’s href defines the target URI to access a resource.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Returns a collection of links for the given item_id
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * Returns a list of links for the specified item.   Custom relationships can be established between an item and other external resources residing outside the data domain service. A link’s ``href`` attribute defines the target URI to access a resource.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary List Relationship Links for an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -809,29 +816,29 @@ export interface ItemsApiInterface {
     getItemRelationshipsLinks(accessToken: string,projectId: string, itemId: string, xUserId?: string,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
-     * Returns the custom relationships that are associated with the given item_id. Custom relationships can be established between an item and other resources within the data domain service (folders, items, and versions).  Notes:  Each relationship is defined by the id of the object at the other end of the relationship, together with type, specific reference meta including extension data. Callers will typically use a filter parameter to restrict the response to the custom relationship types (filter[meta.refType]) they are interested in. The response body will have an included array which contains the resources that are involved in the relationship, which is essentially the GET projects/:project_id/items/:item_id/refs endpoint. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Returns the custom relationships that are associated with the given item_id
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * Returns the custom relationships that are associated with the specified item. Custom relationships can be established between an item and other resources within the ``data`` domain service (folders, items, and versions).  Each relationship is defined by the ID of the object at the other end of the relationship, together with type, specific reference meta including extension data. Callers will typically use a filter parameter to restrict the response to the custom relationship types (``filter[meta.refType]``) they are interested in. The response body will have an included array that contains the resources in the relationship, which is essentially what is returned by the [List Related Resources for an Item](/en/docs/data/v2/reference/http/projects-project_id-items-item_id-refs-GET/) operation.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary List Custom Relationships for an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {Array<string>} [filterType] Filter by the type of the objects in the folder. Supported values include folders and items.
-     * @param {Array<string>} [filterId] Filter by the id of the ref target.
-     * @param {GetItemRelationshipsRefsFilterRefTypeEnum} [filterRefType] Filter by refType. Possible values: derived, dependencies, auxiliary, xrefs, includes
-     * @param {GetItemRelationshipsRefsFilterDirectionEnum} [filterDirection] Filter by the direction of the reference. Possible values: from, to
-     * @param {Array<string>} [filterExtensionType] Filter by the extension type.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+     * @param {Array<FilterTypeVersion>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+     * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+     * @param {FilterRefType} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
+     * @param {FilterDirection} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
+     * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ItemsApiInterface
      */
-    getItemRelationshipsRefs(accessToken: string,projectId: string, itemId: string, xUserId?: string, filterType?: Array<string>, filterId?: Array<string>, filterRefType?: GetItemRelationshipsRefsFilterRefTypeEnum, filterDirection?: GetItemRelationshipsRefsFilterDirectionEnum, filterExtensionType?: Array<string>,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getItemRelationshipsRefs(accessToken: string,projectId: string, itemId: string, xUserId?: string, filterType?: Array<FilterTypeVersion>, filterId?: Array<string>, filterRefType?: FilterRefType, filterDirection?: FilterDirection, filterExtensionType?: Array<string>,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
-     * Returns the “tip” version for the given item. Multiple versions of a resource item can be uploaded in a project. The tip version is the most recent one.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Returns the “tip” version for the given item
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * Returns the latest version of the specified item. A project can contain multiple versions of a resource item. The latest version is referred to as the tip version, which is returned by this operation.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary Get Tip Version of an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -840,13 +847,13 @@ export interface ItemsApiInterface {
     getItemTip(accessToken: string,projectId: string, itemId: string, xUserId?: string,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
-     * Returns versions for the given item. Multiple versions of a resource item can be uploaded in a project.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Returns versions for the given item
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * Lists all versions of the specified item. A project can contain multiple versions of a resource item.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary List all Versions of an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {Array<string>} [filterId] Filter by the id of the ref target.
-     * @param {Array<string>} [filterExtensionType] Filter by the extension type.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+     * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+     * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param {Array<number>} [filterVersionNumber] Filter by versionNumber.
      * @param {number} [pageNumber] Specifies what page to return. Page numbers are 0-based (the first page is page 0).
      * @param {number} [pageLimit] Specifies the maximum number of elements to return in the page. The default value is 200. The min value is 1. The max value is 200.
@@ -858,11 +865,11 @@ export interface ItemsApiInterface {
     getItemVersions(accessToken: string,projectId: string, itemId: string, xUserId?: string, filterId?: Array<string>, filterExtensionType?: Array<string>, filterVersionNumber?: Array<number>, pageNumber?: number, pageLimit?: number,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
-     * Updates the properties of the given item_id object.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Updates the properties of the given item_id object
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * Updates the ``displayName`` of the specified item. Note that updating the ``displayName`` of an item is not supported for BIM 360 Docs or ACC items.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary Update an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
      * @param {ModifyItemPayload} [modifyItemPayload] Describe the item to be patched.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -882,28 +889,29 @@ export interface ItemsApiInterface {
 export class ItemsApi extends BaseApi implements ItemsApiInterface {
     private logger = this.sdkManager.logger;
     /**
-     * Creates the first version of a file (item). To create additional versions of an item, use POST versions.  Before you create the first version you need to create a storage location for the file, and upload the file to the storage object. For more details about the workflow, see the tutorial on uploading a file.  This endpoint also copies versions of items to other folders in the same project. The endpoint creates a new item and a first version of the item in the target folder. You cannot copy versions of items across different projects and accounts.  To copy versions of items to existng items in other folders, use POST versions. POST versions creates a new version of the existing item in the target folder.  Note that to access BIM 360 Docs files using the Data Management API you need to provision your app in the BIM 360 Account Administrator portal. For more details, see the Manage Access to Docs tutorial.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Creates the first version of a file (item)
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {string} [copyFrom] Only relevant for copying files to BIM 360 Docs - the version ID (URN) of the file to copy. For details about finding the URN, follow the initial steps in the Download a File tutorial.  You can only copy files to the Plans folder or to subfolders of the Plans folder with an item:autodesk.bim360:Document item extension type, and you can only copy files to the Project Files folder or to subfolders of the Project Files folder with an item:autodesk.bim360:File item extension type.  To verify an item’s extension type, use GET item, and check the attributes.extension.type attribute.  Note that if you copy a file to the Plans folder or to a subfolder of the Plans folder, the copied file inherits the permissions of the source file. For example, if the end user did not have permission to download files in the source folder, but does have permission to download files in the target folder, he/she will not be able to download the copied file.  Note that you cannot copy a file if it is in the middle of being uploaded, updated, or copied. To verify the current process state of a file, call GET item, and check the attributes.extension.data.processState attribute.
-     * @param {ItemPayload} [itemPayload] Describe the item to be created.
+     * Creates the first version of a file (item). To create additional versions of an item, use POST versions.  Before you create the first version of an item, you must create a placeholder for the file, and upload the file to the placeholder. For more details about the workflow, see the tutorial on uploading a file.  This operation also allows you to create a new item by copying a specific version of an existing item to another folder. The copied version becomes the first version of the new item in the target folder.  **Note:** You cannot copy versions of items across different projects and accounts.  Use the [Create Version](/en/docs/data/v2/reference/http/projects-project_id-versions-POST/) operation with the ``copyFrom`` parameter if you want to create a new version of an item by copying a specific version of another item.   Before you use the Data Management API to access BIM 360 Docs files, you must provision your app through the BIM 360 Account Administrator portal. For details, see the [Manage Access to Docs tutorial](/en/docs/bim360/v1/tutorials/getting-started/manage-access-to-docs/).  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary Create an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
+     * @param {string} [copyFrom] The Version ID (URN) of the version to copy from.   **Note**: This parameter is relevant only for copying files to BIM 360 Docs.  For information on how to find the URN, see the initial steps of the [Download a File](/en/docs/data/v2/tutorials/download-file/) tutorial.  You can only copy files to the Plans folder or to subfolders of the Plans folder with an &#x60;&#x60;item:autodesk.bim360:Document&#x60;&#x60; item extension type. You can only copy files to the Project Files folder or to subfolders of the Project Files folder with an &#x60;&#x60;item:autodesk.bim360:File&#x60;&#x60; item extension type.    To verify an item’s extension type, use the [Get an Item](/en/docs/data/v2/reference/http/projects-project_id-items-item_id-GET/) operation, and check the &#x60;&#x60;attributes.extension.type&#x60;&#x60; attribute.    Note that if you copy a file to the Plans folder or to a subfolder of the Plans folder, the copied file inherits the permissions of the source file. For example, if users of your app did not have permission to download files in the source folder, but does have permission to download files in the target folder, they will not be able to download the copied file.    Note that you cannot copy a file while it is being uploaded, updated, or copied. To verify the current process state of a file, call the [Get an Item](en/docs/data/v2/reference/http/projects-project_id-items-item_id-GET/) operation , and check the &#x60;&#x60;attributes.extension.data.processState&#x60;&#x60; attribute. 
+     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.          Note that for a three-legged OAuth flow or for a two-legged OAuth flow with user impersonation (&#x60;&#x60;x-user-id&#x60;&#x60;), the users of your app must have permission to upload files to the specified parent folder (&#x60;&#x60;data.attributes.relationships.parent.data.id&#x60;&#x60;).  For copying files, users of your app must have permission to view the source folder.   For information about managing and verifying folder permissions for BIM 360 Docs, see the section on [Managing Folder Permissions](http://help.autodesk.com/view/BIM360D/ENU/?guid&#x3D;GUID-2643FEEF-B48A-45A1-B354-797DAD628C37).\&#39; 
+     * @param {ItemPayload} [itemPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ItemsApi
      */
-    public async createItem(accessToken: string, projectId: string, xUserId?: string, copyFrom?: string, itemPayload?: ItemPayload, options?: ApsServiceRequestConfig) {
+    public async createItem(accessToken: string, projectId: string, copyFrom?: string, xUserId?: string, itemPayload?: ItemPayload, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into createItem ");
       try {
-        const request =  await ItemsApiFp(this.sdkManager).createItem(accessToken, projectId, xUserId, copyFrom, itemPayload,  options);
+        const request =  await ItemsApiFp(this.sdkManager).createItem(accessToken, projectId, copyFrom, xUserId, itemPayload,  options);
         const response = await request(this.axios);
         this.logger.logInfo(`createItem Request completed successfully with status code: ${response.status}`);
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`createItem Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new DataManagementApiError(`createItem Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`createItem Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new DataManagementApiError(`createItem Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`createItem Request failed with no response received: ${error.request}`);
             throw new DataManagementApiError(`createItem Request failed with no response received: ${error.request}`, error);
@@ -913,12 +921,12 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
     }
 
     /**
-     * Creates a custom relationship between an item and another resource within the data domain service (folder, item, or version)
-     * @summary Creates a custom relationship between an item and another resource within the data domain service (folder, item, or version)
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * Creates a custom relationship between an item and another resource within the data domain service (folder, item, or version).
+     * @summary Create a Custom Relationship for an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {RelationshipRefsPayload} [relationshipRefsPayload] Describe the ref to be created.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+     * @param {RelationshipRefsPayload} [relationshipRefsPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -933,8 +941,9 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`createItemRelationshipsRef Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new DataManagementApiError(`createItemRelationshipsRef Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`createItemRelationshipsRef Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new DataManagementApiError(`createItemRelationshipsRef Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`createItemRelationshipsRef Request failed with no response received: ${error.request}`);
             throw new DataManagementApiError(`createItemRelationshipsRef Request failed with no response received: ${error.request}`, error);
@@ -944,12 +953,12 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
     }
 
     /**
-     * Retrieves metadata for a specified item. Items represent word documents, fusion design files, drawings, spreadsheets, etc.  Notes:  The tip version for the item is included in the included array of the payload. To retrieve metadata for multiple items, see the ListItems command. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Retrieves metadata for a specified item
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * Retrieves an item. Items represent Word documents, Fusion 360 design files, drawings, spreadsheets, etc.  The tip version for the item is included in the included array of the payload. To retrieve multiple items, see the ListItems command.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary Get an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {boolean} [includePathInProject] Specify whether to return pathInProject attribute in response for BIM 360 Docs projects. pathInProject is the relative path of the item starting from project’s root folder. true: response will include pathInProject attribute for BIM 360 Docs projects.  false (default): response will not include pathInProject attribute for BIM 360 Docs projects.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+     * @param {boolean} [includePathInProject] Specify whether to return &#x60;&#x60;pathInProject&#x60;&#x60; attribute in response for BIM 360 Docs projects. &#x60;&#x60;pathInProject&#x60;&#x60; is the relative path of the item starting from project’s root folder.   - &#x60;&#x60;true&#x60;&#x60;: Response will include the &#x60;&#x60;pathInProject&#x60;&#x60; attribute for BIM 360 Docs projects.   - &#x60;&#x60;false&#x60;&#x60;: (Default) Response will not include &#x60;&#x60;pathInProject&#x60;&#x60; attribute for BIM 360 Docs projects. 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -964,8 +973,9 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getItem Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new DataManagementApiError(`getItem Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getItem Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new DataManagementApiError(`getItem Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getItem Request failed with no response received: ${error.request}`);
             throw new DataManagementApiError(`getItem Request failed with no response received: ${error.request}`, error);
@@ -975,11 +985,11 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
     }
 
     /**
-     * Returns the \"parent\" folder for the given item.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Returns the \"parent\" folder for the given item
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * Returns the parent folder of the specified item.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary Get Parent of an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -994,8 +1004,9 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getItemParentFolder Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new DataManagementApiError(`getItemParentFolder Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getItemParentFolder Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new DataManagementApiError(`getItemParentFolder Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getItemParentFolder Request failed with no response received: ${error.request}`);
             throw new DataManagementApiError(`getItemParentFolder Request failed with no response received: ${error.request}`, error);
@@ -1005,20 +1016,20 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
     }
 
     /**
-     * Returns the resources (items, folders, and versions) that have a custom relationship with the given item_id. Custom relationships can be established between an item and other resources within the data domain service (folders, items, and versions).  Notes:  Each relationship is defined by the id of the object at the other end of the relationship, together with type, attributes, and relationships links. Callers will typically use a filter parameter to restrict the response to the custom relationship types (filter[meta.refType]) they are interested in. The response body will have an included array which contains the ref resources that are involved in the relationship, which is essentially the GET projects/:project_id/items/:item_id/relationships/refs endpoint. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Returns the resources (items, folders, and versions) that have a custom relationship with the given item_id
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * Returns the resources (items, folders, and versions) that have a custom relationship with the specified item. Custom relationships can be established between an item and other resources within the data domain service (folders, items, and versions).   Each relationship is defined by the ID of the object at the other end of the relationship, together with type, attributes, and relationships links. Callers will typically use a filter parameter to restrict the response to the custom relationship types (``filter[meta.refType]``) they are interested in.   **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary List Related Resources for an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {Array<string>} [filterType] Filter by the type of the objects in the folder. Supported values include folders and items.
-     * @param {Array<string>} [filterId] Filter by the id of the ref target.
-     * @param {Array<string>} [filterExtensionType] Filter by the extension type.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+     * @param {Array<FilterTypeVersion>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+     * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+     * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ItemsApi
      */
-    public async getItemRefs(accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<string>, filterId?: Array<string>, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig) {
+    public async getItemRefs(accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<FilterTypeVersion>, filterId?: Array<string>, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into getItemRefs ");
       try {
         const request =  await ItemsApiFp(this.sdkManager).getItemRefs(accessToken, projectId, itemId, xUserId, filterType, filterId, filterExtensionType,  options);
@@ -1027,8 +1038,9 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getItemRefs Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new DataManagementApiError(`getItemRefs Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getItemRefs Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new DataManagementApiError(`getItemRefs Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getItemRefs Request failed with no response received: ${error.request}`);
             throw new DataManagementApiError(`getItemRefs Request failed with no response received: ${error.request}`, error);
@@ -1038,11 +1050,11 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
     }
 
     /**
-     * Returns a collection of links for the given item_id. Custom relationships can be established between an item and other external resources residing outside the data domain service. A link’s href defines the target URI to access a resource.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Returns a collection of links for the given item_id
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * Returns a list of links for the specified item.   Custom relationships can be established between an item and other external resources residing outside the data domain service. A link’s ``href`` attribute defines the target URI to access a resource.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary List Relationship Links for an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1057,8 +1069,9 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getItemRelationshipsLinks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new DataManagementApiError(`getItemRelationshipsLinks Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getItemRelationshipsLinks Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new DataManagementApiError(`getItemRelationshipsLinks Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getItemRelationshipsLinks Request failed with no response received: ${error.request}`);
             throw new DataManagementApiError(`getItemRelationshipsLinks Request failed with no response received: ${error.request}`, error);
@@ -1068,22 +1081,22 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
     }
 
     /**
-     * Returns the custom relationships that are associated with the given item_id. Custom relationships can be established between an item and other resources within the data domain service (folders, items, and versions).  Notes:  Each relationship is defined by the id of the object at the other end of the relationship, together with type, specific reference meta including extension data. Callers will typically use a filter parameter to restrict the response to the custom relationship types (filter[meta.refType]) they are interested in. The response body will have an included array which contains the resources that are involved in the relationship, which is essentially the GET projects/:project_id/items/:item_id/refs endpoint. New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Returns the custom relationships that are associated with the given item_id
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * Returns the custom relationships that are associated with the specified item. Custom relationships can be established between an item and other resources within the ``data`` domain service (folders, items, and versions).  Each relationship is defined by the ID of the object at the other end of the relationship, together with type, specific reference meta including extension data. Callers will typically use a filter parameter to restrict the response to the custom relationship types (``filter[meta.refType]``) they are interested in. The response body will have an included array that contains the resources in the relationship, which is essentially what is returned by the [List Related Resources for an Item](/en/docs/data/v2/reference/http/projects-project_id-items-item_id-refs-GET/) operation.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary List Custom Relationships for an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {Array<string>} [filterType] Filter by the type of the objects in the folder. Supported values include folders and items.
-     * @param {Array<string>} [filterId] Filter by the id of the ref target.
-     * @param {GetItemRelationshipsRefsFilterRefTypeEnum} [filterRefType] Filter by refType. Possible values: derived, dependencies, auxiliary, xrefs, includes
-     * @param {GetItemRelationshipsRefsFilterDirectionEnum} [filterDirection] Filter by the direction of the reference. Possible values: from, to
-     * @param {Array<string>} [filterExtensionType] Filter by the extension type.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+     * @param {Array<FilterTypeVersion>} [filterType] Filter by the &#x60;&#x60;type&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target. Supported values include &#x60;&#x60;folders&#x60;&#x60;, &#x60;&#x60;items&#x60;&#x60;, and &#x60;&#x60;versions&#x60;&#x60;.
+     * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+     * @param {FilterRefType} [filterRefType] Filter by &#x60;&#x60;refType&#x60;&#x60;. Possible values: &#x60;&#x60;derived&#x60;&#x60;, &#x60;&#x60;dependencies&#x60;&#x60;, &#x60;&#x60;auxiliary&#x60;&#x60;, &#x60;&#x60;xrefs&#x60;&#x60;, and &#x60;&#x60;includes&#x60;&#x60;.
+     * @param {FilterDirection} [filterDirection] Filter by the direction of the reference. Possible values: &#x60;&#x60;from&#x60;&#x60; and &#x60;&#x60;to&#x60;&#x60;.
+     * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ItemsApi
      */
-    public async getItemRelationshipsRefs(accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<string>, filterId?: Array<string>, filterRefType?: GetItemRelationshipsRefsFilterRefTypeEnum, filterDirection?: GetItemRelationshipsRefsFilterDirectionEnum, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig) {
+    public async getItemRelationshipsRefs(accessToken: string, projectId: string, itemId: string, xUserId?: string, filterType?: Array<FilterTypeVersion>, filterId?: Array<string>, filterRefType?: FilterRefType, filterDirection?: FilterDirection, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into getItemRelationshipsRefs ");
       try {
         const request =  await ItemsApiFp(this.sdkManager).getItemRelationshipsRefs(accessToken, projectId, itemId, xUserId, filterType, filterId, filterRefType, filterDirection, filterExtensionType,  options);
@@ -1092,8 +1105,9 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getItemRelationshipsRefs Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new DataManagementApiError(`getItemRelationshipsRefs Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getItemRelationshipsRefs Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new DataManagementApiError(`getItemRelationshipsRefs Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getItemRelationshipsRefs Request failed with no response received: ${error.request}`);
             throw new DataManagementApiError(`getItemRelationshipsRefs Request failed with no response received: ${error.request}`, error);
@@ -1103,11 +1117,11 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
     }
 
     /**
-     * Returns the “tip” version for the given item. Multiple versions of a resource item can be uploaded in a project. The tip version is the most recent one.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Returns the “tip” version for the given item
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * Returns the latest version of the specified item. A project can contain multiple versions of a resource item. The latest version is referred to as the tip version, which is returned by this operation.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary Get Tip Version of an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1122,8 +1136,9 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getItemTip Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new DataManagementApiError(`getItemTip Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getItemTip Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new DataManagementApiError(`getItemTip Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getItemTip Request failed with no response received: ${error.request}`);
             throw new DataManagementApiError(`getItemTip Request failed with no response received: ${error.request}`, error);
@@ -1133,13 +1148,13 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
     }
 
     /**
-     * Returns versions for the given item. Multiple versions of a resource item can be uploaded in a project.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Returns versions for the given item
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * Lists all versions of the specified item. A project can contain multiple versions of a resource item.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary List all Versions of an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {Array<string>} [filterId] Filter by the id of the ref target.
-     * @param {Array<string>} [filterExtensionType] Filter by the extension type.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+     * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+     * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param {Array<number>} [filterVersionNumber] Filter by versionNumber.
      * @param {number} [pageNumber] Specifies what page to return. Page numbers are 0-based (the first page is page 0).
      * @param {number} [pageLimit] Specifies the maximum number of elements to return in the page. The default value is 200. The min value is 1. The max value is 200.
@@ -1157,8 +1172,9 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getItemVersions Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new DataManagementApiError(`getItemVersions Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getItemVersions Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new DataManagementApiError(`getItemVersions Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getItemVersions Request failed with no response received: ${error.request}`);
             throw new DataManagementApiError(`getItemVersions Request failed with no response received: ${error.request}`, error);
@@ -1168,11 +1184,11 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
     }
 
     /**
-     * Updates the properties of the given item_id object.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Updates the properties of the given item_id object
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
+     * Updates the ``displayName`` of the specified item. Note that updating the ``displayName`` of an item is not supported for BIM 360 Docs or ACC items.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary Update an Item
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} itemId The unique identifier of an item.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
      * @param {ModifyItemPayload} [modifyItemPayload] Describe the item to be patched.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -1188,8 +1204,9 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`patchItem Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new DataManagementApiError(`patchItem Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`patchItem Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new DataManagementApiError(`patchItem Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`patchItem Request failed with no response received: ${error.request}`);
             throw new DataManagementApiError(`patchItem Request failed with no response received: ${error.request}`, error);
@@ -1199,22 +1216,3 @@ export class ItemsApi extends BaseApi implements ItemsApiInterface {
     }
 }
 
-/**
- * @export
- */
-export const GetItemRelationshipsRefsFilterRefTypeEnum = {
-    Derived: 'derived',
-    Dependencies: 'dependencies',
-    Auxiliary: 'auxiliary',
-    Xrefs: 'xrefs',
-    Includes: 'includes'
-} as const;
-export type GetItemRelationshipsRefsFilterRefTypeEnum = typeof GetItemRelationshipsRefsFilterRefTypeEnum[keyof typeof GetItemRelationshipsRefsFilterRefTypeEnum];
-/**
- * @export
- */
-export const GetItemRelationshipsRefsFilterDirectionEnum = {
-    From: 'from',
-    To: 'to'
-} as const;
-export type GetItemRelationshipsRefsFilterDirectionEnum = typeof GetItemRelationshipsRefsFilterDirectionEnum[keyof typeof GetItemRelationshipsRefsFilterDirectionEnum];

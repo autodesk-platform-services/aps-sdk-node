@@ -1,28 +1,28 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { JsonApiLinksSelf } from './json-api-links-self';
+import { JsonApiVersion } from './json-api-version';
 import { StorageData } from './storage-data';
-import { StorageJsonapi } from './storage-jsonapi';
-import { StorageLinks } from './storage-links';
 
 /**
- * Successful creation of a storage location.
+ * An object representing a storage location.
  * @export
  * @interface Storage
  */
 export interface Storage {
     /**
      * 
-     * @type {StorageJsonapi}
+     * @type {JsonApiVersion}
      * @memberof Storage
      */
-    'jsonapi'?: StorageJsonapi;
+    'jsonapi'?: JsonApiVersion;
     /**
      * 
-     * @type {StorageLinks}
+     * @type {JsonApiLinksSelf}
      * @memberof Storage
      */
-    'links'?: StorageLinks;
+    'links'?: JsonApiLinksSelf;
     /**
      * 
      * @type {StorageData}

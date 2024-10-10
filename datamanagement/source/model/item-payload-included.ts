@@ -3,7 +3,6 @@
 
 import { ItemPayloadIncludedAttributes } from './item-payload-included-attributes';
 import { ItemPayloadIncludedRelationships } from './item-payload-included-relationships';
-import { Type } from './type';
 
 /**
  * 
@@ -12,13 +11,13 @@ import { Type } from './type';
  */
 export interface ItemPayloadIncluded {
     /**
-     * 
-     * @type {Type}
+     * The type of the resource. Will always be ``versions``.
+     * @type {string}
      * @memberof ItemPayloadIncluded
      */
-    'type': Type;
+    'type': string;
     /**
-     * 
+     * The version number. Will always be ``1``.
      * @type {string}
      * @memberof ItemPayloadIncluded
      */
@@ -36,6 +35,4 @@ export interface ItemPayloadIncluded {
      */
     'relationships'?: ItemPayloadIncludedRelationships;
 }
-
-
 

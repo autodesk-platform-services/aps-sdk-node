@@ -1,45 +1,17 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { FolderContentsDataAttributes } from './folder-contents-data-attributes';
-import { HubsLinks } from './hubs-links';
-import { TopFoldersDataRelationships } from './top-folders-data-relationships';
+import { FolderData } from './folder-data';
+import { ItemAttributes } from './item-attributes';
+import { ItemData } from './item-data';
+import { ItemDataRelationships } from './item-data-relationships';
+import { JsonApiLinksSelfAndWebView } from './json-api-links-self-and-web-view';
+import { TypeItem } from './type-item';
 
 /**
- * 
+ * @type FolderContentsData
  * @export
- * @interface FolderContentsData
  */
-export interface FolderContentsData {
-    /**
-     * 
-     * @type {string}
-     * @memberof FolderContentsData
-     */
-    'type'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof FolderContentsData
-     */
-    'id'?: string;
-    /**
-     * 
-     * @type {FolderContentsDataAttributes}
-     * @memberof FolderContentsData
-     */
-    'attributes'?: FolderContentsDataAttributes;
-    /**
-     * 
-     * @type {HubsLinks}
-     * @memberof FolderContentsData
-     */
-    'links'?: HubsLinks;
-    /**
-     * 
-     * @type {TopFoldersDataRelationships}
-     * @memberof FolderContentsData
-     */
-    'relationships'?: TopFoldersDataRelationships;
-}
+export type FolderContentsData = FolderData | ItemData;
+
 

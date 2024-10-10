@@ -2,25 +2,25 @@
 /* eslint-disable */
 
 import { CommandPayloadData } from './command-payload-data';
-import { ModifyFolderPayloadJsonapi } from './modify-folder-payload-jsonapi';
+import { JsonApiVersion } from './json-api-version';
 
 /**
- * The POST body is a JSON object with the following attributes.
+ * Command Payload
  * @export
  * @interface CommandPayload
  */
 export interface CommandPayload {
     /**
      * 
-     * @type {ModifyFolderPayloadJsonapi}
+     * @type {JsonApiVersion}
      * @memberof CommandPayload
      */
-    'jsonapi': ModifyFolderPayloadJsonapi;
+    'jsonapi'?: JsonApiVersion;
     /**
      * 
      * @type {CommandPayloadData}
      * @memberof CommandPayload
      */
-    'data': CommandPayloadData;
+    'data'?: CommandPayloadData;
 }
 

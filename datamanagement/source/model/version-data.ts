@@ -1,38 +1,48 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ProjectsDataLinks } from './projects-data-links';
-import { VersionDataAttributes } from './version-data-attributes';
+import { JsonApiLinksSelfAndWebView } from './json-api-links-self-and-web-view';
+import { TypeVersion } from './type-version';
+import { VersionAttributes } from './version-attributes';
+import { VersionDataRelationships } from './version-data-relationships';
 
 /**
- * 
+ * A container of data describing a version.
  * @export
  * @interface VersionData
  */
 export interface VersionData {
     /**
      * 
+     * @type {TypeVersion}
+     * @memberof VersionData
+     */
+    'type': TypeVersion;
+    /**
+     * URN of the version object.
      * @type {string}
      * @memberof VersionData
      */
-    'type'?: string;
+    'id': string;
     /**
      * 
-     * @type {string}
+     * @type {VersionAttributes}
      * @memberof VersionData
      */
-    'id'?: string;
+    'attributes': VersionAttributes;
     /**
      * 
-     * @type {VersionDataAttributes}
+     * @type {VersionDataRelationships}
      * @memberof VersionData
      */
-    'attributes'?: VersionDataAttributes;
+    'relationships': VersionDataRelationships;
     /**
      * 
-     * @type {ProjectsDataLinks}
+     * @type {JsonApiLinksSelfAndWebView}
      * @memberof VersionData
      */
-    'links'?: ProjectsDataLinks;
+    'links'?: JsonApiLinksSelfAndWebView;
 }
+
+
 

@@ -2,8 +2,8 @@
 /* eslint-disable */
 
 import { DownloadFormatsData } from './download-formats-data';
-import { HubsJsonapi } from './hubs-jsonapi';
-import { HubsLinks } from './hubs-links';
+import { JsonApiLinksSelf } from './json-api-links-self';
+import { JsonApiVersion } from './json-api-version';
 
 /**
  * Successful retrieval of the available download formats for a specific version.
@@ -13,16 +13,16 @@ import { HubsLinks } from './hubs-links';
 export interface DownloadFormats {
     /**
      * 
-     * @type {HubsJsonapi}
+     * @type {JsonApiVersion}
      * @memberof DownloadFormats
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi'?: JsonApiVersion;
     /**
      * 
-     * @type {HubsLinks}
+     * @type {JsonApiLinksSelf}
      * @memberof DownloadFormats
      */
-    'links'?: HubsLinks;
+    'links'?: JsonApiLinksSelf;
     /**
      * 
      * @type {DownloadFormatsData}

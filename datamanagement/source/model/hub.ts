@@ -2,27 +2,27 @@
 /* eslint-disable */
 
 import { HubData } from './hub-data';
-import { HubsJsonapi } from './hubs-jsonapi';
-import { HubsLinks } from './hubs-links';
+import { JsonApiLinksSelf } from './json-api-links-self';
+import { JsonApiVersion } from './json-api-version';
 
 /**
- * Successful retrieval of a specific hub.
+ * An object representing a hub.
  * @export
  * @interface Hub
  */
 export interface Hub {
     /**
      * 
-     * @type {HubsJsonapi}
+     * @type {JsonApiVersion}
      * @memberof Hub
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi'?: JsonApiVersion;
     /**
      * 
-     * @type {HubsLinks}
+     * @type {JsonApiLinksSelf}
      * @memberof Hub
      */
-    'links'?: HubsLinks;
+    'links'?: JsonApiLinksSelf;
     /**
      * 
      * @type {HubData}

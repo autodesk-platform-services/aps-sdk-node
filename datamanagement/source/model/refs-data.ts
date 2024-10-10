@@ -1,45 +1,18 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HubsLinks } from './hubs-links';
-import { RefsDataAttributes } from './refs-data-attributes';
-import { RefsDataRelationships } from './refs-data-relationships';
+import { FolderData } from './folder-data';
+import { ItemData } from './item-data';
+import { JsonApiLinksSelfAndWebView } from './json-api-links-self-and-web-view';
+import { TypeVersion } from './type-version';
+import { VersionAttributes } from './version-attributes';
+import { VersionData } from './version-data';
+import { VersionDataRelationships } from './version-data-relationships';
 
 /**
- * 
+ * @type RefsData
  * @export
- * @interface RefsData
  */
-export interface RefsData {
-    /**
-     * 
-     * @type {string}
-     * @memberof RefsData
-     */
-    'type'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof RefsData
-     */
-    'id'?: string;
-    /**
-     * 
-     * @type {RefsDataAttributes}
-     * @memberof RefsData
-     */
-    'attributes'?: RefsDataAttributes;
-    /**
-     * 
-     * @type {HubsLinks}
-     * @memberof RefsData
-     */
-    'links'?: HubsLinks;
-    /**
-     * 
-     * @type {RefsDataRelationships}
-     * @memberof RefsData
-     */
-    'relationships'?: RefsDataRelationships;
-}
+export type RefsData = FolderData | ItemData | VersionData;
+
 

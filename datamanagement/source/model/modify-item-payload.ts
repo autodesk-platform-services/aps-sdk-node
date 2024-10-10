@@ -1,21 +1,21 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ModifyFolderPayloadJsonapi } from './modify-folder-payload-jsonapi';
+import { JsonApiVersion } from './json-api-version';
 import { ModifyItemPayloadData } from './modify-item-payload-data';
 
 /**
- * Describe the item to be patched.
+ * An object that defines the attributes of an item that must be updated.
  * @export
  * @interface ModifyItemPayload
  */
 export interface ModifyItemPayload {
     /**
      * 
-     * @type {ModifyFolderPayloadJsonapi}
+     * @type {JsonApiVersion}
      * @memberof ModifyItemPayload
      */
-    'jsonapi': ModifyFolderPayloadJsonapi;
+    'jsonapi': JsonApiVersion;
     /**
      * 
      * @type {ModifyItemPayloadData}

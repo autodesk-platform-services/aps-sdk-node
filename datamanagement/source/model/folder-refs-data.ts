@@ -1,45 +1,18 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { FolderRefsDataAttributes } from './folder-refs-data-attributes';
-import { FolderRefsDataLinks } from './folder-refs-data-links';
-import { TopFoldersDataRelationships } from './top-folders-data-relationships';
+import { FolderData } from './folder-data';
+import { ItemData } from './item-data';
+import { JsonApiLinksSelfAndWebView } from './json-api-links-self-and-web-view';
+import { TypeVersion } from './type-version';
+import { VersionAttributes } from './version-attributes';
+import { VersionData } from './version-data';
+import { VersionDataRelationships } from './version-data-relationships';
 
 /**
- * 
+ * @type FolderRefsData
  * @export
- * @interface FolderRefsData
  */
-export interface FolderRefsData {
-    /**
-     * 
-     * @type {string}
-     * @memberof FolderRefsData
-     */
-    'type'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof FolderRefsData
-     */
-    'id'?: string;
-    /**
-     * 
-     * @type {FolderRefsDataAttributes}
-     * @memberof FolderRefsData
-     */
-    'attributes'?: FolderRefsDataAttributes;
-    /**
-     * 
-     * @type {FolderRefsDataLinks}
-     * @memberof FolderRefsData
-     */
-    'links'?: FolderRefsDataLinks;
-    /**
-     * 
-     * @type {TopFoldersDataRelationships}
-     * @memberof FolderRefsData
-     */
-    'relationships'?: TopFoldersDataRelationships;
-}
+export type FolderRefsData = FolderData | ItemData | VersionData;
+
 

@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { RelationshipLinksDataMeta } from './relationship-links-data-meta';
+import { TypeLink } from './type-link';
 
 /**
  * 
@@ -11,12 +12,12 @@ import { RelationshipLinksDataMeta } from './relationship-links-data-meta';
 export interface RelationshipLinksData {
     /**
      * 
-     * @type {string}
+     * @type {TypeLink}
      * @memberof RelationshipLinksData
      */
-    'type'?: string;
+    'type'?: TypeLink;
     /**
-     * 
+     * The ID of the resource.
      * @type {string}
      * @memberof RelationshipLinksData
      */
@@ -28,4 +29,6 @@ export interface RelationshipLinksData {
      */
     'meta'?: RelationshipLinksDataMeta;
 }
+
+
 

@@ -1,45 +1,18 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ProjectsDataLinks } from './projects-data-links';
-import { RefsDataRelationships } from './refs-data-relationships';
-import { RelationshipRefsIncludedAttributes } from './relationship-refs-included-attributes';
+import { FolderData } from './folder-data';
+import { ItemData } from './item-data';
+import { JsonApiLinksSelfAndWebView } from './json-api-links-self-and-web-view';
+import { TypeVersion } from './type-version';
+import { VersionAttributes } from './version-attributes';
+import { VersionData } from './version-data';
+import { VersionDataRelationships } from './version-data-relationships';
 
 /**
- * 
+ * @type RelationshipRefsIncluded
  * @export
- * @interface RelationshipRefsIncluded
  */
-export interface RelationshipRefsIncluded {
-    /**
-     * 
-     * @type {string}
-     * @memberof RelationshipRefsIncluded
-     */
-    'type'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof RelationshipRefsIncluded
-     */
-    'id'?: string;
-    /**
-     * 
-     * @type {RelationshipRefsIncludedAttributes}
-     * @memberof RelationshipRefsIncluded
-     */
-    'attributes'?: RelationshipRefsIncludedAttributes;
-    /**
-     * 
-     * @type {ProjectsDataLinks}
-     * @memberof RelationshipRefsIncluded
-     */
-    'links'?: ProjectsDataLinks;
-    /**
-     * 
-     * @type {RefsDataRelationships}
-     * @memberof RelationshipRefsIncluded
-     */
-    'relationships'?: RefsDataRelationships;
-}
+export type RelationshipRefsIncluded = FolderData | ItemData | VersionData;
+
 

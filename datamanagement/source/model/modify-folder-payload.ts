@@ -1,21 +1,21 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { JsonApiVersion } from './json-api-version';
 import { ModifyFolderPayloadData } from './modify-folder-payload-data';
-import { ModifyFolderPayloadJsonapi } from './modify-folder-payload-jsonapi';
 
 /**
- * Modifies folder names.
+ * Modifies folder names
  * @export
  * @interface ModifyFolderPayload
  */
 export interface ModifyFolderPayload {
     /**
      * 
-     * @type {ModifyFolderPayloadJsonapi}
+     * @type {JsonApiVersion}
      * @memberof ModifyFolderPayload
      */
-    'jsonapi': ModifyFolderPayloadJsonapi;
+    'jsonapi': JsonApiVersion;
     /**
      * 
      * @type {ModifyFolderPayloadData}

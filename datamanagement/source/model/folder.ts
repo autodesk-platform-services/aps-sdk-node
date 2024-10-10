@@ -2,27 +2,27 @@
 /* eslint-disable */
 
 import { FolderData } from './folder-data';
-import { HubsJsonapi } from './hubs-jsonapi';
-import { HubsLinks } from './hubs-links';
+import { JsonApiLinksSelf } from './json-api-links-self';
+import { JsonApiVersion } from './json-api-version';
 
 /**
- * Successful retrieval of a specific folder.
+ * An object that represents a folder.
  * @export
  * @interface Folder
  */
 export interface Folder {
     /**
      * 
-     * @type {HubsJsonapi}
+     * @type {JsonApiVersion}
      * @memberof Folder
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi'?: JsonApiVersion;
     /**
      * 
-     * @type {HubsLinks}
+     * @type {JsonApiLinksSelf}
      * @memberof Folder
      */
-    'links'?: HubsLinks;
+    'links'?: JsonApiLinksSelf;
     /**
      * 
      * @type {FolderData}
