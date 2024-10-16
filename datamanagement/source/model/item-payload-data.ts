@@ -3,6 +3,7 @@
 
 import { ItemPayloadDataAttributes } from './item-payload-data-attributes';
 import { ItemPayloadDataRelationships } from './item-payload-data-relationships';
+import { TypeItem } from './type-item';
 
 /**
  * The data that describes the item to be created.
@@ -11,11 +12,11 @@ import { ItemPayloadDataRelationships } from './item-payload-data-relationships'
  */
 export interface ItemPayloadData {
     /**
-     * The type of resource to be created. Must be ``items``. 
-     * @type {string}
+     * 
+     * @type {TypeItem}
      * @memberof ItemPayloadData
      */
-    'type': string;
+    'type': TypeItem;
     /**
      * 
      * @type {ItemPayloadDataAttributes}
@@ -29,4 +30,6 @@ export interface ItemPayloadData {
      */
     'relationships': ItemPayloadDataRelationships;
 }
+
+
 

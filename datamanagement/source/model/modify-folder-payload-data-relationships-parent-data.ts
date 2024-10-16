@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { TypeFolder } from './type-folder';
 
 /**
  * A container for the data that defines the parent of this folder.
@@ -9,11 +10,11 @@
  */
 export interface ModifyFolderPayloadDataRelationshipsParentData {
     /**
-     * The type of the resource. Must be ``folders``
-     * @type {string}
+     * 
+     * @type {TypeFolder}
      * @memberof ModifyFolderPayloadDataRelationshipsParentData
      */
-    'type': string;
+    'type': TypeFolder;
     /**
      * The URN of the parent folder to which you want to move a folder to.
      * @type {string}
@@ -21,4 +22,6 @@ export interface ModifyFolderPayloadDataRelationshipsParentData {
      */
     'id': string;
 }
+
+
 
