@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { PublishModelJobPayloadRelationshipsResourcesData } from './publish-model-job-payload-relationships-resources-data';
+import { ListItemsPayloadRelationshipsResourcesData } from './list-items-payload-relationships-resources-data';
 
 /**
  * Contains the list of items  to check. The list can contain up to 50 versions.
@@ -11,9 +11,9 @@ import { PublishModelJobPayloadRelationshipsResourcesData } from './publish-mode
 export interface ListItemsPayloadRelationshipsResources {
     /**
      * An array of objects, where each object  represents an item to check. 
-     * @type {Array<PublishModelJobPayloadRelationshipsResourcesData>}
+     * @type {Array<ListItemsPayloadRelationshipsResourcesData>}
      * @memberof ListItemsPayloadRelationshipsResources
      */
-    'data'?: Array<PublishModelJobPayloadRelationshipsResourcesData>;
+    'data'?: Array<ListItemsPayloadRelationshipsResourcesData>;
 }
 

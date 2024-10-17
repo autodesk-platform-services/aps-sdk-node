@@ -3,6 +3,8 @@ import { BaseAttributesExtensionObjectWithoutSchemaLink, BaseAttributesExtension
 import 'dotenv/config';
 import { Project, Projects, ProjectDataAttributes, TopFolders, StoragePayload, TypeFolderItemsForStorage, DownloadPayload, TypeDownloads, CreatedDownload, Job, Download} from "@aps_sdk/data-management";
 import { CheckPermission, CheckPermissionPayload, CheckPermissionPayloadAttributes, CheckPermissionPayloadAttributesExtension, CheckPermissionPayloadAttributesExtensionData, CheckPermissionPayloadRelationships, CheckPermissionPayloadRelationshipsResources, CreatedItem, FilterDirection, FilterRefType, ItemPayloadDataRelationshipsParent, ItemPayloadDataRelationshipsParentData, ItemPayloadDataRelationshipsTip, ItemPayloadDataRelationshipsTipData, ItemPayloadIncludedAttributes, ItemPayloadIncludedAttributesExtension, ListItems, ListItemsPayload, ListItemsPayloadAttributes, ListItemsPayloadAttributesExtension, ListItemsPayloadAttributesExtensionData, ListItemsPayloadRelationships, ListItemsPayloadRelationshipsResources, ListRefs, ListRefsPayload, ListRefsPayloadAttributes, ListRefsPayloadAttributesExtension, ListRefsPayloadRelationships, ListRefsPayloadRelationshipsResources, ModifyItemPayload, ModifyItemPayloadData, ModifyItemPayloadDataAttributes, PublishModel, PublishModelJobPayload, PublishModelJobPayloadAttributes, PublishModelJobPayloadAttributesExtension, PublishModelJobPayloadRelationships, PublishModelJobPayloadRelationshipsResources, PublishModelPayload, PublishModelPayloadAttributes, PublishModelPayloadAttributesExtension, PublishModelPayloadRelationships, PublishModelPayloadRelationshipsResources, PublishWithoutLinks, PublishWithoutLinksPayload, PublishWithoutLinksPayloadAttributes, PublishWithoutLinksPayloadAttributesExtension, TypeCommands, TypeCommandtypeCheckPermission, TypeCommandtypeGetPublishModelJob, TypeCommandtypeListItems, TypeCommandtypeListRefs, TypeCommandtypePublishmodel, TypeCommandtypePublishWithoutLinks } from "@aps_sdk/data-management";
+import { PublishWithoutLinksPayloadRelationships } from "@aps_sdk/data-management/dist/model/publish-without-links-payload-relationships";
+import { PublishWithoutLinksPayloadRelationshipsResources } from "@aps_sdk/data-management/dist/model/publish-without-links-payload-relationships-resources";
 
 const token: string = process.env.accessToken;
 
@@ -964,8 +966,8 @@ async function executePublishWithoutLinksCommand() {
           version: "1.0.0",
         },
       },
-      relationships: <PublishModelPayloadRelationships>{
-        resources: <PublishModelPayloadRelationshipsResources>{
+      relationships: <PublishWithoutLinksPayloadRelationships>{
+        resources: <PublishWithoutLinksPayloadRelationshipsResources>{
           data: [
             {
               type: TypeEntity.Items,

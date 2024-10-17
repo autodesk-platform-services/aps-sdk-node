@@ -17,6 +17,12 @@ export interface PublishWithoutLinks {
      */
     'type'?: TypeCommands;
     /**
+     * A unique ID assigned to the process executing the command.
+     * @type {string}
+     * @memberof PublishWithoutLinks
+     */
+    'id'?: string;
+    /**
      * 
      * @type {PublishWithoutLinksAttributes}
      * @memberof PublishWithoutLinks

@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { PublishModelPayloadRelationships } from './publish-model-payload-relationships';
 import { PublishWithoutLinksPayloadAttributes } from './publish-without-links-payload-attributes';
+import { PublishWithoutLinksPayloadRelationships } from './publish-without-links-payload-relationships';
 import { TypeCommands } from './type-commands';
 
 /**
@@ -25,10 +25,10 @@ export interface PublishWithoutLinksPayload {
     'attributes'?: PublishWithoutLinksPayloadAttributes;
     /**
      * 
-     * @type {PublishModelPayloadRelationships}
+     * @type {PublishWithoutLinksPayloadRelationships}
      * @memberof PublishWithoutLinksPayload
      */
-    'relationships'?: PublishModelPayloadRelationships;
+    'relationships'?: PublishWithoutLinksPayloadRelationships;
 }
 
 
