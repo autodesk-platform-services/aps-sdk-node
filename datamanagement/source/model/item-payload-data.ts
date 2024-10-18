@@ -3,20 +3,20 @@
 
 import { ItemPayloadDataAttributes } from './item-payload-data-attributes';
 import { ItemPayloadDataRelationships } from './item-payload-data-relationships';
-import { Type } from './type';
+import { TypeItem } from './type-item';
 
 /**
- * 
+ * The data that describes the item to be created.
  * @export
  * @interface ItemPayloadData
  */
 export interface ItemPayloadData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeItem}
      * @memberof ItemPayloadData
      */
-    'type': Type;
+    'type': TypeItem;
     /**
      * 
      * @type {ItemPayloadDataAttributes}

@@ -4,16 +4,16 @@
 import { DownloadFormatsDataAttributesFormats } from './download-formats-data-attributes-formats';
 
 /**
- * 
+ * Contains the list of formats.
  * @export
  * @interface DownloadFormatsDataAttributes
  */
 export interface DownloadFormatsDataAttributes {
     /**
-     * 
-     * @type {Set<DownloadFormatsDataAttributesFormats>}
+     * An array of objects, where each object corresponds to a file format.
+     * @type {Array<DownloadFormatsDataAttributesFormats>}
      * @memberof DownloadFormatsDataAttributes
      */
-    'formats'?: Set<DownloadFormatsDataAttributesFormats>;
+    'formats'?: Array<DownloadFormatsDataAttributesFormats>;
 }
 

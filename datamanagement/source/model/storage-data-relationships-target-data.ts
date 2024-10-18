@@ -1,22 +1,22 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Type } from './type';
+import { TypeFolder } from './type-folder';
 
 /**
- * 
+ * Contains information about the folder containing the item or version the storage location is reserved for.
  * @export
  * @interface StorageDataRelationshipsTargetData
  */
 export interface StorageDataRelationshipsTargetData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeFolder}
      * @memberof StorageDataRelationshipsTargetData
      */
-    'type'?: Type;
+    'type'?: TypeFolder;
     /**
-     * 
+     * The ID to uniquely identify the resource.
      * @type {string}
      * @memberof StorageDataRelationshipsTargetData
      */

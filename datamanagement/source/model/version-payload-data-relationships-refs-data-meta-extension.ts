@@ -1,33 +1,33 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ItemPayloadIncludedRelationshipsRefsDataMetaExtensionData } from './item-payload-included-relationships-refs-data-meta-extension-data';
-import { Type } from './type';
+import { ExtensionTypeCoreXref } from './extension-type-core-xref';
+import { VersionPayloadDataRelationshipsRefsDataMetaExtensionData } from './version-payload-data-relationships-refs-data-meta-extension-data';
 
 /**
- * 
+ * Contains additional properties that extend the default properties of the relationship.
  * @export
  * @interface VersionPayloadDataRelationshipsRefsDataMetaExtension
  */
 export interface VersionPayloadDataRelationshipsRefsDataMetaExtension {
     /**
      * 
-     * @type {Type}
+     * @type {ExtensionTypeCoreXref}
      * @memberof VersionPayloadDataRelationshipsRefsDataMetaExtension
      */
-    'type'?: Type;
+    'type'?: ExtensionTypeCoreXref;
     /**
-     * 
+     * The version of the xref type. Currently must be ``1.1.0``.
      * @type {string}
      * @memberof VersionPayloadDataRelationshipsRefsDataMetaExtension
      */
     'version'?: string;
     /**
      * 
-     * @type {ItemPayloadIncludedRelationshipsRefsDataMetaExtensionData}
+     * @type {VersionPayloadDataRelationshipsRefsDataMetaExtensionData}
      * @memberof VersionPayloadDataRelationshipsRefsDataMetaExtension
      */
-    'data'?: ItemPayloadIncludedRelationshipsRefsDataMetaExtensionData;
+    'data'?: VersionPayloadDataRelationshipsRefsDataMetaExtensionData;
 }
 
 

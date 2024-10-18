@@ -5,7 +5,6 @@ import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, DataManagementApiError } from '../base';
-import { GetHubs401Response } from '../model';
 import { Hub } from '../model';
 import { Hubs } from '../model';
 /**
@@ -15,10 +14,10 @@ import { Hubs } from '../model';
 export const HubsApiAxiosParamCreator = function (apsConfiguration?: IApsConfiguration) {
     return {
         /**
-         * Returns data on a specific hub_id.  Note that for BIM 360 Docs, a hub ID corresponds to an account ID in the BIM 360 API. To convert an account ID into a hub ID you need to add a \"b.\" prefix. For example, an account ID of c8b0c73d-3ae9 translates to a hub ID of b.c8b0c73d-3ae9.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Returns data on a specific hub_id
+         * Returns the hub specified by the ``hub_id`` parameter.  For BIM 360 Docs, a hub ID corresponds to a BIM 360 account ID. To convert a BIM 360 account ID to a hub ID, prefix the account ID with ``b.``. For example, an account ID of ```c8b0c73d-3ae9``` translates to a hub ID of ``b.c8b0c73d-3ae9``.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary Get a Hub
          * @param {string} hubId The unique identifier of a hub.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -46,6 +45,7 @@ export const HubsApiAxiosParamCreator = function (apsConfiguration?: IApsConfigu
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -56,17 +56,17 @@ export const HubsApiAxiosParamCreator = function (apsConfiguration?: IApsConfigu
             };
         },
         /**
-         * Returns a collection of accessible hubs for this member.  Hubs represent BIM 360 Team hubs, Fusion Team hubs (formerly known as A360 Team hubs), A360 Personal hubs, or BIM 360 Docs accounts. Team hubs include **BIM 360** Team hubs and Fusion Team hubs (formerly known as A360 Team hubs). Personal hubs include A360 Personal hubs. Only active hubs are listed.  Note that for BIM 360 Docs, a hub ID corresponds to an account ID in the BIM 360 API. To convert an account ID into a hub ID you need to add a \"b.\" prefix. For example, an account ID of c8b0c73d-3ae9 translates to a hub ID of b.c8b0c73d-3ae9.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Returns a collection of accessible hubs for this member
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {Array<string>} [filterId] Filter by the id of the ref target.
-         * @param {string} [filterName] Filter by the name of the ref target.
-         * @param {Array<string>} [filterExtensionType] Filter by the extension type.
+         * Returns a collection of hubs that the user of your app can access.  The returned hubs can be BIM 360 Team hubs, Fusion Team hubs (formerly known as A360 Team hubs), A360 Personal hubs, ACC Docs (Autodesk Docs) accounts, or BIM 360 Docs accounts. Only active hubs are returned.  For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with ``b.``. For example, an Account ID of ```c8b0c73d-3ae9``` translates to a hub ID of ``b.c8b0c73d-3ae9``.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary List Hubs
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+         * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+         * @param {Array<string>} [filterName] Filter by the &#x60;&#x60;name&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+         * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getHubs: async (accessToken: string, xUserId?: string, filterId?: Array<string>, filterName?: string, filterExtensionType?: Array<string>,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        getHubs: async (accessToken: string, xUserId?: string, filterId?: Array<string>, filterName?: Array<string>, filterExtensionType?: Array<string>,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/project/v1/hubs`;
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
@@ -81,15 +81,15 @@ export const HubsApiAxiosParamCreator = function (apsConfiguration?: IApsConfigu
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
             if (filterId) {
-                localVarQueryParameter['filter_id'] = filterId;
+                localVarQueryParameter['filter[id]'] = filterId;
             }
 
-            if (filterName !== undefined) {
-                localVarQueryParameter['filter_name'] = filterName;
+            if (filterName) {
+                localVarQueryParameter['filter[name]'] = filterName;
             }
 
             if (filterExtensionType) {
-                localVarQueryParameter['filter_extension_type'] = filterExtensionType;
+                localVarQueryParameter['filter[extension.type]'] = filterExtensionType;
             }
 
             if (xUserId != null) {
@@ -98,6 +98,7 @@ export const HubsApiAxiosParamCreator = function (apsConfiguration?: IApsConfigu
 
 
     
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -118,10 +119,10 @@ export const HubsApiFp = function(sdkManager?: SdkManager) {
     const localVarAxiosParamCreator = HubsApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
-         * Returns data on a specific hub_id.  Note that for BIM 360 Docs, a hub ID corresponds to an account ID in the BIM 360 API. To convert an account ID into a hub ID you need to add a \"b.\" prefix. For example, an account ID of c8b0c73d-3ae9 translates to a hub ID of b.c8b0c73d-3ae9.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Returns data on a specific hub_id
+         * Returns the hub specified by the ``hub_id`` parameter.  For BIM 360 Docs, a hub ID corresponds to a BIM 360 account ID. To convert a BIM 360 account ID to a hub ID, prefix the account ID with ``b.``. For example, an account ID of ```c8b0c73d-3ae9``` translates to a hub ID of ``b.c8b0c73d-3ae9``.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary Get a Hub
          * @param {string} hubId The unique identifier of a hub.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -130,16 +131,16 @@ export const HubsApiFp = function(sdkManager?: SdkManager) {
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
-         * Returns a collection of accessible hubs for this member.  Hubs represent BIM 360 Team hubs, Fusion Team hubs (formerly known as A360 Team hubs), A360 Personal hubs, or BIM 360 Docs accounts. Team hubs include **BIM 360** Team hubs and Fusion Team hubs (formerly known as A360 Team hubs). Personal hubs include A360 Personal hubs. Only active hubs are listed.  Note that for BIM 360 Docs, a hub ID corresponds to an account ID in the BIM 360 API. To convert an account ID into a hub ID you need to add a \"b.\" prefix. For example, an account ID of c8b0c73d-3ae9 translates to a hub ID of b.c8b0c73d-3ae9.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-         * @summary Returns a collection of accessible hubs for this member
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {Array<string>} [filterId] Filter by the id of the ref target.
-         * @param {string} [filterName] Filter by the name of the ref target.
-         * @param {Array<string>} [filterExtensionType] Filter by the extension type.
+         * Returns a collection of hubs that the user of your app can access.  The returned hubs can be BIM 360 Team hubs, Fusion Team hubs (formerly known as A360 Team hubs), A360 Personal hubs, ACC Docs (Autodesk Docs) accounts, or BIM 360 Docs accounts. Only active hubs are returned.  For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with ``b.``. For example, an Account ID of ```c8b0c73d-3ae9``` translates to a hub ID of ``b.c8b0c73d-3ae9``.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+         * @summary List Hubs
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+         * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+         * @param {Array<string>} [filterName] Filter by the &#x60;&#x60;name&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+         * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getHubs(accessToken: string, xUserId?: string, filterId?: Array<string>, filterName?: string, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Hubs>> {
+        async getHubs(accessToken: string, xUserId?: string, filterId?: Array<string>, filterName?: Array<string>, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Hubs>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getHubs(accessToken, xUserId, filterId, filterName, filterExtensionType,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -153,10 +154,10 @@ export const HubsApiFp = function(sdkManager?: SdkManager) {
  */
 export interface HubsApiInterface {
     /**
-     * Returns data on a specific hub_id.  Note that for BIM 360 Docs, a hub ID corresponds to an account ID in the BIM 360 API. To convert an account ID into a hub ID you need to add a \"b.\" prefix. For example, an account ID of c8b0c73d-3ae9 translates to a hub ID of b.c8b0c73d-3ae9.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Returns data on a specific hub_id
+     * Returns the hub specified by the ``hub_id`` parameter.  For BIM 360 Docs, a hub ID corresponds to a BIM 360 account ID. To convert a BIM 360 account ID to a hub ID, prefix the account ID with ``b.``. For example, an account ID of ```c8b0c73d-3ae9``` translates to a hub ID of ``b.c8b0c73d-3ae9``.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary Get a Hub
      * @param {string} hubId The unique identifier of a hub.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -165,18 +166,18 @@ export interface HubsApiInterface {
     getHub(accessToken: string,hubId: string, xUserId?: string,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
-     * Returns a collection of accessible hubs for this member.  Hubs represent BIM 360 Team hubs, Fusion Team hubs (formerly known as A360 Team hubs), A360 Personal hubs, or BIM 360 Docs accounts. Team hubs include **BIM 360** Team hubs and Fusion Team hubs (formerly known as A360 Team hubs). Personal hubs include A360 Personal hubs. Only active hubs are listed.  Note that for BIM 360 Docs, a hub ID corresponds to an account ID in the BIM 360 API. To convert an account ID into a hub ID you need to add a \"b.\" prefix. For example, an account ID of c8b0c73d-3ae9 translates to a hub ID of b.c8b0c73d-3ae9.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Returns a collection of accessible hubs for this member
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {Array<string>} [filterId] Filter by the id of the ref target.
-     * @param {string} [filterName] Filter by the name of the ref target.
-     * @param {Array<string>} [filterExtensionType] Filter by the extension type.
+     * Returns a collection of hubs that the user of your app can access.  The returned hubs can be BIM 360 Team hubs, Fusion Team hubs (formerly known as A360 Team hubs), A360 Personal hubs, ACC Docs (Autodesk Docs) accounts, or BIM 360 Docs accounts. Only active hubs are returned.  For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with ``b.``. For example, an Account ID of ```c8b0c73d-3ae9``` translates to a hub ID of ``b.c8b0c73d-3ae9``.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary List Hubs
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+     * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+     * @param {Array<string>} [filterName] Filter by the &#x60;&#x60;name&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+     * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof HubsApiInterface
      */
-    getHubs(accessToken: string,xUserId?: string, filterId?: Array<string>, filterName?: string, filterExtensionType?: Array<string>,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getHubs(accessToken: string,xUserId?: string, filterId?: Array<string>, filterName?: Array<string>, filterExtensionType?: Array<string>,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
 }
 
@@ -189,10 +190,10 @@ export interface HubsApiInterface {
 export class HubsApi extends BaseApi implements HubsApiInterface {
     private logger = this.sdkManager.logger;
     /**
-     * Returns data on a specific hub_id.  Note that for BIM 360 Docs, a hub ID corresponds to an account ID in the BIM 360 API. To convert an account ID into a hub ID you need to add a \"b.\" prefix. For example, an account ID of c8b0c73d-3ae9 translates to a hub ID of b.c8b0c73d-3ae9.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Returns data on a specific hub_id
+     * Returns the hub specified by the ``hub_id`` parameter.  For BIM 360 Docs, a hub ID corresponds to a BIM 360 account ID. To convert a BIM 360 account ID to a hub ID, prefix the account ID with ``b.``. For example, an account ID of ```c8b0c73d-3ae9``` translates to a hub ID of ``b.c8b0c73d-3ae9``.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary Get a Hub
      * @param {string} hubId The unique identifier of a hub.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -207,8 +208,9 @@ export class HubsApi extends BaseApi implements HubsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getHub Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new DataManagementApiError(`getHub Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getHub Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new DataManagementApiError(`getHub Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getHub Request failed with no response received: ${error.request}`);
             throw new DataManagementApiError(`getHub Request failed with no response received: ${error.request}`, error);
@@ -218,18 +220,18 @@ export class HubsApi extends BaseApi implements HubsApiInterface {
     }
 
     /**
-     * Returns a collection of accessible hubs for this member.  Hubs represent BIM 360 Team hubs, Fusion Team hubs (formerly known as A360 Team hubs), A360 Personal hubs, or BIM 360 Docs accounts. Team hubs include **BIM 360** Team hubs and Fusion Team hubs (formerly known as A360 Team hubs). Personal hubs include A360 Personal hubs. Only active hubs are listed.  Note that for BIM 360 Docs, a hub ID corresponds to an account ID in the BIM 360 API. To convert an account ID into a hub ID you need to add a \"b.\" prefix. For example, an account ID of c8b0c73d-3ae9 translates to a hub ID of b.c8b0c73d-3ae9.  New! Autodesk Construction Cloud platform (ACC). Note that this endpoint is compatible with ACC projects. For more information about the Autodesk Construction Cloud APIs, see the Autodesk Construction Cloud documentation.
-     * @summary Returns a collection of accessible hubs for this member
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {Array<string>} [filterId] Filter by the id of the ref target.
-     * @param {string} [filterName] Filter by the name of the ref target.
-     * @param {Array<string>} [filterExtensionType] Filter by the extension type.
+     * Returns a collection of hubs that the user of your app can access.  The returned hubs can be BIM 360 Team hubs, Fusion Team hubs (formerly known as A360 Team hubs), A360 Personal hubs, ACC Docs (Autodesk Docs) accounts, or BIM 360 Docs accounts. Only active hubs are returned.  For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with ``b.``. For example, an Account ID of ```c8b0c73d-3ae9``` translates to a hub ID of ``b.c8b0c73d-3ae9``.  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](https://en.docs.acc.v1/overview/introduction/). 
+     * @summary List Hubs
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+     * @param {Array<string>} [filterId] Filter by the &#x60;&#x60;id&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+     * @param {Array<string>} [filterName] Filter by the &#x60;&#x60;name&#x60;&#x60; of the &#x60;&#x60;ref&#x60;&#x60; target.
+     * @param {Array<string>} [filterExtensionType] Filter by the extension type.  
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof HubsApi
      */
-    public async getHubs(accessToken: string, xUserId?: string, filterId?: Array<string>, filterName?: string, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig) {
+    public async getHubs(accessToken: string, xUserId?: string, filterId?: Array<string>, filterName?: Array<string>, filterExtensionType?: Array<string>, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into getHubs ");
       try {
         const request =  await HubsApiFp(this.sdkManager).getHubs(accessToken, xUserId, filterId, filterName, filterExtensionType,  options);
@@ -238,8 +240,9 @@ export class HubsApi extends BaseApi implements HubsApiInterface {
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`getHubs Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new DataManagementApiError(`getHubs Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`getHubs Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new DataManagementApiError(`getHubs Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
             this.logger.logError(`getHubs Request failed with no response received: ${error.request}`);
             throw new DataManagementApiError(`getHubs Request failed with no response received: ${error.request}`, error);

@@ -1,21 +1,21 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { FolderContentsIncludedRelationshipsDownloadFormatsLinks } from './folder-contents-included-relationships-download-formats-links';
+import { JsonApiLinksRelated } from './json-api-links-related';
 import { StorageDataRelationshipsTargetData } from './storage-data-relationships-target-data';
 
 /**
- * 
+ * Information about the target object.
  * @export
  * @interface StorageDataRelationshipsTarget
  */
 export interface StorageDataRelationshipsTarget {
     /**
      * 
-     * @type {FolderContentsIncludedRelationshipsDownloadFormatsLinks}
+     * @type {JsonApiLinksRelated}
      * @memberof StorageDataRelationshipsTarget
      */
-    'links'?: FolderContentsIncludedRelationshipsDownloadFormatsLinks;
+    'links'?: JsonApiLinksRelated;
     /**
      * 
      * @type {StorageDataRelationshipsTargetData}

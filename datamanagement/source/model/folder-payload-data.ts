@@ -3,20 +3,20 @@
 
 import { FolderPayloadDataAttributes } from './folder-payload-data-attributes';
 import { FolderPayloadDataRelationships } from './folder-payload-data-relationships';
-import { Type } from './type';
+import { TypeFolder } from './type-folder';
 
 /**
- * 
+ * The data that describes the folder to be created.
  * @export
  * @interface FolderPayloadData
  */
 export interface FolderPayloadData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeFolder}
      * @memberof FolderPayloadData
      */
-    'type': Type;
+    'type': TypeFolder;
     /**
      * 
      * @type {FolderPayloadDataAttributes}

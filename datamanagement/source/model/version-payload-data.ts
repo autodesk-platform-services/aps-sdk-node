@@ -1,22 +1,22 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Type } from './type';
+import { TypeVersion } from './type-version';
 import { VersionPayloadDataAttributes } from './version-payload-data-attributes';
 import { VersionPayloadDataRelationships } from './version-payload-data-relationships';
 
 /**
- * 
+ * The data that describes the version to be created.
  * @export
  * @interface VersionPayloadData
  */
 export interface VersionPayloadData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeVersion}
      * @memberof VersionPayloadData
      */
-    'type': Type;
+    'type': TypeVersion;
     /**
      * 
      * @type {VersionPayloadDataAttributes}

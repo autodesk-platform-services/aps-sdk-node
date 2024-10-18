@@ -1,45 +1,48 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ItemDataAttributes } from './item-data-attributes';
-import { ProjectsDataLinks } from './projects-data-links';
-import { SearchIncludedRelationships } from './search-included-relationships';
+import { ItemAttributes } from './item-attributes';
+import { ItemDataRelationships } from './item-data-relationships';
+import { JsonApiLinksSelfAndWebView } from './json-api-links-self-and-web-view';
+import { TypeItem } from './type-item';
 
 /**
- * 
+ * A container of data describing an item.
  * @export
  * @interface ItemData
  */
 export interface ItemData {
     /**
      * 
+     * @type {TypeItem}
+     * @memberof ItemData
+     */
+    'type': TypeItem;
+    /**
+     * The unique identifier of the item.
      * @type {string}
      * @memberof ItemData
      */
-    'type'?: string;
+    'id': string;
     /**
      * 
-     * @type {string}
+     * @type {ItemAttributes}
      * @memberof ItemData
      */
-    'id'?: string;
+    'attributes': ItemAttributes;
     /**
      * 
-     * @type {ItemDataAttributes}
+     * @type {ItemDataRelationships}
      * @memberof ItemData
      */
-    'attributes'?: ItemDataAttributes;
+    'relationships': ItemDataRelationships;
     /**
      * 
-     * @type {ProjectsDataLinks}
+     * @type {JsonApiLinksSelfAndWebView}
      * @memberof ItemData
      */
-    'links'?: ProjectsDataLinks;
-    /**
-     * 
-     * @type {SearchIncludedRelationships}
-     * @memberof ItemData
-     */
-    'relationships'?: SearchIncludedRelationships;
+    'links': JsonApiLinksSelfAndWebView;
 }
+
+
 

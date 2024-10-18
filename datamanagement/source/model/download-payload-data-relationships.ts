@@ -1,19 +1,19 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { FolderPayloadDataRelationshipsParent } from './folder-payload-data-relationships-parent';
+import { DownloadPayloadDataRelationshipsSource } from './download-payload-data-relationships-source';
 
 /**
- * 
+ * Contains information about the version the download format is being created for. 
  * @export
  * @interface DownloadPayloadDataRelationships
  */
 export interface DownloadPayloadDataRelationships {
     /**
      * 
-     * @type {FolderPayloadDataRelationshipsParent}
+     * @type {DownloadPayloadDataRelationshipsSource}
      * @memberof DownloadPayloadDataRelationships
      */
-    'source': FolderPayloadDataRelationshipsParent;
+    'source': DownloadPayloadDataRelationshipsSource;
 }
 

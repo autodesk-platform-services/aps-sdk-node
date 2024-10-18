@@ -3,7 +3,7 @@
 
 import { ItemPayloadIncludedAttributes } from './item-payload-included-attributes';
 import { ItemPayloadIncludedRelationships } from './item-payload-included-relationships';
-import { Type } from './type';
+import { TypeVersion } from './type-version';
 
 /**
  * 
@@ -13,12 +13,12 @@ import { Type } from './type';
 export interface ItemPayloadIncluded {
     /**
      * 
-     * @type {Type}
+     * @type {TypeVersion}
      * @memberof ItemPayloadIncluded
      */
-    'type': Type;
+    'type': TypeVersion;
     /**
-     * 
+     * The version number. Will always be ``1``.
      * @type {string}
      * @memberof ItemPayloadIncluded
      */

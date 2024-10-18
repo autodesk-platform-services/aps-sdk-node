@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Type } from './type';
+import { TypeVersion } from './type-version';
 import { VersionPayloadDataRelationshipsRefsDataMeta } from './version-payload-data-relationships-refs-data-meta';
 
 /**
@@ -12,12 +12,12 @@ import { VersionPayloadDataRelationshipsRefsDataMeta } from './version-payload-d
 export interface VersionPayloadDataRelationshipsRefsData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeVersion}
      * @memberof VersionPayloadDataRelationshipsRefsData
      */
-    'type': Type;
+    'type': TypeVersion;
     /**
-     * 
+     * The URN (Version ID) of the referenced version.
      * @type {string}
      * @memberof VersionPayloadDataRelationshipsRefsData
      */

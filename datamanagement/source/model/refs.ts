@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HubsJsonapi } from './hubs-jsonapi';
-import { HubsLinks } from './hubs-links';
+import { JsonApiLinksSelf } from './json-api-links-self';
+import { JsonApiVersion } from './json-api-version';
 import { RefsData } from './refs-data';
 
 /**
@@ -13,21 +13,21 @@ import { RefsData } from './refs-data';
 export interface Refs {
     /**
      * 
-     * @type {HubsJsonapi}
+     * @type {JsonApiVersion}
      * @memberof Refs
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi': JsonApiVersion;
     /**
      * 
-     * @type {HubsLinks}
+     * @type {JsonApiLinksSelf}
      * @memberof Refs
      */
-    'links'?: HubsLinks;
+    'links': JsonApiLinksSelf;
     /**
-     * 
-     * @type {Set<RefsData>}
+     * An array of objects, where each object represents a referenced resource (folder, item, or version).
+     * @type {Array<RefsData>}
      * @memberof Refs
      */
-    'data'?: Set<RefsData>;
+    'data': Array<RefsData>;
 }
 

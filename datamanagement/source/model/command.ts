@@ -2,25 +2,25 @@
 /* eslint-disable */
 
 import { CommandData } from './command-data';
-import { HubsJsonapi } from './hubs-jsonapi';
+import { JsonApiVersion } from './json-api-version';
 
 /**
- * Successful Retrieval of C4R Model Publish Status (200)
+ * Commamd response
  * @export
  * @interface Command
  */
 export interface Command {
     /**
      * 
+     * @type {JsonApiVersion}
+     * @memberof Command
+     */
+    'jsonapi'?: JsonApiVersion;
+    /**
+     * 
      * @type {CommandData}
      * @memberof Command
      */
     'data'?: CommandData;
-    /**
-     * 
-     * @type {HubsJsonapi}
-     * @memberof Command
-     */
-    'jsonapi'?: HubsJsonapi;
 }
 

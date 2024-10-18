@@ -1,26 +1,26 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { FolderPayloadDataRelationshipsParent } from './folder-payload-data-relationships-parent';
-import { ItemPayloadIncludedRelationshipsRefs } from './item-payload-included-relationships-refs';
+import { ItemPayloadIncludedRelationshipsStorage } from './item-payload-included-relationships-storage';
+import { JsonApiRelationshipsRefs } from './json-api-relationships-refs';
 
 /**
- * 
+ * A container of links to resources that are related to the item to be created.
  * @export
  * @interface ItemPayloadIncludedRelationships
  */
 export interface ItemPayloadIncludedRelationships {
     /**
      * 
-     * @type {FolderPayloadDataRelationshipsParent}
+     * @type {ItemPayloadIncludedRelationshipsStorage}
      * @memberof ItemPayloadIncludedRelationships
      */
-    'storage'?: FolderPayloadDataRelationshipsParent;
+    'storage'?: ItemPayloadIncludedRelationshipsStorage;
     /**
      * 
-     * @type {ItemPayloadIncludedRelationshipsRefs}
+     * @type {JsonApiRelationshipsRefs}
      * @memberof ItemPayloadIncludedRelationships
      */
-    'refs'?: ItemPayloadIncludedRelationshipsRefs;
+    'refs'?: JsonApiRelationshipsRefs;
 }
 

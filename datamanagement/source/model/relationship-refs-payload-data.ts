@@ -2,22 +2,22 @@
 /* eslint-disable */
 
 import { RelationshipRefsPayloadDataMeta } from './relationship-refs-payload-data-meta';
-import { Type } from './type';
+import { TypeEntity } from './type-entity';
 
 /**
- * 
+ * A container for the data that describes the custom relationship.
  * @export
  * @interface RelationshipRefsPayloadData
  */
 export interface RelationshipRefsPayloadData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeEntity}
      * @memberof RelationshipRefsPayloadData
      */
-    'type': Type;
+    'type': TypeEntity;
     /**
-     * 
+     * The ID that uniquely identifies the resource.
      * @type {string}
      * @memberof RelationshipRefsPayloadData
      */

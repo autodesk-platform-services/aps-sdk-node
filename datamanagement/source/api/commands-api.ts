@@ -7,7 +7,6 @@ import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDat
 import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, DataManagementApiError } from '../base';
 import { Command } from '../model';
 import { CommandPayload } from '../model';
-import { GetHubs401Response } from '../model';
 /**
  * CommandsApi - axios parameter creator
  * @export
@@ -15,18 +14,18 @@ import { GetHubs401Response } from '../model';
 export const CommandsApiAxiosParamCreator = function (apsConfiguration?: IApsConfiguration) {
     return {
         /**
-         * Commands enable you to perform general operations on multiple resources. For example, you can check whether a user has permission to delete specific versions, items, and folders. Commands are executed by sending requests in the body payload. See the [Commands](/en/docs/data/v2/overview/commands/) section for more information. 
-         * @summary Create commands
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {CommandPayload} [commandPayload] The POST body is a JSON object with the following attributes.
+         * Executes the command that you specify in the request body. Commands enable you to perform general operations on multiple resources.  For example, you can check whether a user has permission to delete a collection of versions, items, and folders.  The command as well as the input data for the command are specified using the ``data`` object of the request body.   For more information about commands see the [Commands](/en/docs/data/v2/overview/commands/) section in the Developer\'s Guide. 
+         * @summary Execute a Command
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+         * @param {CommandPayload} [commandPayload] The request body\&#39;s &#x60;&#x60;data&#x60;&#x60; object defines the command to execute and contains any required input data.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postCommand: async (accessToken: string, projectId: string, xUserId?: string, commandPayload?: CommandPayload,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        executeCommand: async (accessToken: string, projectId: string, xUserId?: string, commandPayload?: CommandPayload,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
-            assertParamExists('postCommand', 'projectId', projectId)
+            assertParamExists('executeCommand', 'projectId', projectId)
             const localVarPath = `/data/v1/projects/{project_id}/commands`
                 .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
@@ -49,7 +48,6 @@ export const CommandsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
     
             localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
             localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -71,16 +69,16 @@ export const CommandsApiFp = function(sdkManager?: SdkManager) {
     const localVarAxiosParamCreator = CommandsApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
-         * Commands enable you to perform general operations on multiple resources. For example, you can check whether a user has permission to delete specific versions, items, and folders. Commands are executed by sending requests in the body payload. See the [Commands](/en/docs/data/v2/overview/commands/) section for more information. 
-         * @summary Create commands
-         * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-         * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-         * @param {CommandPayload} [commandPayload] The POST body is a JSON object with the following attributes.
+         * Executes the command that you specify in the request body. Commands enable you to perform general operations on multiple resources.  For example, you can check whether a user has permission to delete a collection of versions, items, and folders.  The command as well as the input data for the command are specified using the ``data`` object of the request body.   For more information about commands see the [Commands](/en/docs/data/v2/overview/commands/) section in the Developer\'s Guide. 
+         * @summary Execute a Command
+         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
+         * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+         * @param {CommandPayload} [commandPayload] The request body\&#39;s &#x60;&#x60;data&#x60;&#x60; object defines the command to execute and contains any required input data.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async postCommand(accessToken: string, projectId: string, xUserId?: string, commandPayload?: CommandPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Command>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.postCommand(accessToken, projectId, xUserId, commandPayload,  options);
+        async executeCommand(accessToken: string, projectId: string, xUserId?: string, commandPayload?: CommandPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Command>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.executeCommand(accessToken, projectId, xUserId, commandPayload,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
     }
@@ -93,17 +91,17 @@ export const CommandsApiFp = function(sdkManager?: SdkManager) {
  */
 export interface CommandsApiInterface {
     /**
-     * Commands enable you to perform general operations on multiple resources. For example, you can check whether a user has permission to delete specific versions, items, and folders. Commands are executed by sending requests in the body payload. See the [Commands](/en/docs/data/v2/overview/commands/) section for more information. 
-     * @summary Create commands
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {CommandPayload} [commandPayload] The POST body is a JSON object with the following attributes.
+     * Executes the command that you specify in the request body. Commands enable you to perform general operations on multiple resources.  For example, you can check whether a user has permission to delete a collection of versions, items, and folders.  The command as well as the input data for the command are specified using the ``data`` object of the request body.   For more information about commands see the [Commands](/en/docs/data/v2/overview/commands/) section in the Developer\'s Guide. 
+     * @summary Execute a Command
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+     * @param {CommandPayload} [commandPayload] The request body\&#39;s &#x60;&#x60;data&#x60;&#x60; object defines the command to execute and contains any required input data.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CommandsApiInterface
      */
-    postCommand(accessToken: string,projectId: string, xUserId?: string, commandPayload?: CommandPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    executeCommand(accessToken: string,projectId: string, xUserId?: string, commandPayload?: CommandPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
 }
 
@@ -116,30 +114,31 @@ export interface CommandsApiInterface {
 export class CommandsApi extends BaseApi implements CommandsApiInterface {
     private logger = this.sdkManager.logger;
     /**
-     * Commands enable you to perform general operations on multiple resources. For example, you can check whether a user has permission to delete specific versions, items, and folders. Commands are executed by sending requests in the body payload. See the [Commands](/en/docs/data/v2/overview/commands/) section for more information. 
-     * @summary Create commands
-     * @param {string} projectId The unique identifier of a project. For BIM 360 Docs, the project ID in the Data Management API corresponds to the project ID in the BIM 360 API. To convert a project ID in the BIM 360 API into a project ID in the Data Management API you need to add a “b.\&quot; prefix. For example, a project ID of c8b0c73d-3ae9 translates to a project ID of b.c8b0c73d-3ae9.
-     * @param {string} [xUserId] In a two-legged authentication context, the app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act on behalf of only the user specified.
-     * @param {CommandPayload} [commandPayload] The POST body is a JSON object with the following attributes.
+     * Executes the command that you specify in the request body. Commands enable you to perform general operations on multiple resources.  For example, you can check whether a user has permission to delete a collection of versions, items, and folders.  The command as well as the input data for the command are specified using the ``data`` object of the request body.   For more information about commands see the [Commands](/en/docs/data/v2/overview/commands/) section in the Developer\'s Guide. 
+     * @summary Execute a Command
+     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
+     * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
+     * @param {CommandPayload} [commandPayload] The request body\&#39;s &#x60;&#x60;data&#x60;&#x60; object defines the command to execute and contains any required input data.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CommandsApi
      */
-    public async postCommand(accessToken: string, projectId: string, xUserId?: string, commandPayload?: CommandPayload, options?: ApsServiceRequestConfig) {
-      this.logger.logInfo("Entered into postCommand ");
+    public async executeCommand(accessToken: string, projectId: string, xUserId?: string, commandPayload?: CommandPayload, options?: ApsServiceRequestConfig) {
+      this.logger.logInfo("Entered into executeCommand ");
       try {
-        const request =  await CommandsApiFp(this.sdkManager).postCommand(accessToken, projectId, xUserId, commandPayload,  options);
+        const request =  await CommandsApiFp(this.sdkManager).executeCommand(accessToken, projectId, xUserId, commandPayload,  options);
         const response = await request(this.axios);
-        this.logger.logInfo(`postCommand Request completed successfully with status code: ${response.status}`);
+        this.logger.logInfo(`executeCommand Request completed successfully with status code: ${response.status}`);
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
-            this.logger.logError(`postCommand Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${error.response.data.reason}`);
-            throw new DataManagementApiError(`postCommand Request failed with status : ${error.response.status} and error message: ${error.response.data.reason}`, error);
+            const errorMessage = JSON.stringify(error.response.data);
+            this.logger.logError(`executeCommand Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new DataManagementApiError(`executeCommand Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
-            this.logger.logError(`postCommand Request failed with no response received: ${error.request}`);
-            throw new DataManagementApiError(`postCommand Request failed with no response received: ${error.request}`, error);
+            this.logger.logError(`executeCommand Request failed with no response received: ${error.request}`);
+            throw new DataManagementApiError(`executeCommand Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }

@@ -1,22 +1,22 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Type } from './type';
+import { TypeFolder } from './type-folder';
 
 /**
- * 
+ * A container for the data that defines the parent of this folder.
  * @export
  * @interface ModifyFolderPayloadDataRelationshipsParentData
  */
 export interface ModifyFolderPayloadDataRelationshipsParentData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeFolder}
      * @memberof ModifyFolderPayloadDataRelationshipsParentData
      */
-    'type': Type;
+    'type': TypeFolder;
     /**
-     * 
+     * The URN of the parent folder to which you want to move a folder to.
      * @type {string}
      * @memberof ModifyFolderPayloadDataRelationshipsParentData
      */

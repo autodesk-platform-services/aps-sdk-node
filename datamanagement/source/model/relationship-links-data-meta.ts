@@ -1,39 +1,39 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HubsDataRelationshipsPimCollectionData } from './hubs-data-relationships-pim-collection-data';
-import { HubsLinksSelf } from './hubs-links-self';
-import { RelationshipLinksDataMetaExtension } from './relationship-links-data-meta-extension';
+import { BaseAttributesExtensionObjectWithSchemaLink } from './base-attributes-extension-object-with-schema-link';
+import { JsonApiLink } from './json-api-link';
+import { RelationshipLinksDataMetaData } from './relationship-links-data-meta-data';
 
 /**
- * 
+ * The meta-information of the links of this resource.
  * @export
  * @interface RelationshipLinksDataMeta
  */
 export interface RelationshipLinksDataMeta {
     /**
      * 
-     * @type {HubsLinksSelf}
+     * @type {JsonApiLink}
      * @memberof RelationshipLinksDataMeta
      */
-    'link'?: HubsLinksSelf;
+    'link'?: JsonApiLink;
     /**
      * 
-     * @type {HubsDataRelationshipsPimCollectionData}
+     * @type {RelationshipLinksDataMetaData}
      * @memberof RelationshipLinksDataMeta
      */
-    'data'?: HubsDataRelationshipsPimCollectionData;
+    'data'?: RelationshipLinksDataMetaData;
     /**
-     * 
+     * The MIME type of the content of the resource.
      * @type {string}
      * @memberof RelationshipLinksDataMeta
      */
     'mimeType'?: string;
     /**
      * 
-     * @type {RelationshipLinksDataMetaExtension}
+     * @type {BaseAttributesExtensionObjectWithSchemaLink}
      * @memberof RelationshipLinksDataMeta
      */
-    'extension'?: RelationshipLinksDataMetaExtension;
+    'extension'?: BaseAttributesExtensionObjectWithSchemaLink;
 }
 

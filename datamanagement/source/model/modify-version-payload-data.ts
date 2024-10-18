@@ -2,22 +2,22 @@
 /* eslint-disable */
 
 import { ModifyVersionPayloadDataAttributes } from './modify-version-payload-data-attributes';
-import { Type } from './type';
+import { TypeVersion } from './type-version';
 
 /**
- * 
+ * Contains the information to update
  * @export
  * @interface ModifyVersionPayloadData
  */
 export interface ModifyVersionPayloadData {
     /**
      * 
-     * @type {Type}
+     * @type {TypeVersion}
      * @memberof ModifyVersionPayloadData
      */
-    'type': Type;
+    'type': TypeVersion;
     /**
-     * 
+     * The URN of the version. Must be the raw URN, and not the URL enocoded URN.
      * @type {string}
      * @memberof ModifyVersionPayloadData
      */
