@@ -423,19 +423,20 @@ export class DataManagementClient extends BaseClient {
      * @summary List Folder and Subfolder Contents
      * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
      * @param {string} folderId The unique identifier of a folder.
-     * @param {Array<string>} [filter] Filter the data. See the [Filtering](/en/docs/data/v2/overview/filtering/) section for details.
+     * @param {string} filterFieldName Field name for filtering the data. See the Filtering section for details.
+     * @param {Array<string>} [filterValue] Value to match the filter with. See the Filtering section for details.
      * @param {number} [pageNumber] Specifies what page to return. Page numbers are 0-based (the first page is page 0).
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public async getFolderSearch(projectId: string, folderId: string, optionalArgs?:{filter?: Array<string>, pageNumber?: number, accessToken?: string, options?: ApsServiceRequestConfig}): Promise<Search> {
+    public async getFolderSearch(projectId: string, folderId: string, optionalArgs?:{filterFieldName?: string , filterValue?: Array<string>, pageNumber?: number, accessToken?: string, options?: ApsServiceRequestConfig}): Promise<Search> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
         else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
-        const response = await this.foldersApi.getFolderSearch(optionalArgs?.accessToken,projectId, folderId, optionalArgs?.filter, optionalArgs?.pageNumber, optionalArgs?.options);
+        const response = await this.foldersApi.getFolderSearch(optionalArgs?.accessToken,projectId, folderId, optionalArgs?.filterFieldName, optionalArgs?.filterValue, optionalArgs?.pageNumber, optionalArgs?.options);
         return response.content;
     }
 

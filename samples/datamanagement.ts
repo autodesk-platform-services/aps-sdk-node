@@ -218,6 +218,10 @@ async function getFolderSearch() {
     const search: Search = await dataManagementClient.getFolderSearch(
       project_id,
       folder_id,
+      {
+        filterFieldName: "displayName",
+        filterValue: ["filter1", "filter2"]
+      }
     );
     console.log(search);
     search.data.forEach((current) => {
@@ -337,7 +341,7 @@ async function patchFolder() {
 // getFolderRefs();
 // getFolderRelationshipsLinks();
 // getFolderRelationshipsRefs();
-// getFolderSearch();
+getFolderSearch();
 // createFolder();
 // createFolderRelationshipsRef(); 
 // patchFolder();

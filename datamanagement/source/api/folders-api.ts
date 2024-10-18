@@ -487,7 +487,7 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFolderSearch: async (accessToken: string, projectId: string, folderId: string, filter?: Array<string>, pageNumber?: number,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        getFolderSearch: async (accessToken: string, projectId: string, folderId: string, filterFieldName?: string, filter?: Array<string>, pageNumber?: number,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getFolderSearch', 'projectId', projectId)
             // verify required parameter 'folderId' is not null or undefined
@@ -508,7 +508,7 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
             if (filter) {
-                localVarQueryParameter['filter[*]'] = filter;
+                localVarQueryParameter[`filter[${filterFieldName}]`] = filter;
             }
 
             if (pageNumber !== undefined) {
@@ -717,8 +717,8 @@ export const FoldersApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFolderSearch(accessToken: string, projectId: string, folderId: string, filter?: Array<string>, pageNumber?: number, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Search>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getFolderSearch(accessToken, projectId, folderId, filter, pageNumber,  options);
+        async getFolderSearch(accessToken: string, projectId: string, folderId: string, filterFieldName?: string, filter?: Array<string>, pageNumber?: number, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Search>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getFolderSearch(accessToken, projectId, folderId, filterFieldName, filter, pageNumber,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
@@ -877,7 +877,7 @@ export interface FoldersApiInterface {
      * @throws {RequiredError}
      * @memberof FoldersApiInterface
      */
-    getFolderSearch(accessToken: string,projectId: string, folderId: string, filter?: Array<string>, pageNumber?: number,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getFolderSearch(accessToken: string,projectId: string, folderId: string, filterFieldName?: string, filter?: Array<string>, pageNumber?: number,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Renames, moves, hides, or unhides a folder. Marking a BIM 360 Docs folder as hidden effectively deletes it. You can restore it by changing its ``hidden`` attribute. You can also move BIM 360 Docs folders by changing their parent folder.  You cannot permanently delete BIM 360 Docs folders. They are tagged as hidden folders and are removed from the BIM 360 Docs UI and from regular Data Management API responses. You can use the hidden filter (``filter[hidden]=true``) to get a list of deleted folders with the [List Folder Contents](/en/docs/data/v2/reference/http/projects-project_id-folders-folder_id-contents-GET/) operation.  Before you use the Data Management API to access BIM 360 Docs folders, provision your app through the BIM 360 Account Administrator portal. For details, see the [Manage Access to Docs tutorial](/en/docs/bim360/v1/tutorials/getting-started/manage-access-to-docs/).  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](/en.docs.acc.v1/overview/introduction/). 
@@ -1180,10 +1180,10 @@ export class FoldersApi extends BaseApi implements FoldersApiInterface {
      * @throws {RequiredError}
      * @memberof FoldersApi
      */
-    public async getFolderSearch(accessToken: string, projectId: string, folderId: string, filter?: Array<string>, pageNumber?: number, options?: ApsServiceRequestConfig) {
+    public async getFolderSearch(accessToken: string, projectId: string, folderId: string, filterFieldName?: string, filter?: Array<string>, pageNumber?: number, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into getFolderSearch ");
       try {
-        const request =  await FoldersApiFp(this.sdkManager).getFolderSearch(accessToken, projectId, folderId, filter, pageNumber,  options);
+        const request =  await FoldersApiFp(this.sdkManager).getFolderSearch(accessToken, projectId, folderId, filterFieldName, filter, pageNumber,  options);
         const response = await request(this.axios);
         this.logger.logInfo(`getFolderSearch Request completed successfully with status code: ${response.status}`);
         return new ApiResponse(response,response.data);
