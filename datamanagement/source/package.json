@@ -1,6 +1,6 @@
 {
   "name": "@aps_sdk/data-management",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "description": "Client sdk for Data Management API",
   "license": "Apache-2.0",
   "author": "Autodesk Platform Services",
