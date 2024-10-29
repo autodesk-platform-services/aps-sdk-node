@@ -10,7 +10,7 @@ import { TypeObject } from './type-object';
  */
 export interface ItemPayloadIncludedRelationshipsStorageData {
     /**
-     * 
+     * The type of the resource. Will always be ``objects``.
      * @type {TypeObject}
      * @memberof ItemPayloadIncludedRelationshipsStorageData
      */
