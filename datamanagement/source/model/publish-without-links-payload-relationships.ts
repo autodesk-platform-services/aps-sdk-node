@@ -12,7 +12,7 @@ export interface PublishWithoutLinksPayloadRelationships {
     /**
      * 
      * @type {PublishWithoutLinksPayloadRelationshipsResources}
-     * @memberof PublishModelPayloadRelationships
+     * @memberof PublishWithoutLinksPayloadRelationships
      */
     'resources'?: PublishWithoutLinksPayloadRelationshipsResources;
 }
