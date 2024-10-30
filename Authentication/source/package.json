@@ -1,6 +1,6 @@
 {
   "name": "@aps_sdk/authentication",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Client sdk for Authentication API",
   "license": "Apache-2.0",
   "author": "Autodesk Platform Services",
@@ -26,7 +26,7 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@aps_sdk/autodesk-sdkmanager": "^1.0.0-beta.1",
+    "@aps_sdk/autodesk-sdkmanager": "^1.0.0-beta.2",
     "@types/node": "^20.9.0",
     "axios": "^1.6.1"
   },
