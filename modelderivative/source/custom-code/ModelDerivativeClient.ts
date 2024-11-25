@@ -1,5 +1,5 @@
 import { ApiResponse, ApsServiceRequestConfig, SdkManager, BaseClient, IAuthenticationProvider, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
-import { DeleteManifest,DerivativeDownload,GetAllProperties202Response,Height,Job,JobPayload,Manifest,ModelViews,ObjectTree,Properties,Region,SpecificProperties,SpecificPropertiesPayload,SpecifyReferences,SpecifyReferencesPayload,SupportedFormats,Width,XAdsDerivativeFormat,XAdsJobStatus,XAdsRole, } from '../model';
+import { DeleteManifest,DerivativeDownload,Height,Job,JobPayload,Manifest,ModelViews,ObjectTree,Properties,Region,SpecificProperties,SpecificPropertiesPayload,SpecifyReferences,SpecifyReferencesPayload,SupportedFormats,Width,XAdsDerivativeFormat,XAdsJobStatus,XAdsRole, } from '../model';
 import { DerivativesApi,InformationalApi,ManifestApi,MetadataApi,ThumbnailsApi,JobsApi, }  from '../api';
 
 
@@ -121,7 +121,7 @@ export class ModelDerivativeClient extends BaseClient {
         else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
-        const response = await this.metadataApi.fetchSpecificProperties(optionalArgs?.accessToken, urn,  modelGuid,  specificPropertiesPayload,  optionalArgs?. acceptEncoding,  optionalArgs?. region,  optionalArgs?. xAdsDerivativeFormat, optionalArgs?.options);
+        const response = await this.metadataApi.fetchSpecificProperties(optionalArgs?.accessToken, urn,  modelGuid,  null);
         return response.content;
     }
    
@@ -499,7 +499,7 @@ export class ModelDerivativeClient extends BaseClient {
         else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
-        const response = await this.jobsApi.specifyReferences(optionalArgs?.accessToken, urn,  specifyReferencesPayload,  optionalArgs?. region, optionalArgs?.options);
+        const response = await this.jobsApi.specifyReferences(optionalArgs?.accessToken, urn,  null);
         return response.content;
     }
    
@@ -555,7 +555,7 @@ export class ModelDerivativeClient extends BaseClient {
         else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
-        const response = await this.jobsApi.startJob(optionalArgs?.accessToken, jobPayload,  optionalArgs?. xAdsForce,  optionalArgs?. xAdsDerivativeFormat,  optionalArgs?. region, optionalArgs?.options);
+        const response = await this.jobsApi.startJob(optionalArgs?.accessToken, null);
         return response.content;
     }
    
