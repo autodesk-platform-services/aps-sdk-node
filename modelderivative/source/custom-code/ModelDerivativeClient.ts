@@ -1,5 +1,5 @@
 import { ApiResponse, ApsServiceRequestConfig, SdkManager, BaseClient, IAuthenticationProvider, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
-import { DeleteManifest,DerivativeDownload,Height,Job,JobPayload,Manifest,ModelViews,ObjectTree,Properties,Region,SpecificProperties,SpecificPropertiesPayload,SpecifyReferences,SpecifyReferencesPayload,SupportedFormats,Width,XAdsDerivativeFormat,XAdsJobStatus,XAdsRole, } from '../model';
+import { DeleteManifest,DerivativeDownload,GetAllProperties202Response,Height,Job,JobPayload,Manifest,ModelViews,ObjectTree,Properties,Region,SpecificProperties,SpecificPropertiesPayload,SpecifyReferences,SpecifyReferencesPayload,SupportedFormats,Width,XAdsDerivativeFormat,XAdsJobStatus,XAdsRole, } from '../model';
 import { DerivativesApi,InformationalApi,ManifestApi,MetadataApi,ThumbnailsApi,JobsApi, }  from '../api';
 
 
@@ -555,7 +555,7 @@ export class ModelDerivativeClient extends BaseClient {
         else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
-        const response = await this.jobsApi.startJob(optionalArgs?.accessToken, null);
+        const response = await this.jobsApi.startJob(optionalArgs?.accessToken,   optionalArgs?. xAdsForce,  optionalArgs?. xAdsDerivativeFormat,  optionalArgs?. region);
         return response.content;
     }
    
