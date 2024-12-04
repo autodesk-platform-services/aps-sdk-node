@@ -1,14 +1,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { PropertiesData } from './propertiesData';
+import { ObjectTreeData } from './objectTreeData';
 
 /**
- * An object that represents a successful response to a Fetch All Properties operation.
+ * An object that represents the successful response of a Fetch Object Tree operation.
  * @export
- * @class Properties
+ * @interface ObjectTree
  */
-export class Properties {
+export class ObjectTree {
     private _isProcessing: boolean;
 
     constructor(isProcessing: boolean)  {
@@ -20,13 +20,13 @@ export class Properties {
    }
 
    public set isProcessing(value){
-    this._isProcessing = value;
- }
+      this._isProcessing = value;
+   }
     /**
      * 
-     * @type {PropertiesData}
-     * @memberof Properties
+     * @type {ObjectTreeData}
+     * @memberof ObjectTree
      */
-    'data': PropertiesData;
+    'data': ObjectTreeData;
 }
 
