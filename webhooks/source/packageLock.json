@@ -1,38 +1,32 @@
 {
-  "name": "samples",
-  "version": "1.0.0",
+  "name": "@aps_sdk/webhooks",
+  "version": "1.0.0-beta.1",
   "lockfileVersion": 3,
   "requires": true,
   "packages": {
     "": {
-      "name": "samples",
-      "version": "1.0.0",
-      "license": "ISC",
+      "name": "@aps_sdk/webhooks",
+      "version": "1.0.0-beta.1",
+      "license": "Apache-2.0",
       "dependencies": {
-        "@aps_sdk/webhooks": "file:../webhooks/source/aps_sdk-webhooks-1.0.0-beta.2.tgz",
-        "dotenv": "^16.4.5"
+        "@aps_sdk/autodesk-sdkmanager": "^1.0.0-beta.1",
+        "@types/node": "^20.9.0",
+        "axios": "^1.6.1"
+      },
+      "devDependencies": {
+        "prettier": "^2.8.8",
+        "typescript": "^5.1.5"
       }
     },
     "node_modules/@aps_sdk/autodesk-sdkmanager": {
-      "version": "1.0.0",
-      "resolved": "https://registry.npmjs.org/@aps_sdk/autodesk-sdkmanager/-/autodesk-sdkmanager-1.0.0.tgz",
-      "integrity": "sha512-Nqi59aa3xHa5qG9KZZ9HhxYMrMGFimmbqLq8406MZB9Tje0gqwZLdEFfu25VDUhbzvONuq+ZX2m0e+yhBHl2QQ==",
+      "version": "1.0.0-beta.1",
+      "resolved": "https://registry.npmjs.org/@aps_sdk/autodesk-sdkmanager/-/autodesk-sdkmanager-1.0.0-beta.1.tgz",
+      "integrity": "sha512-rsMdcWJ8mdvhosduZxG+e6+joV3z7wUhdtCCHY0/cgyJu9XDbInPcHiaBOcvTs77ZDC30uSLx0dntDFJrJ070w==",
       "license": "Apache-2.0",
       "dependencies": {
-        "axios": "^1.7.8",
+        "axios": "^1.4.0",
         "cockatiel": "^3.1.1",
         "winston": "^3.9.0"
-      }
-    },
-    "node_modules/@aps_sdk/webhooks": {
-      "version": "1.0.0-beta.2",
-      "resolved": "file:../webhooks/source/aps_sdk-webhooks-1.0.0-beta.2.tgz",
-      "integrity": "sha512-Ujc6wwe7QuMi9Kl9xCOQh5GORlLiMjHO+t32K9MQqDjySDvAgwfQZw61TdaS/61VT/IXd3MW4boGkXzlvYXMag==",
-      "license": "Apache-2.0",
-      "dependencies": {
-        "@aps_sdk/autodesk-sdkmanager": "^1.0.0",
-        "@types/node": "^20.9.0",
-        "axios": "^1.7.8"
       }
     },
     "node_modules/@colors/colors": {
@@ -56,9 +50,9 @@
       }
     },
     "node_modules/@types/node": {
-      "version": "20.14.15",
-      "resolved": "https://registry.npmjs.org/@types/node/-/node-20.14.15.tgz",
-      "integrity": "sha512-Fz1xDMCF/B00/tYSVMlmK7hVeLh7jE5f3B7X1/hmV0MJBwE27KlS7EvD/Yp+z1lm8mVhwV5w+n8jOZG8AfTlKw==",
+      "version": "20.14.13",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-20.14.13.tgz",
+      "integrity": "sha512-+bHoGiZb8UiQ0+WEtmph2IWQCjIqg8MDZMAV+ppRRhUZnquF5mQkP/9vpSwJClEiSM/C7fZZExPzfU0vJTyp8w==",
       "license": "MIT",
       "dependencies": {
         "undici-types": "~5.26.4"
@@ -83,9 +77,9 @@
       "license": "MIT"
     },
     "node_modules/axios": {
-      "version": "1.7.8",
-      "resolved": "https://registry.npmjs.org/axios/-/axios-1.7.8.tgz",
-      "integrity": "sha512-Uu0wb7KNqK2t5K+YQyVCLM76prD5sRFjKHbJYCP1J7JFGEQ6nN7HWn9+04LAeiJ3ji54lgS/gZCH1oxyrf1SPw==",
+      "version": "1.7.2",
+      "resolved": "https://registry.npmjs.org/axios/-/axios-1.7.2.tgz",
+      "integrity": "sha512-2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==",
       "license": "MIT",
       "dependencies": {
         "follow-redirects": "^1.15.6",
@@ -166,18 +160,6 @@
       "license": "MIT",
       "engines": {
         "node": ">=0.4.0"
-      }
-    },
-    "node_modules/dotenv": {
-      "version": "16.4.5",
-      "resolved": "https://registry.npmjs.org/dotenv/-/dotenv-16.4.5.tgz",
-      "integrity": "sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==",
-      "license": "BSD-2-Clause",
-      "engines": {
-        "node": ">=12"
-      },
-      "funding": {
-        "url": "https://dotenvx.com"
       }
     },
     "node_modules/enabled": {
@@ -315,6 +297,22 @@
         "fn.name": "1.x.x"
       }
     },
+    "node_modules/prettier": {
+      "version": "2.8.8",
+      "resolved": "https://registry.npmjs.org/prettier/-/prettier-2.8.8.tgz",
+      "integrity": "sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==",
+      "dev": true,
+      "license": "MIT",
+      "bin": {
+        "prettier": "bin-prettier.js"
+      },
+      "engines": {
+        "node": ">=10.13.0"
+      },
+      "funding": {
+        "url": "https://github.com/prettier/prettier?sponsor=1"
+      }
+    },
     "node_modules/proxy-from-env": {
       "version": "1.1.0",
       "resolved": "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-1.1.0.tgz",
@@ -406,6 +404,20 @@
         "node": ">= 14.0.0"
       }
     },
+    "node_modules/typescript": {
+      "version": "5.5.4",
+      "resolved": "https://registry.npmjs.org/typescript/-/typescript-5.5.4.tgz",
+      "integrity": "sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==",
+      "dev": true,
+      "license": "Apache-2.0",
+      "bin": {
+        "tsc": "bin/tsc",
+        "tsserver": "bin/tsserver"
+      },
+      "engines": {
+        "node": ">=14.17"
+      }
+    },
     "node_modules/undici-types": {
       "version": "5.26.5",
       "resolved": "https://registry.npmjs.org/undici-types/-/undici-types-5.26.5.tgz",
@@ -419,9 +431,9 @@
       "license": "MIT"
     },
     "node_modules/winston": {
-      "version": "3.14.1",
-      "resolved": "https://registry.npmjs.org/winston/-/winston-3.14.1.tgz",
-      "integrity": "sha512-CJi4Il/msz8HkdDfXOMu+r5Au/oyEjFiOZzbX2d23hRLY0narGjqfE5lFlrT5hfYJhPtM8b85/GNFsxIML/RVA==",
+      "version": "3.13.1",
+      "resolved": "https://registry.npmjs.org/winston/-/winston-3.13.1.tgz",
+      "integrity": "sha512-SvZit7VFNvXRzbqGHsv5KSmgbEYR5EiQfDAL9gxYkRqa934Hnk++zze0wANKtMHcy/gI4W/3xmSDwlhf865WGw==",
       "license": "MIT",
       "dependencies": {
         "@colors/colors": "^1.6.0",

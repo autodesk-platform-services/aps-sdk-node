@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HookDetailsScope } from './hook-details-scope';
+import { HookDetailsScope } from './hookDetailsScope';
 import { Status } from './status';
 
 /**

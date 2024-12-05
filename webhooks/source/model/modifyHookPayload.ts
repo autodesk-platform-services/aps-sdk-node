@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { StatusRequest } from './status-request';
+import { StatusRequest } from './statusRequest';
 
 /**
  * Specifies the details of a webhook to be updated. 
