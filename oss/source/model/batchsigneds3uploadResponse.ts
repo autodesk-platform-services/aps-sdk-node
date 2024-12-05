@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Batchsigneds3uploadResponseResultsValue } from './batchsigneds3upload-response-results-value';
+import { Batchsigneds3uploadResponseResultsValue } from './batchsigneds3uploadResponseResultsValue';
 
 /**
  * The response to a Batch Generate Signed S3 Upload URLs operation.

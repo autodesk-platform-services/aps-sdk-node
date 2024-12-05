@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { CreateBucketsPayloadAllow } from './create-buckets-payload-allow';
-import { PolicyKey } from './policy-key';
+import { CreateBucketsPayloadAllow } from './createBucketsPayloadAllow';
+import { PolicyKey } from './policyKey';
 
 /**
  * The request payload for the Create Bucket operation.

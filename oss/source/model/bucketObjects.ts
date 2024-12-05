@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ObjectDetails } from './object-details';
+import { ObjectDetails } from './objectDetails';
 
 /**
  * An array where each element represents an object in the bucket.

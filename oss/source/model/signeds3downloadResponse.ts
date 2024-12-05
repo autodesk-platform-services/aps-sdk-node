@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { DownloadStatus } from './download-status';
+import { DownloadStatus } from './downloadStatus';
 
 /**
  * An object representing the response payload on successful execution of a Generate Signed S3 Download URL operation.

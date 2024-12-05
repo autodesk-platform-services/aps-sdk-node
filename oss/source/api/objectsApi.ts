@@ -6,24 +6,24 @@ import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} fro
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, OssApiError } from '../base';
 import { Access } from '../model';
-import { BatchcompleteuploadObject } from '../model';
-import { BatchcompleteuploadResponse } from '../model';
-import { Batchsigneds3downloadObject } from '../model';
-import { Batchsigneds3downloadResponse } from '../model';
-import { Batchsigneds3uploadObject } from '../model';
-import { Batchsigneds3uploadResponse } from '../model';
-import { BucketObjects } from '../model';
-import { Completes3uploadBody } from '../model';
-import { CreateObjectSigned } from '../model';
-import { CreateSignedResource } from '../model';
-import { ObjectDetails } from '../model';
-import { ObjectFullDetails } from '../model';
 import { Reason } from '../model';
 import { Region } from '../model';
 import { Result } from '../model';
-import { Signeds3downloadResponse } from '../model';
-import { Signeds3uploadResponse } from '../model';
 import { With } from '../model';
+import { BatchcompleteuploadObject } from '../model/batchcompleteuploadObject';
+import { BatchcompleteuploadResponse } from '../model/batchcompleteuploadResponse';
+import { Batchsigneds3downloadObject } from '../model/batchsigneds3downloadObject';
+import { Batchsigneds3downloadResponse } from '../model/batchsigneds3downloadResponse';
+import { Batchsigneds3uploadObject } from '../model/batchsigneds3uploadObject';
+import { Batchsigneds3uploadResponse } from '../model/batchsigneds3uploadResponse';
+import { BucketObjects } from '../model/bucketObjects';
+import { Completes3uploadBody } from '../model/completes3uploadBody';
+import { CreateObjectSigned } from '../model/createObjectSigned';
+import { CreateSignedResource } from '../model/createSignedResource';
+import { ObjectDetails } from '../model/objectDetails';
+import { ObjectFullDetails } from '../model/objectFullDetails';
+import { Signeds3downloadResponse } from '../model/signeds3downloadResponse';
+import { Signeds3uploadResponse } from '../model/signeds3uploadResponse';
 /**
  * ObjectsApi - axios parameter creator
  * @export

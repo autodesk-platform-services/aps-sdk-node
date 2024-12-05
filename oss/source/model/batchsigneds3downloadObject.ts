@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Batchsigneds3downloadObjectRequests } from './batchsigneds3download-object-requests';
+import { Batchsigneds3downloadObjectRequests } from './batchsigneds3downloadObjectRequests';
 
 /**
  * The response to a Batch Generate Signed S3 Download URLs operation.
