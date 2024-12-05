@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JobPayloadFormatSVFAdvanced } from './jobPayloadFormatSVF-Advanced';
+import { JobPayloadFormatSVFAdvanced } from './jobPayloadFormatSVFAdvanced';
 import { OutputType } from './outputType';
 import { View } from './view';
 

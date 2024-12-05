@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JobPayloadFormatAdvancedOBJ } from './jobPayloadFormatAdvanced-OBJ';
+import { JobPayloadFormatAdvancedOBJ } from './jobPayloadFormatAdvancedOBJ';
 import { OutputType } from './outputType';
 
 /**

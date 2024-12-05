@@ -1,15 +1,15 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JobPayloadFormatAdvancedIFC } from './jobPayloadFormatAdvanced-IFC';
-import { JobPayloadFormatDWG } from './jobPayloadFormat-DWG';
-import { JobPayloadFormatIFC } from './jobPayloadFormat-IFC';
-import { JobPayloadFormatIGES } from './jobPayloadFormat-IGES';
-import { JobPayloadFormatOBJ } from './jobPayloadFormat-OBJ';
-import { JobPayloadFormatSTEP } from './jobPayloadFormat-STEP';
-import { JobPayloadFormatSTL } from './jobPayloadFormat-STL';
-import { JobPayloadFormatSVF } from './jobPayloadFormat-SVF';
-import { JobPayloadFormatSVF2 } from './jobPayloadFormat-SVF2';
+import { JobPayloadFormatAdvancedIFC } from './jobPayloadFormatAdvancedIFC';
+import { JobPayloadFormatDWG } from './jobPayloadFormatDWG';
+import { JobPayloadFormatIFC } from './jobPayloadFormatIFC';
+import { JobPayloadFormatIGES } from './jobPayloadFormatIGES';
+import { JobPayloadFormatOBJ } from './jobPayloadFormatOBJ';
+import { JobPayloadFormatSTEP } from './jobPayloadFormatSTEP';
+import { JobPayloadFormatSTL } from './jobPayloadFormatSTL';
+import { JobPayloadFormatSVF } from './jobPayloadFormatSVF';
+import { JobPayloadFormatSVF2 } from './jobPayloadFormatSVF2';
 import { JobPayloadFormatThumbnail } from './jobPayloadFormatThumbnail';
 import { OutputType } from './outputType';
 import { View } from './view';

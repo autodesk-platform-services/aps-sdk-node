@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JobPayloadFormatAdvancedIGES } from './jobPayloadFormatAdvanced-IGES';
+import { JobPayloadFormatAdvancedIGES } from './jobPayloadFormatAdvancedIGES';
 import { OutputType } from './outputType';
 
 /**
