@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JobPayloadFormatAdvancedDWG } from './jobPayloadFormatAdvancedDwg';
+import { JobPayloadFormatAdvancedDWG } from './jobPayloadFormatAdvanced-DWG';
 import { OutputType } from './outputType';
 
 /**

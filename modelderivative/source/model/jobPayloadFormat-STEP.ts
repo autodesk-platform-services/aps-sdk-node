@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JobPayloadFormatAdvancedSTEP } from './jobPayloadFormatAdvancedStep';
+import { JobPayloadFormatAdvancedSTEP } from './jobPayloadFormatAdvanced-STEP';
 import { OutputType } from './outputType';
 
 /**

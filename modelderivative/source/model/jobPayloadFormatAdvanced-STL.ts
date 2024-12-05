@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JobPayloadFormatAdvancedSTLAdvanced } from './jobPayloadFormatAdvancedStladvanced';
+import { JobPayloadFormatAdvancedSTLAdvanced } from './jobPayloadFormatAdvancedSTL-Advanced';
 
 /**
  * An object that contains advanced options for a STL output.

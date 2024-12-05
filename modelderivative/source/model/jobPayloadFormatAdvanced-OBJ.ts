@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JobPayloadFormatAdvancedOBJAdvanced } from './jobPayloadFormatAdvancedObjadvanced';
+import { JobPayloadFormatAdvancedOBJAdvanced } from './jobPayloadFormatAdvancedOBJ-Advanced';
 
 /**
  * An object that contains advanced options for an OBJ output.

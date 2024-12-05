@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JobPayloadFormatAdvancedIFC } from './jobPayloadFormatAdvancedIfc';
+import { JobPayloadFormatAdvancedIFC } from './jobPayloadFormatAdvanced-IFC';
 import { OutputType } from './outputType';
 
 /**

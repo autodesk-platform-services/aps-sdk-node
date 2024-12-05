@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 import { Interface } from 'readline';
-import { JobPayloadFormatSVF2Advanced } from './jobPayloadFormatSvf2Advanced';
+import { JobPayloadFormatSVF2Advanced } from './jobPayloadFormatSVF2-Advanced';
 import { OutputType } from './outputType';
 import { View } from './view';
 
