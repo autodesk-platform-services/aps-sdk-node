@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ProductAccess } from './product-access';
-import { ProductKeys } from './product-keys';
+import { ProductAccess } from './productAccess';
+import { ProductKeys } from './productKeys';
 
 /**
  * 

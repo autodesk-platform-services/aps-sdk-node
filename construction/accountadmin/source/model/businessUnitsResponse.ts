@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { BusinessUnit } from './business-unit';
+import { BusinessUnit } from './businessUnit';
 
 /**
  * 

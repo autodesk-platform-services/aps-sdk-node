@@ -1,14 +1,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { BusinessUnitsRequest } from './business-units-request';
+import { BusinessUnitsRequest } from './businessUnitsRequest';
 
 /**
  * 
  * @export
- * @interface BusinessUnitsRequestPyload
+ * @interface BusinessUnitsRequestPayload
  */
-export interface BusinessUnitsRequestPyload {
+export interface BusinessUnitsRequestPayload {
     /**
      * 
      * @type {Array<BusinessUnitsRequest>}

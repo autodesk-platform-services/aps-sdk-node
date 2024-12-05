@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ProjectUsersImportPayloadUsersProducts } from './project-users-import-payload-users-products';
+import { ProjectUsersImportPayloadUsersProducts } from './projectUsersImportPayloadUsersProducts';
 
 /**
  * 

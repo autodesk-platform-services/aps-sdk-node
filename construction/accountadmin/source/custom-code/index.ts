@@ -1,1 +1,1 @@
-export * from "./AdminClient";
+export * from "./adminClient";
