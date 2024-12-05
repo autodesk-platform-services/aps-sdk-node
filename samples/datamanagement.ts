@@ -3,8 +3,8 @@ import { BaseAttributesExtensionObjectWithoutSchemaLink, BaseAttributesExtension
 import 'dotenv/config';
 import { Project, Projects, ProjectDataAttributes, TopFolders, StoragePayload, TypeFolderItemsForStorage, DownloadPayload, TypeDownloads, CreatedDownload, Job, Download} from "@aps_sdk/data-management";
 import { CheckPermission, CheckPermissionPayload, CheckPermissionPayloadAttributes, CheckPermissionPayloadAttributesExtension, CheckPermissionPayloadAttributesExtensionData, CheckPermissionPayloadRelationships, CheckPermissionPayloadRelationshipsResources, CreatedItem, FilterDirection, FilterRefType, ItemPayloadDataRelationshipsParent, ItemPayloadDataRelationshipsParentData, ItemPayloadDataRelationshipsTip, ItemPayloadDataRelationshipsTipData, ItemPayloadIncludedAttributes, ItemPayloadIncludedAttributesExtension, ListItems, ListItemsPayload, ListItemsPayloadAttributes, ListItemsPayloadAttributesExtension, ListItemsPayloadAttributesExtensionData, ListItemsPayloadRelationships, ListItemsPayloadRelationshipsResources, ListRefs, ListRefsPayload, ListRefsPayloadAttributes, ListRefsPayloadAttributesExtension, ListRefsPayloadRelationships, ListRefsPayloadRelationshipsResources, ModifyItemPayload, ModifyItemPayloadData, ModifyItemPayloadDataAttributes, PublishModel, PublishModelJobPayload, PublishModelJobPayloadAttributes, PublishModelJobPayloadAttributesExtension, PublishModelJobPayloadRelationships, PublishModelJobPayloadRelationshipsResources, PublishModelPayload, PublishModelPayloadAttributes, PublishModelPayloadAttributesExtension, PublishModelPayloadRelationships, PublishModelPayloadRelationshipsResources, PublishWithoutLinks, PublishWithoutLinksPayload, PublishWithoutLinksPayloadAttributes, PublishWithoutLinksPayloadAttributesExtension, TypeCommands, TypeCommandtypeCheckPermission, TypeCommandtypeGetPublishModelJob, TypeCommandtypeListItems, TypeCommandtypeListRefs, TypeCommandtypePublishmodel, TypeCommandtypePublishWithoutLinks } from "@aps_sdk/data-management";
-import { PublishWithoutLinksPayloadRelationships } from "@aps_sdk/data-management/dist/model/publish-without-links-payload-relationships";
-import { PublishWithoutLinksPayloadRelationshipsResources } from "@aps_sdk/data-management/dist/model/publish-without-links-payload-relationships-resources";
+import { PublishWithoutLinksPayloadRelationships } from "@aps_sdk/data-management/dist/model/publishWithoutLinksPayloadRelationships";
+import { PublishWithoutLinksPayloadRelationshipsResources } from "@aps_sdk/data-management/dist/model/publishWithoutLinksPayloadRelationshipsResources";
 
 const token: string = process.env.accessToken;
 
@@ -104,7 +104,7 @@ async function getFolderContents() {
     const folderContents: FolderContents =
       await dataManagementClient.getFolderContents(project_id, folder_id, 
         {
-        filterType: [FilterType.Folders],
+        filterType: [FilterType.Folders, FilterType.Items],
         filterExtensionType: ["items:autodesk.bim360:File"],
         pageNumber: 0,
         pageLimit: 2,
@@ -244,7 +244,7 @@ async function createFolder() {
       attributes: <FolderPayloadDataAttributes>{
         name: "Test Folder",
         extension: <FolderPayloadDataAttributesExtension>{
-          type: "folders:autodesk.core:Folder",
+          type: "folders:autodesk.bim360:Folder",
           version: JsonApiVersionValue._10,
         },
       },
@@ -284,7 +284,7 @@ async function createFolderRelationshipsRef() {
       id: version_id,
       meta: <RelationshipRefsPayloadDataMeta>{
         extension: <BaseAttributesExtensionObjectWithoutSchemaLink>{
-          type: "versions",
+          type: "auxiliary:autodesk.core:Attachment",
           version: JsonApiVersionValue._10,
         },
       },
@@ -310,7 +310,7 @@ async function patchFolder() {
     jsonapi: <JsonApiVersion>{ version: JsonApiVersionValue._10 },
     data: <ModifyFolderPayloadData>{
       type: TypeFolder.Folders,
-      id: "urn:adsk.wipprod:fs.folder:co.ZHR7botUQFGWaBadISa4cA",
+      id: folder_id,
       attributes: <ModifyFolderPayloadDataAttributes>{
         name: "Autodesk POCS",
       },
@@ -341,7 +341,7 @@ async function patchFolder() {
 // getFolderRefs();
 // getFolderRelationshipsLinks();
 // getFolderRelationshipsRefs();
-getFolderSearch();
+// getFolderSearch();
 // createFolder();
 // createFolderRelationshipsRef(); 
 // patchFolder();
@@ -495,10 +495,10 @@ async function createVersion() {
       data: <VersionPayloadData>{
         type: TypeVersion.Versions,
         attributes: <VersionPayloadDataAttributes>{
-          name: "2c8107a7-e797-4bcc-ac45-2567870267c9.f3d",
+          name: "e833229e-039e-441e-a8e1-92eb29b7872a.rvt",
           displayName: "temp file",
           extension: <VersionPayloadDataAttributesExtension>{
-            type: "versions:autodesk.fusion360:Design",
+            type: "versions:autodesk.bim360:File",
             version: "1.0",
           },
         },
@@ -512,7 +512,7 @@ async function createVersion() {
           storage: <VersionPayloadDataRelationshipsStorage>{
             data: <VersionPayloadDataRelationshipsStorageData>{
               type: TypeObject.Objects,
-              id: "<storageId>",
+              id: "urn:adsk.objects:os.object:wip.dm.prod/e833229e-039e-441e-a8e1-92eb29b7872a.rvt",
             },
           },
         },

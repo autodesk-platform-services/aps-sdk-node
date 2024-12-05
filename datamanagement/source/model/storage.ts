@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JsonApiLinksSelf } from './json-api-links-self';
-import { JsonApiVersion } from './json-api-version';
-import { StorageData } from './storage-data';
+import { JsonApiLinksSelf } from './jsonApiLinksSelf';
+import { JsonApiVersion } from './jsonApiVersion';
+import { StorageData } from './storageData';
 
 /**
  * An object representing a storage location.
