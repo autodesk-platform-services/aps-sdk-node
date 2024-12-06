@@ -2,6 +2,6 @@
 /* eslint-disable */
 
 
-export * from './api/token-api';
-export * from './api/users-api';
+export * from './api/tokenApi';
+export * from './api/usersApi';
 

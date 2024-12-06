@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JwksKey } from './jwks-key';
+import { JwksKey } from './jwksKey';
 
 /**
  * Represents a successful response to a Get JWKS operation.
