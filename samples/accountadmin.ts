@@ -1,4 +1,4 @@
-import { AdminClient, BusinessUnitsRequestPyload, BusinessUnitsResponse, Classification, Company, CompanyImportResponse, CompanyPatchPayload, CompanyPayload, Currency, FilterTextMatch, Platform, ProductAccess, ProductKeys, Products, Project, ProjectPatchResponse, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserResponse, ProjectUsers, ProjectUsersImportPayload, ProjectUsersImportResponse, ProjectUsersUpdatePayload, Projects, Region, SortBy, Status, Timezone, Trade, User, UserImportResponse, UserPatchPayload, UserPayload } from '@aps_sdk/construction-account-admin';
+import { AdminClient, BusinessUnitsRequestPayload, BusinessUnitsResponse, Classification, Company, CompanyImportResponse, CompanyPatchPayload, CompanyPayload, Currency, FilterTextMatch, Platform, ProductAccess, ProductKeys, Products, Project, ProjectPatchResponse, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserResponse, ProjectUsers, ProjectUsersImportPayload, ProjectUsersImportResponse, ProjectUsersUpdatePayload, Projects, Region, SortBy, Status, Timezone, Trade, User, UserImportResponse, UserPatchPayload, UserPayload } from '@aps_sdk/construction-account-admin';
 import { Logger, LogLevel, SdkManager, SdkManagerBuilder, StaticAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager"
 import * as fs from "fs";
 import 'dotenv/config';
@@ -489,7 +489,7 @@ async function getBusinessUnits() {
 // Create business units of a specific account
 async function putBusinessUnits() {
     try {
-        let businessUnitsRequestPyload: BusinessUnitsRequestPyload = {
+        let businessUnitsRequestPyload: BusinessUnitsRequestPayload = {
             "business_units": [
                 {
                     "name": "test unit",

@@ -8,7 +8,7 @@ import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, ConstructionAc
 import { BusinessUnitsRequestPayload } from '../model';
 import { BusinessUnitsResponse } from '../model';
 import { Region } from '../model';
-import { Utils } from '../custom-code/Utils';
+import { Utils } from '../custom-code/utils';
 /**
  * BusinessUnitsApi - axios parameter creator
  * @export
