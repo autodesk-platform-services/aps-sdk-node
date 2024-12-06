@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { AttrDefinitionResultsMetadataList } from './attr-definition-results-metadata-list';
+import { AttrDefinitionResultsMetadataList } from './attrDefinitionResultsMetadataList';
 
 /**
  * The metadata object; only relevant for list custom attributes.

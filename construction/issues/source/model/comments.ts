@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { CommentsResults } from './comments-results';
-import { IssueTypePagination } from './issue-type-pagination';
+import { CommentsResults } from './commentsResults';
+import { IssueTypePagination } from './issueTypePagination';
 
 /**
  * The pagination object.

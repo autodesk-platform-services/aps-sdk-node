@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { PermissionLevel } from './permission-level';
-import { UserIssues } from './user-issues';
+import { PermissionLevel } from './permissionLevel';
+import { UserIssues } from './userIssues';
 
 /**
  * 

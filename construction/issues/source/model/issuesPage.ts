@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { IssuesPagePagination } from './issues-page-pagination';
+import { IssuesPagePagination } from './issuesPagePagination';
 import { Results } from './results';
 
 /**

@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { IssueLinkedDocumentsDetailsPosition } from './issue-linked-documents-details-position';
+import { IssueLinkedDocumentsDetailsPosition } from './issueLinkedDocumentsDetailsPosition';
 
 /**
  * Information about the individual viewable.
