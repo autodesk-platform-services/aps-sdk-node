@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { UserInfoAddress } from './user-info-address';
-import { UserInfoSocialUserinfoList } from './user-info-social-userinfo-list';
+import { UserInfoAddress } from './userInfoAddress';
+import { UserInfoSocialUserinfoList } from './userInfoSocialUserinfoList';
 
 /**
  * Represents a successful response to a Get User Info operation.

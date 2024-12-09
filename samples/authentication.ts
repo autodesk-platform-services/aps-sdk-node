@@ -10,8 +10,10 @@ const refreshToken = process.env.refreshToken;
 const accessToken = process.env.token;
 
 
-const sdkmanager: SdkManager = SdkManagerBuilder.create().build();
-const authenticationClient = new AuthenticationClient(sdkmanager);
+// SdkManager can be optionally initialised to add custom logger etc.
+// const sdkmanager: SdkManager = SdkManagerBuilder.create().addLogger(new Logger(LogLevel.DEBUG)).build();
+
+const authenticationClient = new AuthenticationClient();
 
 /**
 * Retrieves basic information for the given authenticated user. Only supports 3-legged access tokens.
@@ -157,7 +159,7 @@ async function getOidcSpec() {
  * Call Individual methods
  */
 
-// getTwoLeggedToken();
+ getTwoLeggedToken();
 // authorize();
 // refreshThreeLeggedToken();
 // getThreeLeggedToken();

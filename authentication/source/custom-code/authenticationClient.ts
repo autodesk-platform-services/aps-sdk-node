@@ -68,7 +68,7 @@ export class AuthenticationClient {
     */
 
     public authorize(clientId: string, responseType: ResponseType, redirectUri: string, scopes: Array<Scopes>, optionalArgs?: { state?: string, nonce?: string, responseMode?: string, prompt?: string, authoptions?: string, codeChallenge?: string, codeChallengeMethod?: string }): string {
-        const url = this.tokenApi.authorize(clientId, responseType, redirectUri, optionalArgs?.state, optionalArgs?.nonce, scopes, optionalArgs?.responseMode, optionalArgs?.prompt, optionalArgs?.authoptions, optionalArgs?.codeChallenge, optionalArgs?.codeChallengeMethod);
+        const url = this.tokenApi.authorize(clientId, responseType, redirectUri,optionalArgs?.nonce, optionalArgs?.state,  scopes, optionalArgs?.responseMode, optionalArgs?.prompt, optionalArgs?.authoptions, optionalArgs?.codeChallenge, optionalArgs?.codeChallengeMethod);
         return url;
     }
 
