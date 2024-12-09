@@ -3,8 +3,8 @@
 
 import { Classification } from './classification';
 import { Platform } from './platform';
-import { ProjectPayloadProjectValue } from './project-payload-project-value';
-import { ProjectPayloadTemplate } from './project-payload-template';
+import { ProjectPayloadProjectValue } from './projectPayloadProjectValue';
+import { ProjectPayloadTemplate } from './projectPayloadTemplate';
 import { Timezone } from './timezone';
 
 /**

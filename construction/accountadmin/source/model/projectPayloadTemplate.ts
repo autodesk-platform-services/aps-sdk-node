@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ProjectPayloadTemplateOptions } from './project-payload-template-options';
+import { ProjectPayloadTemplateOptions } from './projectPayloadTemplateOptions';
 
 /**
  * Information about a project in the current user’s account that is configured as a template from which to copy products and settings when creating a new project: If you include this object in a POST accounts/:accountId/projects request, the cloned project’s products and settings will match those of the template project. If you omit this object from a POST accounts/:accountId/projects request, all of the current ACC account’s products are added to the cloned project and activated.

@@ -5,10 +5,10 @@ import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, ConstructionAccountAdminApiError } from '../base';
-import { BusinessUnitsRequestPyload } from '../model';
+import { BusinessUnitsRequestPayload } from '../model';
 import { BusinessUnitsResponse } from '../model';
 import { Region } from '../model';
-import { Utils } from '../custom-code/Utils';
+import { Utils } from '../custom-code/utils';
 /**
  * BusinessUnitsApi - axios parameter creator
  * @export
@@ -25,7 +25,7 @@ export const BusinessUnitsApiAxiosParamCreator = function (apsConfiguration?: IA
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createBusinessUnits: async (accessToken: string, accountId: string, region?: Region, businessUnitsRequestPyload?: BusinessUnitsRequestPyload,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        createBusinessUnits: async (accessToken: string, accountId: string, region?: Region, businessUnitsRequestPyload?: BusinessUnitsRequestPayload,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('createBusinessUnits', 'accountId', accountId)
             const regionPath = Utils.GetPathfromRegion(region ?? Region.Us);
@@ -129,7 +129,7 @@ export const BusinessUnitsApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createBusinessUnits(accessToken: string, accountId: string, region?: Region, businessUnitsRequestPyload?: BusinessUnitsRequestPyload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BusinessUnitsResponse>> {
+        async createBusinessUnits(accessToken: string, accountId: string, region?: Region, businessUnitsRequestPyload?: BusinessUnitsRequestPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BusinessUnitsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createBusinessUnits(accessToken, accountId, region, businessUnitsRequestPyload,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -165,7 +165,7 @@ export interface BusinessUnitsApiInterface {
      * @throws {RequiredError}
      * @memberof BusinessUnitsApiInterface
      */
-    createBusinessUnits(accessToken: string,accountId: string, region?: Region, businessUnitsRequestPyload?: BusinessUnitsRequestPyload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    createBusinessUnits(accessToken: string,accountId: string, region?: Region, businessUnitsRequestPyload?: BusinessUnitsRequestPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Query all the business units in a specific BIM 360 account.
@@ -200,7 +200,7 @@ export class BusinessUnitsApi extends BaseApi implements BusinessUnitsApiInterfa
      * @throws {RequiredError}
      * @memberof BusinessUnitsApi
      */
-    public async createBusinessUnits(accessToken: string, accountId: string, region?: Region, businessUnitsRequestPyload?: BusinessUnitsRequestPyload, options?: ApsServiceRequestConfig) {
+    public async createBusinessUnits(accessToken: string, accountId: string, region?: Region, businessUnitsRequestPyload?: BusinessUnitsRequestPayload, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into createBusinessUnits ");
       try {
         const request =  await BusinessUnitsApiFp(this.sdkManager).createBusinessUnits(accessToken, accountId, region, businessUnitsRequestPyload,  options);

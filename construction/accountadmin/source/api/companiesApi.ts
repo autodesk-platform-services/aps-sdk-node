@@ -11,7 +11,7 @@ import { CompanyPatchPayload } from '../model';
 import { CompanyPayload } from '../model';
 import { CompanyResponse } from '../model';
 import { Region } from '../model';
-import { Utils } from '../custom-code/Utils';
+import { Utils } from '../custom-code/utils';
 /**
  * CompaniesApi - axios parameter creator
  * @export

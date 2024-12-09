@@ -17,7 +17,7 @@ import { Projects } from '../model';
 import { Region } from '../model';
 import { SortBy } from '../model';
 import { Status } from '../model';
-import { Utils } from '../custom-code/Utils';
+import { Utils } from '../custom-code/utils';
 /**
  * ProjectsApi - axios parameter creator
  * @export

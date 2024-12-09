@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ProjectUser } from './project-user';
-import { ProjectsPagination } from './projects-pagination';
+import { ProjectUser } from './projectUser';
+import { ProjectsPagination } from './projectsPagination';
 
 /**
  * 

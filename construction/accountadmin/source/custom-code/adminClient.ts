@@ -1,6 +1,6 @@
 import { ApsServiceRequestConfig, BaseClient, IAuthenticationProvider, SdkManager, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
 import { CompaniesApi, ProjectsApi, ProjectUsersApi, AccountUsersApi, BusinessUnitsApi } from "../api";
-import { AccessLevels, BusinessUnitsRequestPyload, BusinessUnitsResponse, Classification, Company, CompanyImportResponse, CompanyPatchPayload, CompanyPayload, CompanyResponse, Fields, FilterTextMatch, OrFilters, Platform, Products, Project, ProjectPatchResponse, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserResponse, ProjectUsers, ProjectUsersImportPayload, ProjectUsersImportResponse, ProjectUsersUpdatePayload, Projects, Region, SortBy, Status, StatusFilter, User, UserFields, UserImportResponse, UserPatchPayload, UserPayload, UserSortBy } from "../model";
+import { AccessLevels, BusinessUnitsRequestPayload, BusinessUnitsResponse, Classification, Company, CompanyImportResponse, CompanyPatchPayload, CompanyPayload, CompanyResponse, Fields, FilterTextMatch, OrFilters, Platform, Products, Project, ProjectPatchResponse, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserResponse, ProjectUsers, ProjectUsersImportPayload, ProjectUsersImportResponse, ProjectUsersUpdatePayload, Projects, Region, SortBy, Status, StatusFilter, User, UserFields, UserImportResponse, UserPatchPayload, UserPayload, UserSortBy } from "../model";
 
 export class AdminClient extends BaseClient {
     public companiesApi: CompaniesApi;
@@ -664,7 +664,7 @@ export class AdminClient extends BaseClient {
      * @throws {RequiredError}
      * @memberof BusinessUnitsApi
      */
-    public async createBusinessUnits(accountId: string, businessUnitsRequestPyload: BusinessUnitsRequestPyload, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<BusinessUnitsResponse> {
+    public async createBusinessUnits(accountId: string, businessUnitsRequestPyload: BusinessUnitsRequestPayload, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<BusinessUnitsResponse> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }

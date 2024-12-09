@@ -10,7 +10,7 @@ import { User } from '../model';
 import { UserImportResponse } from '../model';
 import { UserPatchPayload } from '../model';
 import { UserPayload } from '../model';
-import { Utils } from '../custom-code/Utils';
+import { Utils } from '../custom-code/utils';
 /**
  * AccountUsersApi - axios parameter creator
  * @export

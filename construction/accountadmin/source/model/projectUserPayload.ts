@@ -1,37 +1,37 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ProjectUsersUpdatePayloadProducts } from './project-users-update-payload-products';
+import { ProjectUserPayloadProducts } from './projectUserPayloadProducts';
 
 /**
  * 
  * @export
- * @interface ProjectUsersUpdatePayload
+ * @interface ProjectUserPayload
  */
-export interface ProjectUsersUpdatePayload {
+export interface ProjectUserPayload {
     /**
      * The email address of the user. Max length: 255
      * @type {string}
-     * @memberof ProjectUsersUpdatePayload
+     * @memberof ProjectUserPayload
      */
-    'email'?: string;
+    'email': string;
     /**
      * The ID of the company that the user is representing in the project. To obtain a list of all company IDs associated with a project, call GET projects/:projectId/companies.
      * @type {string}
-     * @memberof ProjectUsersUpdatePayload
+     * @memberof ProjectUserPayload
      */
     'companyId'?: string;
     /**
      * A list of IDs of the roles that the user belongs to in the project.
      * @type {Array<string>}
-     * @memberof ProjectUsersUpdatePayload
+     * @memberof ProjectUserPayload
      */
     'roleIds'?: Array<string>;
     /**
      * 
-     * @type {Array<ProjectUsersUpdatePayloadProducts>}
-     * @memberof ProjectUsersUpdatePayload
+     * @type {Array<ProjectUserPayloadProducts>}
+     * @memberof ProjectUserPayload
      */
-    'products'?: Array<ProjectUsersUpdatePayloadProducts>;
+    'products': Array<ProjectUserPayloadProducts>;
 }
 

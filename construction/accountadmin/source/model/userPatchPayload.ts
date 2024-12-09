@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { UserPatchStatus } from './user-patch-status';
+import { UserPatchStatus } from './userPatchStatus';
 
 /**
  * 

@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 import { Project } from './project';
-import { ProjectsPagination } from './projects-pagination';
+import { ProjectsPagination } from './projectsPagination';
 
 /**
  * 
