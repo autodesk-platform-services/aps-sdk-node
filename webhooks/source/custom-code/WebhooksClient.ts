@@ -9,7 +9,6 @@ import {
   ModifyHookPayload,
   TokenPayload,
   Token,
-  XAdsRegion,
   Region,
   StatusFilter,
   Sort
@@ -41,7 +40,6 @@ export class WebhooksClient extends BaseClient {
     event: Events | string,
     hookPayload: HookPayload,
     optionalArgs?: {
-      xAdsRegion?: XAdsRegion,
       region?: Region,
       accessToken?: string,
       options?: ApsServiceRequestConfig,
@@ -57,8 +55,8 @@ export class WebhooksClient extends BaseClient {
       optionalArgs?.accessToken,
       system,
       event,
-      optionalArgs?.xAdsRegion,
       optionalArgs?.region,
+      null,
       hookPayload,
       optionalArgs?.options
     );
@@ -69,7 +67,6 @@ export class WebhooksClient extends BaseClient {
     system: Systems | string,
     hookPayload: HookPayload,
     optionalArgs?: {
-      xAdsRegion?: XAdsRegion,
       region?: Region,
       accessToken?: string,
       options?: ApsServiceRequestConfig
@@ -84,8 +81,8 @@ export class WebhooksClient extends BaseClient {
     const response = await this.hooksApi.createSystemHook(
       optionalArgs?.accessToken,
       system,
-      optionalArgs?.xAdsRegion,
       optionalArgs?.region,
+      null,
       hookPayload,
       optionalArgs?.options
     );
@@ -97,7 +94,6 @@ export class WebhooksClient extends BaseClient {
     event: Events | string,
     hookId: string,
     optionalArgs?: {
-      xAdsRegion?: XAdsRegion,
       region?: Region,
       accessToken?: string,
       options?: ApsServiceRequestConfig
@@ -114,8 +110,8 @@ export class WebhooksClient extends BaseClient {
       system,
       event,
       hookId,
-      optionalArgs?.xAdsRegion,
       optionalArgs?.region,
+      null,
       optionalArgs?.options
     );
     return response.content;
@@ -123,7 +119,6 @@ export class WebhooksClient extends BaseClient {
 
   public async getAppHooks(
     optionalArgs?: {
-      xAdsRegion?: XAdsRegion,
       pageState?: string,
       status?: StatusFilter,
       sort?: Sort,
@@ -140,11 +135,11 @@ export class WebhooksClient extends BaseClient {
     }
     const response = await this.hooksApi.getAppHooks(
       optionalArgs?.accessToken,
-      optionalArgs?.xAdsRegion,
+      optionalArgs?.region,
       optionalArgs?.pageState,
       optionalArgs?.status,
       optionalArgs?.sort,
-      optionalArgs?.region,
+      null,
       optionalArgs?.options
     );
     return response.content;
@@ -155,7 +150,6 @@ export class WebhooksClient extends BaseClient {
     event: Events | string,
     hookId: string,
     optionalArgs?: {
-      xAdsRegion?: XAdsRegion,
       region?: Region,
       accessToken?: string,
       options?: ApsServiceRequestConfig
@@ -172,8 +166,8 @@ export class WebhooksClient extends BaseClient {
       system,
       event,
       hookId,
-      optionalArgs?.xAdsRegion,
       optionalArgs?.region,
+      null,
       optionalArgs?.options
     );
     return response.content;
@@ -184,7 +178,6 @@ export class WebhooksClient extends BaseClient {
       pageState?: string,
       status?: StatusFilter,
       region?: Region,
-      xAdsRegion?: XAdsRegion;
       accessToken?: string,
       options?: ApsServiceRequestConfig
     }
@@ -199,8 +192,8 @@ export class WebhooksClient extends BaseClient {
       optionalArgs?.accessToken,
       optionalArgs?.pageState,
       optionalArgs?.status,
+      null,
       optionalArgs?.region,
-      optionalArgs?.xAdsRegion,
       optionalArgs?.options
     );
     return response.content;
@@ -210,7 +203,6 @@ export class WebhooksClient extends BaseClient {
     system: Systems | string,
     event: Events | string,
     optionalArgs?: {
-      xAdsRegion?: XAdsRegion;
       region?: Region,
       scopeName?: string,
       pageState?: string,
@@ -229,8 +221,8 @@ export class WebhooksClient extends BaseClient {
       optionalArgs?.accessToken,
       system,
       event,
-      optionalArgs?.xAdsRegion,
       optionalArgs?.region,
+      null,
       optionalArgs?.scopeName,
       optionalArgs?.pageState,
       optionalArgs?.status,
@@ -242,7 +234,6 @@ export class WebhooksClient extends BaseClient {
   public async getSystemHooks(
     system: Systems | string,
     optionalArgs?: {
-      xAdsRegion?: XAdsRegion;
       status?: StatusFilter,
       pageState?: string,
       region?: Region,
@@ -259,10 +250,10 @@ export class WebhooksClient extends BaseClient {
     const response = await this.hooksApi.getSystemHooks(
       optionalArgs?.accessToken,
       system,
-      optionalArgs?.xAdsRegion,
+      optionalArgs?.region,
       optionalArgs?.status,
       optionalArgs?.pageState,
-      optionalArgs?.region,
+      null,
       optionalArgs?.options
     );
     return response.content;
@@ -273,8 +264,7 @@ export class WebhooksClient extends BaseClient {
     event: Events | string,
     hookId: string,
     modifyHookPayload: ModifyHookPayload,
-    optionalArgs?: {
-      xAdsRegion?: XAdsRegion;
+    optionalArgs?: {      
       region?: Region,
       accessToken?: string,
       options?: ApsServiceRequestConfig
@@ -291,8 +281,8 @@ export class WebhooksClient extends BaseClient {
       system,
       event,
       hookId,
-      optionalArgs?.xAdsRegion,
       optionalArgs?.region,
+      null,
       modifyHookPayload,
       optionalArgs?.options
     );
@@ -301,8 +291,7 @@ export class WebhooksClient extends BaseClient {
 
   public async createToken(
     tokenPayload: TokenPayload,
-    optionalArgs?: {
-      xAdsRegion?: XAdsRegion;
+    optionalArgs?: {      
       region?: Region,
       accessToken?: string,
       options?: ApsServiceRequestConfig
@@ -316,8 +305,8 @@ export class WebhooksClient extends BaseClient {
     }
     const response = await this.tokensApi.createToken(
       optionalArgs?.accessToken,
-      optionalArgs?.xAdsRegion,
       optionalArgs?.region,
+      null,
       tokenPayload,
       optionalArgs?.options
     );
@@ -325,8 +314,7 @@ export class WebhooksClient extends BaseClient {
   }
 
   public async deleteToken(
-    optionalArgs?: {
-      xAdsRegion?: XAdsRegion,
+    optionalArgs?: {      
       region?: Region,
       accessToken?: string,
       options?: ApsServiceRequestConfig
@@ -340,8 +328,8 @@ export class WebhooksClient extends BaseClient {
     }
     const response = await this.tokensApi.deleteToken(
       optionalArgs?.accessToken,
-      optionalArgs?.xAdsRegion,
       optionalArgs?.region,
+      null,
       optionalArgs?.options
     );
     return response.content;
@@ -349,8 +337,7 @@ export class WebhooksClient extends BaseClient {
 
   public async putToken(
     tokenPayload: TokenPayload,
-    optionalArgs?: {
-      xAdsRegion?: XAdsRegion,
+    optionalArgs?: {      
       region?: Region,
       accessToken?: string,
       options?: ApsServiceRequestConfig
@@ -364,8 +351,8 @@ export class WebhooksClient extends BaseClient {
     }
     const response = await this.tokensApi.putToken(
       optionalArgs?.accessToken,
-      optionalArgs?.xAdsRegion,
       optionalArgs?.region,
+      null,
       tokenPayload,
       optionalArgs?.options
     );

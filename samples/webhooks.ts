@@ -1,4 +1,4 @@
-import { Systems, Events, HookPayload, Hooks, HookDetails, ModifyHookPayload, TokenPayload, Token, XAdsRegion, Region, StatusFilter, Sort } from "@aps_sdk/webhooks";
+import { Systems, Events, HookPayload, Hooks, HookDetails, ModifyHookPayload, TokenPayload, Token, Region, StatusFilter, Sort } from "@aps_sdk/webhooks";
 import { Logger, LogLevel, SdkManager, SdkManagerBuilder, StaticAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager"; // Assuming a default export
 import { WebhooksClient } from "@aps_sdk/webhooks";
 import 'dotenv/config';
@@ -77,7 +77,7 @@ async function getSystemHooks(): Promise<any> {
 // get details of a webhook based on its webhook Id
 async function getHookDetails(): Promise<any> {
   try {
-    const response: HookDetails = await webhooksClient.getHookDetails(system, event, hookId, {xAdsRegion: XAdsRegion.Us});
+    const response: HookDetails = await webhooksClient.getHookDetails(system, event, hookId, {region: Region.Us});
     console.log(response);
   } catch (error) {
     console.error(`Failed to get hook details:`, error.message);
@@ -87,7 +87,7 @@ async function getHookDetails(): Promise<any> {
 // get a paginated list of webhooks created in the context of a Client or Application. This API accepts 2-legged token of the application only. If the pageState query string is not specified, the first page is returned.
 async function getAppHooks(): Promise<any> {
   try {
-    const response: Hooks = await webhooksClient.getAppHooks({xAdsRegion: XAdsRegion.Apac, status: StatusFilter.Active, sort: Sort.Asc, accessToken: "test-token"});
+    const response: Hooks = await webhooksClient.getAppHooks({region: Region.Apac, status: StatusFilter.Active, sort: Sort.Asc, accessToken: "test-token"});
     console.log(response);
   } catch (error) {
     console.error(`Failed to get app hooks:`, error.message);
