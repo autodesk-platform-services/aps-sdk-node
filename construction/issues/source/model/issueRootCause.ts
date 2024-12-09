@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { IssueRootCauseResults } from './issue-root-cause-results';
-import { IssueTypePagination } from './issue-type-pagination';
+import { IssueRootCauseResults } from './issueRootCauseResults';
+import { IssueTypePagination } from './issueTypePagination';
 
 /**
  * The pagination object.

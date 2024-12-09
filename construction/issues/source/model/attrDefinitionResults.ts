@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { AttrDefinitionResultsMetadata } from './attr-definition-results-metadata';
-import { DataType } from './data-type';
+import { AttrDefinitionResultsMetadata } from './attrDefinitionResultsMetadata';
+import { DataType } from './dataType';
 
 /**
  * 

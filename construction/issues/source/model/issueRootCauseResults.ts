@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { IssueRootCauseResultsRootCauses } from './issue-root-cause-results-root-causes';
+import { IssueRootCauseResultsRootCauses } from './issueRootCauseResultsRootCauses';
 
 /**
  * 

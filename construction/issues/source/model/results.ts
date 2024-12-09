@@ -1,10 +1,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { AssignedToType } from './assigned-to-type';
-import { IssueCustomAttributes } from './issue-custom-attributes';
-import { IssueGpsCoordinates } from './issue-gps-coordinates';
-import { ResultsLinkedDocuments } from './results-linked-documents';
+import { AssignedToType } from './assignedToType';
+import { IssueCustomAttributes } from './issueCustomAttributes';
+import { IssueGpsCoordinates } from './issueGpsCoordinates';
+import { ResultsLinkedDocuments } from './resultsLinkedDocuments';
 
 /**
  * 

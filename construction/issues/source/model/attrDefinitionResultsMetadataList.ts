@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { AttrDefinitionResultsMetadataListOptions } from './attr-definition-results-metadata-list-options';
+import { AttrDefinitionResultsMetadataListOptions } from './attrDefinitionResultsMetadataListOptions';
 
 /**
  * The list object.

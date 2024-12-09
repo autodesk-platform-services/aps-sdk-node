@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { IssueTypePagination } from './issue-type-pagination';
-import { IssueTypeResults } from './issue-type-results';
+import { IssueTypePagination } from './issueTypePagination';
+import { IssueTypeResults } from './issueTypeResults';
 
 /**
  * 

@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { AssignedToType } from './assigned-to-type';
-import { IssuePayloadCustomAttributes } from './issue-payload-custom-attributes';
-import { IssuePayloadGpsCoordinates } from './issue-payload-gps-coordinates';
+import { AssignedToType } from './assignedToType';
+import { IssuePayloadCustomAttributes } from './issuePayloadCustomAttributes';
+import { IssuePayloadGpsCoordinates } from './issuePayloadGpsCoordinates';
 import { Status } from './status';
 
 /**

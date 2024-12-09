@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { AttrDefinitionResults } from './attr-definition-results';
-import { IssueTypePagination } from './issue-type-pagination';
+import { AttrDefinitionResults } from './attrDefinitionResults';
+import { IssueTypePagination } from './issueTypePagination';
 
 /**
  * The pagination object.

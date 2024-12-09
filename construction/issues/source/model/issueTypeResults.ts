@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { IssueTypeResultsSubtypes } from './issue-type-results-subtypes';
+import { IssueTypeResultsSubtypes } from './issueTypeResultsSubtypes';
 
 /**
  * 

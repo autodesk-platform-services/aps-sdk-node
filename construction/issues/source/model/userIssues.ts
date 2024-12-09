@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { UserIssuesFilter } from './user-issues-filter';
-import { UserIssuesNew } from './user-issues-new';
+import { UserIssuesFilter } from './userIssuesFilter';
+import { UserIssuesNew } from './userIssuesNew';
 
 /**
  * 
