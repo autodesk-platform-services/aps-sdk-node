@@ -83,6 +83,12 @@ export interface HookDetails {
      */
     'hookExpiry'?: string;
     /**
+     * Custom metadata which will be less than 1KB in size.
+     * @type {object}
+     * @memberof HookDetails
+     */
+    'hookAttribute'?: object;
+    /**
      * 
      * @type {HookDetailsScope}
      * @memberof HookDetails
@@ -107,4 +113,6 @@ export interface HookDetails {
      */
     '__self__'?: string;
 }
+
+
 
