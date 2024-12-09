@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { BatchcompleteuploadObjectRequests } from './batchcompleteupload-object-requests';
+import { BatchcompleteuploadObjectRequests } from './batchcompleteuploadObjectRequests';
 
 /**
  * The request payload for the Complete Batch Upload to S3 Signed URLs operation.

@@ -7,9 +7,9 @@ import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDat
 import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, OssApiError } from '../base';
 import { Bucket } from '../model';
 import { Buckets } from '../model';
-import { CreateBucketsPayload } from '../model';
 import { Reason } from '../model';
 import { Region } from '../model';
+import { CreateBucketsPayload } from '../model';
 /**
  * BucketsApi - axios parameter creator
  * @export

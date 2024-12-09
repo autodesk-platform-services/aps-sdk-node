@@ -1,5 +1,5 @@
 import { IAuthClient, SdkManager, ApiResponse, ApsServiceRequestConfig, IAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager";
-import { IFileTransferConfigurations } from './FileTransferConfigurations';
+import { IFileTransferConfigurations } from './fileTransferConfigurations';
 import { ObjectsApi } from "../api";
 import { Completes3uploadBody, DownloadStatus, Signeds3downloadResponse, Signeds3uploadResponse } from "../model";
 import { OssApiError, RequestArgs } from "../base";

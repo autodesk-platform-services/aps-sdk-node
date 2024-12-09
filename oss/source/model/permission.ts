@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { PermissionAccess } from './permission-access';
+import { PermissionAccess } from './permissionAccess';
 
 /**
  * An object representing the permissions for accessing a bucket.

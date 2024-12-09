@@ -1,10 +1,10 @@
 import { SdkManager, ApiResponse, ApsServiceRequestConfig, SdkManagerBuilder, BaseClient, IAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager";
-import { OSSFileTransfer } from "./OSSFileTransfer";
+import { ObjectDetails, BatchcompleteuploadObject, BatchcompleteuploadResponse, Batchsigneds3downloadObject, Batchsigneds3uploadObject, Batchsigneds3uploadResponse, Completes3uploadBody, Region, CreateBucketsPayload, Bucket, Access, CreateSignedResource, CreateObjectSigned, Buckets, With, ObjectFullDetails, BucketObjects, Signeds3downloadResponse, Signeds3uploadResponse } from "../model";
+import { OSSFileTransfer } from "./ossFileTransfer";
 import { BucketsApi, ObjectsApi } from "../api";
-import { FileTransferConfigurations } from "./FileTransferConfigurations";
-import { CreateBucketsPayload, ObjectDetails, ObjectFullDetails, Bucket, Buckets, BucketObjects, BatchcompleteuploadResponse, BatchcompleteuploadObject, Batchsigneds3downloadObject, Batchsigneds3downloadResponse, Batchsigneds3uploadObject, Batchsigneds3uploadResponse, Completes3uploadBody, CreateObjectSigned, CreateSignedResource, Signeds3downloadResponse, Signeds3uploadResponse, Region, With, Access } from "../model";
-import {promises as fs} from "fs";
-import {Stream } from "stream";
+import { FileTransferConfigurations } from "./fileTransferConfigurations";
+import { promises as fs } from "fs";
+import { Stream } from "stream";
 
 export class OssClient extends BaseClient {
 
@@ -23,19 +23,19 @@ export class OssClient extends BaseClient {
         this.ossFileTransfer = new OSSFileTransfer(new FileTransferConfigurations(3), optionalArgs.sdkManager, optionalArgs.authenticationProvider);
 
     }
-     /**
-     *Downloads a file by transparently handling operations like obtaining signed download URLs and chunking large files for optimal transfer.
-     * @param {string} bucketKey URL-encoded bucket key
-     * @param {string} objectKey URL-encoded object name
-     * @param {string} filePath The Path of the file where should be downloaded 
-     * @param accessToken bearer access token
-     * @param {AbortController} cancellationToken
-     * @param {string} requestIdPrefix
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OSSApiInterface
-     */
-    public async download(bucketKey: string, objectKey: string, filePath: string, optionalArgs?: { cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<void>;
+    /**
+    *Downloads a file by transparently handling operations like obtaining signed download URLs and chunking large files for optimal transfer.
+    * @param {string} bucketKey URL-encoded bucket key
+    * @param {string} objectKey URL-encoded object name
+    * @param {string} filePath The Path of the file where should be downloaded 
+    * @param accessToken bearer access token
+    * @param {AbortController} cancellationToken
+    * @param {string} requestIdPrefix
+    * @param {*} [options] Override http request option.
+    * @throws {RequiredError}
+    * @memberof OSSApiInterface
+    */
+    public async downloadObjectAsync(bucketKey: string, objectKey: string, filePath: string, optionalArgs?: { cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<void>;
     /**
      *Downloads a file by transparently handling operations like obtaining signed download URLs and chunking large files for optimal transfer.
      * @param {string} bucketKey URL-encoded bucket key
@@ -49,8 +49,8 @@ export class OssClient extends BaseClient {
      * @memberof OSSApiInterface
      * 
      */
-    public async download(bucketKey: string, objectKey: string, optionalArgs?: { cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<Stream>;
-    public async download(bucketKey: string, objectKey: string, filePathOrOptionalArgs: string | { cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }, optionalArgs?: { cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<void | Stream> {
+    public async downloadObjectAsync(bucketKey: string, objectKey: string, optionalArgs?: { cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<Stream>;
+    public async downloadObjectAsync(bucketKey: string, objectKey: string, filePathOrOptionalArgs: string | { cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }, optionalArgs?: { cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<void | Stream> {
         let filePath: string | undefined;
         if (typeof filePathOrOptionalArgs === 'string') {
             filePath = filePathOrOptionalArgs;
@@ -83,7 +83,7 @@ export class OssClient extends BaseClient {
      * @throws {RequiredError}
      * @memberof OSSApiInterface
      */
-    public async upload(bucketKey: string, objectKey: string, sourceToUpload: Buffer | string, optionalArgs?: { cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<ObjectDetails> {
+    public async uploadObjectAsync(bucketKey: string, objectKey: string, sourceToUpload: Buffer | string, optionalArgs?: { cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<ObjectDetails> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }

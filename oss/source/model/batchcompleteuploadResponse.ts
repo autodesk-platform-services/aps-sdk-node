@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { BatchCompletedResults } from './batch-completed-results';
+import { BatchCompletedResults } from './batchCompletedResults';
 
 /**
  * The response to a Complete Batch Upload to S3 Signed URLs operation.

@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { DownloadResults } from './download-results';
+import { DownloadResults } from './downloadResults';
 
 /**
  * The response to a Batch Generate Signed S3 Download URLs operation.

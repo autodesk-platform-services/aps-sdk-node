@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { PolicyKey } from './policy-key';
+import { PolicyKey } from './policyKey';
 
 /**
  * An object containing the properties of a bucket.
