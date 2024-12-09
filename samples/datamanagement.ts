@@ -7,7 +7,6 @@ import { PublishWithoutLinksPayloadRelationships } from "@aps_sdk/data-managemen
 import { PublishWithoutLinksPayloadRelationshipsResources } from "@aps_sdk/data-management";
 
 const token: string = process.env.accessToken;
-
 let hub_id: string = process.env.hubId;
 let project_id: string = process.env.projectId;
 let folder_id: string = process.env.folderId;
