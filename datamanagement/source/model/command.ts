@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { CommandData } from './commandData';
-import { JsonApiVersion } from './jsonApiVersion';
+import { CommandData } from './command-data';
+import { JsonApiVersion } from './json-api-version';
 
 /**
  * Commamd response

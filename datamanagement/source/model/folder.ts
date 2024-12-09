@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { FolderData } from './folderData';
-import { JsonApiLinksSelf } from './jsonApiLinksSelf';
-import { JsonApiVersion } from './jsonApiVersion';
+import { FolderData } from './folder-data';
+import { JsonApiLinksSelf } from './json-api-links-self';
+import { JsonApiVersion } from './json-api-version';
 
 /**
  * An object that represents a folder.

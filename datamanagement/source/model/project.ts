@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JsonApiLinksSelf } from './jsonApiLinksSelf';
-import { JsonApiVersion } from './jsonApiVersion';
-import { ProjectData } from './projectData';
+import { JsonApiLinksSelf } from './json-api-links-self';
+import { JsonApiVersion } from './json-api-version';
+import { ProjectData } from './project-data';
 
 /**
  * An object that represents a project.

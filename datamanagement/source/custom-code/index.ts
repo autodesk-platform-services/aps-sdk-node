@@ -1,1 +1,1 @@
-export * from "./dataManagementClient";
+export * from "./DataManagementClient";

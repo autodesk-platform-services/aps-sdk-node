@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JobData } from './jobData';
-import { JsonApiLinksSelf } from './jsonApiLinksSelf';
-import { JsonApiVersion } from './jsonApiVersion';
+import { JobData } from './job-data';
+import { JsonApiLinksSelf } from './json-api-links-self';
+import { JsonApiVersion } from './json-api-version';
 
 /**
  * Details of the specified job was returned successfully.

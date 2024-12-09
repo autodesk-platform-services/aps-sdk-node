@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JsonApiVersion } from './jsonApiVersion';
-import { PaginationInfo } from './paginationInfo';
-import { ProjectData } from './projectData';
+import { JsonApiVersion } from './json-api-version';
+import { PaginationInfo } from './pagination-info';
+import { ProjectData } from './project-data';
 
 /**
  * An object representing a collection of projects within a hub.

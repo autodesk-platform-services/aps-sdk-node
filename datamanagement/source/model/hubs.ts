@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HubData } from './hubData';
-import { JsonApiLinksSelf } from './jsonApiLinksSelf';
-import { JsonApiVersion } from './jsonApiVersion';
+import { HubData } from './hub-data';
+import { JsonApiLinksSelf } from './json-api-links-self';
+import { JsonApiVersion } from './json-api-version';
 
 /**
  * Successful retrieval of the hubs collection.

@@ -1,10 +1,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ItemData } from './itemData';
-import { JsonApiLinksSelf } from './jsonApiLinksSelf';
-import { JsonApiVersion } from './jsonApiVersion';
-import { VersionData } from './versionData';
+import { ItemData } from './item-data';
+import { JsonApiLinksSelf } from './json-api-links-self';
+import { JsonApiVersion } from './json-api-version';
+import { VersionData } from './version-data';
 
 /**
  * An object that represents an item.

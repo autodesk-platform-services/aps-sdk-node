@@ -7,7 +7,6 @@
     "outDir": "dist",
     "rootDir": ".",
     "moduleResolution": "node",
-    "forceConsistentCasingInFileNames": true,
     "typeRoots": [
       "node_modules/@types"
     ]

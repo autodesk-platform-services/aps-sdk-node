@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { DownloadData } from './downloadData';
-import { JsonApiLinksSelf } from './jsonApiLinksSelf';
-import { JsonApiVersion } from './jsonApiVersion';
+import { DownloadData } from './download-data';
+import { JsonApiLinksSelf } from './json-api-links-self';
+import { JsonApiVersion } from './json-api-version';
 
 /**
  * Successful retrieval of the available downloads collection associated with a specific version.
