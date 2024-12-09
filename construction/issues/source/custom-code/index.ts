@@ -1,1 +1,1 @@
-export * from "./issueClient"
+export * from "./issuesClient"

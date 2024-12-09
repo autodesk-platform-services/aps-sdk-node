@@ -2,7 +2,7 @@ import { SdkManager, ApiResponse, ApsServiceRequestConfig, BaseClient, IAuthenti
 import { Region, DataType, AttrDefinition, Fields, IssuePayload, SortBy, User, Issue, IssuesPage, IssueType, IssueRootCause, AttrMapping, CommentsPayload, CreatedComment, Comments } from "../model";
 import { IssueAttributeDefinitionsApi, IssueAttributeMappingsApi, IssueCommentsApi, IssueRootCauseCategoriesApi, IssueTypesApi, IssuesApi, IssuesProfileApi } from "../api";
 
-export class IssueClient extends BaseClient {
+export class IssuesClient extends BaseClient {
 
   public issueattributedefinitionsapi: IssueAttributeDefinitionsApi;
   public issueAttributemappingsapi: IssueAttributeMappingsApi;
