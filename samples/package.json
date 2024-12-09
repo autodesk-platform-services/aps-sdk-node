@@ -10,13 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "@aps_sdk/authentication": "^1.0.0-beta.1",
-    "@aps_sdk/autodesk-sdkmanager": "^1.0.0-beta.2",
-    "@aps_sdk/data-management": "^0.0.3-beta.1",
+    "@aps_sdk/autodesk-sdkmanager": "^1.0.0",
+    "@aps_sdk/construction-account-admin": "^1.0.0-beta.3",
+    "@aps_sdk/construction-issues": "^1.0.0-beta.2",
+    "@aps_sdk/data-management": "file:../datamanagement/source/aps_sdk-data-management-1.0.0-beta.5.tgz",
     "@aps_sdk/model-derivative": "^1.0.0-beta.3",
     "@aps_sdk/oss": "^1.0.0-beta.2",
     "@aps_sdk/webhooks": "^1.0.0-beta.2",
-    "@aps_sdk/construction-account-admin": "^1.0.0-beta.3",
-    "@aps_sdk/construction-issues": "^1.0.0-beta.2",
     "dotenv": "^16.4.5"
   }
 }
