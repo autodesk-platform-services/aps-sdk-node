@@ -1,10 +1,10 @@
-import { ApiResponse, SdkManager, SdkManagerBuilder, StaticAuthenticationProvider } from  "@aps_sdk/autodesk-sdkmanager"
+import { ApiResponse, SdkManager, SdkManagerBuilder, StaticAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager"
 import { BaseAttributesExtensionObjectWithoutSchemaLink, BaseAttributesExtensionObjectWithSchemaLink, BaseAttributesExtensionObjectWithSchemaLinkSchema, CreatedVersion, CreatedVersionData, DataManagementClient, DownloadFormats, DownloadFormatsData, Downloads, FilterType, FilterTypeVersion, Folder, FolderContents, FolderContentsData, FolderData, FolderPayload, FolderPayloadData, FolderPayloadDataAttributes, FolderPayloadDataAttributesExtension, FolderPayloadDataRelationships, FolderPayloadDataRelationshipsParent, FolderPayloadDataRelationshipsParentData, FolderRefs, Hub, HubData, HubDataAttributes, Hubs, Item, ItemData, ItemPayload, ItemPayloadData, ItemPayloadDataAttributes, ItemPayloadDataAttributesExtension, ItemPayloadDataRelationships, ItemTip, JsonApiVersion, JsonApiVersionValue, ModifyFolderPayload, ModifyFolderPayloadData, ModifyFolderPayloadDataAttributes, ModifyVersionPayload, ModifyVersionPayloadData, ModifyVersionPayloadDataAttributes, Refs, RelationshipLinks, RelationshipRefs, RelationshipRefsPayload, RelationshipRefsPayloadData, RelationshipRefsPayloadDataMeta, Search, TypeEntity, TypeFolder, TypeItem, TypeObject, TypeVersion, Version, VersionData, VersionPayload, VersionPayloadData, VersionPayloadDataAttributes, VersionPayloadDataAttributesExtension, VersionPayloadDataRelationships, VersionPayloadDataRelationshipsItem, VersionPayloadDataRelationshipsItemData, VersionPayloadDataRelationshipsStorage, VersionPayloadDataRelationshipsStorageData, Versions } from "@aps_sdk/data-management";
 import 'dotenv/config';
-import { Project, Projects, ProjectDataAttributes, TopFolders, StoragePayload, TypeFolderItemsForStorage, DownloadPayload, TypeDownloads, CreatedDownload, Job, Download} from "@aps_sdk/data-management";
+import { Project, Projects, ProjectDataAttributes, TopFolders, StoragePayload, TypeFolderItemsForStorage, DownloadPayload, TypeDownloads, CreatedDownload, Job, Download } from "@aps_sdk/data-management";
 import { CheckPermission, CheckPermissionPayload, CheckPermissionPayloadAttributes, CheckPermissionPayloadAttributesExtension, CheckPermissionPayloadAttributesExtensionData, CheckPermissionPayloadRelationships, CheckPermissionPayloadRelationshipsResources, CreatedItem, FilterDirection, FilterRefType, ItemPayloadDataRelationshipsParent, ItemPayloadDataRelationshipsParentData, ItemPayloadDataRelationshipsTip, ItemPayloadDataRelationshipsTipData, ItemPayloadIncludedAttributes, ItemPayloadIncludedAttributesExtension, ListItems, ListItemsPayload, ListItemsPayloadAttributes, ListItemsPayloadAttributesExtension, ListItemsPayloadAttributesExtensionData, ListItemsPayloadRelationships, ListItemsPayloadRelationshipsResources, ListRefs, ListRefsPayload, ListRefsPayloadAttributes, ListRefsPayloadAttributesExtension, ListRefsPayloadRelationships, ListRefsPayloadRelationshipsResources, ModifyItemPayload, ModifyItemPayloadData, ModifyItemPayloadDataAttributes, PublishModel, PublishModelJobPayload, PublishModelJobPayloadAttributes, PublishModelJobPayloadAttributesExtension, PublishModelJobPayloadRelationships, PublishModelJobPayloadRelationshipsResources, PublishModelPayload, PublishModelPayloadAttributes, PublishModelPayloadAttributesExtension, PublishModelPayloadRelationships, PublishModelPayloadRelationshipsResources, PublishWithoutLinks, PublishWithoutLinksPayload, PublishWithoutLinksPayloadAttributes, PublishWithoutLinksPayloadAttributesExtension, TypeCommands, TypeCommandtypeCheckPermission, TypeCommandtypeGetPublishModelJob, TypeCommandtypeListItems, TypeCommandtypeListRefs, TypeCommandtypePublishmodel, TypeCommandtypePublishWithoutLinks } from "@aps_sdk/data-management";
-import { PublishWithoutLinksPayloadRelationships } from "@aps_sdk/data-management/dist/model/publishWithoutLinksPayloadRelationships";
-import { PublishWithoutLinksPayloadRelationshipsResources } from "@aps_sdk/data-management/dist/model/publishWithoutLinksPayloadRelationshipsResources";
+import { PublishWithoutLinksPayloadRelationships } from "@aps_sdk/data-management";
+import { PublishWithoutLinksPayloadRelationshipsResources } from "@aps_sdk/data-management";
 
 const token: string = process.env.accessToken;
 
@@ -16,63 +16,63 @@ let item_id: string = process.env.itemId;
 let download_id: string = process.env.downloadId;
 
 const sdkmanager: SdkManager = SdkManagerBuilder
-    .create() 
-    .build();
+  .create()
+  .build();
 
 const staticAuthenticationProvider = new StaticAuthenticationProvider(process.env.accessToken);
 
-let dataManagementClient :DataManagementClient = new DataManagementClient({sdkManager: sdkmanager, authenticationProvider: staticAuthenticationProvider});
+let dataManagementClient: DataManagementClient = new DataManagementClient({ sdkManager: sdkmanager, authenticationProvider: staticAuthenticationProvider });
 
 
 //Hubs
 
 // Returns a collectionof accessible hubs for this member.
 async function hubsData() {
-    const getHubs: Hubs = await dataManagementClient.getHubs();
-    console.log(getHubs);
-    getHubs.data.forEach(current =>{
-        const HubsId :string=current.id;
-        const hubsType :string=current.type;
-        console.log(HubsId)
+  const getHubs: Hubs = await dataManagementClient.getHubs();
+  console.log(getHubs);
+  getHubs.data.forEach(current => {
+    const HubsId: string = current.id;
+    const hubsType: string = current.type;
+    console.log(HubsId)
 
-        // Attributes
-        const hubsAttributes: HubDataAttributes = current.attributes;
-        const hubsAttributeName: string = hubsAttributes.name;
-        const hubsAttributesRegion: string = hubsAttributes.region;
-        console.log(hubsAttributes);
-        const hubsDataAttributesExtension: BaseAttributesExtensionObjectWithSchemaLink = hubsAttributes.extension;
-        const hubsDataAttributesExtensionType: string = hubsDataAttributesExtension.type;
-        const hubsDataAttributesExtensionVersion: string = hubsDataAttributesExtension.version;
+    // Attributes
+    const hubsAttributes: HubDataAttributes = current.attributes;
+    const hubsAttributeName: string = hubsAttributes.name;
+    const hubsAttributesRegion: string = hubsAttributes.region;
+    console.log(hubsAttributes);
+    const hubsDataAttributesExtension: BaseAttributesExtensionObjectWithSchemaLink = hubsAttributes.extension;
+    const hubsDataAttributesExtensionType: string = hubsDataAttributesExtension.type;
+    const hubsDataAttributesExtensionVersion: string = hubsDataAttributesExtension.version;
 
-        const hubsAttributesExtensionData: any = hubsDataAttributesExtension.data;
+    const hubsAttributesExtensionData: any = hubsDataAttributesExtension.data;
 
-        const hubsAttributesExtensionSchema: BaseAttributesExtensionObjectWithSchemaLinkSchema = hubsDataAttributesExtension.schema;
-        const hubsAttributesExtensionSchemaHref: string = hubsAttributesExtensionSchema.href;
-    })
+    const hubsAttributesExtensionSchema: BaseAttributesExtensionObjectWithSchemaLinkSchema = hubsDataAttributesExtension.schema;
+    const hubsAttributesExtensionSchemaHref: string = hubsAttributesExtensionSchema.href;
+  })
 }
 
 // Returns data on a specific hub_id.
 async function hubdata() {
-    const getHub:Hub = await dataManagementClient.getHub(hub_id);
-    console.log(getHub)
-    const getHubData:HubData = getHub.data;
-    const hubsType :string= getHubData.type;
-    const hubsId  :string= getHubData.id;
+  const getHub: Hub = await dataManagementClient.getHub(hub_id);
+  console.log(getHub)
+  const getHubData: HubData = getHub.data;
+  const hubsType: string = getHubData.type;
+  const hubsId: string = getHubData.id;
 
-    // Atrributes
-    const hubAttributes:HubDataAttributes = getHubData.attributes;
-    const hubAttributeName:string = hubAttributes.name;
-    const hubAttributesRegion :string = hubAttributes.region;
+  // Atrributes
+  const hubAttributes: HubDataAttributes = getHubData.attributes;
+  const hubAttributeName: string = hubAttributes.name;
+  const hubAttributesRegion: string = hubAttributes.region;
 
-    const hubAttributesExtension  = hubAttributes.extension;
-    const hubAttributesExtensionType:string = hubAttributesExtension.type;
-    const hubAttributesExtensionVersion:string = hubAttributesExtension.version;
+  const hubAttributesExtension = hubAttributes.extension;
+  const hubAttributesExtensionType: string = hubAttributesExtension.type;
+  const hubAttributesExtensionVersion: string = hubAttributesExtension.version;
 
-    const hubAttributesExtensionData:Object= hubAttributesExtension.data;
+  const hubAttributesExtensionData: Object = hubAttributesExtension.data;
 
-    const hubAttributesExtensionSchema  = hubAttributesExtension.schema;
-    const hubAttributesExtensionSchemaHref:string = hubAttributesExtensionSchema.href;
- 
+  const hubAttributesExtensionSchema = hubAttributesExtension.schema;
+  const hubAttributesExtensionSchemaHref: string = hubAttributesExtensionSchema.href;
+
 }
 // hubsData();
 // hubdata();
@@ -102,15 +102,15 @@ async function getFolder() {
 async function getFolderContents() {
   try {
     const folderContents: FolderContents =
-      await dataManagementClient.getFolderContents(project_id, folder_id, 
+      await dataManagementClient.getFolderContents(project_id, folder_id,
         {
-        filterType: [FilterType.Folders, FilterType.Items],
-        filterExtensionType: ["items:autodesk.bim360:File"],
-        pageNumber: 0,
-        pageLimit: 2,
-        includeHidden: true,
-      }
-    );
+          filterType: [FilterType.Folders, FilterType.Items],
+          filterExtensionType: ["items:autodesk.bim360:File"],
+          pageNumber: 0,
+          pageLimit: 2,
+          includeHidden: true,
+        }
+      );
     console.log(folderContents);
     const folderData: ItemData = <ItemData>folderContents.data[0];
     console.log(folderData.attributes);
@@ -179,7 +179,7 @@ async function getFolderRelationshipsLinks() {
         project_id,
         folder_id
       );
-      console.log(relationshipLinks);
+    console.log(relationshipLinks);
     relationshipLinks.data.forEach((current) => {
       const relationshipId: string = current.id;
       const relationshipType: string = current.type;
@@ -200,7 +200,7 @@ async function getFolderRelationshipsRefs() {
         project_id,
         { filterType: [FilterType.Folders] }
       );
-      console.log(relationshipRefs);
+    console.log(relationshipRefs);
     relationshipRefs.data.forEach((current) => {
       const relationshipId: string = current.id;
       const relationshipType: string = current.type;
@@ -334,7 +334,7 @@ async function patchFolder() {
     console.error(err.message);
   }
 }
-  
+
 // getFolder();
 // getFolderContents();
 // getFolderParent();
@@ -1036,88 +1036,88 @@ async function projectsData() {
 
 //Returns a project for a given project_id
 async function projectData() {
-  const  getProject:Project = await dataManagementClient.getProject(hub_id, project_id);
- console.log(getProject);
+  const getProject: Project = await dataManagementClient.getProject(hub_id, project_id);
+  console.log(getProject);
 }
 
 
 // Returns the details of the highest level folders the user has access to for a given project
-async function topFolderDetail(){
+async function topFolderDetail() {
 
-  const projectTopFolders: TopFolders = await dataManagementClient.getProjectTopFolders(hub_id, project_id,{excludeDeleted:true});
+  const projectTopFolders: TopFolders = await dataManagementClient.getProjectTopFolders(hub_id, project_id, { excludeDeleted: true });
   console.log(projectTopFolders);
 }
 
-async function getHubProjects(){
+async function getHubProjects() {
 
-  const hubProjects:Projects = await dataManagementClient.getHubProjects(hub_id,{filterId:["<id>"]});
+  const hubProjects: Projects = await dataManagementClient.getHubProjects(hub_id, { filterId: ["<id>"] });
   console.log(hubProjects);
-  
+
 }
 
-async function getDownloadJob(){
+async function getDownloadJob() {
 
-  const downloadJob:Job = await dataManagementClient.getDownloadJob(project_id,"<job_id>");
+  const downloadJob: Job = await dataManagementClient.getDownloadJob(project_id, "<job_id>");
   console.log(downloadJob);
-  
+
 }
 
-async function getDownload(){
+async function getDownload() {
 
-  const download:Download = await dataManagementClient.getDownload(project_id,download_id);
+  const download: Download = await dataManagementClient.getDownload(project_id, download_id);
   console.log(download);
-  
-}
-async function createStorage(){
-   const createStorage:StoragePayload={
-          jsonapi:{
-              version:JsonApiVersionValue._10
-          },
-          data:{
-              type:TypeObject.Objects,
-              attributes:{
-                  name:"drawing.dwg"
-              },
-              relationships:{
-                  target:{
-                      data:{
-                          type:TypeFolderItemsForStorage.Items,
-                          id:download_id
-                      }
-                  }
-              }
-          }
-      }
 
-  const storage:Storage = await dataManagementClient.createStorage(project_id,createStorage);
-  console.log(storage);
-  
 }
-
-async function createDownload(){
-  const downloadPayload : DownloadPayload ={
-  jsonapi:{
-      version:JsonApiVersionValue._10
-  },
-  data:{
-      type:TypeDownloads.Downloads,
-      attributes:{
-          format:{
-              fileType:"rvt"
-          }
+async function createStorage() {
+  const createStorage: StoragePayload = {
+    jsonapi: {
+      version: JsonApiVersionValue._10
+    },
+    data: {
+      type: TypeObject.Objects,
+      attributes: {
+        name: "drawing.dwg"
       },
-      relationships:{
-          source:{
-              data:{
-                  type:TypeVersion.Versions,
-                  id:"<id>"
-              }
+      relationships: {
+        target: {
+          data: {
+            type: TypeFolderItemsForStorage.Items,
+            id: download_id
           }
+        }
       }
+    }
   }
-}
-const createDownload:CreatedDownload = await dataManagementClient.createDownload(project_id,downloadPayload)
 
- console.log(createDownload);
- 
+  const storage: Storage = await dataManagementClient.createStorage(project_id, createStorage);
+  console.log(storage);
+
+}
+
+async function createDownload() {
+  const downloadPayload: DownloadPayload = {
+    jsonapi: {
+      version: JsonApiVersionValue._10
+    },
+    data: {
+      type: TypeDownloads.Downloads,
+      attributes: {
+        format: {
+          fileType: "rvt"
+        }
+      },
+      relationships: {
+        source: {
+          data: {
+            type: TypeVersion.Versions,
+            id: "<id>"
+          }
+        }
+      }
+    }
+  }
+  const createDownload: CreatedDownload = await dataManagementClient.createDownload(project_id, downloadPayload)
+
+  console.log(createDownload);
+
 }
