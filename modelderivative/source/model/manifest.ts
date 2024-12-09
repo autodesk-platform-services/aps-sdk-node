@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ManifestDerivative } from './manifest-derivative';
+import { ManifestDerivative } from './manifestDerivative';
 
 /**
  * An object that represents the successful response of a Fetch Manifest operation.

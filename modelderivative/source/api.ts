@@ -2,10 +2,10 @@
 /* eslint-disable */
 
 
-export * from './api/derivatives-api';
-export * from './api/informational-api';
-export * from './api/jobs-api';
-export * from './api/manifest-api';
-export * from './api/metadata-api';
-export * from './api/thumbnails-api';
+export * from './api/derivativesApi';
+export * from './api/informationalApi';
+export * from './api/jobsApi';
+export * from './api/manifestApi';
+export * from './api/metadataApi';
+export * from './api/thumbnailsApi';
 
