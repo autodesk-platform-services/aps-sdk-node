@@ -9,7 +9,7 @@ import { Bucket } from '../model';
 import { Buckets } from '../model';
 import { Reason } from '../model';
 import { Region } from '../model';
-import { CreateBucketsPayload } from '../model/createBucketsPayload';
+import { CreateBucketsPayload } from '../model';
 /**
  * BucketsApi - axios parameter creator
  * @export
