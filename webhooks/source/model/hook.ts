@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HookDetails } from './hook-details';
+import { HookDetails } from './hookDetails';
 
 /**
  * Contains the response to a Create Webhooks for All Events request.
