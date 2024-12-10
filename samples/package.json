@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Autodesk Platform Services",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "@aps_sdk/authentication": "^1.0.0",
     "@aps_sdk/autodesk-sdkmanager": "^1.0.0",
