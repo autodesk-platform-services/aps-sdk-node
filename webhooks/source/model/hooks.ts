@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HookDetails } from './hook-details';
-import { HooksLinks } from './hooks-links';
+import { HookDetails } from './hookDetails';
+import { HooksLinks } from './hooksLinks';
 
 /**
  * A paginated list of webhooks. 
