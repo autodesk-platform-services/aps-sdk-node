@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JsonApiVersion } from './json-api-version';
-import { PaginationInfo } from './pagination-info';
-import { VersionData } from './version-data';
+import { JsonApiVersion } from './jsonApiVersion';
+import { PaginationInfo } from './paginationInfo';
+import { VersionData } from './versionData';
 
 /**
  * Successful retrieval of the versions collection associated with a specific item.

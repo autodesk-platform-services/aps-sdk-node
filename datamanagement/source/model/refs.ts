@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JsonApiLinksSelf } from './json-api-links-self';
-import { JsonApiVersion } from './json-api-version';
-import { RefsData } from './refs-data';
+import { JsonApiLinksSelf } from './jsonApiLinksSelf';
+import { JsonApiVersion } from './jsonApiVersion';
+import { RefsData } from './refsData';
 
 /**
  * Successful retrieval of a resource collection.

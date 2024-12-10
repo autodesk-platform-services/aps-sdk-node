@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JsonApiLinksSelf } from './json-api-links-self';
-import { JsonApiVersion } from './json-api-version';
-import { VersionData } from './version-data';
+import { JsonApiLinksSelf } from './jsonApiLinksSelf';
+import { JsonApiVersion } from './jsonApiVersion';
+import { VersionData } from './versionData';
 
 /**
  * An object that represdents a version.
