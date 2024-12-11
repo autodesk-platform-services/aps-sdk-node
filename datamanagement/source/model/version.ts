@@ -1,47 +1,33 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HubsJsonapi } from './hubs-jsonapi';
-import { HubsLinks } from './hubs-links';
-import { VersionData } from './version-data';
-import { VersionIncluded } from './version-included';
-import { VersionMeta } from './version-meta';
+import { JsonApiLinksSelf } from './jsonApiLinksSelf';
+import { JsonApiVersion } from './jsonApiVersion';
+import { VersionData } from './versionData';
 
 /**
- * Successful creation of a version.
+ * An object that represdents a version.
  * @export
  * @interface Version
  */
 export interface Version {
     /**
      * 
-     * @type {HubsJsonapi}
+     * @type {JsonApiVersion}
      * @memberof Version
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi'?: JsonApiVersion;
     /**
      * 
-     * @type {HubsLinks}
+     * @type {JsonApiLinksSelf}
      * @memberof Version
      */
-    'links'?: HubsLinks;
+    'links'?: JsonApiLinksSelf;
     /**
      * 
      * @type {VersionData}
      * @memberof Version
      */
     'data'?: VersionData;
-    /**
-     * 
-     * @type {Set<VersionIncluded>}
-     * @memberof Version
-     */
-    'included'?: Set<VersionIncluded>;
-    /**
-     * 
-     * @type {VersionMeta}
-     * @memberof Version
-     */
-    'meta'?: VersionMeta;
 }
 

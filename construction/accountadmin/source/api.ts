@@ -2,9 +2,9 @@
 /* eslint-disable */
 
 
-export * from './api/account-users-api';
-export * from './api/business-units-api';
-export * from './api/companies-api';
-export * from './api/project-users-api';
-export * from './api/projects-api';
+export * from './api/accountUsersApi';
+export * from './api/businessUnitsApi';
+export * from './api/companiesApi';
+export * from './api/projectUsersApi';
+export * from './api/projectsApi';
 

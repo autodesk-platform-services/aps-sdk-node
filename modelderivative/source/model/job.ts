@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { JobAcceptedJobs } from './job-accepted-jobs';
+import { JobAcceptedJobs } from './jobAcceptedJobs';
 
 /**
  * An object that represents the successful response of a Create Translation Job operation.

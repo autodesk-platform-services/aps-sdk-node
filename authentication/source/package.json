@@ -1,0 +1,37 @@
+{
+  "name": "@aps_sdk/authentication",
+  "version": "1.0.0",
+  "description": "Client sdk for Authentication API",
+  "license": "Apache-2.0",
+  "author": "Autodesk Platform Services",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/autodesk-platform-services/aps-sdk-node.git"
+  },
+  "keywords": [
+    "Autodesk Platform Services",
+    "Typescript",
+    "Authentication"
+  ],
+  "files": [
+    "/dist"
+  ],
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "module": "./dist/esm/index.js",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc && tsc -p tsconfig.esm.json",
+    "prettier-format": "prettier --config .prettierrc \"./**/*.ts\" --write",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "@aps_sdk/autodesk-sdkmanager": "^1.0.0",
+    "@types/node": "^20.9.0",
+    "axios": "^1.7.8"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.8",
+    "typescript": "^5.1.5"
+  }
+}

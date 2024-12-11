@@ -1,33 +1,33 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { DownloadData } from './download-data';
-import { HubsJsonapi } from './hubs-jsonapi';
-import { HubsLinks } from './hubs-links';
+import { JobData } from './jobData';
+import { JsonApiLinksSelf } from './jsonApiLinksSelf';
+import { JsonApiVersion } from './jsonApiVersion';
 
 /**
- * Successful retrieval of the details for a specific job.
+ * Details of the specified job was returned successfully.
  * @export
  * @interface Job
  */
 export interface Job {
     /**
      * 
-     * @type {HubsJsonapi}
+     * @type {JsonApiVersion}
      * @memberof Job
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi'?: JsonApiVersion;
     /**
      * 
-     * @type {HubsLinks}
+     * @type {JsonApiLinksSelf}
      * @memberof Job
      */
-    'links'?: HubsLinks;
+    'links'?: JsonApiLinksSelf;
     /**
      * 
-     * @type {DownloadData}
+     * @type {JobData}
      * @memberof Job
      */
-    'data'?: DownloadData;
+    'data'?: JobData;
 }
 

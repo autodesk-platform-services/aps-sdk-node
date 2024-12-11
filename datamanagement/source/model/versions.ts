@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { FolderContentsLinks } from './folder-contents-links';
-import { HubsJsonapi } from './hubs-jsonapi';
-import { VersionsData } from './versions-data';
+import { JsonApiVersion } from './jsonApiVersion';
+import { PaginationInfo } from './paginationInfo';
+import { VersionData } from './versionData';
 
 /**
  * Successful retrieval of the versions collection associated with a specific item.
@@ -13,21 +13,21 @@ import { VersionsData } from './versions-data';
 export interface Versions {
     /**
      * 
-     * @type {HubsJsonapi}
+     * @type {JsonApiVersion}
      * @memberof Versions
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi'?: JsonApiVersion;
     /**
      * 
-     * @type {FolderContentsLinks}
+     * @type {PaginationInfo}
      * @memberof Versions
      */
-    'links'?: FolderContentsLinks;
+    'links'?: PaginationInfo;
     /**
-     * 
-     * @type {Set<VersionsData>}
+     * An array of objects, where each object represents a version.
+     * @type {Array<VersionData>}
      * @memberof Versions
      */
-    'data'?: Set<VersionsData>;
+    'data'?: Array<VersionData>;
 }
 

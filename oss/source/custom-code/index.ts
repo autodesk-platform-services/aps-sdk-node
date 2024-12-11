@@ -1,3 +1,3 @@
-export * from "./OSSFileTransfer";
-export * from "./FileTransferConfigurations";
-export * from "./OssClient";
+export * from "./ossFileTransfer";
+export * from "./fileTransferConfigurations";
+export * from "./ossClient";

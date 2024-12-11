@@ -1,33 +1,33 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HubsJsonapi } from './hubs-jsonapi';
-import { HubsLinks } from './hubs-links';
-import { ProjectsData } from './projects-data';
+import { JsonApiLinksSelf } from './jsonApiLinksSelf';
+import { JsonApiVersion } from './jsonApiVersion';
+import { ProjectData } from './projectData';
 
 /**
- * Successful retrieval of a specific project.
+ * An object that represents a project.
  * @export
  * @interface Project
  */
 export interface Project {
     /**
      * 
-     * @type {HubsJsonapi}
+     * @type {JsonApiVersion}
      * @memberof Project
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi'?: JsonApiVersion;
     /**
      * 
-     * @type {HubsLinks}
+     * @type {JsonApiLinksSelf}
      * @memberof Project
      */
-    'links'?: HubsLinks;
+    'links'?: JsonApiLinksSelf;
     /**
      * 
-     * @type {ProjectsData}
+     * @type {ProjectData}
      * @memberof Project
      */
-    'data'?: ProjectsData;
+    'data'?: ProjectData;
 }
 

@@ -1,0 +1,35 @@
+{
+  "name":"@aps_sdk/autodesk-sdkmanager",
+  "description": "Sdk Manager Library for NodeJs",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "keywords": [
+     "Autodesk Platform Services",
+      "SDKManager"
+  ],
+  "author": "Autodesk Platform Services",
+  "license": "Apache-2.0",
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "prebuild": "npm run clean",
+    "build": "tsc --build \"./tsconfig.json\" \"./tsconfig.esm.json\"",
+    "prettier-format": "prettier --config .prettierrc \"./src/**/*.ts\" \"./tests/**/*.ts\" --write",
+    "test": "jest",
+    "coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "axios": "^1.7.8",
+    "cockatiel": "^3.1.1",
+    "winston": "^3.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.2",
+    "prettier": "^2.8.8",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.5"
+  }
+}

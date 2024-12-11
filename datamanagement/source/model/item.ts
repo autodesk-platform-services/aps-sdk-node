@@ -1,29 +1,29 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HubsJsonapi } from './hubs-jsonapi';
-import { HubsLinks } from './hubs-links';
-import { ItemData } from './item-data';
-import { ItemIncluded } from './item-included';
+import { ItemData } from './itemData';
+import { JsonApiLinksSelf } from './jsonApiLinksSelf';
+import { JsonApiVersion } from './jsonApiVersion';
+import { VersionData } from './versionData';
 
 /**
- * Successful retrieval of a specific item.
+ * An object that represents an item.
  * @export
  * @interface Item
  */
 export interface Item {
     /**
      * 
-     * @type {HubsJsonapi}
+     * @type {JsonApiVersion}
      * @memberof Item
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi'?: JsonApiVersion;
     /**
      * 
-     * @type {HubsLinks}
+     * @type {JsonApiLinksSelf}
      * @memberof Item
      */
-    'links'?: HubsLinks;
+    'links'?: JsonApiLinksSelf;
     /**
      * 
      * @type {ItemData}
@@ -31,10 +31,10 @@ export interface Item {
      */
     'data'?: ItemData;
     /**
-     * 
-     * @type {Set<ItemIncluded>}
+     * An object containing information about the tip version of this item.
+     * @type {Array<VersionData>}
      * @memberof Item
      */
-    'included'?: Set<ItemIncluded>;
+    'included'?: Array<VersionData>;
 }
 

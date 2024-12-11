@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { PropertiesData } from './properties-data';
+import { PropertiesData } from './propertiesData';
 
 /**
  * An object that represents a successful response to a Fetch All Properties operation.

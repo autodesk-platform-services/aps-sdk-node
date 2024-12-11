@@ -1,9 +1,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { HubsJsonapi } from './hubs-jsonapi';
-import { SearchData } from './search-data';
-import { SearchIncluded } from './search-included';
+import { ItemData } from './itemData';
+import { JsonApiVersion } from './jsonApiVersion';
+import { PaginationInfo } from './paginationInfo';
+import { VersionData } from './versionData';
 
 /**
  * Successful retrieval of the search results.
@@ -13,21 +14,27 @@ import { SearchIncluded } from './search-included';
 export interface Search {
     /**
      * 
-     * @type {HubsJsonapi}
+     * @type {JsonApiVersion}
      * @memberof Search
      */
-    'jsonapi'?: HubsJsonapi;
+    'jsonapi': JsonApiVersion;
     /**
      * 
-     * @type {Set<SearchData>}
+     * @type {PaginationInfo}
      * @memberof Search
      */
-    'data'?: Set<SearchData>;
+    'links': PaginationInfo;
     /**
-     * 
-     * @type {Set<SearchIncluded>}
+     * The object containing information on this resource.
+     * @type {Array<VersionData>}
      * @memberof Search
      */
-    'included'?: Set<SearchIncluded>;
+    'data': Array<VersionData>;
+    /**
+     * Information on the latest versions of the items in this resource.
+     * @type {Array<ItemData>}
+     * @memberof Search
+     */
+    'included'?: Array<ItemData>;
 }
 

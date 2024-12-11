@@ -1,5 +1,6 @@
 import { SdkManager, SdkManagerBuilder, ApsServiceRequestConfig, StaticAuthenticationProvider, LogLevel, Logger } from "@aps_sdk/autodesk-sdkmanager";
 import { Batchsigneds3uploadObject, OssClient,PolicyKey,Region  } from "@aps_sdk/oss";
+import { Stream } from "stream";
 import 'dotenv/config';
 
 const bucketKey = process.env.bucketKey;
@@ -25,11 +26,17 @@ const ossClient = new OssClient({ authenticationProvider: staticAuthenticationPr
 async function upload() {
     
     //sourceToUpload can be either file path or stream of the object 
-    const response = await ossClient.upload(bucketKey, objectKey, sourceToUpload);
+    const response = await ossClient.uploadObjectAsync(bucketKey, objectKey, sourceToUpload);
     console.log(response);
 }
+//Downloaing a file can be directly to the file or get the stream of file.
 async function download() {
-    await ossClient.download(bucketKey, objectKey, filePath);
+    await ossClient.downloadObjectAsync(bucketKey, objectKey, filePath);
+}
+
+async function downloadAsStream() {
+    let fileStream = new Stream();
+    fileStream = await ossClient.downloadObjectAsync(bucketKey, objectKey);
 }
 /**
      * This function will return the details about the specified bucket.
@@ -110,6 +117,7 @@ async function signedS3Download() {
 
 upload();
 download();
+downloadAsStream();
 getBuckets();
 getBucketDetails();
 batchSignedS3Upload();
