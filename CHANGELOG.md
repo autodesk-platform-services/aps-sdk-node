@@ -1,5 +1,37 @@
 # Changelog
 
+## [v1-GA](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v1-GA) (2024-12-11)
+
+[Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v1...v1-GA)
+
+**Implemented enhancements:**
+
+- Keep Main updated with Release changes [\#69](https://github.com/autodesk-platform-services/aps-sdk-node/pull/69) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- \[DAS-288\] Download method now return a stream [\#67](https://github.com/autodesk-platform-services/aps-sdk-node/pull/67) ([srivastavarahull](https://github.com/srivastavarahull))
+
+**Fixed bugs:**
+
+- \[DAS 311\] - Changes for auth [\#81](https://github.com/autodesk-platform-services/aps-sdk-node/pull/81) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- \[DAS 291\] - Webhooks missing field issue fix [\#72](https://github.com/autodesk-platform-services/aps-sdk-node/pull/72) ([nishchhaldagar](https://github.com/nishchhaldagar))
+- \[DAS 283\] - DataManagement enum model fix [\#71](https://github.com/autodesk-platform-services/aps-sdk-node/pull/71) ([nishchhaldagar](https://github.com/nishchhaldagar))
+- \[DAS 295\]Fixed create issue endpoint [\#70](https://github.com/autodesk-platform-services/aps-sdk-node/pull/70) ([srivastavarahull](https://github.com/srivastavarahull))
+
+**Merged pull requests:**
+
+- \[DAS 306\] - Move sdkmanager to repo [\#86](https://github.com/autodesk-platform-services/aps-sdk-node/pull/86) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- \[DAS 315\] - Webhooks file renames [\#85](https://github.com/autodesk-platform-services/aps-sdk-node/pull/85) ([nishchhaldagar](https://github.com/nishchhaldagar))
+- \[DAS-314\] - Rename DM files to camel case [\#84](https://github.com/autodesk-platform-services/aps-sdk-node/pull/84) ([Arrotech](https://github.com/Arrotech))
+- Rename issue to issues [\#83](https://github.com/autodesk-platform-services/aps-sdk-node/pull/83) ([srivastavarahull](https://github.com/srivastavarahull))
+- \[Das 307\] - Rename MD files to conform to convention [\#82](https://github.com/autodesk-platform-services/aps-sdk-node/pull/82) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- \[DAS 312\] Fixed naming to camel case for issues [\#80](https://github.com/autodesk-platform-services/aps-sdk-node/pull/80) ([srivastavarahull](https://github.com/srivastavarahull))
+- \[Das 309\] Fixed Oss naming convention [\#79](https://github.com/autodesk-platform-services/aps-sdk-node/pull/79) ([srivastavarahull](https://github.com/srivastavarahull))
+- \[DAS 310\] - ACC Admin files rename camelcase [\#77](https://github.com/autodesk-platform-services/aps-sdk-node/pull/77) ([nishchhaldagar](https://github.com/nishchhaldagar))
+- \[DAS 282\] - Webhooks remove duplicate region param from client class [\#74](https://github.com/autodesk-platform-services/aps-sdk-node/pull/74) ([nishchhaldagar](https://github.com/nishchhaldagar))
+- \[DAS 285\] - DM minor fixes [\#68](https://github.com/autodesk-platform-services/aps-sdk-node/pull/68) ([nishchhaldagar](https://github.com/nishchhaldagar))
+- \[DAS 285\] - Datamanagement with docs updates [\#66](https://github.com/autodesk-platform-services/aps-sdk-node/pull/66) ([nishchhaldagar](https://github.com/nishchhaldagar))
+- Update ChangeLog [\#62](https://github.com/autodesk-platform-services/aps-sdk-node/pull/62) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Keep branch updated with main [\#61](https://github.com/autodesk-platform-services/aps-sdk-node/pull/61) ([sajith-subramanian](https://github.com/sajith-subramanian))
+
 ## [v1](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v1) (2024-09-05)
 
 [Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/Beta.1...v1)
