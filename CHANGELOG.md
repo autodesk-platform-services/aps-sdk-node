@@ -6,7 +6,6 @@
 
 **Implemented enhancements:**
 
-- Keep Main updated with Release changes [\#69](https://github.com/autodesk-platform-services/aps-sdk-node/pull/69) ([sajith-subramanian](https://github.com/sajith-subramanian))
 - \[DAS-288\] Download method now return a stream [\#67](https://github.com/autodesk-platform-services/aps-sdk-node/pull/67) ([srivastavarahull](https://github.com/srivastavarahull))
 
 **Fixed bugs:**
@@ -18,6 +17,7 @@
 
 **Merged pull requests:**
 
+- Keep Main updated with Release changes [\#69](https://github.com/autodesk-platform-services/aps-sdk-node/pull/69) ([sajith-subramanian](https://github.com/sajith-subramanian))
 - \[DAS 306\] - Move sdkmanager to repo [\#86](https://github.com/autodesk-platform-services/aps-sdk-node/pull/86) ([sajith-subramanian](https://github.com/sajith-subramanian))
 - \[DAS 315\] - Webhooks file renames [\#85](https://github.com/autodesk-platform-services/aps-sdk-node/pull/85) ([nishchhaldagar](https://github.com/nishchhaldagar))
 - \[DAS-314\] - Rename DM files to camel case [\#84](https://github.com/autodesk-platform-services/aps-sdk-node/pull/84) ([Arrotech](https://github.com/Arrotech))
