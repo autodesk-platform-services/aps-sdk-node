@@ -1,4 +1,4 @@
-import { CommentsPayload, IssueClient, IssuePayload, Region, Status } from "@aps_sdk/construction-issues";
+import { CommentsPayload, IssuesClient, IssuePayload, Region, Status } from "@aps_sdk/construction-issues";
 import {Logger, LogLevel, SdkManager, SdkManagerBuilder, StaticAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager";
 import 'dotenv/config';
 
@@ -18,7 +18,7 @@ const issuePayload: IssuePayload = {
 //Initialise Auth Provider. If not provided, access tokens will need to be passed to each method.
 
 const staticAuthenticationProvider = new StaticAuthenticationProvider(accessToken);
-const issuesClient = new IssueClient({ authenticationProvider: staticAuthenticationProvider });
+const issuesClient = new IssuesClient({ authenticationProvider: staticAuthenticationProvider });
 
 //Returns the current user permissions.
 async function getUserProfile() {

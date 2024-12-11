@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { IssueCustomAttributes } from './issue-custom-attributes';
-import { IssueGpsCoordinates } from './issue-gps-coordinates';
-import { IssueLinkedDocuments } from './issue-linked-documents';
+import { IssueCustomAttributes } from './issueCustomAttributes';
+import { IssueGpsCoordinates } from './issueGpsCoordinates';
+import { IssueLinkedDocuments } from './issueLinkedDocuments';
 
 /**
  * 

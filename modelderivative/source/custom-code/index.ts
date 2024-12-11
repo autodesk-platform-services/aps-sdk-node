@@ -1,1 +1,1 @@
-export * from './ModelDerivativeClient';
+export * from './modelDerivativeClient';

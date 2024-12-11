@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { BucketsItems } from './buckets-items';
+import { BucketsItems } from './bucketsItems';
 
 /**
  * An object that represents a collection of buckets.

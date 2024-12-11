@@ -7,16 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Autodesk Platform Services",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
-    "@aps_sdk/authentication": "^1.0.0-beta.1",
-    "@aps_sdk/autodesk-sdkmanager": "^1.0.0-beta.2",
-    "@aps_sdk/data-management": "^0.0.3-beta.1",
-    "@aps_sdk/model-derivative": "^1.0.0-beta.3",
-    "@aps_sdk/oss": "^1.0.0-beta.2",
-    "@aps_sdk/webhooks": "^1.0.0-beta.2",
-    "@aps_sdk/construction-account-admin": "^1.0.0-beta.3",
-    "@aps_sdk/construction-issues": "^1.0.0-beta.2",
+    "@aps_sdk/authentication": "^1.0.0",
+    "@aps_sdk/autodesk-sdkmanager": "^1.0.0",
+    "@aps_sdk/construction-account-admin": "^1.0.0",
+    "@aps_sdk/construction-issues": "^1.0.0",
+    "@aps_sdk/data-management": "^1.0.0",
+    "@aps_sdk/model-derivative": "^1.0.0",
+    "@aps_sdk/oss": "^1.0.0",
+    "@aps_sdk/webhooks": "^1.0.0",
     "dotenv": "^16.4.5"
   }
 }

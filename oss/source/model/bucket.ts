@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 import { Permission } from './permission';
-import { PolicyKey } from './policy-key';
+import { PolicyKey } from './policyKey';
 
 /**
  * An object representing a bucket.

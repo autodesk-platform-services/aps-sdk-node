@@ -2,6 +2,6 @@
 /* eslint-disable */
 
 
-export * from './api/hooks-api';
-export * from './api/tokens-api';
+export * from './api/hooksApi';
+export * from './api/tokensApi';
 
