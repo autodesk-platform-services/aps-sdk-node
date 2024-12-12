@@ -149,6 +149,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     let partsDownloaded: number = 0;
     let start: number = 0;
     let outStream = new  PassThrough();
+    outStream.setMaxListeners(numberOfChunks+1);
     let fileStream: WriteStream;
     if(filePath){
       fileStream= createWriteStream(filePath, { flags: 'a' }); 
