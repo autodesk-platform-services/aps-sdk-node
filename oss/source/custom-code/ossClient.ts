@@ -5,7 +5,7 @@ import { BucketsApi, ObjectsApi } from "../api";
 import { FileTransferConfigurations } from "./fileTransferConfigurations";
 import { promises as fs } from "fs";
 import { Stream } from "stream";
-import { deprecate } from "util";
+
 
 export class OssClient extends BaseClient {
 
