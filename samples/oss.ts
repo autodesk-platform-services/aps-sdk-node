@@ -26,17 +26,17 @@ const ossClient = new OssClient({ authenticationProvider: staticAuthenticationPr
 async function upload() {
     
     //sourceToUpload can be either file path or stream of the object 
-    const response = await ossClient.uploadObjectAsync(bucketKey, objectKey, sourceToUpload);
+    const response = await ossClient.uploadObject(bucketKey, objectKey, sourceToUpload);
     console.log(response);
 }
 //Downloaing a file can be directly to the file or get the stream of file.
 async function download() {
-    await ossClient.downloadObjectAsync(bucketKey, objectKey, filePath);
+    await ossClient.downloadObject(bucketKey, objectKey, filePath);
 }
 
 async function downloadAsStream() {
     let fileStream = new Stream();
-    fileStream = await ossClient.downloadObjectAsync(bucketKey, objectKey);
+    fileStream = await ossClient.downloadObject(bucketKey, objectKey);
 }
 /**
      * This function will return the details about the specified bucket.
