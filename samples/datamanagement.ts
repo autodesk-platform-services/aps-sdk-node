@@ -23,7 +23,7 @@ const staticAuthenticationProvider = new StaticAuthenticationProvider(process.en
 let dataManagementClient: DataManagementClient = new DataManagementClient({ sdkManager: sdkmanager, authenticationProvider: staticAuthenticationProvider });
 
 
-//Hubs
+//#region Hubs
 
 // Returns a collectionof accessible hubs for this member.
 async function hubsData() {
@@ -77,7 +77,7 @@ async function hubdata() {
 // hubdata();
 
 
-// Folders
+//#region Folders
 async function getFolder() {
   try {
     const folder: Folder = await dataManagementClient.getFolder(
@@ -346,7 +346,7 @@ async function patchFolder() {
 // patchFolder();
 
 
-//Versions
+//#region Versions
 
 async function getVersion() {
   try {
@@ -1026,7 +1026,7 @@ async function executeGetPublishModelJobCommand() {
 // executeGetPublishModelJobCommand();
 
 
-//Projects
+//#region Projects
 async function projectsData() {
   const getHubProjects: Projects = await dataManagementClient.getHubProjects(hub_id);
   console.log(getHubProjects);
@@ -1044,8 +1044,17 @@ async function projectData() {
 async function topFolderDetail() {
 
   const projectTopFolders: TopFolders = await dataManagementClient.getProjectTopFolders(hub_id, project_id, { excludeDeleted: true });
-  console.log(projectTopFolders);
+
+  projectTopFolders.data.forEach( current => {
+    const attributes = current.attributes;
+    const extensions = attributes.extensions;
+    const extension = attributes.extension;
+    console.log(extensions);
+    console.log(extension);
+  })
 }
+
+topFolderDetail();
 
 async function getHubProjects() {
 

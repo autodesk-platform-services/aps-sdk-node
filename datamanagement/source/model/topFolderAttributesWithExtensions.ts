@@ -76,10 +76,16 @@ export interface TopFolderAttributesWithExtensions {
      */
     'hidden': boolean;
     /**
-     * 
+     * @deprecated This property is deprecated. Use `extension` instead.
      * @type {TopFolderExtensionWithSchemaLink}
      * @memberof TopFolderAttributesWithExtensions
      */
     'extensions'?: TopFolderExtensionWithSchemaLink;
+    /**
+     * 
+     * @type {TopFolderExtensionWithSchemaLink}
+     * @memberof TopFolderAttributesWithExtensions
+     */
+    'extension'?: TopFolderExtensionWithSchemaLink;
 }
 
