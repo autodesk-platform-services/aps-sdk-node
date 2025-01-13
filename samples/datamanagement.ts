@@ -1047,7 +1047,10 @@ async function topFolderDetail() {
 
   projectTopFolders.data.forEach( current => {
     const attributes = current.attributes;
+
+    // The extensions property is deprecated. Use extension instead
     const extensions = attributes.extensions;
+    
     const extension = attributes.extension;
     console.log(extensions);
     console.log(extension);
