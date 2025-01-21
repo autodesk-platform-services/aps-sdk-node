@@ -18,6 +18,7 @@ import { RelationshipLinks } from '../model';
 import { RelationshipRefs } from '../model';
 import { RelationshipRefsPayload } from '../model';
 import { Search } from '../model';
+import { ComparisonTypes } from '../model';
 /**
  * FoldersApi - axios parameter creator
  * @export
@@ -487,46 +488,68 @@ export const FoldersApiAxiosParamCreator = function (apsConfiguration?: IApsConf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFolderSearch: async (accessToken: string, projectId: string, folderId: string, filterFieldName?: string, filter?: Array<string>, pageNumber?: number,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'projectId' is not null or undefined
-            assertParamExists('getFolderSearch', 'projectId', projectId)
-            // verify required parameter 'folderId' is not null or undefined
-            assertParamExists('getFolderSearch', 'folderId', folderId)
+        getFolderSearch: async (
+            accessToken: string,
+            projectId: string,
+            folderId: string,
+            filters?: { field: string; operator?: ComparisonTypes; value: string }[], // Operator is optional
+            pageNumber?: number,
+            options: ApsServiceRequestConfig = {}
+        ): Promise<RequestArgs> => {
+            // Verify required parameters
+            assertParamExists('getFolderSearch', 'projectId', projectId);
+            assertParamExists('getFolderSearch', 'folderId', folderId);
+        
+            // Construct the endpoint path
             const localVarPath = `/data/v1/projects/{project_id}/folders/{folder_id}/search`
                 .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
                 .replace(`{${"folder_id"}}`, encodeURIComponent(String(folderId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
+        
+            // Base options
             let baseOptions;
             if (apsConfiguration) {
                 baseOptions = apsConfiguration.baseOptions;
             }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+        
+            // Request options
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
-            await setBearerAuthToObject(localVarHeaderParameter, accessToken)
-
-            if (filter) {
-                localVarQueryParameter[`filter[${filterFieldName}]`] = filter;
+        
+            // Set Bearer Auth
+            await setBearerAuthToObject(localVarHeaderParameter, accessToken);
+        
+            // Process filters
+            if (filters && filters.length > 0) {
+                filters.forEach(filter => {
+                    const operator = filter.operator || ComparisonTypes.EqualTo; // Default to 'eq' if no operator is provided
+                    const filterKey = `filter[${filter.field}]-${operator}`;
+                    localVarQueryParameter[filterKey] = filter.value;
+                });
             }
-
+        
+            // Page number
             if (pageNumber !== undefined) {
                 localVarQueryParameter['page[number]'] = pageNumber;
             }
-
-
-    
+        
+            // Set headers
             localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
+            const headersFromBaseOptions = baseOptions?.headers ?? {};
+            localVarRequestOptions.headers = {
+                ...localVarHeaderParameter,
+                ...headersFromBaseOptions,
+                ...options.headers,
+            };
+        
+            // Return request args
             return {
                 url: toPathString(localVarUrlObj),
                 options: localVarRequestOptions,
             };
-        },
+        },        
         /**
          * Renames, moves, hides, or unhides a folder. Marking a BIM 360 Docs folder as hidden effectively deletes it. You can restore it by changing its ``hidden`` attribute. You can also move BIM 360 Docs folders by changing their parent folder.  You cannot permanently delete BIM 360 Docs folders. They are tagged as hidden folders and are removed from the BIM 360 Docs UI and from regular Data Management API responses. You can use the hidden filter (``filter[hidden]=true``) to get a list of deleted folders with the [List Folder Contents](/en/docs/data/v2/reference/http/projects-project_id-folders-folder_id-contents-GET/) operation.  Before you use the Data Management API to access BIM 360 Docs folders, provision your app through the BIM 360 Account Administrator portal. For details, see the [Manage Access to Docs tutorial](/en/docs/bim360/v1/tutorials/getting-started/manage-access-to-docs/).  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](/en.docs.acc.v1/overview/introduction/). 
          * @summary Modify a Folder
@@ -717,8 +740,8 @@ export const FoldersApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFolderSearch(accessToken: string, projectId: string, folderId: string, filterFieldName?: string, filter?: Array<string>, pageNumber?: number, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Search>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getFolderSearch(accessToken, projectId, folderId, filterFieldName, filter, pageNumber,  options);
+        async getFolderSearch(accessToken: string, projectId: string, folderId: string, filters?: { field: string; operator?: ComparisonTypes; value: string }[], pageNumber?: number, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Search>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getFolderSearch(accessToken, projectId, folderId, filters, pageNumber,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
@@ -877,7 +900,7 @@ export interface FoldersApiInterface {
      * @throws {RequiredError}
      * @memberof FoldersApiInterface
      */
-    getFolderSearch(accessToken: string,projectId: string, folderId: string, filterFieldName?: string, filter?: Array<string>, pageNumber?: number,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getFolderSearch(accessToken: string,projectId: string, folderId: string, filters?: { field: string; operator?: ComparisonTypes; value: string }[], pageNumber?: number,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Renames, moves, hides, or unhides a folder. Marking a BIM 360 Docs folder as hidden effectively deletes it. You can restore it by changing its ``hidden`` attribute. You can also move BIM 360 Docs folders by changing their parent folder.  You cannot permanently delete BIM 360 Docs folders. They are tagged as hidden folders and are removed from the BIM 360 Docs UI and from regular Data Management API responses. You can use the hidden filter (``filter[hidden]=true``) to get a list of deleted folders with the [List Folder Contents](/en/docs/data/v2/reference/http/projects-project_id-folders-folder_id-contents-GET/) operation.  Before you use the Data Management API to access BIM 360 Docs folders, provision your app through the BIM 360 Account Administrator portal. For details, see the [Manage Access to Docs tutorial](/en/docs/bim360/v1/tutorials/getting-started/manage-access-to-docs/).  **Note:** This operation supports Autodesk Construction Cloud (ACC) Projects. For more information, see the [ACC Platform API documentation](/en.docs.acc.v1/overview/introduction/). 
@@ -1180,10 +1203,10 @@ export class FoldersApi extends BaseApi implements FoldersApiInterface {
      * @throws {RequiredError}
      * @memberof FoldersApi
      */
-    public async getFolderSearch(accessToken: string, projectId: string, folderId: string, filterFieldName?: string, filter?: Array<string>, pageNumber?: number, options?: ApsServiceRequestConfig) {
+    public async getFolderSearch(accessToken: string, projectId: string, folderId: string, filters?: { field: string; operator?: ComparisonTypes; value: string }[], pageNumber?: number, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into getFolderSearch ");
       try {
-        const request =  await FoldersApiFp(this.sdkManager).getFolderSearch(accessToken, projectId, folderId, filterFieldName, filter, pageNumber,  options);
+        const request =  await FoldersApiFp(this.sdkManager).getFolderSearch(accessToken, projectId, folderId, filters, pageNumber,  options);
         const response = await request(this.axios);
         this.logger.logInfo(`getFolderSearch Request completed successfully with status code: ${response.status}`);
         return new ApiResponse(response,response.data);

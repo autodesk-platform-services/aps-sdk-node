@@ -2,7 +2,7 @@ import { ApiResponse, ApsServiceRequestConfig, BaseClient, IAuthenticationProvid
 import { CommandsApi, HubsApi, ItemsApi, ProjectsApi, FoldersApi, VersionsApi } from "../api";
 import { CreatedDownload, CreatedVersion, Download, DownloadFormats, DownloadPayload, Downloads, FilterType, FolderContents, FolderPayload, FolderRefs, Job, ModifyFolderPayload, ModifyVersionPayload, Project, Projects, Search, StoragePayload, TopFolders, Version, VersionPayload } from "../model";
 import { Hub, Hubs } from "../model";
-import { CheckPermission, CheckPermissionPayload, Command, PublishModelJobPayload, CommandPayload, CreatedItem, FilterDirection, FilterRefType, FilterTypeVersion, Folder, Item, ItemPayload, ItemTip, JsonApiVersion, JsonApiVersionValue, ListItems, ListItemsPayload, ListRefs, ListRefsPayload, ModifyItemPayload, Refs, RelationshipLinks, RelationshipRefs, RelationshipRefsPayload, Versions, PublishWithoutLinksPayload, PublishWithoutLinks, PublishModel, PublishModelPayload } from "../model";
+import { CheckPermission, CheckPermissionPayload, Command, PublishModelJobPayload, CommandPayload, CreatedItem, FilterDirection, FilterRefType, FilterTypeVersion, Folder, Item, ItemPayload, ItemTip, JsonApiVersion, JsonApiVersionValue, ListItems, ListItemsPayload, ListRefs, ListRefsPayload, ModifyItemPayload, Refs, RelationshipLinks, RelationshipRefs, RelationshipRefsPayload, Versions, PublishWithoutLinksPayload, PublishWithoutLinks, PublishModel, PublishModelPayload, ComparisonTypes } from "../model";
 
 export class DataManagementClient extends BaseClient {
     public commandsApi: CommandsApi;
@@ -429,14 +429,14 @@ export class DataManagementClient extends BaseClient {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public async getFolderSearch(projectId: string, folderId: string, optionalArgs?:{filterFieldName?: string , filterValue?: Array<string>, pageNumber?: number, accessToken?: string, options?: ApsServiceRequestConfig}): Promise<Search> {
+    public async getFolderSearch(projectId: string, folderId: string, optionalArgs?:{filters?: { field: string; operator?: ComparisonTypes; value: string }[], pageNumber?: number, accessToken?: string, options?: ApsServiceRequestConfig}): Promise<Search> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
         else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
-        const response = await this.foldersApi.getFolderSearch(optionalArgs?.accessToken,projectId, folderId, optionalArgs?.filterFieldName, optionalArgs?.filterValue, optionalArgs?.pageNumber, optionalArgs?.options);
+        const response = await this.foldersApi.getFolderSearch(optionalArgs?.accessToken,projectId, folderId, optionalArgs?.filters, optionalArgs?.pageNumber, optionalArgs?.options);
         return response.content;
     }
 
