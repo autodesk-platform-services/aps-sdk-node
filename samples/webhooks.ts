@@ -14,27 +14,32 @@ const webhooksClient = new WebhooksClient({authenticationProvider: staticAuthent
 const accessToken = process.env.accessToken; // Replace with your actual access token
 const system = Systems.Data; // Replace with the desired system from the Systems enum
 const event = Events.DmVersionAdded; // Replace with the desired event from the Events enum
-const hookId =process.env.hookId;
+const hookId = process.env.hookId;
+const folderId = process.env.folderId;
+const projectId = process.env.projectId;
 
 // create system event hooks
 async function createSystemEventhook(): Promise<any> {
   const hookPayload: HookPayload = {
-    callbackUrl: "https://example.com/callback_four_new",
-    scope: { "folder": "urn:adsk.wipprod:fs.folder:co.k4WX5oe6QDuWg0yxRS6-HQ"},
+    callbackUrl: "https://example.com/callback_fifth_new",
+    scope: { "folder": "urn:adsk.wipprod:fs.folder:co.dn8tJ7ZIQDiPLsoV0_kn_Q"},
     "autoReactivateHook": false,
     "hookAttribute": {
       /* Custom metadata */
       "myfoo": 76,
-      "projectId": "someURN",
+      "projectId": projectId,
       "myobject": {
         "abc": true
       }
     },
-    "hookExpiry": "2024-09-04T17:04:10.444Z"
+    "hookExpiry": "2025-12-12T17:04:10.444Z"
   };
 
   try {
-    const response = await webhooksClient.createSystemEventHook(system, event, hookPayload);
+    const response = await webhooksClient.createSystemEventHook(system, event, hookPayload, 
+      {
+        region: Region.Emea
+      });
     console.log(response);
   } catch (error) {
     console.error(`Failed to create system event hook:`, error.message);
@@ -197,8 +202,8 @@ async function putToken(): Promise<any> {
 }
 
 
-// createSystemEventhook();
-getHooks();
+createSystemEventhook();
+// getHooks();
 // getSystemEventHooks()
 // getSystemHooks()
 // getHookDetails()
