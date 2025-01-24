@@ -8,7 +8,6 @@ import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, ConstructionAc
 import { BusinessUnitsRequestPayload } from '../model';
 import { BusinessUnitsResponse } from '../model';
 import { Region } from '../model';
-import { Utils } from '../custom-code/utils';
 /**
  * BusinessUnitsApi - axios parameter creator
  * @export
@@ -19,7 +18,7 @@ export const BusinessUnitsApiAxiosParamCreator = function (apsConfiguration?: IA
          * Query all the business units in a specific BIM 360 account.
          * @summary Create Business Units
          * @param {string} accountId The account ID of the business unit. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
          * @param {BusinessUnitsRequestPyload} [businessUnitsRequestPyload] 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
@@ -28,9 +27,7 @@ export const BusinessUnitsApiAxiosParamCreator = function (apsConfiguration?: IA
         createBusinessUnits: async (accessToken: string, accountId: string, region?: Region, businessUnitsRequestPyload?: BusinessUnitsRequestPayload,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('createBusinessUnits', 'accountId', accountId)
-            const regionPath = Utils.GetPathfromRegion(region ?? Region.Us);
-
-            const localVarPath = (regionPath + `{account_id}/business_units_structure`)
+            const localVarPath = `/hq/v1/accounts/{account_id}/business_units_structure`
                 .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
@@ -44,11 +41,11 @@ export const BusinessUnitsApiAxiosParamCreator = function (apsConfiguration?: IA
 
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
-            // if (region != null) {
-                //     localVarHeaderParameter['Region'] = typeof region === 'string'
-                    //         ? region
-                    //         : JSON.stringify(region);
-            // }
+            if (region != null) {
+                    localVarHeaderParameter['Region'] = typeof region === 'string'
+                            ? region
+                            : JSON.stringify(region);
+            }
 
 
     
@@ -68,7 +65,7 @@ export const BusinessUnitsApiAxiosParamCreator = function (apsConfiguration?: IA
          * Query all the business units in a specific BIM 360 account.
          * @summary Get Business Units
          * @param {string} accountId The account ID of the business unit. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -76,9 +73,7 @@ export const BusinessUnitsApiAxiosParamCreator = function (apsConfiguration?: IA
         getBusinessUnits: async (accessToken: string, accountId: string, region?: Region,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('getBusinessUnits', 'accountId', accountId)
-            const regionPath = Utils.GetPathfromRegion(region ?? Region.Us);
-
-            const localVarPath = (regionPath + `{account_id}/business_units_structure`)
+            const localVarPath = `/hq/v1/accounts/{account_id}/business_units_structure`
                 .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
@@ -92,11 +87,11 @@ export const BusinessUnitsApiAxiosParamCreator = function (apsConfiguration?: IA
 
             await setBearerAuthToObject(localVarHeaderParameter, accessToken)
 
-            // if (region != null) {
-                //     localVarHeaderParameter['Region'] = typeof region === 'string'
-                    //         ? region
-                    //         : JSON.stringify(region);
-            // }
+            if (region != null) {
+                    localVarHeaderParameter['Region'] = typeof region === 'string'
+                            ? region
+                            : JSON.stringify(region);
+            }
 
 
     
@@ -124,7 +119,7 @@ export const BusinessUnitsApiFp = function(sdkManager?: SdkManager) {
          * Query all the business units in a specific BIM 360 account.
          * @summary Create Business Units
          * @param {string} accountId The account ID of the business unit. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
          * @param {BusinessUnitsRequestPyload} [businessUnitsRequestPyload] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -137,7 +132,7 @@ export const BusinessUnitsApiFp = function(sdkManager?: SdkManager) {
          * Query all the business units in a specific BIM 360 account.
          * @summary Get Business Units
          * @param {string} accountId The account ID of the business unit. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -158,7 +153,7 @@ export interface BusinessUnitsApiInterface {
      * Query all the business units in a specific BIM 360 account.
      * @summary Create Business Units
      * @param {string} accountId The account ID of the business unit. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
      * @param {BusinessUnitsRequestPyload} [businessUnitsRequestPyload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -171,7 +166,7 @@ export interface BusinessUnitsApiInterface {
      * Query all the business units in a specific BIM 360 account.
      * @summary Get Business Units
      * @param {string} accountId The account ID of the business unit. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -193,7 +188,7 @@ export class BusinessUnitsApi extends BaseApi implements BusinessUnitsApiInterfa
      * Query all the business units in a specific BIM 360 account.
      * @summary Create Business Units
      * @param {string} accountId The account ID of the business unit. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
      * @param {BusinessUnitsRequestPyload} [businessUnitsRequestPyload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -224,7 +219,7 @@ export class BusinessUnitsApi extends BaseApi implements BusinessUnitsApiInterfa
      * Query all the business units in a specific BIM 360 account.
      * @summary Get Business Units
      * @param {string} accountId The account ID of the business unit. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
