@@ -15,7 +15,7 @@ export const Region = {
     * @deprecated This enum value is deprecated and will be removed in future versions.
     */
    Apac: 'APAC',
-   AUS: 'AUS'
+   Aus: 'AUS'
 } as const;
 
 export type Region = typeof Region[keyof typeof Region];
