@@ -1,4 +1,4 @@
-import { Systems, Events, HookPayload, Hooks, HookDetails, ModifyHookPayload, TokenPayload, Token, Region, StatusFilter, Sort } from "@aps_sdk/webhooks";
+import { Systems, Events, HookPayload, Hooks, HookDetails, ModifyHookPayload, TokenPayload, Token, Region, StatusFilter, Sort, XAdsRegion } from "@aps_sdk/webhooks";
 import { Logger, LogLevel, SdkManager, SdkManagerBuilder, StaticAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager"; // Assuming a default export
 import { WebhooksClient } from "@aps_sdk/webhooks";
 import 'dotenv/config';
@@ -22,7 +22,7 @@ const projectId = process.env.projectId;
 async function createSystemEventhook(): Promise<any> {
   const hookPayload: HookPayload = {
     callbackUrl: "https://example.com/callback_fifth_new",
-    scope: { "folder": "urn:adsk.wipprod:fs.folder:co.dn8tJ7ZIQDiPLsoV0_kn_Q"},
+    scope: { "folder": folderId},
     "autoReactivateHook": false,
     "hookAttribute": {
       /* Custom metadata */
@@ -38,7 +38,7 @@ async function createSystemEventhook(): Promise<any> {
   try {
     const response = await webhooksClient.createSystemEventHook(system, event, hookPayload, 
       {
-        region: Region.Emea
+        region: Region.Aus,
       });
     console.log(response);
   } catch (error) {
