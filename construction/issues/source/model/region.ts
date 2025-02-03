@@ -12,7 +12,7 @@ export const Region = {
     Us: 'US',
     Emea: 'EMEA',
     /**
-    * @deprecated This enum value is deprecated and will be removed in future versions.
+    * @deprecated Please use AUS instead.
     */
    Apac: 'APAC',
    Aus: 'AUS'
