@@ -10,8 +10,8 @@
 
 export const AssignedToType = {
     User: 'user',
-    Company: ' company',
-    Role: ' role',
+    Company: 'company',
+    Role: 'role',
     // Null: 'null, Documented but the endpoint doesn't support null so commenting it out.
 } as const;
 
