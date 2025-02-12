@@ -260,7 +260,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     return requestId;
   }
   private GenerateSdkRequestId(bucketKey: string, objectKey: string): string {
-    return bucketKey + "/" + objectKey;
+    return encodeURIComponent(String(bucketKey + "/" + objectKey));
   }
   private async getS3SignedDownloadUrlWithRetry(bucketKey: string, objectKey: string, accessToken: string, requestId: string): Promise<Signeds3downloadResponse> {
     var attemptCount: number = 0;
