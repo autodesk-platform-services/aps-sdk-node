@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import { ManifestResources } from './manifestResources';
 import { Messages } from './messages';
@@ -17,7 +15,9 @@ export interface ManifestDerivative {
      */
     'name': string;
     /**
-     * - ``true``: The derivative has a thumbnail. - ``false``: The derivative does not have a thumbnail. 
+     * - ``true``: The derivative has a thumbnail.
+ * - ``false``: The derivative does not have a thumbnail.
+ * 
      * @type {string}
      * @memberof ManifestDerivative
      */
@@ -34,6 +34,18 @@ export interface ManifestDerivative {
      * @memberof ManifestDerivative
      */
     'outputType': string;
+    /**
+     * A JSON object containing metadata extracted from the source design. This metadata provides valuable information about the model, such as its author, client name, project status, and other relevant details.
+ * 
+ * **Note:** This metadata is currently returned for the following source design types:
+ * 
+ * - RVT - Revit models
+ * - NWD - Navisworks models
+ * - DWG - AutoCAD models
+     * @type {object}
+     * @memberof ManifestDerivative
+     */
+    'properties'?: object;
     /**
      * Status of the task generating this derivative. Possible values are: ``pending``, ``inprogress``, ``success``, ``failed``, ``timeout``.
      * @type {string}
