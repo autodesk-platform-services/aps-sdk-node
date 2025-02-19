@@ -36,7 +36,7 @@ async function getProjects() {
 async function getProject() {
     try {
         // access-token can optionaly be passed directly to method
-        const project: Project = await _adminApi.getProject(projectId, { region: Region.Apac, accessToken: accessToken });
+        const project: Project = await _adminApi.getProject(projectId, { region: Region.Aus, accessToken: accessToken });
         console.log(project);
     }
     catch (err) {
