@@ -1,4 +1,4 @@
-import { Systems, Events, HookPayload, Hooks, HookDetails, ModifyHookPayload, TokenPayload, Token, Region, StatusFilter, Sort, XAdsRegion } from "@aps_sdk/webhooks";
+import { Systems, Events, HookPayload, Hooks, HookDetails, ModifyHookPayload, TokenPayload, Token, Region, StatusFilter, Sort } from "@aps_sdk/webhooks";
 import { Logger, LogLevel, SdkManager, SdkManagerBuilder, StaticAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager"; // Assuming a default export
 import { WebhooksClient } from "@aps_sdk/webhooks";
 import 'dotenv/config';
