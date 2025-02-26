@@ -12,6 +12,6 @@ npm i @aps_sdk/oss
 ```
 ## Example
 
-For usage, see [OSS sample](https://github.com/autodesk-platform-services/aps-sdk-node/blob/development/samples/oss.ts)
+For usage, see [OSS sample](https://github.com/autodesk-platform-services/aps-sdk-node/blob/main/samples/oss.ts)
 
 

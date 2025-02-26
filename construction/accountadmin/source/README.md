@@ -12,5 +12,5 @@ npm i @aps_sdk/construction-account-admin
 ```
 ## Example
 
-For usage, see [Account Admin sample](https://github.com/autodesk-platform-services/aps-sdk-node/blob/development/samples/accountadmin.ts)
+For usage, see [Account Admin sample](https://github.com/autodesk-platform-services/aps-sdk-node/blob/main/samples/accountadmin.ts)
 
