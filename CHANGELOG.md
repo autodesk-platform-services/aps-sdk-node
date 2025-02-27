@@ -1,5 +1,36 @@
 # Changelog
 
+## [v1.1.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v1.1.0) (2025-02-26)
+
+[Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v1.0.2...v1.1.0)
+
+**Implemented enhancements:**
+
+- \[DAS 332\] - Added comments in webhooks client and statusfilter bug fix [\#101](https://github.com/autodesk-platform-services/aps-sdk-node/pull/101) ([nishchhaldagar](https://github.com/nishchhaldagar))
+- \[DAS 324\] - Add AUS to region and update ManifestDerivative model [\#99](https://github.com/autodesk-platform-services/aps-sdk-node/pull/99) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- \[DAS 327\] - Add AUS region support for webhooks [\#98](https://github.com/autodesk-platform-services/aps-sdk-node/pull/98) ([Arrotech](https://github.com/Arrotech))
+- \[DAS 323\] - Added AUS Region support for ACC Admin [\#97](https://github.com/autodesk-platform-services/aps-sdk-node/pull/97) ([nishchhaldagar](https://github.com/nishchhaldagar))
+- \[DAS 322\] Added AUS region support for Issues [\#95](https://github.com/autodesk-platform-services/aps-sdk-node/pull/95) ([srivastavarahull](https://github.com/srivastavarahull))
+- \[DAS 326\] - Add AUS region support for datamanagement [\#94](https://github.com/autodesk-platform-services/aps-sdk-node/pull/94) ([Arrotech](https://github.com/Arrotech))
+- \[DAS 325\] Added Support for AUS Region for OSS [\#93](https://github.com/autodesk-platform-services/aps-sdk-node/pull/93) ([srivastavarahull](https://github.com/srivastavarahull))
+
+## [v1.0.2](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v1.0.2) (2025-01-13)
+
+[Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v1.0.1...v1.0.2)
+
+**Fixed bugs:**
+
+- \[DAS 318\] - Rename extensions to extension [\#92](https://github.com/autodesk-platform-services/aps-sdk-node/pull/92) ([Arrotech](https://github.com/Arrotech))
+
+**Merged pull requests:**
+
+- Keep Dev branch updated with main [\#91](https://github.com/autodesk-platform-services/aps-sdk-node/pull/91) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Keep Main branch updated with release [\#90](https://github.com/autodesk-platform-services/aps-sdk-node/pull/90) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Update ChangeLog [\#88](https://github.com/autodesk-platform-services/aps-sdk-node/pull/88) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Keep dev branch updated [\#87](https://github.com/autodesk-platform-services/aps-sdk-node/pull/87) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Keep Main branch updated [\#73](https://github.com/autodesk-platform-services/aps-sdk-node/pull/73) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Keep Development branch updated [\#65](https://github.com/autodesk-platform-services/aps-sdk-node/pull/65) ([sajith-subramanian](https://github.com/sajith-subramanian))
+
 ## [v1.0.1](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v1.0.1) (2024-12-12)
 
 [Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v1-GA...v1.0.1)
