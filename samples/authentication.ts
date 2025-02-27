@@ -34,7 +34,9 @@ async function getUserInfo() {
 async function getTwoLeggedToken() {
     try {
         const token = await authenticationClient.getTwoLeggedToken(clientId, clientSecret, new Array(Scopes.DataRead, Scopes.DataCreate, Scopes.BucketCreate));
-        var expiresAt = new Date(token.expires_at);
+        var expiresAt = token.expires_at; // Returns the expiry time in milliseconds
+        // convert the expiry time from milliseconds to local date-time
+        var expiresAtLocal = new Date(expiresAt); 
         console.log(token.access_token);
     }
     catch (error) {

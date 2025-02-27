@@ -305,7 +305,7 @@ export class OssClient extends BaseClient {
 
     /**
      * Use this endpoint to create a bucket. Buckets are arbitrary spaces created and owned by applications. Bucket keys are globally unique across all regions, regardless of where they were created, and they cannot be changed. The application creating the bucket is the owner of the bucket. 
-     * @param {Region} xAdsRegion The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; 
+     * @param {Region} xAdsRegion The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60; EMEA&#x60; and &#x60;AUS (Beta)&#x60; Default is &#x60;US&#x60;
      * @param {CreateBucketsPayload} bucketPayload Length of time for objects in the bucket to exist; &#x60;transient&#x60; (24h),  &#x60;temporary&#x60; (30d), or &#x60;persistent&#x60; (until delete request). 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -389,7 +389,7 @@ export class OssClient extends BaseClient {
     /**
      * Delete a signed URL. A successful call to this endpoint requires bucket owner access.
      * @param {string} hash Hash of signed resource
-     * @param {Region} [region] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
+     * @param {Region} [region] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60; EMEA&#x60; and &#x60;AUS (Beta)&#x60; Default is &#x60;US&#x60;
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -423,7 +423,7 @@ export class OssClient extends BaseClient {
     }
     /**
         * This endpoint will return the buckets owned by the application. This endpoint supports pagination. 
-        * @param {Region} [region] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
+        * @param {Region} [region] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60; EMEA&#x60; and &#x60;AUS (Beta)&#x60; Default is &#x60;US&#x60;
         * @param {number} [limit] Limit to the response size, Acceptable values: 1-100 Default &#x3D; 10 
         * @param {string} [startAt] Key to use as an offset to continue pagination This is typically the last bucket key found in a preceding GET buckets response 
         * @param accessToken bearer access token
@@ -496,7 +496,7 @@ export class OssClient extends BaseClient {
         * @param {string} [ifNoneMatch] The value of this header is compared to the ETAG of the object. If they match, the body will not be included in the response. Only the object information will be included.
         * @param {string} [ifModifiedSince] If the requested object has not been modified since the time specified in this field, an entity will not be returned from the server; instead, a 304 (not modified) response will be returned without any message body. 
         * @param {string} [acceptEncoding] When gzip is specified, a gzip compressed stream of the object’s bytes will be returned in the response. Cannot use “Accept-Encoding:gzip” with Range header containing an end byte range. End byte range will not be honored if “Accept-Encoding: gzip” header is used. 
-        * @param {Region} [region] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
+        * @param {Region} [region] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60; EMEA&#x60; and &#x60;AUS (Beta)&#x60; Default is &#x60;US&#x60;
         * @param {string} [responseContentDisposition] Value of the Content-Disposition HTTP header you expect to receive. If the parameter is not provided, the value associated with the object is used.
         * @param {string} [responseContentType] Value of the Content-Type HTTP header you expect to receive in the download response.
         * @param {*} [options] Override http request option.
@@ -568,7 +568,7 @@ export class OssClient extends BaseClient {
      * @param {File} body The object to upload.
      * @param {string} [contentType] The MIME type of the object to upload; can be any type except \&#39;multipart/form-data\&#39;. This can be omitted, but we recommend adding it.
      * @param {string} [contentDisposition] The suggested default filename when downloading this object to a file after it has been uploaded.
-     * @param {Region} [xAdsRegion] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
+     * @param {Region} [xAdsRegion] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60; EMEA&#x60; and &#x60;AUS (Beta)&#x60; Default is &#x60;US&#x60;
      * @param {string} [ifMatch] If-Match header containing a SHA-1 hash of the bytes in the request body can be sent by the calling service or client application with the request. If present, OSS will use the value of If-Match header to verify that a SHA-1 calculated for the uploaded bytes server side matches what was sent in the header. If not, the request is failed with a status 412 Precondition Failed and the data is not written. 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -591,7 +591,7 @@ export class OssClient extends BaseClient {
      * @param {File} body The chunk to upload.
      * @param {string} [contentType] The MIME type of the object to upload; can be any type except \&#39;multipart/form-data\&#39;. This can be omitted, but we recommend adding it.
      * @param {string} [contentDisposition] The suggested default filename when downloading this object to a file after it has been uploaded.
-     * @param {Region} [xAdsRegion] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60;EMEA&#x60; Default is &#x60;US&#x60; 
+     * @param {Region} [xAdsRegion] The region where the bucket resides Acceptable values: &#x60;US&#x60;, &#x60; EMEA&#x60; and &#x60;AUS (Beta)&#x60; Default is &#x60;US&#x60;
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
