@@ -21,6 +21,6 @@ export interface JsonApiLinksSelfAndWebView {
      * @type {WebViewLink}
      * @memberof JsonApiLinksSelfAndWebView
      */
-    'webview'?: WebViewLink;
+    'webView'?: WebViewLink;
 }
 
