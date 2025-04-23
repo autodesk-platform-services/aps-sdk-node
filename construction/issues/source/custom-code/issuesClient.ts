@@ -1,5 +1,5 @@
 import { SdkManager, ApiResponse, ApsServiceRequestConfig, BaseClient, IAuthenticationProvider, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
-import { Region, DataType, AttrDefinition, Fields, IssuePayload, SortBy, User, Issue, IssuesPage, IssueType, IssueRootCause, AttrMapping, CommentsPayload, CreatedComment, Comments } from "../model";
+import { Region, DataType, AttrDefinitionPage, Fields, IssuePayload, SortBy, User, Issue, IssuesPage, TypesPage, RootCauseCategoriesPage, AttrMappingPage, CommentsPayload,Comments } from "../model";
 import { IssueAttributeDefinitionsApi, IssueAttributeMappingsApi, IssueCommentsApi, IssueRootCauseCategoriesApi, IssueTypesApi, IssuesApi, IssuesProfileApi } from "../api";
 
 export class IssuesClient extends BaseClient {
@@ -40,7 +40,7 @@ export class IssuesClient extends BaseClient {
 * @throws {RequiredError}
 * @memberof IssueAttributeDefinitionsApiInterface
 */
-  public async getAttributeDefinitions(projectId: string, optionalArgs?: { xAdsRegion?: Region, limit?: number, offset?: number, filterCreatedAt?: string, filterUpdatedAt?: string, filterDeletedAt?: string, filterDataType?: Array<DataType>, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<AttrDefinition> {
+  public async getAttributeDefinitions(projectId: string, optionalArgs?: { xAdsRegion?: Region, limit?: number, offset?: number, filterCreatedAt?: string, filterUpdatedAt?: string, filterDeletedAt?: string, filterDataType?: Array<DataType>, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<AttrDefinitionPage> {
     if (!optionalArgs?.accessToken && !this.authenticationProvider) {
       throw new Error("Please provide a valid access token or an authentication provider");
     }
@@ -67,7 +67,7 @@ export class IssuesClient extends BaseClient {
    * @throws {RequiredError}
    * @memberof IssueAttributeMappingsApiInterface
    */
-  public async getAttributeMappings(projectId: string, optionalArgs?: { xAdsRegion?: Region, limit?: number, offset?: number, filterCreatedAt?: string, filterUpdatedAt?: string, filterDeletedAt?: string, filterAttributeDefinitionId?: string, filterMappedItemId?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<AttrMapping> {
+  public async getAttributeMappings(projectId: string, optionalArgs?: { xAdsRegion?: Region, limit?: number, offset?: number, filterCreatedAt?: string, filterUpdatedAt?: string, filterDeletedAt?: string, filterAttributeDefinitionId?: string, filterMappedItemId?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<AttrMappingPage> {
     if (!optionalArgs?.accessToken && !this.authenticationProvider) {
       throw new Error("Please provide a valid access token or an authentication provider");
     }
@@ -87,7 +87,7 @@ export class IssuesClient extends BaseClient {
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    */
-  public async createComments(projectId: string, issueId: string, commentsPayload: CommentsPayload, optionalArgs?: { xAdsRegion?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<CreatedComment> {
+  public async createComments(projectId: string, issueId: string, commentsPayload: CommentsPayload, optionalArgs?: { xAdsRegion?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Comments> {
     if (!optionalArgs?.accessToken && !this.authenticationProvider) {
       throw new Error("Please provide a valid access token or an authentication provider");
     }
@@ -133,7 +133,7 @@ export class IssuesClient extends BaseClient {
    * @throws {RequiredError}
    * @memberof IssueRootCauseCategoriesApiInterface
    */
-  public async getRootCauseCategories(projectId: string, optionalArgs?: { xAdsRegion?: Region, include?: string, limit?: number, offset?: number, filterUpdatedAt?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<IssueRootCause> {
+  public async getRootCauseCategories(projectId: string, optionalArgs?: { xAdsRegion?: Region, include?: string, limit?: number, offset?: number, filterUpdatedAt?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<RootCauseCategoriesPage> {
     if (!optionalArgs?.accessToken && !this.authenticationProvider) {
       throw new Error("Please provide a valid access token or an authentication provider");
     }
@@ -158,7 +158,7 @@ export class IssuesClient extends BaseClient {
   * @throws {RequiredError}
   * @memberof IssueTypesApiInterface
   */
-  public async getIssuesTypes(projectId: string, optionalArgs?: { include?: string, limit?: number, offset?: number, filterUpdatedAt?: string, filterIsActive?: boolean, xAdsRegion?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<IssueType> {
+  public async getIssuesTypes(projectId: string, optionalArgs?: { include?: string, limit?: number, offset?: number, filterUpdatedAt?: string, filterIsActive?: boolean, xAdsRegion?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<TypesPage> {
     if (!optionalArgs?.accessToken && !this.authenticationProvider) {
       throw new Error("Please provide a valid access token or an authentication provider");
     }

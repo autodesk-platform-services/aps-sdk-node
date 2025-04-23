@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
@@ -7,7 +5,6 @@ import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDat
 import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, ConstructionIssuesApiError } from '../base';
 import { Comments } from '../model';
 import { CommentsPayload } from '../model';
-import { CreatedComment } from '../model';
 import { Region } from '../model';
 import { SortBy } from '../model';
 /**
@@ -150,7 +147,7 @@ export const IssueCommentsApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createComments(accessToken: string, projectId: string, issueId: string, xAdsRegion?: Region, commentsPayload?: CommentsPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreatedComment>> {
+        async createComments(accessToken: string, projectId: string, issueId: string, xAdsRegion?: Region, commentsPayload?: CommentsPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Comments>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createComments(accessToken, projectId, issueId, xAdsRegion, commentsPayload,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },

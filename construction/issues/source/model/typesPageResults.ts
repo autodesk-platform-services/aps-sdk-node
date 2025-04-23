@@ -1,101 +1,100 @@
-/* tslint:disable */
-/* eslint-disable */
 
+import { TypesPageResultsSubtypes } from './typesPageResultsSubtypes';
 
 /**
  * 
  * @export
- * @interface IssueTypeResultsSubtypes
+ * @interface TypesPageResults
  */
-export interface IssueTypeResultsSubtypes {
+export interface TypesPageResults {
     /**
-     * The ID of the issue subtype.
+     * The ID of the issue type.
      * @type {string}
-     * @memberof IssueTypeResultsSubtypes
+     * @memberof TypesPageResults
      */
     'id'?: string;
     /**
-     * The ID of the parent issue type.
+     * Not relevant
      * @type {string}
-     * @memberof IssueTypeResultsSubtypes
+     * @memberof TypesPageResults
      */
-    'issueTypeId'?: string;
+    'containerId'?: string;
     /**
      * Max length: 250
      * @type {string}
-     * @memberof IssueTypeResultsSubtypes
+     * @memberof TypesPageResults
      */
     'title'?: string;
     /**
-     * 3 chars pin label.
-     * @type {string}
-     * @memberof IssueTypeResultsSubtypes
-     */
-    'code'?: string;
-    /**
      * States whether the issue type is active.
      * @type {boolean}
-     * @memberof IssueTypeResultsSubtypes
+     * @memberof TypesPageResults
      */
     'isActive'?: boolean;
     /**
      * Not relevant
      * @type {number}
-     * @memberof IssueTypeResultsSubtypes
+     * @memberof TypesPageResults
      */
     'orderIndex'?: number;
     /**
      * Not relevant
-     * @type {boolean}
-     * @memberof IssueTypeResultsSubtypes
-     */
-    'isReadOnly'?: boolean;
-    /**
-     * Not relevant
      * @type {Array<string>}
-     * @memberof IssueTypeResultsSubtypes
+     * @memberof TypesPageResults
      */
     'permittedActions'?: Array<string>;
     /**
      * Not relevant
      * @type {Array<string>}
-     * @memberof IssueTypeResultsSubtypes
+     * @memberof TypesPageResults
      */
     'permittedAttributes'?: Array<string>;
     /**
+     * A list of subtypes of the specific issue type.
+     * @type {Array<TypesPageResultsSubtypes>}
+     * @memberof TypesPageResults
+     */
+    'subtypes'?: Array<TypesPageResultsSubtypes>;
+    /**
+     * Not relevant
+     * @type {string}
+     * @memberof TypesPageResults
+     */
+    'statusSet'?: string;
+    /**
      * The unique identifier of the user who created the issue type.
      * @type {string}
-     * @memberof IssueTypeResultsSubtypes
+     * @memberof TypesPageResults
      */
     'createdBy'?: string;
     /**
      * The date and time the issue was created, in ISO8601 format.
      * @type {string}
-     * @memberof IssueTypeResultsSubtypes
+     * @memberof TypesPageResults
      */
     'createdAt'?: string;
     /**
      * The unique identifier of the user who updated the issue type.
      * @type {string}
-     * @memberof IssueTypeResultsSubtypes
+     * @memberof TypesPageResults
      */
     'updatedBy'?: string;
     /**
      * The date and time the issue type was updated, in ISO8601 format.
      * @type {string}
-     * @memberof IssueTypeResultsSubtypes
+     * @memberof TypesPageResults
      */
     'updatedAt'?: string;
     /**
      * The unique identifier of the user who deleted the issue type.
      * @type {string}
-     * @memberof IssueTypeResultsSubtypes
+     * @memberof TypesPageResults
      */
     'deletedBy'?: string;
     /**
      * The date and time the issue type was deleted, in ISO8601 format.
      * @type {string}
-     * @memberof IssueTypeResultsSubtypes
+     * @memberof TypesPageResults
      */
     'deletedAt'?: string;
 }

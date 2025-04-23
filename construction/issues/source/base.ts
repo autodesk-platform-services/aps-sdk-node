@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import globalAxios, {AxiosError} from 'axios';

@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import { AssignedToType } from './assignedToType';
 import { IssuePayloadCustomAttributes } from './issuePayloadCustomAttributes';

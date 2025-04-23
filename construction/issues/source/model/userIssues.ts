@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import { UserIssuesFilter } from './userIssuesFilter';
 import { UserIssuesNew } from './userIssuesNew';

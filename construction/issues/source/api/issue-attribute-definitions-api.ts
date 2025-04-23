@@ -1,11 +1,9 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, ConstructionIssuesApiError } from '../base';
-import { AttrDefinition } from '../model';
+import { AttrDefinitionPage } from '../model';
 import { DataType } from '../model';
 import { Region } from '../model';
 /**
@@ -112,7 +110,7 @@ export const IssueAttributeDefinitionsApiFp = function(sdkManager?: SdkManager) 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAttributeDefinitions(accessToken: string, projectId: string, xAdsRegion?: Region, limit?: number, offset?: number, filterCreatedAt?: string, filterUpdatedAt?: string, filterDeletedAt?: string, filterDataType?: Array<DataType>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AttrDefinition>> {
+        async getAttributeDefinitions(accessToken: string, projectId: string, xAdsRegion?: Region, limit?: number, offset?: number, filterCreatedAt?: string, filterUpdatedAt?: string, filterDeletedAt?: string, filterDataType?: Array<DataType>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AttrDefinitionPage>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAttributeDefinitions(accessToken, projectId, xAdsRegion, limit, offset, filterCreatedAt, filterUpdatedAt, filterDeletedAt, filterDataType,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },

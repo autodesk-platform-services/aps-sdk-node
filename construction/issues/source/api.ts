@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 
 export * from './api/issue-attribute-definitions-api';
