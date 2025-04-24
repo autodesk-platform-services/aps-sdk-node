@@ -749,7 +749,7 @@ async function createItem() {
           attributes: <ItemPayloadIncludedAttributes>{
             name: "TestDrawing.dwg",
             extension: <ItemPayloadIncludedAttributesExtension>{
-              type: "items:autodesk.core:File",
+              type: "versions:autodesk.core:File",
               version: '1.0'
             },
           },
@@ -1094,7 +1094,7 @@ async function createStorage() {
       relationships: {
         target: {
           data: {
-            type: TypeFolderItemsForStorage.Items,
+            type: TypeFolderItemsForStorage.Folders,
             id: download_id
           }
         }
