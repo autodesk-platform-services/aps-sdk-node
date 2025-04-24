@@ -1,5 +1,23 @@
 # Changelog
 
+
+## [v1.1.1](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v1.1.1) (2025-04-17)
+
+[Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v1.1.0...v1.1.1)
+
+**Closed issues:**
+
+- The webview property spelling in the JsonApiLinksSelfAndWebView interface is inconsistent with the Data Management API response body structure [\#106](https://github.com/autodesk-platform-services/aps-sdk-node/issues/106)
+
+**Fixed bugs:**
+
+- Issue \#106: use camel case for webView property in the JsonApiLinksSe… [\#107](https://github.com/autodesk-platform-services/aps-sdk-node/pull/107) ([anthonydgj](https://github.com/anthonydgj))
+
+**Merged pull requests:**
+
+- \[AUTO\]: Update CHANGELOG [\#104](https://github.com/autodesk-platform-services/aps-sdk-node/pull/104) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Keep Main branch updated [\#103](https://github.com/autodesk-platform-services/aps-sdk-node/pull/103) ([sajith-subramanian](https://github.com/sajith-subramanian))
+
 ## [v1.1.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v1.1.0) (2025-02-26)
 
 [Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v1.0.2...v1.1.0)
