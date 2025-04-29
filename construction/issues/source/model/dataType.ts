@@ -7,6 +7,7 @@
  */
 
 export const DataType = {
+    List: 'list',
     Text: 'text',
     Paragraph: 'paragraph',
     Numeric: 'numeric'

@@ -1,5 +1,5 @@
 import { SdkManager, ApiResponse, ApsServiceRequestConfig, BaseClient, IAuthenticationProvider, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
-import { Region, DataType, AttrDefinitionPage, Fields, IssuePayload, SortBy, User, Issue, IssuesPage, TypesPage, RootCauseCategoriesPage, AttrMappingPage, CommentsPayload,Comments } from "../model";
+import { Region, DataType, AttrDefinitionPage, Fields, IssuePayload, SortBy, User, Issue, IssuesPage, TypesPage, RootCauseCategoriesPage, AttrMappingPage, CommentsPayload,Comments, CommentsPage } from "../model";
 import { IssueAttributeDefinitionsApi, IssueAttributeMappingsApi, IssueCommentsApi, IssueRootCauseCategoriesApi, IssueTypesApi, IssuesApi, IssuesProfileApi } from "../api";
 
 export class IssuesClient extends BaseClient {
@@ -109,7 +109,7 @@ export class IssuesClient extends BaseClient {
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    */
-  public async getComments(projectId: string, issueId: string, optionalArgs?: { xAdsRegion?: Region, limit?: string, offset?: string, sortBy?: Array<SortBy>, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Comments> {
+  public async getComments(projectId: string, issueId: string, optionalArgs?: { xAdsRegion?: Region, limit?: string, offset?: string, sortBy?: Array<SortBy>, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<CommentsPage> {
     if (!optionalArgs?.accessToken && !this.authenticationProvider) {
       throw new Error("Please provide a valid access token or an authentication provider");
     }
@@ -224,6 +224,7 @@ export class IssuesClient extends BaseClient {
    * @param {Region} [xAdsRegion] 
    * @param {string} [filterDueDate] Filter issues by due date, in one of the following URL-encoded format: YYYY-MM-DD. Separate multiple values with commas.
    * @param {string} [filterStartDate] Filter issues by start date, in one of the following URL-encoded format: YYYY-MM-DD. Separate multiple values with commas.
+   * @param {boolean} [filterDeleted] Filter deleted issues. For example, filter[deleted]=true. If set to true it only returns deleted issues. If set to false it only returns undeleted issues. Note that we do not currently support returning both deleted and undeleted issues. Default value: false.
    * @param {string} [filterCreatedAt] Filter issues created at the specified date and time, in one of the following URL-encoded formats: YYYY-MM-DDThh:mm:ss.sz or YYYY-MM-DD. Separate multiple values with commas
    * @param {Array<string>} [filterCreatedBy] Filter issues by the unique identifier of the user who created the issue. Separate multiple values with commas.
    * @param {string} [filterUpdatedAt] Filter issues updated at the specified date and time, in one of the following URL-encoded formats: YYYY-MM-DDThh:mm:ss.sz or YYYY-MM-DD. Separate multiple values with commas. 
@@ -248,14 +249,14 @@ export class IssuesClient extends BaseClient {
    * @throws {RequiredError}
    * @memberof IssuesApiInterface
    */
-  public async getIssues(projectId: string, optionalArgs?: { filterId?: Array<string>, filterIssueTypeId?: Array<string>, filterIssueSubtypeId?: Array<string>, filterStatus?: string, filterLinkedDocumentUrn?: Array<string>, xAdsRegion?: Region, filterDueDate?: string, filterStartDate?: string, filterCreatedAt?: string, filterCreatedBy?: Array<string>, filterUpdatedAt?: string, filterUpdatedBy?: Array<string>, filterAssignedTo?: Array<string>, filterRootCauseId?: Array<string>, filterLocationId?: Array<string>, filterSubLocationId?: Array<string>, filterClosedBy?: Array<string>, filterClosedAt?: string, filterSearch?: string, filterDisplayId?: number, filterAssignedToType?: string, filterCustomAttributes?: Array<string>, filterValid?: boolean, limit?: number, offset?: number, sortBy?: Array<SortBy>, fields?: Array<Fields>, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<IssuesPage> {
+  public async getIssues(projectId: string, optionalArgs?: { filterId?: Array<string>, filterIssueTypeId?: Array<string>, filterIssueSubtypeId?: Array<string>, filterStatus?: string, filterLinkedDocumentUrn?: Array<string>, xAdsRegion?: Region, filterDueDate?: string, filterStartDate?: string,filterDeleted?: boolean, filterCreatedAt?: string, filterCreatedBy?: Array<string>, filterUpdatedAt?: string, filterUpdatedBy?: Array<string>, filterAssignedTo?: Array<string>, filterRootCauseId?: Array<string>, filterLocationId?: Array<string>, filterSubLocationId?: Array<string>, filterClosedBy?: Array<string>, filterClosedAt?: string, filterSearch?: string, filterDisplayId?: number, filterAssignedToType?: string, filterCustomAttributes?: Array<string>, filterValid?: boolean, limit?: number, offset?: number, sortBy?: Array<SortBy>, fields?: Array<Fields>, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<IssuesPage> {
     if (!optionalArgs?.accessToken && !this.authenticationProvider) {
       throw new Error("Please provide a valid access token or an authentication provider");
     }
     else if (!optionalArgs?.accessToken) {
       (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
     } 
-    const response = await this.issuesapi.getIssues(optionalArgs?.accessToken, projectId, optionalArgs?.filterId, optionalArgs?.filterIssueTypeId, optionalArgs?.filterIssueSubtypeId, optionalArgs?.filterStatus, optionalArgs?.filterLinkedDocumentUrn, optionalArgs?.xAdsRegion, optionalArgs?.filterDueDate, optionalArgs?.filterStartDate, optionalArgs?.filterCreatedAt, optionalArgs?.filterCreatedBy, optionalArgs?.filterUpdatedAt, optionalArgs?.filterUpdatedBy, optionalArgs?.filterAssignedTo, optionalArgs?.filterRootCauseId, optionalArgs?.filterLocationId, optionalArgs?.filterSubLocationId, optionalArgs?.filterClosedBy, optionalArgs?.filterClosedAt, optionalArgs?.filterSearch, optionalArgs?.filterDisplayId, optionalArgs?.filterAssignedToType, optionalArgs?.filterCustomAttributes, optionalArgs?.filterValid, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sortBy, optionalArgs?.fields, optionalArgs?.options);
+    const response = await this.issuesapi.getIssues(optionalArgs?.accessToken, projectId, optionalArgs?.filterId, optionalArgs?.filterIssueTypeId, optionalArgs?.filterIssueSubtypeId, optionalArgs?.filterStatus, optionalArgs?.filterLinkedDocumentUrn, optionalArgs?.xAdsRegion, optionalArgs?.filterDueDate, optionalArgs?.filterStartDate,optionalArgs?.filterDeleted, optionalArgs?.filterCreatedAt, optionalArgs?.filterCreatedBy, optionalArgs?.filterUpdatedAt, optionalArgs?.filterUpdatedBy, optionalArgs?.filterAssignedTo, optionalArgs?.filterRootCauseId, optionalArgs?.filterLocationId, optionalArgs?.filterSubLocationId, optionalArgs?.filterClosedBy, optionalArgs?.filterClosedAt, optionalArgs?.filterSearch, optionalArgs?.filterDisplayId, optionalArgs?.filterAssignedToType, optionalArgs?.filterCustomAttributes, optionalArgs?.filterValid, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sortBy, optionalArgs?.fields, optionalArgs?.options);
     return response.content;
   }
 
