@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import type { RequestArgs } from "./base";
 import type { AxiosInstance, AxiosResponse } from 'axios';
