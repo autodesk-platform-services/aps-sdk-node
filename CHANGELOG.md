@@ -1,13 +1,26 @@
 # Changelog
 
+## [v2.0.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v2.0.0) (2025-05-07)
+
+[Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v1.1.1...v2.0.0)
+
+**Breaking changes:**
+
+- \[ DAS-334 \] Fixed Acc Issues Model naming [\#111](https://github.com/autodesk-platform-services/aps-sdk-node/pull/111) ([srivastavarahull](https://github.com/srivastavarahull))
+
+**Fixed bugs:**
+
+- \[DAS 337\] - Fix dm sample [\#113](https://github.com/autodesk-platform-services/aps-sdk-node/pull/113) ([Arrotech](https://github.com/Arrotech))
+
+**Closed issues:**
+
+- Another problem in sample [\#110](https://github.com/autodesk-platform-services/aps-sdk-node/issues/110)
+- Problem in sample [\#109](https://github.com/autodesk-platform-services/aps-sdk-node/issues/109)
+- The webview property spelling in the JsonApiLinksSelfAndWebView interface is inconsistent with the Data Management API response body structure [\#106](https://github.com/autodesk-platform-services/aps-sdk-node/issues/106)
 
 ## [v1.1.1](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v1.1.1) (2025-04-17)
 
 [Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v1.1.0...v1.1.1)
-
-**Closed issues:**
-
-- The webview property spelling in the JsonApiLinksSelfAndWebView interface is inconsistent with the Data Management API response body structure [\#106](https://github.com/autodesk-platform-services/aps-sdk-node/issues/106)
 
 **Fixed bugs:**
 
