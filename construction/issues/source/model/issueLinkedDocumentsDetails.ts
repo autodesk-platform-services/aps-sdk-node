@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import { IssueLinkedDocumentsDetailsPosition } from './issueLinkedDocumentsDetailsPosition';
 import { IssueLinkedDocumentsDetailsViewable } from './issueLinkedDocumentsDetailsViewable';

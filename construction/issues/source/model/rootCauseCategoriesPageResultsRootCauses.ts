@@ -1,59 +1,59 @@
-/* tslint:disable */
-/* eslint-disable */
 
 
 /**
  * 
  * @export
- * @interface IssueRootCauseResultsRootCauses
+ * @interface RootCauseCategoriesPageResultsRootCauses
  */
-export interface IssueRootCauseResultsRootCauses {
+export interface RootCauseCategoriesPageResultsRootCauses {
     /**
      * The ID of the issue root cause.
      * @type {string}
-     * @memberof IssueRootCauseResultsRootCauses
+     * @memberof RootCauseCategoriesPageResultsRootCauses
      */
     'id'?: string;
     /**
      * The ID of the parent issue root cause category.
      * @type {string}
-     * @memberof IssueRootCauseResultsRootCauses
+     * @memberof RootCauseCategoriesPageResultsRootCauses
      */
     'rootCauseCategoryId'?: string;
     /**
-     * The title of the issue root cause. Max length: 100
+     * The title of the issue root cause.
+ * Max length: 100
      * @type {string}
-     * @memberof IssueRootCauseResultsRootCauses
+     * @memberof RootCauseCategoriesPageResultsRootCauses
      */
     'title'?: string;
     /**
-     * The description of the custom attribute. Max length: 500
+     * The description of the custom attribute.
+ * Max length: 500
      * @type {boolean}
-     * @memberof IssueRootCauseResultsRootCauses
+     * @memberof RootCauseCategoriesPageResultsRootCauses
      */
     'isActive'?: boolean;
     /**
      * Not relevant
      * @type {Array<string>}
-     * @memberof IssueRootCauseResultsRootCauses
+     * @memberof RootCauseCategoriesPageResultsRootCauses
      */
     'permittedActions'?: Array<string>;
     /**
      * Not relevant
      * @type {Array<string>}
-     * @memberof IssueRootCauseResultsRootCauses
+     * @memberof RootCauseCategoriesPageResultsRootCauses
      */
     'permittedAttributes'?: Array<string>;
     /**
      * The date and time the custom attribute was deleted, in the following format: YYYY-MM-DDThh:mm:ss.sz.
      * @type {string}
-     * @memberof IssueRootCauseResultsRootCauses
+     * @memberof RootCauseCategoriesPageResultsRootCauses
      */
     'deletedAt'?: string;
     /**
      * The Autodesk ID of the user who deleted the custom attribute.
      * @type {string}
-     * @memberof IssueRootCauseResultsRootCauses
+     * @memberof RootCauseCategoriesPageResultsRootCauses
      */
     'deletedBy'?: string;
 }

@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import { IssueCustomAttributes } from './issueCustomAttributes';
 import { IssueGpsCoordinates } from './issueGpsCoordinates';
@@ -29,6 +27,18 @@ export interface Issue {
      * @memberof Issue
      */
     'deleted'?: boolean;
+    /**
+     * The date and time the issue was deleted, in ISO8601 format. This is only relevant for deleted issues.
+     * @type {string}
+     * @memberof Issue
+     */
+    'deletedAt'?: string;
+    /**
+     * The Autodesk ID of the user who deleted the issue. This is only relevant for deleted issues.
+     * @type {string}
+     * @memberof Issue
+     */
+    'deletedBy'?: string;
     /**
      * The chronological user-friendly identifier of the issue.
      * @type {number}
@@ -245,5 +255,12 @@ export interface Issue {
      * @memberof Issue
      */
     'gpsCoordinates'?: IssueGpsCoordinates;
+    /**
+     * Not relevant
+ * 
+     * @type {boolean}
+     * @memberof Issue
+     */
+    'snapshotHasMarkups'?: boolean;
 }
 

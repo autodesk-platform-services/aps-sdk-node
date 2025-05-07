@@ -1,11 +1,9 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, ConstructionIssuesApiError } from '../base';
-import { IssueRootCause } from '../model';
+import { RootCauseCategoriesPage } from '../model';
 import { Region } from '../model';
 /**
  * IssueRootCauseCategoriesApi - axios parameter creator
@@ -99,7 +97,7 @@ export const IssueRootCauseCategoriesApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRootCauseCategories(accessToken: string, projectId: string, xAdsRegion?: Region, include?: string, limit?: number, offset?: number, filterUpdatedAt?: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<IssueRootCause>> {
+        async getRootCauseCategories(accessToken: string, projectId: string, xAdsRegion?: Region, include?: string, limit?: number, offset?: number, filterUpdatedAt?: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RootCauseCategoriesPage>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getRootCauseCategories(accessToken, projectId, xAdsRegion, include, limit, offset, filterUpdatedAt,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },

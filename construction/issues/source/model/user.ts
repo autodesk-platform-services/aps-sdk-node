@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import { PermissionLevel } from './permissionLevel';
 import { UserIssues } from './userIssues';

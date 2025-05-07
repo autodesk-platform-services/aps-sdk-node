@@ -1,8 +1,6 @@
-/* tslint:disable */
-/* eslint-disable */
 
-import { IssuesPagePagination } from './issuesPagePagination';
-import { Results } from './results';
+import { Issue } from './issue';
+import { Pagination } from './pagination';
 
 /**
  * 
@@ -12,15 +10,15 @@ import { Results } from './results';
 export interface IssuesPage {
     /**
      * 
-     * @type {IssuesPagePagination}
+     * @type {Pagination}
      * @memberof IssuesPage
      */
-    'pagination'?: IssuesPagePagination;
+    'pagination'?: Pagination;
     /**
      * The list of issues in the current page
-     * @type {Array<Results>}
+     * @type {Array<Issue>}
      * @memberof IssuesPage
      */
-    'results'?: Array<Results>;
+    'results'?: Array<Issue>;
 }
 
