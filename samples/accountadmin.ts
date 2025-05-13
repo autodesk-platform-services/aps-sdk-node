@@ -1,4 +1,4 @@
-import { AdminClient, BusinessUnitsRequestPayload, BusinessUnitsResponse, Classification, Company, CompanyImportResponse, CompanyPatchPayload, CompanyPayload, Currency, FilterTextMatch, Platform, ProductAccess, ProductKeys, Products, Project, ProjectPatchResponse, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserResponse, ProjectUsers, ProjectUsersImportPayload, ProjectUsersImportResponse, ProjectUsersUpdatePayload, Projects, Region, SortBy, Status, Timezone, Trade, User, UserImportResponse, UserPatchPayload, UserPayload } from '@aps_sdk/construction-account-admin';
+import { AdminClient, BusinessUnitsRequestPayload, BusinessUnitsResponse, Classification, Company, CompanyImportResponse, CompanyPatchPayload, CompanyPayload, Currency, FilterTextMatch, Platform, ProductAccess, ProductKeys, Products, Project, ProjectPatchResponse, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserResponse, ProjectUsers, ProjectUsersImportPayload, ProjectUsersImportResponse, ProjectUsersUpdatePayload, Projects, Region, SortBy, Status, Timezone, Trade, User, UserImportResponse, UserPatchPayload, UserPayload, UserProjectsPage, UserProjectFields, UserProjectSortBy, FilterUserProjectsAccessLevels } from '@aps_sdk/construction-account-admin';
 import { Logger, LogLevel, SdkManager, SdkManagerBuilder, StaticAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager"
 import * as fs from "fs";
 import 'dotenv/config';
@@ -9,16 +9,13 @@ const sdkManager: SdkManager = SdkManagerBuilder.create().addLogger(new Logger(L
 //Initialise Auth Provider. If not provided, access tokens will need to be passed to each method.
 const staticAuthenticationProvider = new StaticAuthenticationProvider(process.env.accessToken);
 
-let _adminApi: AdminClient = new AdminClient({sdkManager: sdkManager, authenticationProvider: staticAuthenticationProvider});
+let _adminApi: AdminClient = new AdminClient({ sdkManager: sdkManager, authenticationProvider: staticAuthenticationProvider });
 
 const accessToken = process.env.accessToken;
 const accountId = process.env.accountId;
 const adminUserId = process.env.adminUserId;
 const projectId = process.env.projectId;
-
-
-
-//--------------------------------- Projects --------------------------------------\\
+const adminAccountUserId = process.env.adminAccountUserId;
 
 
 // list projects
@@ -91,7 +88,7 @@ async function createProject() {
 }
 
 
-getProjects()
+// getProjects()
 // getProject()
 // postProjectImage()
 // createProject()
@@ -507,3 +504,86 @@ async function putBusinessUnits() {
 
 // getBusinessUnits()
 // putBusinessUnits()
+
+async function getUserProjects() {
+    try {
+        // Define filters
+        const filterId = ["828e49fe-8a96-4eed-bec1-4a617bda6b09", "5e84db8f-b469-41a8-ba41-090d37454be2"];
+        const fields = [
+            UserProjectFields.AccessLevels,
+            UserProjectFields.AccountId,
+            UserProjectFields.AddressLine1,
+            UserProjectFields.AddressLine2,
+            UserProjectFields.City,
+            UserProjectFields.ConstructionType,
+            UserProjectFields.Country,
+            UserProjectFields.CreatedAt,
+            UserProjectFields.Classification,
+            UserProjectFields.DeliveryMethod,
+            UserProjectFields.EndDate,
+            UserProjectFields.ImageUrl,
+            UserProjectFields.JobNumber,
+            UserProjectFields.Latitude,
+            UserProjectFields.Longitude,
+            UserProjectFields.Name,
+            UserProjectFields.Platform,
+            UserProjectFields.PostalCode,
+            UserProjectFields.ProjectValue,
+            UserProjectFields.SheetCount,
+            UserProjectFields.StartDate,
+            UserProjectFields.StateOrProvince,
+            UserProjectFields.Status,
+            UserProjectFields.ThumbnailImageUrl,
+            UserProjectFields.Timezone,
+            UserProjectFields.Type,
+            UserProjectFields.UpdatedAt,
+            UserProjectFields.ContractType,
+            UserProjectFields.CurrentPhase
+        ];
+        const filterClassification = [Classification.Production];
+        const filterName = "SDKTest";
+        const filterPlatform = [Platform.Acc];
+        // Status.Pending, Status.Archived, Status.Suspended
+        const filterStatus = [Status.Active];
+        const filterType = ["Airport", "Bridge", "Office"];
+        const filterJobNumber = "JOB-001";
+        const filterUpdatedAt = "2023-03-02T00:00:00.000Z..2023-03-03T23:59:59.999Z";
+        const filterAccessLevels = [FilterUserProjectsAccessLevels.ProjectAdmin];
+        const filterTextMatch = FilterTextMatch.Contains;
+
+        // Define sort parameters
+        const sort = [UserProjectSortBy.NameDesc];
+
+        // Define pagination
+        const limit = 20;
+        const offset = 20;
+
+        const response: Projects = await _adminApi.getUserProjects(accountId, adminAccountUserId, {
+            limit: limit,
+        });
+
+        for (const project of response.results) {
+            console.log("Project ID:", project.id);
+            console.log("Project Name:", project.name);
+            console.log("Project Status:", project.status);
+            console.log("Project Type:", project.type);
+            console.log("Project Platform:", project.platform);
+            console.log("Project Classification:", project.classification);
+            console.log("Project Start Date:", project.startDate);
+            console.log("Project End Date:", project.endDate);
+            console.log("Project Job Number:", project.jobNumber);
+            console.log("Project Construction Type:", project.constructionType);
+            console.log("Project Delivery Method:", project.deliveryMethod);
+            console.log("Project Contract Type:", project.contractType);
+            console.log("Project Current Phase:", project.currentPhase);
+            console.log("Project Created At:", project.createdAt);
+            console.log("Project Updated At:", project.updatedAt);
+            console.log("-----------------------------------");
+        }
+    }
+    catch (err) {
+        console.error(err.message);
+    }
+}
+
+getUserProjects()
