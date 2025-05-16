@@ -559,7 +559,20 @@ async function getUserProjects() {
         const offset = 20;
 
         const response: Projects = await _adminApi.getUserProjects(accountId, adminAccountUserId, {
+            filterId: filterId,
+            fields: fields,
+            filterClassification: filterClassification,
+            filterName: filterName,
+            filterPlatform: filterPlatform,
+            filterStatus: filterStatus,
+            filterType: filterType,
+            filterJobNumber: filterJobNumber,
+            filterUpdatedAt: filterUpdatedAt,
+            filterAccessLevels: filterAccessLevels,
+            filterTextMatch: filterTextMatch,
+            sort: sort,
             limit: limit,
+            offset: offset,
         });
 
         for (const project of response.results) {
