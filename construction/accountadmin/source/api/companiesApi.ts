@@ -5,11 +5,16 @@ import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, ConstructionAccountAdminApiError } from '../base';
+import { AccountCompaniesPage } from '../model';
 import { Company } from '../model';
-import { CompanyImportResponse } from '../model';
+import { CompanyImport } from '../model';
+import { CompanyOrFilters } from '../model';
 import { CompanyPatchPayload } from '../model';
 import { CompanyPayload } from '../model';
-import { CompanyResponse } from '../model';
+import { FilterCompanyFields } from '../model';
+import { FilterCompanySort } from '../model';
+import { FilterTextMatch } from '../model';
+import { ProjectCompanies } from '../model';
 import { Region } from '../model';
 /**
  * CompaniesApi - axios parameter creator
@@ -58,6 +63,114 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(companyPayload, localVarRequestOptions, apsConfiguration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns a list of companies in an account.
+         * 
+         * You can also use this endpoint to filter out the list of companies by setting the filter parameters.
+         * 
+         * Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
+         * @summary Get account companies
+         * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b." prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
+         * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA. For a complete list of supported regions, see the Regions page.
+         * @param {string} [userId] The ID of a user on whose behalf your request is acting. Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).  Note that this header is required for Account Admin POST, PATCH, and DELETE endpoints if you want to use a 2-legged authentication context. This header is optional for Account Admin GET endpoints.
+         * @param {string} [filterName] Filter companies by name. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+         * @param {string} [filterTrade] Filter companies by trade. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+         * @param {string} [filterErpId] Filter companies by ERP Id. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+         * @param {string} [filterTaxId] Filter companies by tax Id. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+         * @param {string} [filterUpdatedAt] Filter companies by updated at date range. The range must be specified with dates in an ISO-8601 format with time required. The start and end dates of the range should be separated by .. One of the dates in the range may be omitted. For example, to get everything on or before June 1, 2019 the range would be ..2019-06-01T23:59:59.999Z. To get everything after June 1, 2019 the range would be 2019-06-01T00:00:00.000Z... Max length: 100
+         * @param {Array<CompanyOrFilters>} [orFilters] List of filtered fields to apply an “or” operator. Valid list of fields are erpId, name, taxId, trade, updatedAt.
+         * @param {FilterTextMatch} [filterTextMatch] Defines how text-based filters should match results. Possible values: contains (default) – Returns results where the text appears anywhere in the field. startsWith – Matches only if the field starts with the given value. endsWith – Matches only if the field ends with the given value. equals – Matches only if the field is an exact match.
+         * @param {Array<FilterCompanySort>} [sort] The list of fields to sort by. When multiple fields are listed the later property is used to sort the resources where the previous fields have the same value. Each property can be followed by a direction modifier of either asc (ascending) or desc (descending). If no direction is specified then asc is assumed. Valid fields for sorting are name, trade, erpId, taxId, status, createdAt, updatedAt, projectSize and userSize. Default sort is name.
+         * @param {Array<FilterCompanyFields>} [fields] List of fields to return in the response. Defaults to all fields. Valid list of fields are accountId, name, trade, addresses, websiteUrl, description, erpId, taxId, imageUrl, status, createdAt, updatedAt, projectSize, userSize and originalName.
+         * @param {number} [limit] The maximum number of records per request. Default: 20. Minimum: 1, Maximum: 200. If a value greater than 200 is provided, only 200 records are returned.
+         * @param {number} [offset] The record number to start returning results from, used for pagination. For example, if limit=20 and offset=20, the request retrieves the second page of results.
+         * @param accessToken bearer access token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAccountCompanies: async (accessToken: string, accountId: string, region?: Region, userId?: string, filterName?: string, filterTrade?: string, filterErpId?: string, filterTaxId?: string, filterUpdatedAt?: string, orFilters?: Array<CompanyOrFilters>, filterTextMatch?: FilterTextMatch, sort?: Array<FilterCompanySort>, fields?: Array<FilterCompanyFields>, limit?: number, offset?: number,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'accountId' is not null or undefined
+            assertParamExists('getAccountCompanies', 'accountId', accountId)
+            const localVarPath = `/construction/admin/v1/accounts/{accountId}/companies`
+                .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)));
+            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
+            let baseOptions;
+            if (apsConfiguration) {
+                baseOptions = apsConfiguration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            await setBearerAuthToObject(localVarHeaderParameter, accessToken)
+
+            if (filterName !== undefined) {
+                localVarQueryParameter['filter[name]'] = filterName;
+            }
+
+            if (filterTrade !== undefined) {
+                localVarQueryParameter['filter[trade]'] = filterTrade;
+            }
+
+            if (filterErpId !== undefined) {
+                localVarQueryParameter['filter[erpId]'] = filterErpId;
+            }
+
+            if (filterTaxId !== undefined) {
+                localVarQueryParameter['filter[taxId]'] = filterTaxId;
+            }
+
+            if (filterUpdatedAt !== undefined) {
+                localVarQueryParameter['filter[updatedAt]'] = filterUpdatedAt;
+            }
+
+            if (orFilters) {
+                localVarQueryParameter['orFilters'] = orFilters;
+            }
+
+            if (filterTextMatch !== undefined) {
+                localVarQueryParameter['filterTextMatch'] = filterTextMatch;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (fields) {
+                localVarQueryParameter['fields'] = fields;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (region != null) {
+                localVarHeaderParameter['Region'] = typeof region === 'string'
+                    ? region
+                    : JSON.stringify(region);
+            }
+
+            if (userId != null) {
+                localVarHeaderParameter['User-Id'] = String(userId);
+            }
+
+
+    
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTIONACCOUNTADMIN/TypeScript/1.0.0';
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -509,6 +622,34 @@ export const CompaniesApiFp = function(sdkManager?: SdkManager) {
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
+         * Returns a list of companies in an account.
+         * 
+         * You can also use this endpoint to filter out the list of companies by setting the filter parameters.
+         * 
+         * Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
+         * @summary Get account companies
+         * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b." prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
+         * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA. For a complete list of supported regions, see the Regions page.
+         * @param {string} [userId] The ID of a user on whose behalf your request is acting. Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).  Note that this header is required for Account Admin POST, PATCH, and DELETE endpoints if you want to use a 2-legged authentication context. This header is optional for Account Admin GET endpoints.
+         * @param {string} [filterName] Filter companies by name. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+         * @param {string} [filterTrade] Filter companies by trade. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+         * @param {string} [filterErpId] Filter companies by ERP Id. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+         * @param {string} [filterTaxId] Filter companies by tax Id. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+         * @param {string} [filterUpdatedAt] Filter companies by updated at date range. The range must be specified with dates in an ISO-8601 format with time required. The start and end dates of the range should be separated by .. One of the dates in the range may be omitted. For example, to get everything on or before June 1, 2019 the range would be ..2019-06-01T23:59:59.999Z. To get everything after June 1, 2019 the range would be 2019-06-01T00:00:00.000Z... Max length: 100
+         * @param {Array<CompanyOrFilters>} [orFilters] List of filtered fields to apply an “or” operator. Valid list of fields are erpId, name, taxId, trade, updatedAt.
+         * @param {FilterTextMatch} [filterTextMatch] Defines how text-based filters should match results. Possible values: contains (default) – Returns results where the text appears anywhere in the field. startsWith – Matches only if the field starts with the given value. endsWith – Matches only if the field ends with the given value. equals – Matches only if the field is an exact match.
+         * @param {Array<FilterCompanySort>} [sort] The list of fields to sort by. When multiple fields are listed the later property is used to sort the resources where the previous fields have the same value. Each property can be followed by a direction modifier of either asc (ascending) or desc (descending). If no direction is specified then asc is assumed. Valid fields for sorting are name, trade, erpId, taxId, status, createdAt, updatedAt, projectSize and userSize. Default sort is name.
+         * @param {Array<FilterCompanyFields>} [fields] List of fields to return in the response. Defaults to all fields. Valid list of fields are accountId, name, trade, addresses, websiteUrl, description, erpId, taxId, imageUrl, status, createdAt, updatedAt, projectSize, userSize and originalName.
+         * @param {number} [limit] The maximum number of records per request. Default: 20. Minimum: 1, Maximum: 200. If a value greater than 200 is provided, only 200 records are returned.
+         * @param {number} [offset] The record number to start returning results from, used for pagination. For example, if limit=20 and offset=20, the request retrieves the second page of results.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAccountCompanies(accessToken: string, accountId: string, region?: Region, userId?: string, filterName?: string, filterTrade?: string, filterErpId?: string, filterTaxId?: string, filterUpdatedAt?: string, orFilters?: Array<CompanyOrFilters>, filterTextMatch?: FilterTextMatch, sort?: Array<FilterCompanySort>, fields?: Array<FilterCompanyFields>, limit?: number, offset?: number, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccountCompaniesPage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountCompanies(accessToken, accountId, region, userId, filterName, filterTrade, filterErpId, filterTaxId, filterUpdatedAt, orFilters, filterTextMatch, sort, fields, limit, offset,  options);
+            return createRequestFunction(localVarAxiosArgs, sdkManager);
+        },
+        /**
          * Query all the partner companies in a specific BIM 360 account. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
          * @summary Get all companies in an account
          * @param {string} accountId The account ID of the company. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
@@ -550,7 +691,7 @@ export const CompaniesApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getProjectCompanies(accessToken: string, accountId: string, projectId: string, region?: Region, limit?: number, offset?: number, sort?: string, field?: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CompanyResponse>>> {
+        async getProjectCompanies(accessToken: string, accountId: string, projectId: string, region?: Region, limit?: number, offset?: number, sort?: string, field?: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ProjectCompanies>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectCompanies(accessToken, accountId, projectId, region, limit, offset, sort, field,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -563,7 +704,7 @@ export const CompaniesApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async importCompanies(accessToken: string, accountId: string, region?: Region, companyPayload?: Array<CompanyPayload>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CompanyImportResponse>> {
+        async importCompanies(accessToken: string, accountId: string, region?: Region, companyPayload?: Array<CompanyPayload>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CompanyImport>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.importCompanies(accessToken, accountId, region, companyPayload,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -636,6 +777,34 @@ export interface CompaniesApiInterface {
      * @memberof CompaniesApiInterface
      */
     createCompany(accessToken: string,accountId: string, region?: Region, companyPayload?: CompanyPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+
+    /**
+     * Returns a list of companies in an account.
+     * 
+     * You can also use this endpoint to filter out the list of companies by setting the filter parameters.
+     * 
+     * Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
+     * @summary Get account companies
+     * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b." prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
+     * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA. For a complete list of supported regions, see the Regions page.
+     * @param {string} [userId] The ID of a user on whose behalf your request is acting. Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).  Note that this header is required for Account Admin POST, PATCH, and DELETE endpoints if you want to use a 2-legged authentication context. This header is optional for Account Admin GET endpoints.
+     * @param {string} [filterName] Filter companies by name. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+     * @param {string} [filterTrade] Filter companies by trade. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+     * @param {string} [filterErpId] Filter companies by ERP Id. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+     * @param {string} [filterTaxId] Filter companies by tax Id. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+     * @param {string} [filterUpdatedAt] Filter companies by updated at date range. The range must be specified with dates in an ISO-8601 format with time required. The start and end dates of the range should be separated by .. One of the dates in the range may be omitted. For example, to get everything on or before June 1, 2019 the range would be ..2019-06-01T23:59:59.999Z. To get everything after June 1, 2019 the range would be 2019-06-01T00:00:00.000Z... Max length: 100
+     * @param {Array<CompanyOrFilters>} [orFilters] List of filtered fields to apply an “or” operator. Valid list of fields are erpId, name, taxId, trade, updatedAt.
+     * @param {FilterTextMatch} [filterTextMatch] Defines how text-based filters should match results. Possible values: contains (default) – Returns results where the text appears anywhere in the field. startsWith – Matches only if the field starts with the given value. endsWith – Matches only if the field ends with the given value. equals – Matches only if the field is an exact match.
+     * @param {Array<FilterCompanySort>} [sort] The list of fields to sort by. When multiple fields are listed the later property is used to sort the resources where the previous fields have the same value. Each property can be followed by a direction modifier of either asc (ascending) or desc (descending). If no direction is specified then asc is assumed. Valid fields for sorting are name, trade, erpId, taxId, status, createdAt, updatedAt, projectSize and userSize. Default sort is name.
+     * @param {Array<FilterCompanyFields>} [fields] List of fields to return in the response. Defaults to all fields. Valid list of fields are accountId, name, trade, addresses, websiteUrl, description, erpId, taxId, imageUrl, status, createdAt, updatedAt, projectSize, userSize and originalName.
+     * @param {number} [limit] The maximum number of records per request. Default: 20. Minimum: 1, Maximum: 200. If a value greater than 200 is provided, only 200 records are returned.
+     * @param {number} [offset] The record number to start returning results from, used for pagination. For example, if limit=20 and offset=20, the request retrieves the second page of results.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    getAccountCompanies(accessToken: string,accountId: string, region?: Region, userId?: string, filterName?: string, filterTrade?: string, filterErpId?: string, filterTaxId?: string, filterUpdatedAt?: string, orFilters?: Array<CompanyOrFilters>, filterTextMatch?: FilterTextMatch, sort?: Array<FilterCompanySort>, fields?: Array<FilterCompanyFields>, limit?: number, offset?: number,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Query all the partner companies in a specific BIM 360 account. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
@@ -784,6 +953,53 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
         throw error;
       }
     }
+
+    /**
+     * Returns a list of companies in an account.
+     * 
+     * You can also use this endpoint to filter out the list of companies by setting the filter parameters.
+     * 
+     * Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
+     * @summary Get account companies
+     * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b." prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
+     * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA. For a complete list of supported regions, see the Regions page.
+     * @param {string} [userId] The ID of a user on whose behalf your request is acting. Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).  Note that this header is required for Account Admin POST, PATCH, and DELETE endpoints if you want to use a 2-legged authentication context. This header is optional for Account Admin GET endpoints.
+     * @param {string} [filterName] Filter companies by name. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+     * @param {string} [filterTrade] Filter companies by trade. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+     * @param {string} [filterErpId] Filter companies by ERP Id. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+     * @param {string} [filterTaxId] Filter companies by tax Id. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+     * @param {string} [filterUpdatedAt] Filter companies by updated at date range. The range must be specified with dates in an ISO-8601 format with time required. The start and end dates of the range should be separated by .. One of the dates in the range may be omitted. For example, to get everything on or before June 1, 2019 the range would be ..2019-06-01T23:59:59.999Z. To get everything after June 1, 2019 the range would be 2019-06-01T00:00:00.000Z... Max length: 100
+     * @param {Array<CompanyOrFilters>} [orFilters] List of filtered fields to apply an “or” operator. Valid list of fields are erpId, name, taxId, trade, updatedAt.
+     * @param {FilterTextMatch} [filterTextMatch] Defines how text-based filters should match results. Possible values: contains (default) – Returns results where the text appears anywhere in the field. startsWith – Matches only if the field starts with the given value. endsWith – Matches only if the field ends with the given value. equals – Matches only if the field is an exact match.
+     * @param {Array<FilterCompanySort>} [sort] The list of fields to sort by. When multiple fields are listed the later property is used to sort the resources where the previous fields have the same value. Each property can be followed by a direction modifier of either asc (ascending) or desc (descending). If no direction is specified then asc is assumed. Valid fields for sorting are name, trade, erpId, taxId, status, createdAt, updatedAt, projectSize and userSize. Default sort is name.
+     * @param {Array<FilterCompanyFields>} [fields] List of fields to return in the response. Defaults to all fields. Valid list of fields are accountId, name, trade, addresses, websiteUrl, description, erpId, taxId, imageUrl, status, createdAt, updatedAt, projectSize, userSize and originalName.
+     * @param {number} [limit] The maximum number of records per request. Default: 20. Minimum: 1, Maximum: 200. If a value greater than 200 is provided, only 200 records are returned.
+     * @param {number} [offset] The record number to start returning results from, used for pagination. For example, if limit=20 and offset=20, the request retrieves the second page of results.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public async getAccountCompanies(accessToken: string, accountId: string, region?: Region, userId?: string, filterName?: string, filterTrade?: string, filterErpId?: string, filterTaxId?: string, filterUpdatedAt?: string, orFilters?: Array<CompanyOrFilters>, filterTextMatch?: FilterTextMatch, sort?: Array<FilterCompanySort>, fields?: Array<FilterCompanyFields>, limit?: number, offset?: number, options?: ApsServiceRequestConfig) {
+        this.logger.logInfo("Entered into getAccountCompanies ");
+        try {
+          const request =  await CompaniesApiFp(this.sdkManager).getAccountCompanies(accessToken, accountId, region, userId, filterName, filterTrade, filterErpId, filterTaxId, filterUpdatedAt, orFilters, filterTextMatch, sort, fields, limit, offset,  options);
+          const response = await request(this.axios);
+          this.logger.logInfo(`getAccountCompanies Request completed successfully with status code: ${response.status}`);
+          return new ApiResponse(response,response.data);
+        } catch (error) {
+          if (error.response) {
+              const responseData = error.response.data;
+              const errorMessage = responseData.developerMessage || responseData.reason || responseData.message || error.message;
+              this.logger.logError(`getAccountCompanies Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+              throw new ConstructionAccountAdminApiError(`getAccountCompanies Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
+          } else if (error.request) {
+              this.logger.logError(`getAccountCompanies Request failed with no response received: ${error.request}`);
+              throw new ConstructionAccountAdminApiError(`getAccountCompanies Request failed with no response received: ${error.request}`, error);
+          }
+          throw error;
+        }
+      }
 
     /**
      * Query all the partner companies in a specific BIM 360 account. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.

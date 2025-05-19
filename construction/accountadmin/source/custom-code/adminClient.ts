@@ -1,6 +1,6 @@
 import { ApsServiceRequestConfig, BaseClient, IAuthenticationProvider, SdkManager, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
 import { CompaniesApi, ProjectsApi, ProjectUsersApi, AccountUsersApi, BusinessUnitsApi, UserProjectsApi } from "../api";
-import { AccessLevels, BusinessUnitsRequestPayload, BusinessUnitsResponse, Classification, Company, CompanyImportResponse, CompanyPatchPayload, CompanyPayload, CompanyResponse, Fields, FilterTextMatch, OrFilters, Platform, Products, Project, ProjectPatchResponse, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserResponse, ProjectUsers, ProjectUsersImportPayload, ProjectUsersImportResponse, ProjectUsersUpdatePayload, Projects, Region, SortBy, Status, StatusFilter, User, UserFields, UserImportResponse, UserPatchPayload, UserPayload, UserSortBy, UserProjectFields, FilterUserProjectsAccessLevels, UserProjectSortBy } from "../model";
+import { AccessLevels, BusinessUnitsPayload, BusinessUnits, Classification, Company, CompanyImport, CompanyPatchPayload, CompanyPayload, ProjectCompanies, Fields, FilterTextMatch, OrFilters, Platform, Products, Project, ProjectPatch, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserDetails, ProjectUsersPage, ProjectUsersImportPayload, ProjectUsersImport, ProjectUsersUpdatePayload, ProjectsPage, Region, SortBy, Status, StatusFilter, User, UserFields, UserImport, UserPatchPayload, UserPayload, UserSortBy, UserProjectFields, FilterUserProjectsAccessLevels, UserProjectSortBy, CompanyOrFilters, FilterCompanySort, FilterCompanyFields, AccountCompaniesPage } from "../model";
 
 export class AdminClient extends BaseClient {
     public companiesApi: CompaniesApi;
@@ -71,7 +71,7 @@ export class AdminClient extends BaseClient {
      * @throws {RequiredError}
      * @memberof ProjectsApi
      */
-    public async getProjects(accountId: string, optionalArgs?: { region?: Region, fields?: Array<Fields>, filterClassification?: Array<Classification>, filterPlatform?: Array<Platform>, filterProducts?: Array<Products>, filterName?: string, filterType?: Array<string>, filterStatus?: Array<Status>, filterBusinessUnitId?: string, filterJobNumber?: string, filterUpdatedAt?: string, filterTextMatch?: FilterTextMatch, sort?: Array<SortBy>, limit?: number, offset?: number, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Projects> {
+    public async getProjects(accountId: string, optionalArgs?: { region?: Region, fields?: Array<Fields>, filterClassification?: Array<Classification>, filterPlatform?: Array<Platform>, filterProducts?: Array<Products>, filterName?: string, filterType?: Array<string>, filterStatus?: Array<Status>, filterBusinessUnitId?: string, filterJobNumber?: string, filterUpdatedAt?: string, filterTextMatch?: FilterTextMatch, sort?: Array<SortBy>, limit?: number, offset?: number, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ProjectsPage> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
@@ -117,7 +117,7 @@ export class AdminClient extends BaseClient {
      * @throws {RequiredError}
      * @memberof ProjectsApi
      */
-    public async createProjectImage(projectId: string, accountId: string, body: File, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ProjectPatchResponse> {
+    public async createProjectImage(projectId: string, accountId: string, body: File, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ProjectPatch> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
@@ -218,7 +218,7 @@ export class AdminClient extends BaseClient {
      * @throws {RequiredError}
      * @memberof CompaniesApi
      */
-    public async importCompanies(accountId: string, companyPayload: Array<CompanyPayload>, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<CompanyImportResponse> {
+    public async importCompanies(accountId: string, companyPayload: Array<CompanyPayload>, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<CompanyImport> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
@@ -244,7 +244,7 @@ export class AdminClient extends BaseClient {
      * @throws {RequiredError}
      * @memberof CompaniesApi
      */
-    public async getProjectCompanies(accountId: string, projectId: string, optionalArgs?: { region?: Region, limit?: number, offset?: number, sort?: string, field?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Array<CompanyResponse>> {
+    public async getProjectCompanies(accountId: string, projectId: string, optionalArgs?: { region?: Region, limit?: number, offset?: number, sort?: string, field?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Array<ProjectCompanies>> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
@@ -299,6 +299,42 @@ export class AdminClient extends BaseClient {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
         const response = await this.companiesApi.getCompanies(optionalArgs?.accessToken, accountId, optionalArgs?.region, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.sort, optionalArgs?.field, optionalArgs?.options);
+        return response.content;
+    }
+
+    /**
+     * Returns a list of companies in an account.
+     * 
+     * You can also use this endpoint to filter out the list of companies by setting the filter parameters.
+     * 
+     * Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
+     * @summary Get account companies
+     * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b." prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
+     * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA. For a complete list of supported regions, see the Regions page.
+     * @param {string} [userId] The ID of a user on whose behalf your request is acting. Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).  Note that this header is required for Account Admin POST, PATCH, and DELETE endpoints if you want to use a 2-legged authentication context. This header is optional for Account Admin GET endpoints.
+     * @param {string} [filterName] Filter companies by name. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+     * @param {string} [filterTrade] Filter companies by trade. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+     * @param {string} [filterErpId] Filter companies by ERP Id. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+     * @param {string} [filterTaxId] Filter companies by tax Id. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
+     * @param {string} [filterUpdatedAt] Filter companies by updated at date range. The range must be specified with dates in an ISO-8601 format with time required. The start and end dates of the range should be separated by .. One of the dates in the range may be omitted. For example, to get everything on or before June 1, 2019 the range would be ..2019-06-01T23:59:59.999Z. To get everything after June 1, 2019 the range would be 2019-06-01T00:00:00.000Z... Max length: 100
+     * @param {Array<CompanyOrFilters>} [orFilters] List of filtered fields to apply an “or” operator. Valid list of fields are erpId, name, taxId, trade, updatedAt.
+     * @param {FilterTextMatch} [filterTextMatch] Defines how text-based filters should match results. Possible values: contains (default) – Returns results where the text appears anywhere in the field. startsWith – Matches only if the field starts with the given value. endsWith – Matches only if the field ends with the given value. equals – Matches only if the field is an exact match.
+     * @param {Array<FilterCompanySort>} [sort] The list of fields to sort by. When multiple fields are listed the later property is used to sort the resources where the previous fields have the same value. Each property can be followed by a direction modifier of either asc (ascending) or desc (descending). If no direction is specified then asc is assumed. Valid fields for sorting are name, trade, erpId, taxId, status, createdAt, updatedAt, projectSize and userSize. Default sort is name.
+     * @param {Array<FilterCompanyFields>} [fields] List of fields to return in the response. Defaults to all fields. Valid list of fields are accountId, name, trade, addresses, websiteUrl, description, erpId, taxId, imageUrl, status, createdAt, updatedAt, projectSize, userSize and originalName.
+     * @param {number} [limit] The maximum number of records per request. Default: 20. Minimum: 1, Maximum: 200. If a value greater than 200 is provided, only 200 records are returned.
+     * @param {number} [offset] The record number to start returning results from, used for pagination. For example, if limit=20 and offset=20, the request retrieves the second page of results.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public async getAccountCompanies(accountId: string, optionalArgs?: { region?: Region, userId?: string, filterName?: string, filterTrade?: string, filterErpId?: string, filterTaxId?: string, filterUpdatedAt?: string, orFilters?: Array<CompanyOrFilters>, filterTextMatch?: FilterTextMatch, sort?: Array<FilterCompanySort>, fields?: Array<FilterCompanyFields>, limit?: number, offset?: number, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<AccountCompaniesPage> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.companiesApi.getAccountCompanies(optionalArgs?.accessToken, accountId, optionalArgs?.region, optionalArgs?.userId, optionalArgs?.filterName, optionalArgs?.filterTrade, optionalArgs?.filterErpId, optionalArgs?.filterTaxId, optionalArgs?.filterUpdatedAt, optionalArgs?.orFilters, optionalArgs?.filterTextMatch, optionalArgs?.sort, optionalArgs?.fields, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.options);
         return response.content;
     }
 
@@ -363,7 +399,7 @@ export class AdminClient extends BaseClient {
      * @throws {RequiredError}
      * @memberof ProjectUsersApi
      */
-    public async assignProjectUser(projectId: string, projectUserPayload: ProjectUserPayload, optionalArgs?: { region?: Region, adminUserId?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ProjectUserResponse> {
+    public async assignProjectUser(projectId: string, projectUserPayload: ProjectUserPayload, optionalArgs?: { region?: Region, adminUserId?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ProjectUserDetails> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
@@ -401,7 +437,7 @@ export class AdminClient extends BaseClient {
      * @throws {RequiredError}
      * @memberof ProjectUsersApi
      */
-    public async getProjectUsers(projectId: string, optionalArgs?: { region?: Region, filterProducts?: Array<Products>, filterName?: string, filterEmail?: string, filterStatus?: Array<StatusFilter>, filterAccessLevels?: Array<AccessLevels>, filterCompanyId?: string, filterCompanyName?: string, filterAutodeskId?: Array<string>, filterId?: Array<string>, filterRoleId?: string, filterRoleIds?: Array<string>, sort?: Array<UserSortBy>, fields?: Array<UserFields>, orFilters?: Array<OrFilters>, filterTextMatch?: FilterTextMatch, limit?: number, offset?: number, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ProjectUsers> {
+    public async getProjectUsers(projectId: string, optionalArgs?: { region?: Region, filterProducts?: Array<Products>, filterName?: string, filterEmail?: string, filterStatus?: Array<StatusFilter>, filterAccessLevels?: Array<AccessLevels>, filterCompanyId?: string, filterCompanyName?: string, filterAutodeskId?: Array<string>, filterId?: Array<string>, filterRoleId?: string, filterRoleIds?: Array<string>, sort?: Array<UserSortBy>, fields?: Array<UserFields>, orFilters?: Array<OrFilters>, filterTextMatch?: FilterTextMatch, limit?: number, offset?: number, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ProjectUsersPage> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
@@ -424,7 +460,7 @@ export class AdminClient extends BaseClient {
      * @throws {RequiredError}
      * @memberof ProjectUsersApi
      */
-    public async importProjectUsers(projectId: string, projectUsersImportPayload: ProjectUsersImportPayload, optionalArgs?: { region?: Region, adminUserId?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ProjectUsersImportResponse> {
+    public async importProjectUsers(projectId: string, projectUsersImportPayload: ProjectUsersImportPayload, optionalArgs?: { region?: Region, adminUserId?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ProjectUsersImport> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
@@ -471,7 +507,7 @@ export class AdminClient extends BaseClient {
      * @throws {RequiredError}
      * @memberof ProjectUsersApi
      */
-    public async updateProjectUser(projectId: string, userId: string, projectUsersUpdatePayload: ProjectUsersUpdatePayload, optionalArgs?: { region?: Region, adminUserId?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ProjectUserResponse> {
+    public async updateProjectUser(projectId: string, userId: string, projectUsersUpdatePayload: ProjectUsersUpdatePayload, optionalArgs?: { region?: Region, adminUserId?: string, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ProjectUserDetails> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
@@ -566,7 +602,7 @@ export class AdminClient extends BaseClient {
      * @throws {RequiredError}
      * @memberof AccountUsersApi
      */
-    public async importUsers(accountId: string, userPayload: Array<UserPayload>, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<UserImportResponse> {
+    public async importUsers(accountId: string, userPayload: Array<UserPayload>, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<UserImport> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
@@ -644,7 +680,7 @@ export class AdminClient extends BaseClient {
      * @throws {RequiredError}
      * @memberof BusinessUnitsApi
      */
-    public async getBusinessUnits(accountId: string, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<BusinessUnitsResponse> {
+    public async getBusinessUnits(accountId: string, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<BusinessUnits> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
@@ -666,7 +702,7 @@ export class AdminClient extends BaseClient {
      * @throws {RequiredError}
      * @memberof BusinessUnitsApi
      */
-    public async createBusinessUnits(accountId: string, businessUnitsRequestPyload: BusinessUnitsRequestPayload, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<BusinessUnitsResponse> {
+    public async createBusinessUnits(accountId: string, businessUnitsRequestPyload: BusinessUnitsPayload, optionalArgs?: { region?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<BusinessUnits> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
@@ -703,7 +739,7 @@ export class AdminClient extends BaseClient {
      * @throws {RequiredError}
      * @memberof UserProjectsApi
      */
-    public async getUserProjects(accountId: string, userId: string, optionalArgs?: { region?: Region, adminUserId?: string, filterId?: Array<string>, fields?: Array<UserProjectFields>, filterClassification?: Array<Classification>, filterName?: string, filterPlatform?: Array<Platform>, filterStatus?: Array<Status>, filterType?: Array<string>, filterJobNumber?: string, filterUpdatedAt?: string, filterAccessLevels?: Array<FilterUserProjectsAccessLevels>, filterTextMatch?: FilterTextMatch, sort?: Array<UserProjectSortBy>, limit?: number, offset?: number, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Projects> {
+    public async getUserProjects(accountId: string, userId: string, optionalArgs?: { region?: Region, adminUserId?: string, filterId?: Array<string>, fields?: Array<UserProjectFields>, filterClassification?: Array<Classification>, filterName?: string, filterPlatform?: Array<Platform>, filterStatus?: Array<Status>, filterType?: Array<string>, filterJobNumber?: string, filterUpdatedAt?: string, filterAccessLevels?: Array<FilterUserProjectsAccessLevels>, filterTextMatch?: FilterTextMatch, sort?: Array<UserProjectSortBy>, limit?: number, offset?: number, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ProjectsPage> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
