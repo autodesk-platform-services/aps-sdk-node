@@ -48,8 +48,8 @@ async function getProject() {
 // update project image
 async function postProjectImage() {
     try {
-        let buffer = fs.readFileSync("C:/Users/gitundh/source/repos/SDKs/aps-sdk-node/samples/uploads/atc.png");
-        const file: File = new File([buffer], "C:/Users/gitundh/source/repos/SDKs/aps-sdk-node/samples/uploads/atc.png");
+        let buffer = fs.readFileSync("/path/to/file/abc.jpg");
+        const file: File = new File([buffer], "/path/to/file/abc.jpg");
 
         const response: ProjectPatch = await _adminApi.createProjectImage(projectId, accountId, file);
         console.log(response)
@@ -118,26 +118,26 @@ async function getAccountCompanies() {
         const response: AccountCompaniesPage = await _adminApi.getAccountCompanies(accountId, 
             { 
                 region: Region.Us,
-                // filterName: "New Test Company",
-                // filterTrade: "Architecture",
-                // filterErpId: "c79bf096-5a3e-41a4-aaf8-a771ed329047",
-                // filterTaxId: "413-07-5767",
-                // filterUpdatedAt: "2025-05-19T00:00:00.000Z..",
-                // orFilters: [
-                //     CompanyOrFilters.Name,
-                //     CompanyOrFilters.TaxId,
-                // ],
-                // filterTextMatch: FilterTextMatch.EndsWith,
-                // sort: [
-                //     FilterCompanySort.UpdatedAtAsc
-                // ],
-                // fields: [
-                //     FilterCompanyFields.Name,
-                //     FilterCompanyFields.Trade,
-                //     FilterCompanyFields.UpdatedAt,
-                // ],
-                // limit: 10, 
-                // offset: 2 
+                filterName: "New Test Company",
+                filterTrade: "Architecture",
+                filterErpId: "c79bf096-5a3e-41a4-aaf8-a771ed329047",
+                filterTaxId: "413-07-5767",
+                filterUpdatedAt: "2025-05-19T00:00:00.000Z..",
+                orFilters: [
+                    CompanyOrFilters.Name,
+                    CompanyOrFilters.TaxId,
+                ],
+                filterTextMatch: FilterTextMatch.EndsWith,
+                sort: [
+                    FilterCompanySort.UpdatedAtAsc
+                ],
+                fields: [
+                    FilterCompanyFields.Name,
+                    FilterCompanyFields.Trade,
+                    FilterCompanyFields.UpdatedAt,
+                ],
+                limit: 10, 
+                offset: 2 
             }
         );
         console.log(response);
@@ -251,8 +251,8 @@ async function updateCompany() {
 // update company profile image
 async function updateCompanyImage() {
     try {
-        let buffer = fs.readFileSync("C:/Users/gitundh/source/repos/SDKs/aps-sdk-node/samples/uploads/atc.png");
-        const file: File = new File([buffer], "C:/Users/gitundh/source/repos/SDKs/aps-sdk-node/samples/uploads/atc.png");
+        let buffer = fs.readFileSync("/path/to/file/abc.jpg");
+        const file: File = new File([buffer], "/path/to/file/abc.jpg");
 
         const response: Company = await _adminApi.patchCompanyImage(companyId, accountId, file);
         console.log(response)
