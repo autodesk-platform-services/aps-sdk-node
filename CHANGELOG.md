@@ -1,5 +1,28 @@
 # Changelog
 
+## [v2.1.1](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v2.1.1) (2025-05-20)
+
+[Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v2.1.0...v2.1.1)
+
+**Fixed bugs:**
+
+- Fixed typo in constructionType property in userProject model.  [\#120](https://github.com/autodesk-platform-services/aps-sdk-node/pull/120) ([Arrotech](https://github.com/Arrotech))
+
+## [v2.1.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v2.1.0) (2025-05-19)
+
+[Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v2.0.0...v2.1.0)
+
+**Implemented enhancements:**
+
+- \[DAS 338\] - Add the new user projects api [\#117](https://github.com/autodesk-platform-services/aps-sdk-node/pull/117) ([Arrotech](https://github.com/Arrotech))
+
+**Merged pull requests:**
+
+- \[AUTO\]: Update CHANGELOG [\#116](https://github.com/autodesk-platform-services/aps-sdk-node/pull/116) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Keep Main branch updated with Dev [\#115](https://github.com/autodesk-platform-services/aps-sdk-node/pull/115) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Update ChangeLog [\#114](https://github.com/autodesk-platform-services/aps-sdk-node/pull/114) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Keep Main branch updated with development [\#112](https://github.com/autodesk-platform-services/aps-sdk-node/pull/112) ([sajith-subramanian](https://github.com/sajith-subramanian))
+
 ## [v2.0.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v2.0.0) (2025-05-07)
 
 [Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v1.1.1...v2.0.0)
