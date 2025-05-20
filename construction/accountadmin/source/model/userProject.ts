@@ -121,7 +121,7 @@ export interface UserProject {
      * @type {string}
      * @memberof UserProject
      */
-    'constructiontype'?: string;
+    'constructionType'?: string;
     /**
      * 
      * @type {string}
