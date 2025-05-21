@@ -5,8 +5,8 @@ import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, ConstructionAccountAdminApiError } from '../base';
-import { BusinessUnitsRequestPayload } from '../model';
-import { BusinessUnitsResponse } from '../model';
+import { BusinessUnits } from '../model';
+import { BusinessUnitsPayload } from '../model';
 import { Region } from '../model';
 /**
  * BusinessUnitsApi - axios parameter creator
@@ -19,12 +19,12 @@ export const BusinessUnitsApiAxiosParamCreator = function (apsConfiguration?: IA
          * @summary Create Business Units
          * @param {string} accountId The account ID of the business unit. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
          * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
-         * @param {BusinessUnitsRequestPyload} [businessUnitsRequestPyload] 
+         * @param {BusinessUnitsPayload} [businessUnitsPayload] 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createBusinessUnits: async (accessToken: string, accountId: string, region?: Region, businessUnitsRequestPyload?: BusinessUnitsRequestPayload,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        createBusinessUnits: async (accessToken: string, accountId: string, region?: Region, businessUnitsPayload?: BusinessUnitsPayload,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('createBusinessUnits', 'accountId', accountId)
             const localVarPath = `/hq/v1/accounts/{account_id}/business_units_structure`
@@ -54,7 +54,7 @@ export const BusinessUnitsApiAxiosParamCreator = function (apsConfiguration?: IA
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(businessUnitsRequestPyload, localVarRequestOptions, apsConfiguration)
+            localVarRequestOptions.data = serializeDataIfNeeded(businessUnitsPayload, localVarRequestOptions, apsConfiguration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -120,12 +120,12 @@ export const BusinessUnitsApiFp = function(sdkManager?: SdkManager) {
          * @summary Create Business Units
          * @param {string} accountId The account ID of the business unit. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
          * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
-         * @param {BusinessUnitsRequestPyload} [businessUnitsRequestPyload] 
+         * @param {BusinessUnitsPayload} [businessUnitsPayload] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createBusinessUnits(accessToken: string, accountId: string, region?: Region, businessUnitsRequestPyload?: BusinessUnitsRequestPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BusinessUnitsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createBusinessUnits(accessToken, accountId, region, businessUnitsRequestPyload,  options);
+        async createBusinessUnits(accessToken: string, accountId: string, region?: Region, businessUnitsPayload?: BusinessUnitsPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BusinessUnits>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createBusinessUnits(accessToken, accountId, region, businessUnitsPayload,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
@@ -136,7 +136,7 @@ export const BusinessUnitsApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBusinessUnits(accessToken: string, accountId: string, region?: Region, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BusinessUnitsResponse>> {
+        async getBusinessUnits(accessToken: string, accountId: string, region?: Region, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BusinessUnits>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getBusinessUnits(accessToken, accountId, region,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -154,13 +154,13 @@ export interface BusinessUnitsApiInterface {
      * @summary Create Business Units
      * @param {string} accountId The account ID of the business unit. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
      * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
-     * @param {BusinessUnitsRequestPyload} [businessUnitsRequestPyload] 
+     * @param {BusinessUnitsPayload} [businessUnitsPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BusinessUnitsApiInterface
      */
-    createBusinessUnits(accessToken: string,accountId: string, region?: Region, businessUnitsRequestPyload?: BusinessUnitsRequestPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    createBusinessUnits(accessToken: string,accountId: string, region?: Region, businessUnitsPayload?: BusinessUnitsPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Query all the business units in a specific BIM 360 account.
@@ -189,16 +189,16 @@ export class BusinessUnitsApi extends BaseApi implements BusinessUnitsApiInterfa
      * @summary Create Business Units
      * @param {string} accountId The account ID of the business unit. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
      * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
-     * @param {BusinessUnitsRequestPyload} [businessUnitsRequestPyload] 
+     * @param {BusinessUnitsPayload} [businessUnitsPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BusinessUnitsApi
      */
-    public async createBusinessUnits(accessToken: string, accountId: string, region?: Region, businessUnitsRequestPyload?: BusinessUnitsRequestPayload, options?: ApsServiceRequestConfig) {
+    public async createBusinessUnits(accessToken: string, accountId: string, region?: Region, businessUnitsPayload?: BusinessUnitsPayload, options?: ApsServiceRequestConfig) {
       this.logger.logInfo("Entered into createBusinessUnits ");
       try {
-        const request =  await BusinessUnitsApiFp(this.sdkManager).createBusinessUnits(accessToken, accountId, region, businessUnitsRequestPyload,  options);
+        const request =  await BusinessUnitsApiFp(this.sdkManager).createBusinessUnits(accessToken, accountId, region, businessUnitsPayload,  options);
         const response = await request(this.axios);
         this.logger.logInfo(`createBusinessUnits Request completed successfully with status code: ${response.status}`);
         return new ApiResponse(response,response.data);

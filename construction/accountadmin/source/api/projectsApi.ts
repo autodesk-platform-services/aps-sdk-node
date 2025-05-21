@@ -11,9 +11,9 @@ import { FilterTextMatch } from '../model';
 import { Platform } from '../model';
 import { Products } from '../model';
 import { Project } from '../model';
-import { ProjectPatchResponse } from '../model';
+import { ProjectPatch } from '../model';
 import { ProjectPayload } from '../model';
-import { Projects } from '../model';
+import { ProjectsPage } from '../model';
 import { Region } from '../model';
 import { SortBy } from '../model';
 import { Status } from '../model';
@@ -209,7 +209,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
          * @param {Array<Classification>} [filterClassification] A list of the classifications of projects to include in the response. Possible values: production, template, component, sample.
          * @param {Array<Platform>} [filterPlatform] Filter resource by platform. Possible values: acc and bim360.
          * @param {Array<Products>} [filterProducts] A comma-separated list of the products that the returned projects must use. Only projects that use one or more of the listed products are returned.
-         * @param {string} [filterName] A project name or name pattern to filter projects by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]&#x3D;ABCco filterTextMatch&#x3D;startsWith.  Max length: 255
+         * @param {string} [filterName] A project name or name pattern to filter projects by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]=ABCco filterTextMatch=startsWith.  Max length: 255
          * @param {Array<string>} [filterType] A list of project types to filter projects by. To exclude a project type from the response, prefix it with - (a hyphen); for example, -Bridge excludes bridge projects.
          * @param {Array<Status>} [filterStatus] A list of the statuses of projects to include in the response. Possible values:  active pending archived suspended
          * @param {string} [filterBusinessUnitId] The ID of the business unit that returned projects must be associated with.
@@ -357,7 +357,7 @@ export const ProjectsApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createProjectImage(accessToken: string, projectId: string, accountId: string, body: File, region?: Region, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectPatchResponse>> {
+        async createProjectImage(accessToken: string, projectId: string, accountId: string, body: File, region?: Region, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectPatch>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createProjectImage(accessToken, projectId, accountId, body, region,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -387,7 +387,7 @@ export const ProjectsApiFp = function(sdkManager?: SdkManager) {
          * @param {Array<Classification>} [filterClassification] A list of the classifications of projects to include in the response. Possible values: production, template, component, sample.
          * @param {Array<Platform>} [filterPlatform] Filter resource by platform. Possible values: acc and bim360.
          * @param {Array<Products>} [filterProducts] A comma-separated list of the products that the returned projects must use. Only projects that use one or more of the listed products are returned.
-         * @param {string} [filterName] A project name or name pattern to filter projects by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]&#x3D;ABCco filterTextMatch&#x3D;startsWith.  Max length: 255
+         * @param {string} [filterName] A project name or name pattern to filter projects by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]=ABCco filterTextMatch=startsWith.  Max length: 255
          * @param {Array<string>} [filterType] A list of project types to filter projects by. To exclude a project type from the response, prefix it with - (a hyphen); for example, -Bridge excludes bridge projects.
          * @param {Array<Status>} [filterStatus] A list of the statuses of projects to include in the response. Possible values:  active pending archived suspended
          * @param {string} [filterBusinessUnitId] The ID of the business unit that returned projects must be associated with.
@@ -400,7 +400,7 @@ export const ProjectsApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getProjects(accessToken: string, accountId: string, acceptLanguage?: string, region?: Region, userId?: string, fields?: Array<Fields>, filterClassification?: Array<Classification>, filterPlatform?: Array<Platform>, filterProducts?: Array<Products>, filterName?: string, filterType?: Array<string>, filterStatus?: Array<Status>, filterBusinessUnitId?: string, filterJobNumber?: string, filterUpdatedAt?: string, filterTextMatch?: FilterTextMatch, sort?: Array<SortBy>, limit?: number, offset?: number, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Projects>> {
+        async getProjects(accessToken: string, accountId: string, acceptLanguage?: string, region?: Region, userId?: string, fields?: Array<Fields>, filterClassification?: Array<Classification>, filterPlatform?: Array<Platform>, filterProducts?: Array<Products>, filterName?: string, filterType?: Array<string>, filterStatus?: Array<Status>, filterBusinessUnitId?: string, filterJobNumber?: string, filterUpdatedAt?: string, filterTextMatch?: FilterTextMatch, sort?: Array<SortBy>, limit?: number, offset?: number, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectsPage>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getProjects(accessToken, accountId, acceptLanguage, region, userId, fields, filterClassification, filterPlatform, filterProducts, filterName, filterType, filterStatus, filterBusinessUnitId, filterJobNumber, filterUpdatedAt, filterTextMatch, sort, limit, offset,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -468,7 +468,7 @@ export interface ProjectsApiInterface {
      * @param {Array<Classification>} [filterClassification] A list of the classifications of projects to include in the response. Possible values: production, template, component, sample.
      * @param {Array<Platform>} [filterPlatform] Filter resource by platform. Possible values: acc and bim360.
      * @param {Array<Products>} [filterProducts] A comma-separated list of the products that the returned projects must use. Only projects that use one or more of the listed products are returned.
-     * @param {string} [filterName] A project name or name pattern to filter projects by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]&#x3D;ABCco filterTextMatch&#x3D;startsWith.  Max length: 255
+     * @param {string} [filterName] A project name or name pattern to filter projects by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]=ABCco filterTextMatch=startsWith.  Max length: 255
      * @param {Array<string>} [filterType] A list of project types to filter projects by. To exclude a project type from the response, prefix it with - (a hyphen); for example, -Bridge excludes bridge projects.
      * @param {Array<Status>} [filterStatus] A list of the statuses of projects to include in the response. Possible values:  active pending archived suspended
      * @param {string} [filterBusinessUnitId] The ID of the business unit that returned projects must be associated with.
@@ -604,7 +604,7 @@ export class ProjectsApi extends BaseApi implements ProjectsApiInterface {
      * @param {Array<Classification>} [filterClassification] A list of the classifications of projects to include in the response. Possible values: production, template, component, sample.
      * @param {Array<Platform>} [filterPlatform] Filter resource by platform. Possible values: acc and bim360.
      * @param {Array<Products>} [filterProducts] A comma-separated list of the products that the returned projects must use. Only projects that use one or more of the listed products are returned.
-     * @param {string} [filterName] A project name or name pattern to filter projects by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]&#x3D;ABCco filterTextMatch&#x3D;startsWith.  Max length: 255
+     * @param {string} [filterName] A project name or name pattern to filter projects by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]=ABCco filterTextMatch=startsWith.  Max length: 255
      * @param {Array<string>} [filterType] A list of project types to filter projects by. To exclude a project type from the response, prefix it with - (a hyphen); for example, -Bridge excludes bridge projects.
      * @param {Array<Status>} [filterStatus] A list of the statuses of projects to include in the response. Possible values:  active pending archived suspended
      * @param {string} [filterBusinessUnitId] The ID of the business unit that returned projects must be associated with.

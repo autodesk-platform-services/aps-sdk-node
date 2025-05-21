@@ -10,11 +10,11 @@ import { FilterTextMatch } from '../model';
 import { OrFilters } from '../model';
 import { Products } from '../model';
 import { ProjectUser } from '../model';
+import { ProjectUserDetails } from '../model';
 import { ProjectUserPayload } from '../model';
-import { ProjectUserResponse } from '../model';
-import { ProjectUsers } from '../model';
+import { ProjectUsersImport } from '../model';
 import { ProjectUsersImportPayload } from '../model';
-import { ProjectUsersImportResponse } from '../model';
+import { ProjectUsersPage } from '../model';
 import { ProjectUsersUpdatePayload } from '../model';
 import { Region } from '../model';
 import { StatusFilter } from '../model';
@@ -154,12 +154,12 @@ export const ProjectUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
          * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
          * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
          * @param {Array<Products>} [filterProducts] A comma-separated list of the products that the returned projects must use. Only projects that use one or more of the listed products are returned.
-         * @param {string} [filterName] A user name or name pattern to filter users by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]&#x3D;ABCco filterTextMatch&#x3D;startsWith.  Max length: 255
-         * @param {string} [filterEmail] A user email address or address pattern that the returned users must have. This can be a partial match based on the value of filterTextMatch that you provide. For example:  filter[email]&#x3D;sample filterTextMatch&#x3D;startsWith  Max length: 255
+         * @param {string} [filterName] A user name or name pattern to filter users by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]=ABCco filterTextMatch=startsWith.  Max length: 255
+         * @param {string} [filterEmail] A user email address or address pattern that the returned users must have. This can be a partial match based on the value of filterTextMatch that you provide. For example:  filter[email]=sample filterTextMatch=startsWith  Max length: 255
          * @param {Array<StatusFilter>} [filterStatus] A list of statuses that the returned project users must be in. The default values are active and pending.
          * @param {Array<AccessLevels>} [filterAccessLevels] A list of user access levels that the returned users must have.
          * @param {string} [filterCompanyId] The ID of a company that the returned users must represent.
-         * @param {string} [filterCompanyName] The name of a company that returned users must be associated with. Can be a partial match based on the value of filterTextMatch that you provide. For example: filter[companyName]&#x3D;Sample filterTextMatch&#x3D;startsWith  Max length: 255
+         * @param {string} [filterCompanyName] The name of a company that returned users must be associated with. Can be a partial match based on the value of filterTextMatch that you provide. For example: filter[companyName]=Sample filterTextMatch=startsWith  Max length: 255
          * @param {Array<string>} [filterAutodeskId] A list of the Autodesk IDs of users to retrieve.
          * @param {Array<string>} [filterId] A list of the ACC IDs of users to retrieve.
          * @param {string} [filterRoleId] The ID of a user role that the returned users must have. To obtain a role ID for this filter, you can inspect the roleId field in previous responses to this endpoint or to the GET projects/:projectId/users/:userId endpoint.  Max length: 255
@@ -482,7 +482,7 @@ export const ProjectUsersApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async assignProjectUser(accessToken: string, projectId: string, acceptLanguage?: string, region?: Region, userId?: string, projectUserPayload?: ProjectUserPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectUserResponse>> {
+        async assignProjectUser(accessToken: string, projectId: string, acceptLanguage?: string, region?: Region, userId?: string, projectUserPayload?: ProjectUserPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectUserDetails>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.assignProjectUser(accessToken, projectId, acceptLanguage, region, userId, projectUserPayload,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -510,12 +510,12 @@ export const ProjectUsersApiFp = function(sdkManager?: SdkManager) {
          * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
          * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
          * @param {Array<Products>} [filterProducts] A comma-separated list of the products that the returned projects must use. Only projects that use one or more of the listed products are returned.
-         * @param {string} [filterName] A user name or name pattern to filter users by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]&#x3D;ABCco filterTextMatch&#x3D;startsWith.  Max length: 255
-         * @param {string} [filterEmail] A user email address or address pattern that the returned users must have. This can be a partial match based on the value of filterTextMatch that you provide. For example:  filter[email]&#x3D;sample filterTextMatch&#x3D;startsWith  Max length: 255
+         * @param {string} [filterName] A user name or name pattern to filter users by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]=ABCco filterTextMatch=startsWith.  Max length: 255
+         * @param {string} [filterEmail] A user email address or address pattern that the returned users must have. This can be a partial match based on the value of filterTextMatch that you provide. For example:  filter[email]=sample filterTextMatch=startsWith  Max length: 255
          * @param {Array<StatusFilter>} [filterStatus] A list of statuses that the returned project users must be in. The default values are active and pending.
          * @param {Array<AccessLevels>} [filterAccessLevels] A list of user access levels that the returned users must have.
          * @param {string} [filterCompanyId] The ID of a company that the returned users must represent.
-         * @param {string} [filterCompanyName] The name of a company that returned users must be associated with. Can be a partial match based on the value of filterTextMatch that you provide. For example: filter[companyName]&#x3D;Sample filterTextMatch&#x3D;startsWith  Max length: 255
+         * @param {string} [filterCompanyName] The name of a company that returned users must be associated with. Can be a partial match based on the value of filterTextMatch that you provide. For example: filter[companyName]=Sample filterTextMatch=startsWith  Max length: 255
          * @param {Array<string>} [filterAutodeskId] A list of the Autodesk IDs of users to retrieve.
          * @param {Array<string>} [filterId] A list of the ACC IDs of users to retrieve.
          * @param {string} [filterRoleId] The ID of a user role that the returned users must have. To obtain a role ID for this filter, you can inspect the roleId field in previous responses to this endpoint or to the GET projects/:projectId/users/:userId endpoint.  Max length: 255
@@ -529,7 +529,7 @@ export const ProjectUsersApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getProjectUsers(accessToken: string, projectId: string, acceptLanguage?: string, region?: Region, userId?: string, filterProducts?: Array<Products>, filterName?: string, filterEmail?: string, filterStatus?: Array<StatusFilter>, filterAccessLevels?: Array<AccessLevels>, filterCompanyId?: string, filterCompanyName?: string, filterAutodeskId?: Array<string>, filterId?: Array<string>, filterRoleId?: string, filterRoleIds?: Array<string>, sort?: Array<UserSortBy>, fields?: Array<UserFields>, orFilters?: Array<OrFilters>, filterTextMatch?: FilterTextMatch, limit?: number, offset?: number, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectUsers>> {
+        async getProjectUsers(accessToken: string, projectId: string, acceptLanguage?: string, region?: Region, userId?: string, filterProducts?: Array<Products>, filterName?: string, filterEmail?: string, filterStatus?: Array<StatusFilter>, filterAccessLevels?: Array<AccessLevels>, filterCompanyId?: string, filterCompanyName?: string, filterAutodeskId?: Array<string>, filterId?: Array<string>, filterRoleId?: string, filterRoleIds?: Array<string>, sort?: Array<UserSortBy>, fields?: Array<UserFields>, orFilters?: Array<OrFilters>, filterTextMatch?: FilterTextMatch, limit?: number, offset?: number, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectUsersPage>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectUsers(accessToken, projectId, acceptLanguage, region, userId, filterProducts, filterName, filterEmail, filterStatus, filterAccessLevels, filterCompanyId, filterCompanyName, filterAutodeskId, filterId, filterRoleId, filterRoleIds, sort, fields, orFilters, filterTextMatch, limit, offset,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -544,7 +544,7 @@ export const ProjectUsersApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async importProjectUsers(accessToken: string, projectId: string, acceptLanguage?: string, region?: Region, userId?: string, projectUsersImportPayload?: ProjectUsersImportPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectUsersImportResponse>> {
+        async importProjectUsers(accessToken: string, projectId: string, acceptLanguage?: string, region?: Region, userId?: string, projectUsersImportPayload?: ProjectUsersImportPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectUsersImport>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.importProjectUsers(accessToken, projectId, acceptLanguage, region, userId, projectUsersImportPayload,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -575,7 +575,7 @@ export const ProjectUsersApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateProjectUser(accessToken: string, projectId: string, userId: string, acceptLanguage?: string, region?: Region, userId2?: string, projectUsersUpdatePayload?: ProjectUsersUpdatePayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectUserResponse>> {
+        async updateProjectUser(accessToken: string, projectId: string, userId: string, acceptLanguage?: string, region?: Region, userId2?: string, projectUsersUpdatePayload?: ProjectUsersUpdatePayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectUserDetails>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateProjectUser(accessToken, projectId, userId, acceptLanguage, region, userId2, projectUsersUpdatePayload,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -627,12 +627,12 @@ export interface ProjectUsersApiInterface {
      * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
      * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {Array<Products>} [filterProducts] A comma-separated list of the products that the returned projects must use. Only projects that use one or more of the listed products are returned.
-     * @param {string} [filterName] A user name or name pattern to filter users by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]&#x3D;ABCco filterTextMatch&#x3D;startsWith.  Max length: 255
-     * @param {string} [filterEmail] A user email address or address pattern that the returned users must have. This can be a partial match based on the value of filterTextMatch that you provide. For example:  filter[email]&#x3D;sample filterTextMatch&#x3D;startsWith  Max length: 255
+     * @param {string} [filterName] A user name or name pattern to filter users by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]=ABCco filterTextMatch=startsWith.  Max length: 255
+     * @param {string} [filterEmail] A user email address or address pattern that the returned users must have. This can be a partial match based on the value of filterTextMatch that you provide. For example:  filter[email]=sample filterTextMatch=startsWith  Max length: 255
      * @param {Array<StatusFilter>} [filterStatus] A list of statuses that the returned project users must be in. The default values are active and pending.
      * @param {Array<AccessLevels>} [filterAccessLevels] A list of user access levels that the returned users must have.
      * @param {string} [filterCompanyId] The ID of a company that the returned users must represent.
-     * @param {string} [filterCompanyName] The name of a company that returned users must be associated with. Can be a partial match based on the value of filterTextMatch that you provide. For example: filter[companyName]&#x3D;Sample filterTextMatch&#x3D;startsWith  Max length: 255
+     * @param {string} [filterCompanyName] The name of a company that returned users must be associated with. Can be a partial match based on the value of filterTextMatch that you provide. For example: filter[companyName]=Sample filterTextMatch=startsWith  Max length: 255
      * @param {Array<string>} [filterAutodeskId] A list of the Autodesk IDs of users to retrieve.
      * @param {Array<string>} [filterId] A list of the ACC IDs of users to retrieve.
      * @param {string} [filterRoleId] The ID of a user role that the returned users must have. To obtain a role ID for this filter, you can inspect the roleId field in previous responses to this endpoint or to the GET projects/:projectId/users/:userId endpoint.  Max length: 255
@@ -781,12 +781,12 @@ export class ProjectUsersApi extends BaseApi implements ProjectUsersApiInterface
      * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
      * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {Array<Products>} [filterProducts] A comma-separated list of the products that the returned projects must use. Only projects that use one or more of the listed products are returned.
-     * @param {string} [filterName] A user name or name pattern to filter users by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]&#x3D;ABCco filterTextMatch&#x3D;startsWith.  Max length: 255
-     * @param {string} [filterEmail] A user email address or address pattern that the returned users must have. This can be a partial match based on the value of filterTextMatch that you provide. For example:  filter[email]&#x3D;sample filterTextMatch&#x3D;startsWith  Max length: 255
+     * @param {string} [filterName] A user name or name pattern to filter users by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]=ABCco filterTextMatch=startsWith.  Max length: 255
+     * @param {string} [filterEmail] A user email address or address pattern that the returned users must have. This can be a partial match based on the value of filterTextMatch that you provide. For example:  filter[email]=sample filterTextMatch=startsWith  Max length: 255
      * @param {Array<StatusFilter>} [filterStatus] A list of statuses that the returned project users must be in. The default values are active and pending.
      * @param {Array<AccessLevels>} [filterAccessLevels] A list of user access levels that the returned users must have.
      * @param {string} [filterCompanyId] The ID of a company that the returned users must represent.
-     * @param {string} [filterCompanyName] The name of a company that returned users must be associated with. Can be a partial match based on the value of filterTextMatch that you provide. For example: filter[companyName]&#x3D;Sample filterTextMatch&#x3D;startsWith  Max length: 255
+     * @param {string} [filterCompanyName] The name of a company that returned users must be associated with. Can be a partial match based on the value of filterTextMatch that you provide. For example: filter[companyName]=Sample filterTextMatch=startsWith  Max length: 255
      * @param {Array<string>} [filterAutodeskId] A list of the Autodesk IDs of users to retrieve.
      * @param {Array<string>} [filterId] A list of the ACC IDs of users to retrieve.
      * @param {string} [filterRoleId] The ID of a user role that the returned users must have. To obtain a role ID for this filter, you can inspect the roleId field in previous responses to this endpoint or to the GET projects/:projectId/users/:userId endpoint.  Max length: 255

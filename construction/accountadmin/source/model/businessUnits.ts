@@ -6,13 +6,13 @@ import { BusinessUnit } from './businessUnit';
 /**
  * 
  * @export
- * @interface BusinessUnitsResponse
+ * @interface BusinessUnits
  */
-export interface BusinessUnitsResponse {
+export interface BusinessUnits {
     /**
      * 
      * @type {Array<BusinessUnit>}
-     * @memberof BusinessUnitsResponse
+     * @memberof BusinessUnits
      */
     'business_units'?: Array<BusinessUnit>;
 }

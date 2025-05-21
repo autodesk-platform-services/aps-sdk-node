@@ -1,25 +1,25 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { Pagination } from './pagination';
 import { Project } from './project';
-import { ProjectsPagination } from './projectsPagination';
 
 /**
  * 
  * @export
- * @interface Projects
+ * @interface ProjectsPage
  */
-export interface Projects {
+export interface ProjectsPage {
     /**
      * 
-     * @type {ProjectsPagination}
-     * @memberof Projects
+     * @type {Pagination}
+     * @memberof ProjectsPage
      */
-    'pagination'?: ProjectsPagination;
+    'pagination'?: Pagination;
     /**
      * The requested page of projects.
      * @type {Array<Project>}
-     * @memberof Projects
+     * @memberof ProjectsPage
      */
     'results'?: Array<Project>;
 }
