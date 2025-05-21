@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { AccountCompanyAddresses } from './accountCompanyAddresses';
+import { AccountCompanyAddress } from './accountCompanyAddress';
 import { CompanyStatus } from './companyStatus';
 
 /**
@@ -36,10 +36,10 @@ export interface AccountCompany {
     'trade'?: string;
     /**
      * 
-     * @type {AccountCompanyAddresses}
+     * @type {Array<AccountCompanyAddress>}
      * @memberof AccountCompany
      */
-    'addresses'?: AccountCompanyAddresses;
+    'addresses'?: Array<AccountCompanyAddress>;
     /**
      * 
      * @type {string}

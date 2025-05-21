@@ -6,55 +6,55 @@ import { AddressType } from './addressType';
 /**
  * 
  * @export
- * @interface AccountCompanyAddresses
+ * @interface AccountCompanyAddress
  */
-export interface AccountCompanyAddresses {
+export interface AccountCompanyAddress {
     /**
      * 
      * @type {AddressType}
-     * @memberof AccountCompanyAddresses
+     * @memberof AccountCompanyAddress
      */
     'type'?: AddressType;
     /**
      * 
      * @type {string}
-     * @memberof AccountCompanyAddresses
+     * @memberof AccountCompanyAddress
      */
     'addressLine1'?: string;
     /**
      * 
      * @type {string}
-     * @memberof AccountCompanyAddresses
+     * @memberof AccountCompanyAddress
      */
     'addressLine2'?: string;
     /**
      * 
      * @type {string}
-     * @memberof AccountCompanyAddresses
+     * @memberof AccountCompanyAddress
      */
     'city'?: string;
     /**
      * 
      * @type {string}
-     * @memberof AccountCompanyAddresses
+     * @memberof AccountCompanyAddress
      */
     'stateOrProvince'?: string;
     /**
      * 
      * @type {string}
-     * @memberof AccountCompanyAddresses
+     * @memberof AccountCompanyAddress
      */
     'postalCode'?: string;
     /**
      * 
      * @type {string}
-     * @memberof AccountCompanyAddresses
+     * @memberof AccountCompanyAddress
      */
     'country'?: string;
     /**
      * 
      * @type {string}
-     * @memberof AccountCompanyAddresses
+     * @memberof AccountCompanyAddress
      */
     'phone'?: string;
 }
