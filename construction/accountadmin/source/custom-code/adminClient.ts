@@ -1,6 +1,6 @@
 import { ApsServiceRequestConfig, BaseClient, IAuthenticationProvider, SdkManager, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
 import { CompaniesApi, ProjectsApi, ProjectUsersApi, AccountUsersApi, BusinessUnitsApi, UserProjectsApi } from "../api";
-import { AccessLevels, BusinessUnitsPayload, BusinessUnits, Classification, Company, CompanyImport, CompanyPatchPayload, CompanyPayload, ProjectCompanies, Fields, FilterTextMatch, OrFilters, Platform, Products, Project, ProjectPatch, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserDetails, ProjectUsersPage, ProjectUsersImportPayload, ProjectUsersImport, ProjectUsersUpdatePayload, ProjectsPage, Region, SortBy, Status, StatusFilter, User, UserFields, UserImport, UserPatchPayload, UserPayload, UserSortBy, UserProjectFields, FilterUserProjectsAccessLevels, UserProjectSortBy, CompanyOrFilters, FilterCompanySort, FilterCompanyFields, AccountCompaniesPage } from "../model";
+import { AccessLevels, BusinessUnitsPayload, BusinessUnits, Classification, Company, CompanyImport, CompanyPatchPayload, CompanyPayload, ProjectCompanies, Fields, FilterTextMatch, OrFilters, Platform, Products, Project, ProjectPatch, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserDetails, ProjectUsersPage, ProjectUsersImportPayload, ProjectUsersImport, ProjectUsersUpdatePayload, ProjectsPage, Region, SortBy, Status, StatusFilter, User, UserFields, UserImport, UserPatchPayload, UserPayload, UserSortBy, UserProjectFields, FilterUserProjectsAccessLevels, UserProjectSortBy, CompanyOrFilters, FilterCompanySort, FilterCompanyFields, CompaniesPage } from "../model";
 
 export class AdminClient extends BaseClient {
     public companiesApi: CompaniesApi;
@@ -327,14 +327,14 @@ export class AdminClient extends BaseClient {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public async getAccountCompanies(accountId: string, optionalArgs?: { region?: Region, userId?: string, filterName?: string, filterTrade?: string, filterErpId?: string, filterTaxId?: string, filterUpdatedAt?: string, orFilters?: Array<CompanyOrFilters>, filterTextMatch?: FilterTextMatch, sort?: Array<FilterCompanySort>, fields?: Array<FilterCompanyFields>, limit?: number, offset?: number, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<AccountCompaniesPage> {
+    public async getCompaniesWithPagination(accountId: string, optionalArgs?: { region?: Region, userId?: string, filterName?: string, filterTrade?: string, filterErpId?: string, filterTaxId?: string, filterUpdatedAt?: string, orFilters?: Array<CompanyOrFilters>, filterTextMatch?: FilterTextMatch, sort?: Array<FilterCompanySort>, fields?: Array<FilterCompanyFields>, limit?: number, offset?: number, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<CompaniesPage> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
         else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
-        const response = await this.companiesApi.getAccountCompanies(optionalArgs?.accessToken, accountId, optionalArgs?.region, optionalArgs?.userId, optionalArgs?.filterName, optionalArgs?.filterTrade, optionalArgs?.filterErpId, optionalArgs?.filterTaxId, optionalArgs?.filterUpdatedAt, optionalArgs?.orFilters, optionalArgs?.filterTextMatch, optionalArgs?.sort, optionalArgs?.fields, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.options);
+        const response = await this.companiesApi.getCompaniesWithPagination(optionalArgs?.accessToken, accountId, optionalArgs?.region, optionalArgs?.userId, optionalArgs?.filterName, optionalArgs?.filterTrade, optionalArgs?.filterErpId, optionalArgs?.filterTaxId, optionalArgs?.filterUpdatedAt, optionalArgs?.orFilters, optionalArgs?.filterTextMatch, optionalArgs?.sort, optionalArgs?.fields, optionalArgs?.limit, optionalArgs?.offset, optionalArgs?.options);
         return response.content;
     }
 

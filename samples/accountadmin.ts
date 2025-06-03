@@ -1,4 +1,4 @@
-import { AdminClient, BusinessUnitsPayload, BusinessUnits, Classification, Company, CompanyImport, CompanyPatchPayload, CompanyPayload, Currency, FilterTextMatch, Platform, ProductAccess, ProductKeys, Products, Project, ProjectPatch, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserDetails, ProjectUsersPage, ProjectUsersImportPayload, ProjectUsersImport, ProjectUsersUpdatePayload, ProjectsPage, Region, SortBy, Status, Timezone, Trade, User, UserImport, UserPatchPayload, UserPayload, UserProjectsPage, UserProjectFields, UserProjectSortBy, FilterUserProjectsAccessLevels, AccountCompaniesPage, CompanyOrFilters, FilterCompanySort, FilterCompanyFields } from '@aps_sdk/construction-account-admin';
+import { AdminClient, BusinessUnitsPayload, BusinessUnits, Classification, Company, CompanyImport, CompanyPatchPayload, CompanyPayload, Currency, FilterTextMatch, Platform, ProductAccess, ProductKeys, Products, Project, ProjectPatch, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserDetails, ProjectUsersPage, ProjectUsersImportPayload, ProjectUsersImport, ProjectUsersUpdatePayload, ProjectsPage, Region, SortBy, Status, Timezone, Trade, User, UserImport, UserPatchPayload, UserPayload, UserProjectsPage, UserProjectFields, UserProjectSortBy, FilterUserProjectsAccessLevels, CompaniesPage, CompanyOrFilters, FilterCompanySort, FilterCompanyFields } from '@aps_sdk/construction-account-admin';
 import { Logger, LogLevel, SdkManager, SdkManagerBuilder, StaticAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager"
 import * as fs from "fs";
 import 'dotenv/config';
@@ -8,13 +8,14 @@ const sdkManager: SdkManager = SdkManagerBuilder.create().addLogger(new Logger(L
 
 const twoLeggedToken = process.env.twoLeggedToken;
 const threeLeggedToken = process.env.threeLeggedToken;
+const accessToken = threeLeggedToken;
 
 //Initialise Auth Provider. If not provided, access tokens will need to be passed to each method.
-const staticAuthenticationProvider = new StaticAuthenticationProvider(threeLeggedToken);
+const staticAuthenticationProvider = new StaticAuthenticationProvider(accessToken);
 
 let _adminApi: AdminClient = new AdminClient({ sdkManager: sdkManager, authenticationProvider: staticAuthenticationProvider });
 
-const accessToken = threeLeggedToken;
+
 const accountId = process.env.accountId;
 const adminUserId = process.env.adminUserId;
 const projectId = process.env.projectId;
@@ -113,9 +114,9 @@ async function getCompanies() {
     }
 }
 
-async function getAccountCompanies() {
+async function getCompaniesWithPagination() {
     try{
-        const response: AccountCompaniesPage = await _adminApi.getAccountCompanies(accountId, 
+        const response: CompaniesPage = await _adminApi.getCompaniesWithPagination(accountId, 
             { 
                 region: Region.Us,
                 filterName: "New Test Company",
@@ -263,7 +264,7 @@ async function updateCompanyImage() {
 }
 
 // getCompanies()
-getAccountCompanies()
+getCompaniesWithPagination()
 // getCompany()
 // searchCompanies()
 // getProjectCompany()

@@ -5,7 +5,7 @@ import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, ConstructionAccountAdminApiError } from '../base';
-import { AccountCompaniesPage } from '../model';
+import { CompaniesPage } from '../model';
 import { Company } from '../model';
 import { CompanyImport } from '../model';
 import { CompanyOrFilters } from '../model';
@@ -94,9 +94,9 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountCompanies: async (accessToken: string, accountId: string, region?: Region, userId?: string, filterName?: string, filterTrade?: string, filterErpId?: string, filterTaxId?: string, filterUpdatedAt?: string, orFilters?: Array<CompanyOrFilters>, filterTextMatch?: FilterTextMatch, sort?: Array<FilterCompanySort>, fields?: Array<FilterCompanyFields>, limit?: number, offset?: number,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        getCompaniesWithPagination: async (accessToken: string, accountId: string, region?: Region, userId?: string, filterName?: string, filterTrade?: string, filterErpId?: string, filterTaxId?: string, filterUpdatedAt?: string, orFilters?: Array<CompanyOrFilters>, filterTextMatch?: FilterTextMatch, sort?: Array<FilterCompanySort>, fields?: Array<FilterCompanyFields>, limit?: number, offset?: number,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('getAccountCompanies', 'accountId', accountId)
+            assertParamExists('getCompaniesWithPagination', 'accountId', accountId)
             const localVarPath = `/construction/admin/v1/accounts/{accountId}/companies`
                 .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
@@ -167,7 +167,7 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
 
 
     
-            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTIONACCOUNTADMIN/TypeScript/1.0.0';
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -645,8 +645,8 @@ export const CompaniesApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAccountCompanies(accessToken: string, accountId: string, region?: Region, userId?: string, filterName?: string, filterTrade?: string, filterErpId?: string, filterTaxId?: string, filterUpdatedAt?: string, orFilters?: Array<CompanyOrFilters>, filterTextMatch?: FilterTextMatch, sort?: Array<FilterCompanySort>, fields?: Array<FilterCompanyFields>, limit?: number, offset?: number, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccountCompaniesPage>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountCompanies(accessToken, accountId, region, userId, filterName, filterTrade, filterErpId, filterTaxId, filterUpdatedAt, orFilters, filterTextMatch, sort, fields, limit, offset,  options);
+        async getCompaniesWithPagination(accessToken: string, accountId: string, region?: Region, userId?: string, filterName?: string, filterTrade?: string, filterErpId?: string, filterTaxId?: string, filterUpdatedAt?: string, orFilters?: Array<CompanyOrFilters>, filterTextMatch?: FilterTextMatch, sort?: Array<FilterCompanySort>, fields?: Array<FilterCompanyFields>, limit?: number, offset?: number, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CompaniesPage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCompaniesWithPagination(accessToken, accountId, region, userId, filterName, filterTrade, filterErpId, filterTaxId, filterUpdatedAt, orFilters, filterTextMatch, sort, fields, limit, offset,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
@@ -804,7 +804,7 @@ export interface CompaniesApiInterface {
      * @throws {RequiredError}
      * @memberof DefaultApiInterface
      */
-    getAccountCompanies(accessToken: string,accountId: string, region?: Region, userId?: string, filterName?: string, filterTrade?: string, filterErpId?: string, filterTaxId?: string, filterUpdatedAt?: string, orFilters?: Array<CompanyOrFilters>, filterTextMatch?: FilterTextMatch, sort?: Array<FilterCompanySort>, fields?: Array<FilterCompanyFields>, limit?: number, offset?: number,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    getCompaniesWithPagination(accessToken: string,accountId: string, region?: Region, userId?: string, filterName?: string, filterTrade?: string, filterErpId?: string, filterTaxId?: string, filterUpdatedAt?: string, orFilters?: Array<CompanyOrFilters>, filterTextMatch?: FilterTextMatch, sort?: Array<FilterCompanySort>, fields?: Array<FilterCompanyFields>, limit?: number, offset?: number,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Query all the partner companies in a specific BIM 360 account. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
@@ -980,22 +980,22 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public async getAccountCompanies(accessToken: string, accountId: string, region?: Region, userId?: string, filterName?: string, filterTrade?: string, filterErpId?: string, filterTaxId?: string, filterUpdatedAt?: string, orFilters?: Array<CompanyOrFilters>, filterTextMatch?: FilterTextMatch, sort?: Array<FilterCompanySort>, fields?: Array<FilterCompanyFields>, limit?: number, offset?: number, options?: ApsServiceRequestConfig) {
-        this.logger.logInfo("Entered into getAccountCompanies ");
+    public async getCompaniesWithPagination(accessToken: string, accountId: string, region?: Region, userId?: string, filterName?: string, filterTrade?: string, filterErpId?: string, filterTaxId?: string, filterUpdatedAt?: string, orFilters?: Array<CompanyOrFilters>, filterTextMatch?: FilterTextMatch, sort?: Array<FilterCompanySort>, fields?: Array<FilterCompanyFields>, limit?: number, offset?: number, options?: ApsServiceRequestConfig) {
+        this.logger.logInfo("Entered into getCompaniesWithPagination ");
         try {
-          const request =  await CompaniesApiFp(this.sdkManager).getAccountCompanies(accessToken, accountId, region, userId, filterName, filterTrade, filterErpId, filterTaxId, filterUpdatedAt, orFilters, filterTextMatch, sort, fields, limit, offset,  options);
+          const request =  await CompaniesApiFp(this.sdkManager).getCompaniesWithPagination(accessToken, accountId, region, userId, filterName, filterTrade, filterErpId, filterTaxId, filterUpdatedAt, orFilters, filterTextMatch, sort, fields, limit, offset,  options);
           const response = await request(this.axios);
-          this.logger.logInfo(`getAccountCompanies Request completed successfully with status code: ${response.status}`);
+          this.logger.logInfo(`getCompaniesWithPagination Request completed successfully with status code: ${response.status}`);
           return new ApiResponse(response,response.data);
         } catch (error) {
           if (error.response) {
               const responseData = error.response.data;
               const errorMessage = responseData.developerMessage || responseData.reason || responseData.message || error.message;
-              this.logger.logError(`getAccountCompanies Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
-              throw new ConstructionAccountAdminApiError(`getAccountCompanies Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
+              this.logger.logError(`getCompaniesWithPagination Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+              throw new ConstructionAccountAdminApiError(`getCompaniesWithPagination Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
           } else if (error.request) {
-              this.logger.logError(`getAccountCompanies Request failed with no response received: ${error.request}`);
-              throw new ConstructionAccountAdminApiError(`getAccountCompanies Request failed with no response received: ${error.request}`, error);
+              this.logger.logError(`getCompaniesWithPagination Request failed with no response received: ${error.request}`);
+              throw new ConstructionAccountAdminApiError(`getCompaniesWithPagination Request failed with no response received: ${error.request}`, error);
           }
           throw error;
         }

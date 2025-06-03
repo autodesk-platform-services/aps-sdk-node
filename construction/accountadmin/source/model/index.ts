@@ -1,5 +1,4 @@
 export * from './accessLevels';
-export * from './accountCompaniesPage';
 export * from './accountCompany';
 export * from './accountCompanyAddress';
 export * from './addressType';
