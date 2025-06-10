@@ -1,8 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { AddressType } from './addressType';
-
 /**
  * 
  * @export
@@ -11,10 +9,10 @@ import { AddressType } from './addressType';
 export interface AccountCompanyAddress {
     /**
      * 
-     * @type {AddressType}
+     * @type {string}
      * @memberof AccountCompanyAddress
      */
-    'type'?: AddressType;
+    'type'?: string;
     /**
      * 
      * @type {string}

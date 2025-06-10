@@ -1,7 +1,6 @@
 export * from './accessLevels';
 export * from './accountCompany';
 export * from './accountCompanyAddress';
-export * from './addressType';
 export * from './businessUnit';
 export * from './businessUnits';
 export * from './businessUnitsObject';
@@ -13,7 +12,6 @@ export * from './companyImport';
 export * from './companyOrFilters';
 export * from './companyPatchPayload';
 export * from './companyPayload';
-export * from './companyStatus';
 export * from './currency';
 export * from './fields';
 export * from './filterCompanyFields';

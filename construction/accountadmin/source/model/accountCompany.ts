@@ -2,7 +2,6 @@
 /* eslint-disable */
 
 import { AccountCompanyAddress } from './accountCompanyAddress';
-import { CompanyStatus } from './companyStatus';
 
 /**
  * 
@@ -72,10 +71,10 @@ export interface AccountCompany {
     'imageUrl'?: string;
     /**
      * 
-     * @type {CompanyStatus}
+     * @type {string}
      * @memberof AccountCompany
      */
-    'status'?: CompanyStatus;
+    'status'?: string;
     /**
      * 
      * @type {string}
