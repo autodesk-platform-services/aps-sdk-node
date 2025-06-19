@@ -6,31 +6,31 @@ import { User } from './user';
 /**
  * 
  * @export
- * @interface UserImportResponse
+ * @interface UserImport
  */
-export interface UserImportResponse {
+export interface UserImport {
     /**
      * Import success user count
      * @type {number}
-     * @memberof UserImportResponse
+     * @memberof UserImport
      */
     'success'?: number;
     /**
      * Import failure user count
      * @type {number}
-     * @memberof UserImportResponse
+     * @memberof UserImport
      */
     'failure'?: number;
     /**
      * Array of user objects that were successfully imported
      * @type {Array<User>}
-     * @memberof UserImportResponse
+     * @memberof UserImport
      */
     'success_items'?: Array<User>;
     /**
      * Array of user objects that failed to import, along with content and error information
      * @type {Array<User>}
-     * @memberof UserImportResponse
+     * @memberof UserImport
      */
     'failure_items'?: Array<User>;
 }
