@@ -7,7 +7,7 @@ import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDat
 import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, ConstructionAccountAdminApiError } from '../base';
 import { Region } from '../model';
 import { User } from '../model';
-import { UserImportResponse } from '../model';
+import { UserImport } from '../model';
 import { UserPatchPayload } from '../model';
 import { UserPayload } from '../model';
 /**
@@ -423,7 +423,7 @@ export const AccountUsersApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async importUsers(accessToken: string, accountId: string, region?: Region, userPayload?: Array<UserPayload>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserImportResponse>> {
+        async importUsers(accessToken: string, accountId: string, region?: Region, userPayload?: Array<UserPayload>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserImport>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.importUsers(accessToken, accountId, region, userPayload,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },

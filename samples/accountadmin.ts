@@ -1,4 +1,4 @@
-import { AdminClient, BusinessUnitsRequestPayload, BusinessUnitsResponse, Classification, Company, CompanyImportResponse, CompanyPatchPayload, CompanyPayload, Currency, FilterTextMatch, Platform, ProductAccess, ProductKeys, Products, Project, ProjectPatchResponse, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserResponse, ProjectUsers, ProjectUsersImportPayload, ProjectUsersImportResponse, ProjectUsersUpdatePayload, Projects, Region, SortBy, Status, Timezone, Trade, User, UserImportResponse, UserPatchPayload, UserPayload, UserProjectsPage, UserProjectFields, UserProjectSortBy, FilterUserProjectsAccessLevels } from '@aps_sdk/construction-account-admin';
+import { AdminClient, BusinessUnitsPayload, BusinessUnits, Classification, Company, CompanyImport, CompanyPatchPayload, CompanyPayload, Currency, FilterTextMatch, Platform, ProductAccess, ProductKeys, Products, Project, ProjectPatch, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserDetails, ProjectUsersPage, ProjectUsersImportPayload, ProjectUsersImport, ProjectUsersUpdatePayload, ProjectsPage, Region, SortBy, Status, Timezone, Trade, User, UserImport, UserPatchPayload, UserPayload, UserProjectsPage, UserProjectFields, UserProjectSortBy, FilterUserProjectsAccessLevels, CompaniesPage, CompanyOrFilters, FilterCompanySort, FilterCompanyFields } from '@aps_sdk/construction-account-admin';
 import { Logger, LogLevel, SdkManager, SdkManagerBuilder, StaticAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager"
 import * as fs from "fs";
 import 'dotenv/config';
@@ -6,22 +6,27 @@ import 'dotenv/config';
 // SdkManager can be optionally initialised to add custom logger etc.
 const sdkManager: SdkManager = SdkManagerBuilder.create().addLogger(new Logger(LogLevel.INFO)).build();
 
+const twoLeggedToken = process.env.twoLeggedToken;
+const threeLeggedToken = process.env.threeLeggedToken;
+const accessToken = threeLeggedToken;
+
 //Initialise Auth Provider. If not provided, access tokens will need to be passed to each method.
-const staticAuthenticationProvider = new StaticAuthenticationProvider(process.env.accessToken);
+const staticAuthenticationProvider = new StaticAuthenticationProvider(accessToken);
 
 let _adminApi: AdminClient = new AdminClient({ sdkManager: sdkManager, authenticationProvider: staticAuthenticationProvider });
 
-const accessToken = process.env.accessToken;
+
 const accountId = process.env.accountId;
 const adminUserId = process.env.adminUserId;
 const projectId = process.env.projectId;
-const adminAccountUserId = process.env.adminAccountUserId;
+const accountUserId = process.env.accountUserId;
+const companyId = process.env.companyId;
 
 
 // list projects
 async function getProjects() {
     try {
-        const projects: Projects = await _adminApi.getProjects(accountId, { region: Region.Us, fields: ["accountId", "name", "country", "updatedAt", "type", "status"], filterClassification: [Classification.Production, Classification.Sample, Classification.Template], filterPlatform: [Platform.Acc], filterProducts: [Products.AccountAdministration, Products.Build, Products.Docs, Products.DesignCollaboration], filterName: "S", filterType: ["Convention Center", "Airport"], filterStatus: [Status.Active], filterUpdatedAt: "2011-06-01T00:00:00.000Z..", filterTextMatch: FilterTextMatch.StartsWith, sort: [SortBy.UpdatedAtAsc], limit: 2, offset: 1 });
+        const projects: ProjectsPage = await _adminApi.getProjects(accountId, { region: Region.Us, fields: ["accountId", "name", "country", "updatedAt", "type", "status"], filterClassification: [Classification.Production, Classification.Sample, Classification.Template], filterPlatform: [Platform.Acc], filterProducts: [Products.AccountAdministration, Products.Build, Products.Docs, Products.DesignCollaboration], filterName: "S", filterType: ["Convention Center", "Airport"], filterStatus: [Status.Active], filterUpdatedAt: "2011-06-01T00:00:00.000Z..", filterTextMatch: FilterTextMatch.StartsWith, sort: [SortBy.UpdatedAtAsc], limit: 2, offset: 1 });
         console.log(projects);
     }
     catch (err) {
@@ -44,10 +49,10 @@ async function getProject() {
 // update project image
 async function postProjectImage() {
     try {
-        let buffer = fs.readFileSync(" /path/to/file/abc.jpg");
+        let buffer = fs.readFileSync("/path/to/file/abc.jpg");
         const file: File = new File([buffer], "/path/to/file/abc.jpg");
 
-        const response: ProjectPatchResponse = await _adminApi.createProjectImage(projectId, accountId, file);
+        const response: ProjectPatch = await _adminApi.createProjectImage(projectId, accountId, file);
         console.log(response)
     }
     catch (err) {
@@ -59,7 +64,7 @@ async function postProjectImage() {
 async function createProject() {
     try {
         const projectPayload: ProjectPayload = {
-            "name": "SDKtest2",
+            "name": "SDKtestThree",
             "type": "Bridge",
             "projectValue": {
                 "currency": Currency.Inr,
@@ -109,10 +114,43 @@ async function getCompanies() {
     }
 }
 
+async function getCompaniesWithPagination() {
+    try{
+        const response: CompaniesPage = await _adminApi.getCompaniesWithPagination(accountId, 
+            { 
+                region: Region.Us,
+                filterName: "New Test Company",
+                filterTrade: "Architecture",
+                filterErpId: "c79bf096-5a3e-41a4-aaf8-a771ed329047",
+                filterTaxId: "413-07-5767",
+                filterUpdatedAt: "2025-05-19T00:00:00.000Z..",
+                orFilters: [
+                    CompanyOrFilters.Name,
+                    CompanyOrFilters.TaxId,
+                ],
+                filterTextMatch: FilterTextMatch.EndsWith,
+                sort: [
+                    FilterCompanySort.UpdatedAtAsc
+                ],
+                fields: [
+                    FilterCompanyFields.Name,
+                    FilterCompanyFields.Trade,
+                    FilterCompanyFields.UpdatedAt,
+                ],
+                limit: 10, 
+                offset: 2 
+            }
+        );
+        console.log(response);
+    }catch (err){
+        console.error(err.message);
+    }
+}
+
 // fetch company details 
 async function getCompany() {
     try {
-        const response: Company = await _adminApi.getCompany("<companyId>", accountId);
+        const response: Company = await _adminApi.getCompany(companyId, accountId);
         console.log(response);
     }
     catch (err) {
@@ -123,7 +161,7 @@ async function getCompany() {
 // fetch company details 
 async function searchCompanies() {
     try {
-        const response: Array<Company> = await _adminApi.searchCompanies(accountId, { name: "Test Company", trade: "Architecture", operator: "AND", partial: true, sort: "name" });
+        const response: Array<Company> = await _adminApi.searchCompanies(accountId, { name: "Sample Company - 1", trade: "Concrete", operator: "AND", partial: true, sort: "name" });
         console.log(response);
     }
     catch (err) {
@@ -146,7 +184,7 @@ async function getProjectCompany() {
 async function createCompany() {
     try {
         const companyPayload: CompanyPayload = {
-            "name": "Test Company",
+            "name": "New Test Company",
             "trade": Trade.Architecture,
             "address_line_1": "The Fifth Avenue",
             "address_line_2": "#303",
@@ -160,7 +198,7 @@ async function createCompany() {
             "erp_id": "c79bf096-5a3e-41a4-aaf8-a771ed329047",
             "tax_id": "413-07-5767"
         }
-        const response: Company = await _adminApi.createCompany(accountId, companyPayload, { region: Region.Emea });
+        const response: Company = await _adminApi.createCompany(accountId, companyPayload, { region: Region.Us });
         console.log(response);
     }
     catch (err) {
@@ -173,7 +211,7 @@ async function importCompanies() {
     try {
         const companyPayload: Array<CompanyPayload> = [
             {
-                "name": "Test Company",
+                "name": "New Test Company Two",
                 "trade": Trade.Architecture,
                 "address_line_1": "The Fifth Avenue",
                 "address_line_2": "#303",
@@ -188,7 +226,7 @@ async function importCompanies() {
                 "tax_id": "413-07-5767"
             }
         ]
-        const response: CompanyImportResponse = await _adminApi.importCompanies(accountId, companyPayload);
+        const response: CompanyImport = await _adminApi.importCompanies(accountId, companyPayload);
         console.log(response);
     }
     catch (err) {
@@ -199,7 +237,6 @@ async function importCompanies() {
 // update company
 async function updateCompany() {
     try {
-        const companyId = "0cc4c32a-6ef9-471a-993e-8776c994d257";
         const companyPatchPayload: CompanyPatchPayload = {
             "trade": Trade.ConcreteCastInPlace,
             "description": "Test company for sdk team",
@@ -215,10 +252,10 @@ async function updateCompany() {
 // update company profile image
 async function updateCompanyImage() {
     try {
-        let buffer = fs.readFileSync("sdkimg.jpg");
-        const file: File = new File([buffer], "sdkimg.jpg");
+        let buffer = fs.readFileSync("/path/to/file/abc.jpg");
+        const file: File = new File([buffer], "/path/to/file/abc.jpg");
 
-        const response: Company = await _adminApi.patchCompanyImage("0cc4c32a-6ef9-471a-993e-8776c994d257", accountId, file);
+        const response: Company = await _adminApi.patchCompanyImage(companyId, accountId, file);
         console.log(response)
     }
     catch (err) {
@@ -227,6 +264,7 @@ async function updateCompanyImage() {
 }
 
 // getCompanies()
+getCompaniesWithPagination()
 // getCompany()
 // searchCompanies()
 // getProjectCompany()
@@ -255,7 +293,7 @@ async function listUsers() {
 // fetch user details
 async function getUser() {
     try {
-        const response: User = await _adminApi.getUser(accountId, "50cd3099-80d7-4aa4-a7be-c5ea13c25734");
+        const response: User = await _adminApi.getUser(accountId, accountUserId);
         console.log(response);
     }
     catch (err) {
@@ -267,11 +305,11 @@ async function getUser() {
 async function createUser() {
     try {
         const userPayload: UserPayload = {
-            "email": "john.smith@hmail.com",
-            "company_id": "0cc4c32a-6ef9-471a-993e-8776c994d257",
-            "nickname": "Johnny",
-            "first_name": "John",
-            "last_name": "Smith",
+            "email": "johndoe.smith@hmail.com",
+            "company_id": companyId,
+            "nickname": "Johnnyg",
+            "first_name": "Johnte",
+            "last_name": "Smitho",
             "image_url": "https://images.profile.autodesk.com/default/user_X50.png",
             "address_line_1": "The Fifth Avenue",
             "address_line_2": "#301",
@@ -283,7 +321,7 @@ async function createUser() {
             "job_title": "software developer 2",
             "industry": "IT",
             "about_me": "Nothing here",
-            "company": "Test Company"
+            "company": "New Test Company Two"
         }
         const response: User = await _adminApi.createUser(accountId, userPayload);
         console.log(response);
@@ -298,19 +336,19 @@ async function importUser() {
     try {
         const userPayload: Array<UserPayload> = [
             {
-                "email": "john.smith@hmail.com",
-                "company_id": "0cc4c32a-6ef9-471a-993e-8776c994d257",
-                "nickname": "Johnny",
-                "first_name": "John",
-                "last_name": "Smith",
+                "email": "johndoetwo.smith@hmail.com",
+                "company_id": companyId,
+                "nickname": "Johnnyg",
+                "first_name": "Johnte",
+                "last_name": "Smitho",
                 "image_url": "https://images.profile.autodesk.com/default/user_X50.png",
-                "company": "Test Company"
+                "company": "New Test Company Two"
             },
             {
-                "email": "harry.potter@hmail.com",
+                "email": "harrydoe.potter@hmail.com",
             }
         ]
-        const response: UserImportResponse = await _adminApi.importUsers(accountId, userPayload);
+        const response: UserImport = await _adminApi.importUsers(accountId, userPayload);
         console.log(response);
     }
     catch (err) {
@@ -324,7 +362,7 @@ async function updateUser() {
         const userPatchPayload: UserPatchPayload = {
             "status": "active"
         }
-        const response: User = await _adminApi.patchUserDetails(accountId, "50cd3099-80d7-4aa4-a7be-c5ea13c25734", userPatchPayload);
+        const response: User = await _adminApi.patchUserDetails(accountId, accountUserId, userPatchPayload);
         console.log(response);
     }
     catch (err) {
@@ -346,7 +384,7 @@ async function updateUser() {
 // fetch users in the specified project
 async function getProjectUsers() {
     try {
-        const response: ProjectUsers = await _adminApi.getProjectUsers(projectId);
+        const response: ProjectUsersPage = await _adminApi.getProjectUsers(projectId);
         console.log(response);
     }
     catch (err) {
@@ -357,7 +395,7 @@ async function getProjectUsers() {
 // fetch specified user in the project
 async function getProjectUser() {
     try {
-        const response: ProjectUser = await _adminApi.getProjectUser(projectId, "7e7c31fd-9e9d-4c92-8e73-aadecfd6a39b", { region: Region.Us });
+        const response: ProjectUser = await _adminApi.getProjectUser(projectId, adminUserId, { region: Region.Us });
         console.log(response);
     }
     catch (err) {
@@ -369,7 +407,7 @@ async function getProjectUser() {
 async function assignProjectUser() {
     try {
         let projectUserPayload: ProjectUserPayload = {
-            "email": "harry.potter@hmail.com",
+            "email": "johndoetwo.smith@hmail.com",
             "products": [
                 {
                     "key": ProductKeys.ProjectAdministration,
@@ -377,7 +415,7 @@ async function assignProjectUser() {
                 }
             ]
         }
-        const response: ProjectUserResponse = await _adminApi.assignProjectUser(projectId, projectUserPayload, { region: Region.Us, adminUserId: adminUserId });
+        const response: ProjectUserDetails = await _adminApi.assignProjectUser(projectId, projectUserPayload, { region: Region.Us, adminUserId: adminUserId });
         console.log(response)
     }
     catch (err) {
@@ -391,7 +429,7 @@ async function importProjectUsers() {
         let projectUsersImportPayload: ProjectUsersImportPayload = {
             "users": [
                 {
-                    "email": "harry.potter@hmail.com",
+                    "email": "harryptp.potter@hmail.com",
                     "products": [
                         {
                             "key": ProductKeys.ProjectAdministration,
@@ -401,7 +439,7 @@ async function importProjectUsers() {
                 }
             ]
         }
-        const response: ProjectUsersImportResponse = await _adminApi.importProjectUsers(projectId, projectUsersImportPayload, { region: Region.Us, adminUserId: adminUserId });
+        const response: ProjectUsersImport = await _adminApi.importProjectUsers(projectId, projectUsersImportPayload, { region: Region.Us, adminUserId: adminUserId });
         console.log(response)
     }
     catch (err) {
@@ -413,7 +451,7 @@ async function importProjectUsers() {
 async function updateProjectUser() {
     try {
         let projectUsersUpdatePayload: ProjectUsersUpdatePayload = {
-            "companyId": "0cc4c32a-6ef9-471a-993e-8776c994d257",
+            "companyId": companyId,
             "roleIds": [
                 "8da864e0-8a8c-424f-8a90-338cc6ea09d7",
                 "d52d31ee-00f2-43cd-ae11-32aba34490df"
@@ -441,7 +479,7 @@ async function updateProjectUser() {
                 }
             ]
         }
-        const response: ProjectUserResponse = await _adminApi.updateProjectUser(projectId, "4ca99e9a-cce9-40a1-abb7-d69a1fd79173", projectUsersUpdatePayload, { region: Region.Us, adminUserId: adminUserId });
+        const response: ProjectUserDetails = await _adminApi.updateProjectUser(projectId, accountUserId, projectUsersUpdatePayload, { region: Region.Us, adminUserId: adminUserId });
         console.log(response);
     }
     catch (err) {
@@ -452,7 +490,7 @@ async function updateProjectUser() {
 // Remove the specified user from a project
 async function deleteProjectUser() {
     try {
-        const response: void = await _adminApi.removeProjectUser(projectId, "4ca99e9a-cce9-40a1-abb7-d69a1fd79173", { region: Region.Us, adminUserId: adminUserId });
+        const response: void = await _adminApi.removeProjectUser(projectId, accountUserId, { region: Region.Us, adminUserId: adminUserId });
         console.log(response);
     }
     catch (err) {
@@ -475,7 +513,7 @@ async function deleteProjectUser() {
 // fetch all the business units in a specific account
 async function getBusinessUnits() {
     try {
-        const response: BusinessUnitsResponse = await _adminApi.getBusinessUnits(accountId);
+        const response: BusinessUnits = await _adminApi.getBusinessUnits(accountId);
         console.log(response);
     }
     catch (err) {
@@ -486,7 +524,7 @@ async function getBusinessUnits() {
 // Create business units of a specific account
 async function putBusinessUnits() {
     try {
-        let businessUnitsRequestPyload: BusinessUnitsRequestPayload = {
+        let businessUnitsRequestPyload: BusinessUnitsPayload = {
             "business_units": [
                 {
                     "name": "test unit",
@@ -494,7 +532,7 @@ async function putBusinessUnits() {
                 }
             ]
         }
-        const response: BusinessUnitsResponse = await _adminApi.createBusinessUnits(accountId, businessUnitsRequestPyload, { region: Region.Us });
+        const response: BusinessUnits = await _adminApi.createBusinessUnits(accountId, businessUnitsRequestPyload, { region: Region.Us });
         console.log(response);
     }
     catch (err) {
@@ -558,22 +596,24 @@ async function getUserProjects() {
         const limit = 20;
         const offset = 20;
 
-        const response: Projects = await _adminApi.getUserProjects(accountId, adminAccountUserId, {
-            filterId: filterId,
-            fields: fields,
-            filterClassification: filterClassification,
-            filterName: filterName,
-            filterPlatform: filterPlatform,
-            filterStatus: filterStatus,
-            filterType: filterType,
-            filterJobNumber: filterJobNumber,
-            filterUpdatedAt: filterUpdatedAt,
-            filterAccessLevels: filterAccessLevels,
-            filterTextMatch: filterTextMatch,
-            sort: sort,
-            limit: limit,
-            offset: offset,
-        });
+        const response: ProjectsPage = await _adminApi.getUserProjects(accountId, adminUserId, 
+            {
+                filterId: filterId,
+                fields: fields,
+                filterClassification: filterClassification,
+                filterName: filterName,
+                filterPlatform: filterPlatform,
+                filterStatus: filterStatus,
+                filterType: filterType,
+                filterJobNumber: filterJobNumber,
+                filterUpdatedAt: filterUpdatedAt,
+                filterAccessLevels: filterAccessLevels,
+                filterTextMatch: filterTextMatch,
+                sort: sort,
+                limit: limit,
+                offset: offset,
+            }
+        );
 
         for (const project of response.results) {
             console.log("Project ID:", project.id);
@@ -599,4 +639,4 @@ async function getUserProjects() {
     }
 }
 
-getUserProjects()
+// getUserProjects()
