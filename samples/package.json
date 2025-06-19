@@ -11,12 +11,12 @@
   "dependencies": {
     "@aps_sdk/authentication": "^1.0.0",
     "@aps_sdk/autodesk-sdkmanager": "^1.0.0",
-    "@aps_sdk/construction-account-admin": "^1.0.0",
-    "@aps_sdk/construction-issues": "^1.0.0",
-    "@aps_sdk/data-management": "^1.0.1",
-    "@aps_sdk/model-derivative": "^1.0.0",
-    "@aps_sdk/oss": "^1.0.0",
-    "@aps_sdk/webhooks": "^1.0.0",
+    "@aps_sdk/construction-account-admin": "^1.2.1",
+    "@aps_sdk/construction-issues": "^1.1.0",
+    "@aps_sdk/data-management": "^1.0.2",
+    "@aps_sdk/model-derivative": "^1.1.0",
+    "@aps_sdk/oss": "^1.1.1",
+    "@aps_sdk/webhooks": "^1.1.0",
     "dotenv": "^16.4.5"
   }
 }
