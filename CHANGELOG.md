@@ -4,7 +4,7 @@
 
 [Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v2.1.1...v3.0.0)
 
-**Merged pull requests:**
+**Breaking changes:**
 
 - \[DAS 336\] - Update ACC Admin models to ensure uniformity across models [\#119](https://github.com/autodesk-platform-services/aps-sdk-node/pull/119) ([Arrotech](https://github.com/Arrotech))
 
