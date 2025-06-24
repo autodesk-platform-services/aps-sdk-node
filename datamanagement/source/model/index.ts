@@ -23,6 +23,7 @@ export * from './commandData';
 export * from './commandExecutionStatus';
 export * from './commandPayload';
 export * from './commandPayloadData';
+export * from './comparisonTypes';
 export * from './conformingStatus';
 export * from './createdDownload';
 export * from './createdDownloadData';
