@@ -403,7 +403,7 @@ export class ModelDerivativeClient extends BaseClient {
     * 
     * ``false``: (Default) Does not retrieve resources if they are larger than 20 MB.
     * 
-    * @param {number} [optionalArgs.objectid] If specified, retrieves the sub-tree that has the specified Object ID as its parent node. If this parameter is not specified, retrieves the entire object tree.
+    * @param {number} [optionalArgs.objectId] If specified, retrieves the sub-tree that has the specified Object ID as its parent node. If this parameter is not specified, retrieves the entire object tree.
     * @param {string} [optionalArgs.level] Specifies how many child levels of the hierarchy to return, when the ``objectid``  parameter is specified. Currently supports only ``level`` = ``1``.
     * @param {*} [optionalArgs.options] Override http request option.
     * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
@@ -519,7 +519,7 @@ export class ModelDerivativeClient extends BaseClient {
     * - ``JPN`` - Data center for the Japan region.
     * - ``GBR``  - Data center for the United Kingdom region.
     * 
-    * @param {number} [optionalArgs.objectid] The Object ID of the object you want to restrict the response to. If you do not specify this parameter, all properties of all objects within the Model View are returned.  
+    * @param {number} [optionalArgs.objectId] The Object ID of the object you want to restrict the response to. If you do not specify this parameter, all properties of all objects within the Model View are returned.  
     * @param {string} [optionalArgs.forceget] ``true``: Retrieves large resources, even beyond the 20 MB limit. If exceptionally large (over 800 MB), the system acts as if ``forceget`` is ``false``. 
     * 
     * ``false``: (Default) Does not retrieve resources if they are larger than 20 MB.
