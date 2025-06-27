@@ -5,8 +5,13 @@
  * Specifies where the hub is stored. Possible values are:  
  * - ``US`` - Data center for the US region.  
  * - ``EMEA`` - Data center for the European Union, Middle East, and Africa regions.  
- * - ``APAC`` - Data center for the Australia region. **@deprecated Use `AUS` instead.**  
- * - ``AUS`` - New data center for the Australia region.  
+ * - ``APAC`` - Data center for the Australia region. **@deprecated Use `AUS` instead.**   
+ * - ``AUS`` - Data center for the Australia region.
+ * - ``CAN`` - Data center for the Canada region.
+ * - ``DEU`` - Data center for the Germany region.
+ * - ``IND`` - Data center for the India region.
+ * - ``JPN`` - Data center for the Japan region.
+ * - ``GBR`` - Data center for the United Kingdom region.
  * @export
  * @enum {string}
  */
@@ -16,7 +21,12 @@ export const Region = {
     Emea: 'EMEA',
     /** @deprecated Use `AUS` instead. */
     Apac: 'APAC',
-    Aus: 'AUS'
+    Aus: 'AUS',
+    Can: 'CAN',
+    Deu: 'DEU',
+    Ind: 'IND',
+    Jpn: 'JPN',
+    Gbr: 'GBR'
 } as const;
 
 export type Region = typeof Region[keyof typeof Region];
