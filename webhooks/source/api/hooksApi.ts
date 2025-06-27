@@ -25,8 +25,32 @@ export const HooksApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
          * @summary Create a Webhook for an Event
          * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
          * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
-         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
+         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``region`` query string parameter to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
          * @param {HookPayload} [hookPayload] 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
@@ -80,8 +104,32 @@ export const HooksApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
          * Adds a new webhook to receive notifications of all events for the specified system.
          * @summary Create Webhooks for All Events
          * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
-         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
          * @param {HookPayload} [hookPayload] 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
@@ -134,8 +182,32 @@ export const HooksApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
          * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
          * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
          * @param {string} hookId The ID of the webhook to delete.
-         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
+         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``region`` query string parameter to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -188,11 +260,35 @@ export const HooksApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
         /**
          * Retrieves a paginated list of webhooks created by the calling application. Each page includes up to 200 webhooks.  If the ``pageState`` query string parameter is not provided, the first page of results is returned. Use the ``next`` value from the previous response to fetch subsequent pages.  **Note:** This operation requires an access token through a Client Credentials flow (two-legged OAuth). 
          * @summary List All Webhooks for an App
-         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``region`` query string parameter to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
          * @param {string} [pageState] Base64 encoded string to fetch the next page of the list of webhooks. If you do not provide this parameter, the first page of results is returned. Use the &#x60;&#x60;next&#x60;&#x60; value from the previous response to fetch subsequent pages.
          * @param {StatusFilter} [status] Filters retrieved webhooks by their current state. Possible values are   - &#x60;&#x60;active&#x60;&#x60; - Successfully delivered most recent event notifications.  - &#x60;&#x60;inactive&#x60;&#x60; - Failed to deliver most recent event notification and has been deactivated. - &#x60;&#x60;reactivated&#x60;&#x60; - Previously inactive but was reactivated. No events have occurred since reactivation.  If this parameter is not specified, the filter is not applied. See [Event Delivery Guarantees](/en/docs/webhooks/v1/developers_guide/event-delivery-guarantees/) for more information on how the state of a webhook changes. 
          * @param {Sort} [sort] Specifies the sorting order of the list of webhooks by their &#x60;&#x60;lastUpdatedDate&#x60;&#x60; attribute.   - &#x60;&#x60;asc&#x60;&#x60; - Ascending order. - &#x60;&#x60;desc&#x60;&#x60; - (Default) Descending order.  
-         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``region`` query string parameter to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -251,8 +347,32 @@ export const HooksApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
          * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
          * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
          * @param {string} hookId The ID of the webhook to delete.
-         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``region`` query string parameter to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
+         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US- (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -305,10 +425,34 @@ export const HooksApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
         /**
          * Retrieves a paginated list of webhooks available to the provided access token within the specified region. Each page includes up to 200 webhooks.  If the ``pageState`` query string parameter is not provided, the first page of results is returned. Use the ``next`` value from the previous response to fetch subsequent pages.
          * @summary List All Webhooks
-         * @param {string} [pageState] Base64 encoded string to fetch the next page of the list of webhooks. If you do not provide this parameter, the first page of results is returned. Use the &#x60;&#x60;next&#x60;&#x60; value from the previous response to fetch subsequent pages.
-         * @param {StatusFilter} [status] Filters retrieved webhooks by their current state. Possible values are   - &#x60;&#x60;active&#x60;&#x60; - Successfully delivered most recent event notifications.  - &#x60;&#x60;inactive&#x60;&#x60; - Failed to deliver most recent event notification and has been deactivated. - &#x60;&#x60;reactivated&#x60;&#x60; - Previously inactive but was reactivated. No events have occurred since reactivation.  If this parameter is not specified, the filter is not applied. See [Event Delivery Guarantees](/en/docs/webhooks/v1/developers_guide/event-delivery-guarantees/) for more information on how the state of a webhook changes. 
-         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+         * @param {string} [pageState] Base64 encoded string to fetch the next page of the list of webhooks. If you do not provide this parameter, the first page of results is returned. Use the ``next`` value from the previous response to fetch subsequent pages.
+         * @param {StatusFilter} [status] Filters retrieved webhooks by their current state. Possible values are   - ``active`` - Successfully delivered most recent event notifications.  - ``inactive`` - Failed to deliver most recent event notification and has been deactivated. - ``reactivated`` - Previously inactive but was reactivated. No events have occurred since reactivation.  If this parameter is not specified, the filter is not applied. See [Event Delivery Guarantees](/en/docs/webhooks/v1/developers_guide/event-delivery-guarantees/) for more information on how the state of a webhook changes. 
+         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
+         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US`- (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``region`` query string parameter to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -362,11 +506,36 @@ export const HooksApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
          * @summary List All Webhooks for an Event
          * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
          * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
-         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-         * @param {string} [scopeName] Filters retrieved webhooks by the scope name used to create hook. For example : &#x60;&#x60;folder&#x60;&#x60;.  If this parameter is not specified, the filter is not applied.
-         * @param {string} [pageState] Base64 encoded string to fetch the next page of the list of webhooks. If you do not provide this parameter, the first page of results is returned. Use the &#x60;&#x60;next&#x60;&#x60; value from the previous response to fetch subsequent pages.
-         * @param {StatusFilter} [status] Filters retrieved webhooks by their current state. Possible values are   - &#x60;&#x60;active&#x60;&#x60; - Successfully delivered most recent event notifications.  - &#x60;&#x60;inactive&#x60;&#x60; - Failed to deliver most recent event notification and has been deactivated. - &#x60;&#x60;reactivated&#x60;&#x60; - Previously inactive but was reactivated. No events have occurred since reactivation.  If this parameter is not specified, the filter is not applied. See [Event Delivery Guarantees](/en/docs/webhooks/v1/developers_guide/event-delivery-guarantees/) for more information on how the state of a webhook changes. 
+         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``region`` query string parameter to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
+         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US`- (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
+         * 
+         * @param {string} [scopeName] Filters retrieved webhooks by the scope name used to create hook. For example : ``folder``.  If this parameter is not specified, the filter is not applied.
+         * @param {string} [pageState] Base64 encoded string to fetch the next page of the list of webhooks. If you do not provide this parameter, the first page of results is returned. Use the ``next`` value from the previous response to fetch subsequent pages.
+         * @param {StatusFilter} [status] Filters retrieved webhooks by their current state. Possible values are   - ``active`` - Successfully delivered most recent event notifications.  - ``inactive`` - Failed to deliver most recent event notification and has been deactivated. - ``reactivated`` - Previously inactive but was reactivated. No events have occurred since reactivation.  If this parameter is not specified, the filter is not applied. See [Event Delivery Guarantees](/en/docs/webhooks/v1/developers_guide/event-delivery-guarantees/) for more information on how the state of a webhook changes. 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -429,10 +598,36 @@ export const HooksApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
          * Retrieves a paginated list of webhooks for the specified system. The returned list contains a subset of webhooks accessible to the provided access token within the specified region. Each page includes up to 200 webhooks.  If the ``pageState`` query string parameter is not provided, the first page of results is returned. Use the ``next`` value from the previous response to fetch subsequent pages.
          * @summary List All Webhooks for a System
          * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
-         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``region`` query string parameter to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
+         * 
          * @param {StatusFilter} [status] Filters retrieved webhooks by their current state. Possible values are   - &#x60;&#x60;active&#x60;&#x60; - Successfully delivered most recent event notifications.  - &#x60;&#x60;inactive&#x60;&#x60; - Failed to deliver most recent event notification and has been deactivated. - &#x60;&#x60;reactivated&#x60;&#x60; - Previously inactive but was reactivated. No events have occurred since reactivation.  If this parameter is not specified, the filter is not applied. See [Event Delivery Guarantees](/en/docs/webhooks/v1/developers_guide/event-delivery-guarantees/) for more information on how the state of a webhook changes. 
          * @param {string} [pageState] Base64 encoded string to fetch the next page of the list of webhooks. If you do not provide this parameter, the first page of results is returned. Use the &#x60;&#x60;next&#x60;&#x60; value from the previous response to fetch subsequent pages.
-         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
+         * 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -490,8 +685,33 @@ export const HooksApiAxiosParamCreator = function (apsConfiguration?: IApsConfig
          * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
          * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
          * @param {string} hookId The ID of the webhook to delete.
-         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US`- (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``region`` query string parameter to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
+         * 
+         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
          * @param {ModifyHookPayload} [modifyHookPayload] 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
@@ -559,8 +779,33 @@ export const HooksApiFp = function(sdkManager?: SdkManager) {
          * @summary Create a Webhook for an Event
          * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
          * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
-         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+        * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US`- (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``region`` query string parameter to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
+         * 
+         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
          * @param {HookPayload} [hookPayload] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -573,8 +818,32 @@ export const HooksApiFp = function(sdkManager?: SdkManager) {
          * Adds a new webhook to receive notifications of all events for the specified system.
          * @summary Create Webhooks for All Events
          * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
-         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
          * @param {HookPayload} [hookPayload] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -589,8 +858,32 @@ export const HooksApiFp = function(sdkManager?: SdkManager) {
          * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
          * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
          * @param {string} hookId The ID of the webhook to delete.
-         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -601,11 +894,35 @@ export const HooksApiFp = function(sdkManager?: SdkManager) {
         /**
          * Retrieves a paginated list of webhooks created by the calling application. Each page includes up to 200 webhooks.  If the ``pageState`` query string parameter is not provided, the first page of results is returned. Use the ``next`` value from the previous response to fetch subsequent pages.  **Note:** This operation requires an access token through a Client Credentials flow (two-legged OAuth). 
          * @summary List All Webhooks for an App
-         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+          * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
          * @param {string} [pageState] Base64 encoded string to fetch the next page of the list of webhooks. If you do not provide this parameter, the first page of results is returned. Use the &#x60;&#x60;next&#x60;&#x60; value from the previous response to fetch subsequent pages.
          * @param {StatusFilter} [status] Filters retrieved webhooks by their current state. Possible values are   - &#x60;&#x60;active&#x60;&#x60; - Successfully delivered most recent event notifications.  - &#x60;&#x60;inactive&#x60;&#x60; - Failed to deliver most recent event notification and has been deactivated. - &#x60;&#x60;reactivated&#x60;&#x60; - Previously inactive but was reactivated. No events have occurred since reactivation.  If this parameter is not specified, the filter is not applied. See [Event Delivery Guarantees](/en/docs/webhooks/v1/developers_guide/event-delivery-guarantees/) for more information on how the state of a webhook changes. 
          * @param {Sort} [sort] Specifies the sorting order of the list of webhooks by their &#x60;&#x60;lastUpdatedDate&#x60;&#x60; attribute.   - &#x60;&#x60;asc&#x60;&#x60; - Ascending order. - &#x60;&#x60;desc&#x60;&#x60; - (Default) Descending order.  
-         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+          * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -619,8 +936,32 @@ export const HooksApiFp = function(sdkManager?: SdkManager) {
          * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
          * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
          * @param {string} hookId The ID of the webhook to delete.
-         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -633,8 +974,33 @@ export const HooksApiFp = function(sdkManager?: SdkManager) {
          * @summary List All Webhooks
          * @param {string} [pageState] Base64 encoded string to fetch the next page of the list of webhooks. If you do not provide this parameter, the first page of results is returned. Use the &#x60;&#x60;next&#x60;&#x60; value from the previous response to fetch subsequent pages.
          * @param {StatusFilter} [status] Filters retrieved webhooks by their current state. Possible values are   - &#x60;&#x60;active&#x60;&#x60; - Successfully delivered most recent event notifications.  - &#x60;&#x60;inactive&#x60;&#x60; - Failed to deliver most recent event notification and has been deactivated. - &#x60;&#x60;reactivated&#x60;&#x60; - Previously inactive but was reactivated. No events have occurred since reactivation.  If this parameter is not specified, the filter is not applied. See [Event Delivery Guarantees](/en/docs/webhooks/v1/developers_guide/event-delivery-guarantees/) for more information on how the state of a webhook changes. 
-         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``region`` query string parameter to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
+         * 
+         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -647,8 +1013,32 @@ export const HooksApiFp = function(sdkManager?: SdkManager) {
          * @summary List All Webhooks for an Event
          * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
          * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
-         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
          * @param {string} [scopeName] Filters retrieved webhooks by the scope name used to create hook. For example : &#x60;&#x60;folder&#x60;&#x60;.  If this parameter is not specified, the filter is not applied.
          * @param {string} [pageState] Base64 encoded string to fetch the next page of the list of webhooks. If you do not provide this parameter, the first page of results is returned. Use the &#x60;&#x60;next&#x60;&#x60; value from the previous response to fetch subsequent pages.
          * @param {StatusFilter} [status] Filters retrieved webhooks by their current state. Possible values are   - &#x60;&#x60;active&#x60;&#x60; - Successfully delivered most recent event notifications.  - &#x60;&#x60;inactive&#x60;&#x60; - Failed to deliver most recent event notification and has been deactivated. - &#x60;&#x60;reactivated&#x60;&#x60; - Previously inactive but was reactivated. No events have occurred since reactivation.  If this parameter is not specified, the filter is not applied. See [Event Delivery Guarantees](/en/docs/webhooks/v1/developers_guide/event-delivery-guarantees/) for more information on how the state of a webhook changes. 
@@ -663,10 +1053,34 @@ export const HooksApiFp = function(sdkManager?: SdkManager) {
          * Retrieves a paginated list of webhooks for the specified system. The returned list contains a subset of webhooks accessible to the provided access token within the specified region. Each page includes up to 200 webhooks.  If the ``pageState`` query string parameter is not provided, the first page of results is returned. Use the ``next`` value from the previous response to fetch subsequent pages.
          * @summary List All Webhooks for a System
          * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
-         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+          * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
          * @param {StatusFilter} [status] Filters retrieved webhooks by their current state. Possible values are   - &#x60;&#x60;active&#x60;&#x60; - Successfully delivered most recent event notifications.  - &#x60;&#x60;inactive&#x60;&#x60; - Failed to deliver most recent event notification and has been deactivated. - &#x60;&#x60;reactivated&#x60;&#x60; - Previously inactive but was reactivated. No events have occurred since reactivation.  If this parameter is not specified, the filter is not applied. See [Event Delivery Guarantees](/en/docs/webhooks/v1/developers_guide/event-delivery-guarantees/) for more information on how the state of a webhook changes. 
          * @param {string} [pageState] Base64 encoded string to fetch the next page of the list of webhooks. If you do not provide this parameter, the first page of results is returned. Use the &#x60;&#x60;next&#x60;&#x60; value from the previous response to fetch subsequent pages.
-         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+          * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -680,8 +1094,32 @@ export const HooksApiFp = function(sdkManager?: SdkManager) {
          * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
          * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
          * @param {string} hookId The ID of the webhook to delete.
-         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+         * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+         * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
          * @param {ModifyHookPayload} [modifyHookPayload] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -704,8 +1142,32 @@ export interface HooksApiInterface {
      * @summary Create a Webhook for an Event
      * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
      * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
-     * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param {HookPayload} [hookPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -718,8 +1180,32 @@ export interface HooksApiInterface {
      * Adds a new webhook to receive notifications of all events for the specified system.
      * @summary Create Webhooks for All Events
      * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
-     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-     * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+      * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param {HookPayload} [hookPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -734,8 +1220,32 @@ export interface HooksApiInterface {
      * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
      * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
      * @param {string} hookId The ID of the webhook to delete.
-     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-     * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+     * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -746,11 +1256,35 @@ export interface HooksApiInterface {
     /**
      * Retrieves a paginated list of webhooks created by the calling application. Each page includes up to 200 webhooks.  If the ``pageState`` query string parameter is not provided, the first page of results is returned. Use the ``next`` value from the previous response to fetch subsequent pages.  **Note:** This operation requires an access token through a Client Credentials flow (two-legged OAuth). 
      * @summary List All Webhooks for an App
-     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param {string} [pageState] Base64 encoded string to fetch the next page of the list of webhooks. If you do not provide this parameter, the first page of results is returned. Use the &#x60;&#x60;next&#x60;&#x60; value from the previous response to fetch subsequent pages.
      * @param {StatusFilter} [status] Filters retrieved webhooks by their current state. Possible values are   - &#x60;&#x60;active&#x60;&#x60; - Successfully delivered most recent event notifications.  - &#x60;&#x60;inactive&#x60;&#x60; - Failed to deliver most recent event notification and has been deactivated. - &#x60;&#x60;reactivated&#x60;&#x60; - Previously inactive but was reactivated. No events have occurred since reactivation.  If this parameter is not specified, the filter is not applied. See [Event Delivery Guarantees](/en/docs/webhooks/v1/developers_guide/event-delivery-guarantees/) for more information on how the state of a webhook changes. 
      * @param {Sort} [sort] Specifies the sorting order of the list of webhooks by their &#x60;&#x60;lastUpdatedDate&#x60;&#x60; attribute.   - &#x60;&#x60;asc&#x60;&#x60; - Ascending order. - &#x60;&#x60;desc&#x60;&#x60; - (Default) Descending order.  
-     * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -764,8 +1298,32 @@ export interface HooksApiInterface {
      * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
      * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
      * @param {string} hookId The ID of the webhook to delete.
-     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-     * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+      * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -778,8 +1336,32 @@ export interface HooksApiInterface {
      * @summary List All Webhooks
      * @param {string} [pageState] Base64 encoded string to fetch the next page of the list of webhooks. If you do not provide this parameter, the first page of results is returned. Use the &#x60;&#x60;next&#x60;&#x60; value from the previous response to fetch subsequent pages.
      * @param {StatusFilter} [status] Filters retrieved webhooks by their current state. Possible values are   - &#x60;&#x60;active&#x60;&#x60; - Successfully delivered most recent event notifications.  - &#x60;&#x60;inactive&#x60;&#x60; - Failed to deliver most recent event notification and has been deactivated. - &#x60;&#x60;reactivated&#x60;&#x60; - Previously inactive but was reactivated. No events have occurred since reactivation.  If this parameter is not specified, the filter is not applied. See [Event Delivery Guarantees](/en/docs/webhooks/v1/developers_guide/event-delivery-guarantees/) for more information on how the state of a webhook changes. 
-     * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+      * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -792,8 +1374,32 @@ export interface HooksApiInterface {
      * @summary List All Webhooks for an Event
      * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
      * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
-     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-     * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+      * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param {string} [scopeName] Filters retrieved webhooks by the scope name used to create hook. For example : &#x60;&#x60;folder&#x60;&#x60;.  If this parameter is not specified, the filter is not applied.
      * @param {string} [pageState] Base64 encoded string to fetch the next page of the list of webhooks. If you do not provide this parameter, the first page of results is returned. Use the &#x60;&#x60;next&#x60;&#x60; value from the previous response to fetch subsequent pages.
      * @param {StatusFilter} [status] Filters retrieved webhooks by their current state. Possible values are   - &#x60;&#x60;active&#x60;&#x60; - Successfully delivered most recent event notifications.  - &#x60;&#x60;inactive&#x60;&#x60; - Failed to deliver most recent event notification and has been deactivated. - &#x60;&#x60;reactivated&#x60;&#x60; - Previously inactive but was reactivated. No events have occurred since reactivation.  If this parameter is not specified, the filter is not applied. See [Event Delivery Guarantees](/en/docs/webhooks/v1/developers_guide/event-delivery-guarantees/) for more information on how the state of a webhook changes. 
@@ -808,10 +1414,34 @@ export interface HooksApiInterface {
      * Retrieves a paginated list of webhooks for the specified system. The returned list contains a subset of webhooks accessible to the provided access token within the specified region. Each page includes up to 200 webhooks.  If the ``pageState`` query string parameter is not provided, the first page of results is returned. Use the ``next`` value from the previous response to fetch subsequent pages.
      * @summary List All Webhooks for a System
      * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
-     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param {StatusFilter} [status] Filters retrieved webhooks by their current state. Possible values are   - &#x60;&#x60;active&#x60;&#x60; - Successfully delivered most recent event notifications.  - &#x60;&#x60;inactive&#x60;&#x60; - Failed to deliver most recent event notification and has been deactivated. - &#x60;&#x60;reactivated&#x60;&#x60; - Previously inactive but was reactivated. No events have occurred since reactivation.  If this parameter is not specified, the filter is not applied. See [Event Delivery Guarantees](/en/docs/webhooks/v1/developers_guide/event-delivery-guarantees/) for more information on how the state of a webhook changes. 
      * @param {string} [pageState] Base64 encoded string to fetch the next page of the list of webhooks. If you do not provide this parameter, the first page of results is returned. Use the &#x60;&#x60;next&#x60;&#x60; value from the previous response to fetch subsequent pages.
-     * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -825,8 +1455,32 @@ export interface HooksApiInterface {
      * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
      * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
      * @param {string} hookId The ID of the webhook to delete.
-     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-     * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+      * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param {ModifyHookPayload} [modifyHookPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -850,8 +1504,32 @@ export class HooksApi extends BaseApi implements HooksApiInterface {
      * @summary Create a Webhook for an Event
      * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
      * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
-     * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+      * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param {HookPayload} [hookPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -882,8 +1560,32 @@ export class HooksApi extends BaseApi implements HooksApiInterface {
      * Adds a new webhook to receive notifications of all events for the specified system.
      * @summary Create Webhooks for All Events
      * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
-     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-     * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+      * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param {HookPayload} [hookPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -916,8 +1618,32 @@ export class HooksApi extends BaseApi implements HooksApiInterface {
      * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
      * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
      * @param {string} hookId The ID of the webhook to delete.
-     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-     * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+      * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -946,11 +1672,35 @@ export class HooksApi extends BaseApi implements HooksApiInterface {
     /**
      * Retrieves a paginated list of webhooks created by the calling application. Each page includes up to 200 webhooks.  If the ``pageState`` query string parameter is not provided, the first page of results is returned. Use the ``next`` value from the previous response to fetch subsequent pages.  **Note:** This operation requires an access token through a Client Credentials flow (two-legged OAuth). 
      * @summary List All Webhooks for an App
-     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param {string} [pageState] Base64 encoded string to fetch the next page of the list of webhooks. If you do not provide this parameter, the first page of results is returned. Use the &#x60;&#x60;next&#x60;&#x60; value from the previous response to fetch subsequent pages.
      * @param {StatusFilter} [status] Filters retrieved webhooks by their current state. Possible values are   - &#x60;&#x60;active&#x60;&#x60; - Successfully delivered most recent event notifications.  - &#x60;&#x60;inactive&#x60;&#x60; - Failed to deliver most recent event notification and has been deactivated. - &#x60;&#x60;reactivated&#x60;&#x60; - Previously inactive but was reactivated. No events have occurred since reactivation.  If this parameter is not specified, the filter is not applied. See [Event Delivery Guarantees](/en/docs/webhooks/v1/developers_guide/event-delivery-guarantees/) for more information on how the state of a webhook changes. 
      * @param {Sort} [sort] Specifies the sorting order of the list of webhooks by their &#x60;&#x60;lastUpdatedDate&#x60;&#x60; attribute.   - &#x60;&#x60;asc&#x60;&#x60; - Ascending order. - &#x60;&#x60;desc&#x60;&#x60; - (Default) Descending order.  
-     * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -982,8 +1732,32 @@ export class HooksApi extends BaseApi implements HooksApiInterface {
      * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
      * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
      * @param {string} hookId The ID of the webhook to delete.
-     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-     * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+      * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1014,8 +1788,32 @@ export class HooksApi extends BaseApi implements HooksApiInterface {
      * @summary List All Webhooks
      * @param {string} [pageState] Base64 encoded string to fetch the next page of the list of webhooks. If you do not provide this parameter, the first page of results is returned. Use the &#x60;&#x60;next&#x60;&#x60; value from the previous response to fetch subsequent pages.
      * @param {StatusFilter} [status] Filters retrieved webhooks by their current state. Possible values are   - &#x60;&#x60;active&#x60;&#x60; - Successfully delivered most recent event notifications.  - &#x60;&#x60;inactive&#x60;&#x60; - Failed to deliver most recent event notification and has been deactivated. - &#x60;&#x60;reactivated&#x60;&#x60; - Previously inactive but was reactivated. No events have occurred since reactivation.  If this parameter is not specified, the filter is not applied. See [Event Delivery Guarantees](/en/docs/webhooks/v1/developers_guide/event-delivery-guarantees/) for more information on how the state of a webhook changes. 
-     * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+      * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1046,8 +1844,32 @@ export class HooksApi extends BaseApi implements HooksApiInterface {
      * @summary List All Webhooks for an Event
      * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
      * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
-     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-     * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+      * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param {string} [scopeName] Filters retrieved webhooks by the scope name used to create hook. For example : &#x60;&#x60;folder&#x60;&#x60;.  If this parameter is not specified, the filter is not applied.
      * @param {string} [pageState] Base64 encoded string to fetch the next page of the list of webhooks. If you do not provide this parameter, the first page of results is returned. Use the &#x60;&#x60;next&#x60;&#x60; value from the previous response to fetch subsequent pages.
      * @param {StatusFilter} [status] Filters retrieved webhooks by their current state. Possible values are   - &#x60;&#x60;active&#x60;&#x60; - Successfully delivered most recent event notifications.  - &#x60;&#x60;inactive&#x60;&#x60; - Failed to deliver most recent event notification and has been deactivated. - &#x60;&#x60;reactivated&#x60;&#x60; - Previously inactive but was reactivated. No events have occurred since reactivation.  If this parameter is not specified, the filter is not applied. See [Event Delivery Guarantees](/en/docs/webhooks/v1/developers_guide/event-delivery-guarantees/) for more information on how the state of a webhook changes. 
@@ -1080,10 +1902,34 @@ export class HooksApi extends BaseApi implements HooksApiInterface {
      * Retrieves a paginated list of webhooks for the specified system. The returned list contains a subset of webhooks accessible to the provided access token within the specified region. Each page includes up to 200 webhooks.  If the ``pageState`` query string parameter is not provided, the first page of results is returned. Use the ``next`` value from the previous response to fetch subsequent pages.
      * @summary List All Webhooks for a System
      * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
-     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param {StatusFilter} [status] Filters retrieved webhooks by their current state. Possible values are   - &#x60;&#x60;active&#x60;&#x60; - Successfully delivered most recent event notifications.  - &#x60;&#x60;inactive&#x60;&#x60; - Failed to deliver most recent event notification and has been deactivated. - &#x60;&#x60;reactivated&#x60;&#x60; - Previously inactive but was reactivated. No events have occurred since reactivation.  If this parameter is not specified, the filter is not applied. See [Event Delivery Guarantees](/en/docs/webhooks/v1/developers_guide/event-delivery-guarantees/) for more information on how the state of a webhook changes. 
      * @param {string} [pageState] Base64 encoded string to fetch the next page of the list of webhooks. If you do not provide this parameter, the first page of results is returned. Use the &#x60;&#x60;next&#x60;&#x60; value from the previous response to fetch subsequent pages.
-     * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1115,8 +1961,32 @@ export class HooksApi extends BaseApi implements HooksApiInterface {
      * @param {string} system The ID of the system the webhook applies to. For example data for Data Management. See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of supported systems and their IDs. 
      * @param {string} event The ID of the event the webhook monitors.  See [Supported Events](/en/docs/webhooks/v1/reference/events/) for a full list of events.
      * @param {string} hookId The ID of the webhook to delete.
-     * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;region&#x60;&#x60; query string parameter to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
-     * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:  - &#x60;&#x60;US&#x60;&#x60; - (Default) Data center dedicated to serve the United States region. - &#x60;&#x60;EMEA&#x60;&#x60; - Data center dedicated to serve the European Union, Middle East, and Africa regions. - &#x60;&#x60;AUS&#x60;&#x60; - (Beta) Data center dedicated to serve the Australia region.  **Note:**   1. Beta features are subject to change. Please avoid using them in production environments. 2. You can also use the &#x60;&#x60;x-ads-region&#x60;&#x60; header to specify the region. If you specify the &#x60;&#x60;region&#x60;&#x60; query string parameter as well as the &#x60;&#x60;x-ads-region&#x60;&#x60; header, the &#x60;&#x60;x-ads-region&#x60;&#x60; header takes precedence. 
+      * @param {XAdsRegion} [xAdsRegion] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make requests to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `region` query string parameter to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
+      * @param {Region} [region] Specifies the geographical location (region) of the server the request must be executed on. This also corresponds to the region where the Webhook data is stored. It is also the location of the server that will make request to your callback URL. Possible values:
+         *  - `US` - (Default) Data center dedicated to serve the United States region.
+         *  - `EMEA` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
+         *  - `AUS` - (Beta) Data center dedicated to serve the Australia region.
+         *  - `CAN` - Data center dedicated to serve the Canada region.
+         *  - `DEU` - Data center dedicated to serve the Germany region.
+         *  - `IND` - Data center dedicated to serve the India region.
+         *  - `JPN` - Data center dedicated to serve the Japan region.
+         *  - `GBR` - Data center dedicated to serve the United Kingdom region.
+         * 
+         * **Note:** 
+         * 1. Beta features are subject to change. Please avoid using them in production environments.
+         * 2. You can also use the `x-ads-region` header to specify the region. If you specify the `region` query string parameter as well as the `x-ads-region` header, the `x-ads-region` header takes precedence.
      * @param {ModifyHookPayload} [modifyHookPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
