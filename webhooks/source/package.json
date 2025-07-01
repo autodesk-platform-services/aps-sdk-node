@@ -1,9 +1,9 @@
 {
   "name": "@aps_sdk/webhooks",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Client sdk for WebHooks API",
   "license": "Apache-2.0",
-  "author": "Autodesk Platform Services",  
+  "author": "Autodesk Platform Services",
   "repository": {
     "type": "git",
     "url": "https://github.com/autodesk-platform-services/aps-sdk-node.git"

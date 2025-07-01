@@ -30,6 +30,11 @@ export class WebhooksClient extends BaseClient {
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
       * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``CAN`` - Data center dedicated to serve the Canada region.
+      * - ``DEU`` - Data center dedicated to serve the Germany region.
+      * - ``IND`` - Data center dedicated to serve the India region.
+      * - ``JPN`` - Data center dedicated to serve the Japan region.
+      * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
       * 
       * **Note:** 
       * 
@@ -61,6 +66,11 @@ export class WebhooksClient extends BaseClient {
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
       * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``CAN`` - Data center dedicated to serve the Canada region.
+      * - ``DEU`` - Data center dedicated to serve the Germany region.
+      * - ``IND`` - Data center dedicated to serve the India region.
+      * - ``JPN`` - Data center dedicated to serve the Japan region.
+      * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
       * 
       * **Note:** 
       * 
@@ -93,6 +103,11 @@ export class WebhooksClient extends BaseClient {
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
       * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``CAN`` - Data center dedicated to serve the Canada region.
+      * - ``DEU`` - Data center dedicated to serve the Germany region.
+      * - ``IND`` - Data center dedicated to serve the India region.
+      * - ``JPN`` - Data center dedicated to serve the Japan region.
+      * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
       * 
       * **Note:** 
       * 
@@ -138,6 +153,11 @@ export class WebhooksClient extends BaseClient {
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
       * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``CAN`` - Data center dedicated to serve the Canada region.
+      * - ``DEU`` - Data center dedicated to serve the Germany region.
+      * - ``IND`` - Data center dedicated to serve the India region.
+      * - ``JPN`` - Data center dedicated to serve the Japan region.
+      * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
       * 
       * **Note:** 
       * 
@@ -170,6 +190,11 @@ export class WebhooksClient extends BaseClient {
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
       * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``CAN`` - Data center dedicated to serve the Canada region.
+      * - ``DEU`` - Data center dedicated to serve the Germany region.
+      * - ``IND`` - Data center dedicated to serve the India region.
+      * - ``JPN`` - Data center dedicated to serve the Japan region.
+      * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
       * 
       * **Note:** 
       * 
@@ -208,6 +233,11 @@ export class WebhooksClient extends BaseClient {
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
       * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``CAN`` - Data center dedicated to serve the Canada region.
+      * - ``DEU`` - Data center dedicated to serve the Germany region.
+      * - ``IND`` - Data center dedicated to serve the India region.
+      * - ``JPN`` - Data center dedicated to serve the Japan region.
+      * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
       * 
       * **Note:** 
       * 
@@ -239,6 +269,11 @@ export class WebhooksClient extends BaseClient {
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
       * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``CAN`` - Data center dedicated to serve the Canada region.
+      * - ``DEU`` - Data center dedicated to serve the Germany region.
+      * - ``IND`` - Data center dedicated to serve the India region.
+      * - ``JPN`` - Data center dedicated to serve the Japan region.
+      * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
       * 
       * **Note:** 
       * 
@@ -288,6 +323,11 @@ export class WebhooksClient extends BaseClient {
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
       * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``CAN`` - Data center dedicated to serve the Canada region.
+      * - ``DEU`` - Data center dedicated to serve the Germany region.
+      * - ``IND`` - Data center dedicated to serve the India region.
+      * - ``JPN`` - Data center dedicated to serve the Japan region.
+      * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
       * 
       * **Note:** 
       * 
@@ -331,6 +371,11 @@ export class WebhooksClient extends BaseClient {
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
       * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``CAN`` - Data center dedicated to serve the Canada region.
+      * - ``DEU`` - Data center dedicated to serve the Germany region.
+      * - ``IND`` - Data center dedicated to serve the India region.
+      * - ``JPN`` - Data center dedicated to serve the Japan region.
+      * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
       * 
       * **Note:** 
       * 
@@ -372,6 +417,11 @@ export class WebhooksClient extends BaseClient {
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
       * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``CAN`` - Data center dedicated to serve the Canada region.
+      * - ``DEU`` - Data center dedicated to serve the Germany region.
+      * - ``IND`` - Data center dedicated to serve the India region.
+      * - ``JPN`` - Data center dedicated to serve the Japan region.
+      * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
       * 
       * **Note:** 
       * 
@@ -404,6 +454,11 @@ export class WebhooksClient extends BaseClient {
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
       * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``CAN`` - Data center dedicated to serve the Canada region.
+      * - ``DEU`` - Data center dedicated to serve the Germany region.
+      * - ``IND`` - Data center dedicated to serve the India region.
+      * - ``JPN`` - Data center dedicated to serve the Japan region.
+      * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
       * 
       * **Note:** 
       * 
@@ -445,6 +500,11 @@ export class WebhooksClient extends BaseClient {
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
       * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``CAN`` - Data center dedicated to serve the Canada region.
+      * - ``DEU`` - Data center dedicated to serve the Germany region.
+      * - ``IND`` - Data center dedicated to serve the India region.
+      * - ``JPN`` - Data center dedicated to serve the Japan region.
+      * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
       * 
       * **Note:** 
       * 
