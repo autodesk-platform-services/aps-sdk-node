@@ -1,10 +1,28 @@
 # Changelog
 
+## [v3.1.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v3.1.0) (2025-07-01)
+
+[Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v3.0.0...v3.1.0)
+
+**Implemented enhancements:**
+
+- \[DAS 347\] - Add support for UK plus other 4 regions [\#127](https://github.com/autodesk-platform-services/aps-sdk-node/pull/127) ([Arrotech](https://github.com/Arrotech))
+- \[DAS -346\]- Model Derivative - Added support UK + 4 regions. [\#126](https://github.com/autodesk-platform-services/aps-sdk-node/pull/126) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- \[DAS 348\] - OSS added support for UK+4 regions [\#125](https://github.com/autodesk-platform-services/aps-sdk-node/pull/125) ([nishchhaldagar](https://github.com/nishchhaldagar))
+- \[DAS-345\] - Webhooks Added support for Uk+4 for region enum [\#124](https://github.com/autodesk-platform-services/aps-sdk-node/pull/124) ([srivastavarahull](https://github.com/srivastavarahull))
+
+**Merged pull requests:**
+
+- Update ChangeLog [\#123](https://github.com/autodesk-platform-services/aps-sdk-node/pull/123) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Keep Main branch updated with Development [\#122](https://github.com/autodesk-platform-services/aps-sdk-node/pull/122) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- \[AUTO\]: Update CHANGELOG [\#121](https://github.com/autodesk-platform-services/aps-sdk-node/pull/121) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Keep Main branch updated [\#118](https://github.com/autodesk-platform-services/aps-sdk-node/pull/118) ([sajith-subramanian](https://github.com/sajith-subramanian))
+
 ## [v3.0.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v3.0.0) (2025-06-19)
 
 [Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v2.1.1...v3.0.0)
 
-**Breaking changes:**
+**Merged pull requests:**
 
 - \[DAS 336\] - Update ACC Admin models to ensure uniformity across models [\#119](https://github.com/autodesk-platform-services/aps-sdk-node/pull/119) ([Arrotech](https://github.com/Arrotech))
 
