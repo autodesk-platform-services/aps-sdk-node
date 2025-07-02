@@ -1,5 +1,5 @@
 import { SdkManager, ApiResponse, ApsServiceRequestConfig, BaseClient, IAuthenticationProvider, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
-import { Region, DataType, AttrDefinitionPage, Fields, IssuePayload, SortBy, User, Issue, IssuesPage, TypesPage, RootCauseCategoriesPage, AttrMappingPage, CommentsPayload,Comments, CommentsPage } from "../model";
+import { Region, DataType, AttrDefinitionPage, Fields, IssuePayload, SortBy, User, Issue, IssuesPage, TypesPage, RootCauseCategoriesPage, AttrMappingPage, CommentsPayload, Comments, CommentsPage } from "../model";
 import { IssueAttributeDefinitionsApi, IssueAttributeMappingsApi, IssueCommentsApi, IssueRootCauseCategoriesApi, IssueTypesApi, IssuesApi, IssuesProfileApi } from "../api";
 
 export class IssuesClient extends BaseClient {
@@ -25,21 +25,32 @@ export class IssuesClient extends BaseClient {
     this.issuesprofileapi = new IssuesProfileApi(optionalArgs.sdkManager);
   }
   /**
-* Retrieves information about issue custom attributes (custom fields) for a project, including the custom attribute title, description and type.
-* @summary Your GET endpoint
-* @param {string} projectId 
-* @param {Region} [xAdsRegion] 
-* @param {number} [limit] The number of custom attribute definitions to return in the response payload. For example, limit&#x3D;2. Acceptable values: 1-200. Default value: 200.
-* @param {number} [offset] The number of custom attribute definitions you want to begin retrieving results from.
-* @param {string} [filterCreatedAt] Retrieves items that were created at the specified date and time, in one of the following URL-encoded formats: YYYY-MM-DDThh:mm:ss.sz or YYYY-MM-DD. Separate multiple values with commas.
-* @param {string} [filterUpdatedAt] Retrieves items that were last updated at the specified date and time, in one of the following URL-encoded formats: YYYY-MM-DDThh:mm:ss.sz or YYYY-MM-DD. Separate multiple values with commas.
-* @param {string} [filterDeletedAt] Retrieves types that were deleted at the specified date and time, in one of the following URL-encoded formats: YYYY-MM-DDThh:mm:ss.sz or YYYY-MM-DD. Separate multiple values with commas. 
-* @param {Array<DataType>} [filterDataType] Retrieves issue custom attribute definitions with the specified data type. Possible values: list (this corresponds to dropdown in the UI), text, paragraph, numeric. For example, filter[dataType]&#x3D;text,numeric.
-* @param accessToken bearer access token
-* @param {*} [options] Override http request option.
-* @throws {RequiredError}
-* @memberof IssueAttributeDefinitionsApiInterface
-*/
+   * Retrieves information about issue custom attributes (custom fields) for a project, including the custom attribute title, description and type.
+   * @summary Your GET endpoint
+   * @param {string} projectId
+   * @param {Region} [xAdsRegion] Specifies where the bucket containing the object is stored. Possible values are:
+   * 
+   * - ``US`` : (Default) Data center for the US region.
+   * - ``EMEA`` : Data center for the European Union, Middle East, and Africa.
+   * - ``AUS`` : (Beta) Data center for Australia.
+   * - ``CAN`` : Data center for the Canada region.
+   * - ``DEU`` : Data center for the Germany region.
+   * - ``IND`` : Data center for the India region.
+   * - ``JPN`` : Data center for the Japan region.
+   * - ``GBR`` : Data center for the United Kingdom region.
+   * 
+   * **Note:** Beta features are subject to change. Please do not use in production environments.
+   * @param {number} [limit] The number of custom attribute definitions to return in the response payload. For example, limit&#x3D;2. Acceptable values: 1-200. Default value: 200.
+   * @param {number} [offset] The number of custom attribute definitions you want to begin retrieving results from.
+   * @param {string} [filterCreatedAt] Retrieves items that were created at the specified date and time, in one of the following URL-encoded formats: YYYY-MM-DDThh:mm:ss.sz or YYYY-MM-DD. Separate multiple values with commas.
+   * @param {string} [filterUpdatedAt] Retrieves items that were last updated at the specified date and time, in one of the following URL-encoded formats: YYYY-MM-DDThh:mm:ss.sz or YYYY-MM-DD. Separate multiple values with commas.
+   * @param {string} [filterDeletedAt] Retrieves types that were deleted at the specified date and time, in one of the following URL-encoded formats: YYYY-MM-DDThh:mm:ss.sz or YYYY-MM-DD. Separate multiple values with commas.
+   * @param {Array<DataType>} [filterDataType] Retrieves issue custom attribute definitions with the specified data type. Possible values: list (this corresponds to dropdown in the UI), text, paragraph, numeric. For example, filter[dataType]&#x3D;text,numeric.
+   * @param {string} [accessToken] Bearer access token.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof IssueAttributeDefinitionsApiInterface
+   */
   public async getAttributeDefinitions(projectId: string, optionalArgs?: { xAdsRegion?: Region, limit?: number, offset?: number, filterCreatedAt?: string, filterUpdatedAt?: string, filterDeletedAt?: string, filterDataType?: Array<DataType>, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<AttrDefinitionPage> {
     if (!optionalArgs?.accessToken && !this.authenticationProvider) {
       throw new Error("Please provide a valid access token or an authentication provider");
@@ -54,7 +65,18 @@ export class IssuesClient extends BaseClient {
    * Retrieves information about the issue custom attributes (custom fields) that are assigned to issue categories and issue types.
    * @summary Your GET endpoint
    * @param {string} projectId The ID of the project.
-   * @param {Region} [xAdsRegion] 
+   * @param {Region} [xAdsRegion] Specifies where the bucket containing the object is stored. Possible values are:
+   * 
+   * - ``US`` : (Default) Data center for the US region.
+   * - ``EMEA`` : Data center for the European Union, Middle East, and Africa.
+   * - ``AUS`` : (Beta) Data center for Australia.
+   * - ``CAN`` : Data center for the Canada region.
+   * - ``DEU`` : Data center for the Germany region.
+   * - ``IND`` : Data center for the India region.
+   * - ``JPN`` : Data center for the Japan region.
+   * - ``GBR`` : Data center for the United Kingdom region.
+   * 
+   * **Note:** Beta features are subject to change. Please do not use in production environments.
    * @param {number} [limit] The number of custom attribute mappings to return in the response payload. For example, limit&#x3D;2. Acceptable values: 1-200. Default value: 200.
    * @param {number} [offset] The number of custom attribute mappings you want to begin retrieving results from.
    * @param {string} [filterCreatedAt] Retrieves items that were created at the specified date and time, in one of the following URL-encoded formats: YYYY-MM-DDThh:mm:ss.sz or YYYY-MM-DD. Separate multiple values with commas.
@@ -82,8 +104,20 @@ export class IssuesClient extends BaseClient {
    * @summary 
    * @param {string} projectId The ID of the project.
    * @param {string} issueId The unique identifier of the issue.
-   * @param {Region} [xAdsRegion] 
-   * @param {CommentsPayload} [commentsPayload] 
+   * @param {CommentsPayload} commentsPayload The comment data to create.
+   * @param {Region} [xAdsRegion] Specifies where the bucket containing the object is stored. Possible values are:
+   * 
+   * - ``US`` : (Default) Data center for the US region.
+   * - ``EMEA`` : Data center for the European Union, Middle East, and Africa.
+   * - ``AUS`` : (Beta) Data center for Australia.
+   * - ``CAN`` : Data center for the Canada region.
+   * - ``DEU`` : Data center for the Germany region.
+   * - ``IND`` : Data center for the India region.
+   * - ``JPN`` : Data center for the Japan region.
+   * - ``GBR`` : Data center for the United Kingdom region.
+   * 
+   * **Note:** Beta features are subject to change. Please do not use in production environments.
+   * @param {string} [accessToken] Bearer access token.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    */
@@ -102,7 +136,18 @@ export class IssuesClient extends BaseClient {
    * @summary Your GET endpoint
    * @param {string} projectId The ID of the project.
    * @param {string} issueId The unique identifier of the issue.
-   * @param {Region} [xAdsRegion] 
+   * @param {Region} [xAdsRegion] Specifies where the bucket containing the object is stored. Possible values are:
+   * 
+   * - ``US`` : (Default) Data center for the US region.
+   * - ``EMEA`` : Data center for the European Union, Middle East, and Africa.
+   * - ``AUS`` : (Beta) Data center for Australia.
+   * - ``CAN`` : Data center for the Canada region.
+   * - ``DEU`` : Data center for the Germany region.
+   * - ``IND`` : Data center for the India region.
+   * - ``JPN`` : Data center for the Japan region.
+   * - ``GBR`` : Data center for the United Kingdom region.
+   * 
+   * **Note:** Beta features are subject to change. Please do not use in production environments.
    * @param {string} [limit] Add limit&#x3D;20 to limit the results count (together with the offset to support pagination).
    * @param {string} [offset] Add offset&#x3D;20 to get partial results (together with the limit to support pagination).
    * @param {Array<SortBy>} [sortBy] Sort issue comments by specified fields. Separate multiple values with commas. To sort in descending order add a - (minus sign) before the sort criteria
@@ -123,7 +168,18 @@ export class IssuesClient extends BaseClient {
    * Retrieves a list of supported root cause categories and root causes that you can allocate to an issue. For example, communication and coordination.
    * @summary Your GET endpoint
    * @param {string} projectId The ID of the project.
-   * @param {Region} [xAdsRegion] 
+   * @param {Region} [xAdsRegion] Specifies where the bucket containing the object is stored. Possible values are:
+     * 
+     * - ``US`` : (Default) Data center for the US region.
+     * - ``EMEA`` : Data center for the European Union, Middle East, and Africa.
+     * - ``AUS`` : (Beta) Data center for Australia.
+     * - ``CAN`` : Data center for the Canada region.
+     * - ``DEU`` : Data center for the Germany region.
+     * - ``IND`` : Data center for the India region.
+     * - ``JPN`` : Data center for the Japan region.
+     * - ``GBR`` : Data center for the United Kingdom region.
+     * 
+     * **Note:** Beta features are subject to change. Please do not use in production environments.
    * @param {string} [include] Add ‘include&#x3D;rootcauses’ to add the root causes for each category.
    * @param {number} [limit] Add limit&#x3D;20 to limit the results count (together with the offset to support pagination).
    * @param {number} [offset] Add offset&#x3D;20 to get partial results (together with the limit to support pagination)
@@ -152,7 +208,18 @@ export class IssuesClient extends BaseClient {
   * @param {number} [offset] Add offset&#x3D;20 to get partial results (together with the limit to support pagination).
   * @param {string} [filterUpdatedAt] Retrieves types that were last updated at the specified date and time, in in one of the following URL-encoded formats: YYYY-MM-DDThh:mm:ss.sz or YYYY-MM-DD. Separate multiple values with commas.
   * @param {boolean} [filterIsActive] Filter types by status e.g. filter[isActive]&#x3D;true will only return active types. Default value: undefined (meaning both active &amp; inactive issue type categories will return).
-  * @param {Region} [xAdsRegion] 
+  * @param {Region} [xAdsRegion] Specifies where the bucket containing the object is stored. Possible values are:
+     * 
+     * - ``US`` : (Default) Data center for the US region.
+     * - ``EMEA`` : Data center for the European Union, Middle East, and Africa.
+     * - ``AUS`` : (Beta) Data center for Australia.
+     * - ``CAN`` : Data center for the Canada region.
+     * - ``DEU`` : Data center for the Germany region.
+     * - ``IND`` : Data center for the India region.
+     * - ``JPN`` : Data center for the Japan region.
+     * - ``GBR`` : Data center for the United Kingdom region.
+     * 
+     * **Note:** Beta features are subject to change. Please do not use in production environments.
   * @param accessToken bearer access token
   * @param {*} [options] Override http request option.
   * @throws {RequiredError}
@@ -169,16 +236,27 @@ export class IssuesClient extends BaseClient {
     return response.content;
   }
   /**
- * Adds an issue to a project.
- * @summary 
- * @param {string} projectId The ID of the project.
- * @param {Region} [xAdsRegion] 
- * @param {IssuePayload} [issuePayload] 
- * @param accessToken bearer access token
- * @param {*} [options] Override http request option.
- * @throws {RequiredError}
- * @memberof IssuesApiInterface
- */
+   * Adds an issue to a project.
+   * @summary 
+   * @param {string} projectId The ID of the project.
+   * @param {IssuePayload} issuePayload The issue data to create.
+   * @param {Region} [xAdsRegion] Specifies where the bucket containing the object is stored. Possible values are:
+   * 
+   * - ``US`` : (Default) Data center for the US region.
+   * - ``EMEA`` : Data center for the European Union, Middle East, and Africa.
+   * - ``AUS`` : (Beta) Data center for Australia.
+   * - ``CAN`` : Data center for the Canada region.
+   * - ``DEU`` : Data center for the Germany region.
+   * - ``IND`` : Data center for the India region.
+   * - ``JPN`` : Data center for the Japan region.
+   * - ``GBR`` : Data center for the United Kingdom region.
+   * 
+   * **Note:** Beta features are subject to change. Please do not use in production environments.
+   * @param {string} [accessToken] Bearer access token.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof IssuesApiInterface
+   */
   public async createIssue(projectId: string, issuePayload: IssuePayload, optionalArgs?: { xAdsRegion?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Issue> {
     if (!optionalArgs?.accessToken && !this.authenticationProvider) {
       throw new Error("Please provide a valid access token or an authentication provider");
@@ -195,7 +273,18 @@ export class IssuesClient extends BaseClient {
    * @summary Your GET endpoint
    * @param {string} projectId The ID of the project.
    * @param {string} issueId The unique identifier of the issue.
-   * @param {Region} [xAdsRegion] 
+   * @param {Region} [xAdsRegion] Specifies where the bucket containing the object is stored. Possible values are:
+     * 
+     * - ``US`` : (Default) Data center for the US region.
+     * - ``EMEA`` : Data center for the European Union, Middle East, and Africa.
+     * - ``AUS`` : (Beta) Data center for Australia.
+     * - ``CAN`` : Data center for the Canada region.
+     * - ``DEU`` : Data center for the Germany region.
+     * - ``IND`` : Data center for the India region.
+     * - ``JPN`` : Data center for the Japan region.
+     * - ``GBR`` : Data center for the United Kingdom region.
+     * 
+     * **Note:** Beta features are subject to change. Please do not use in production environments.
    * @param accessToken bearer access token
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
@@ -221,7 +310,18 @@ export class IssuesClient extends BaseClient {
    * @param {Array<string>} [filterIssueSubtypeId] Filter issues by the unique identifier of the type of the issue. Note that the API name for type is subtype. Separate multiple values with commas.
    * @param {string} [filterStatus] Filter issues by their status. Separate multiple values with commas.
    * @param {Array<string>} [filterLinkedDocumentUrn] Retrieves pushpin issues associated with the specified files. We support all file types that are compatible with the Files tool. You need to specify the URL-encoded file item IDs.
-   * @param {Region} [xAdsRegion] 
+   * @param {Region} [xAdsRegion] Specifies where the bucket containing the object is stored. Possible values are:
+     * 
+     * - ``US`` : (Default) Data center for the US region.
+     * - ``EMEA`` : Data center for the European Union, Middle East, and Africa.
+     * - ``AUS`` : (Beta) Data center for Australia.
+     * - ``CAN`` : Data center for the Canada region.
+     * - ``DEU`` : Data center for the Germany region.
+     * - ``IND`` : Data center for the India region.
+     * - ``JPN`` : Data center for the Japan region.
+     * - ``GBR`` : Data center for the United Kingdom region.
+     * 
+     * **Note:** Beta features are subject to change. Please do not use in production environments.
    * @param {string} [filterDueDate] Filter issues by due date, in one of the following URL-encoded format: YYYY-MM-DD. Separate multiple values with commas.
    * @param {string} [filterStartDate] Filter issues by start date, in one of the following URL-encoded format: YYYY-MM-DD. Separate multiple values with commas.
    * @param {boolean} [filterDeleted] Filter deleted issues. For example, filter[deleted]=true. If set to true it only returns deleted issues. If set to false it only returns undeleted issues. Note that we do not currently support returning both deleted and undeleted issues. Default value: false.
@@ -265,7 +365,18 @@ export class IssuesClient extends BaseClient {
    * @summary 
    * @param {string} projectId The ID of the project.
    * @param {string} issueId The unique identifier of the issue.
-   * @param {Region} [xAdsRegion] 
+   * @param {Region} [xAdsRegion] Specifies where the bucket containing the object is stored. Possible values are:
+     * 
+     * - ``US`` : (Default) Data center for the US region.
+     * - ``EMEA`` : Data center for the European Union, Middle East, and Africa.
+     * - ``AUS`` : (Beta) Data center for Australia.
+     * - ``CAN`` : Data center for the Canada region.
+     * - ``DEU`` : Data center for the Germany region.
+     * - ``IND`` : Data center for the India region.
+     * - ``JPN`` : Data center for the Japan region.
+     * - ``GBR`` : Data center for the United Kingdom region.
+     * 
+     * **Note:** Beta features are subject to change. Please do not use in production environments.
    * @param {IssuePayload} [issuePayload] 
    * @param accessToken bearer access token
    * @param {*} [options] Override http request option.
@@ -286,7 +397,18 @@ export class IssuesClient extends BaseClient {
    * Returns the current user permissions.
    * @summary Your GET endpoint
    * @param {string} projectId 
-   * @param {Region} [xAdsRegion] 
+   * @param {Region} [xAdsRegion] Specifies where the bucket containing the object is stored. Possible values are:
+     * 
+     * - ``US`` : (Default) Data center for the US region.
+     * - ``EMEA`` : Data center for the European Union, Middle East, and Africa.
+     * - ``AUS`` : (Beta) Data center for Australia.
+     * - ``CAN`` : Data center for the Canada region.
+     * - ``DEU`` : Data center for the Germany region.
+     * - ``IND`` : Data center for the India region.
+     * - ``JPN`` : Data center for the Japan region.
+     * - ``GBR`` : Data center for the United Kingdom region.
+     * 
+     * **Note:** Beta features are subject to change. Please do not use in production environments.
    * @param accessToken bearer access token
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
