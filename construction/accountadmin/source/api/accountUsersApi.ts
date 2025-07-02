@@ -20,7 +20,7 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
          * Create a new user in the BIM 360 member directory.
          * @summary Create User
          * @param {string} accountId The account ID of the users. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {UserPayload} [userPayload] 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
@@ -68,7 +68,7 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
          * @summary Get the details of a user
          * @param {string} accountId The account ID of the user.
          * @param {string} userId User ID
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -115,7 +115,7 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
          * Query all the users in a specific BIM 360 account.
          * @summary Get account users
          * @param {string} accountId The account ID of the users. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {number} [limit] Response array’s size Default value: 10 Max limit: 100
          * @param {number} [offset] Offset of response array Default value: 0
          * @param {string} [sort] Comma-separated fields to sort by in ascending order
@@ -179,7 +179,7 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
          * Bulk import users to the master member directory in a BIM 360 account. (50 users maximum can be included in each call.)
          * @summary Bulk import users
          * @param {string} accountId The account ID of the users. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {Array<UserPayload>} [userPayload] 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
@@ -227,7 +227,7 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
          * @summary Update User
          * @param {string} accountId The account ID of the user.
          * @param {string} userId User ID
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {UserPatchPayload} [userPatchPayload] 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
@@ -277,7 +277,7 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
          * Search users in the master member directory of a specific BIM 360 account by specified fields.
          * @summary Search Users
          * @param {string} accountId The account ID of the users.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {string} [name] User name to match Max length: 255
          * @param {string} [email] User email to match Max length: 255
          * @param {string} [companyName] User company to match Max length: 255
@@ -376,7 +376,7 @@ export const AccountUsersApiFp = function(sdkManager?: SdkManager) {
          * Create a new user in the BIM 360 member directory.
          * @summary Create User
          * @param {string} accountId The account ID of the users. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {UserPayload} [userPayload] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -390,7 +390,7 @@ export const AccountUsersApiFp = function(sdkManager?: SdkManager) {
          * @summary Get the details of a user
          * @param {string} accountId The account ID of the user.
          * @param {string} userId User ID
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -402,7 +402,7 @@ export const AccountUsersApiFp = function(sdkManager?: SdkManager) {
          * Query all the users in a specific BIM 360 account.
          * @summary Get account users
          * @param {string} accountId The account ID of the users. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {number} [limit] Response array’s size Default value: 10 Max limit: 100
          * @param {number} [offset] Offset of response array Default value: 0
          * @param {string} [sort] Comma-separated fields to sort by in ascending order
@@ -418,7 +418,7 @@ export const AccountUsersApiFp = function(sdkManager?: SdkManager) {
          * Bulk import users to the master member directory in a BIM 360 account. (50 users maximum can be included in each call.)
          * @summary Bulk import users
          * @param {string} accountId The account ID of the users. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {Array<UserPayload>} [userPayload] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -432,7 +432,7 @@ export const AccountUsersApiFp = function(sdkManager?: SdkManager) {
          * @summary Update User
          * @param {string} accountId The account ID of the user.
          * @param {string} userId User ID
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {UserPatchPayload} [userPatchPayload] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -445,7 +445,7 @@ export const AccountUsersApiFp = function(sdkManager?: SdkManager) {
          * Search users in the master member directory of a specific BIM 360 account by specified fields.
          * @summary Search Users
          * @param {string} accountId The account ID of the users.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {string} [name] User name to match Max length: 255
          * @param {string} [email] User email to match Max length: 255
          * @param {string} [companyName] User company to match Max length: 255
@@ -475,7 +475,7 @@ export interface AccountUsersApiInterface {
      * Create a new user in the BIM 360 member directory.
      * @summary Create User
      * @param {string} accountId The account ID of the users. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {UserPayload} [userPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -489,7 +489,7 @@ export interface AccountUsersApiInterface {
      * @summary Get the details of a user
      * @param {string} accountId The account ID of the user.
      * @param {string} userId User ID
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -501,7 +501,7 @@ export interface AccountUsersApiInterface {
      * Query all the users in a specific BIM 360 account.
      * @summary Get account users
      * @param {string} accountId The account ID of the users. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {number} [limit] Response array’s size Default value: 10 Max limit: 100
      * @param {number} [offset] Offset of response array Default value: 0
      * @param {string} [sort] Comma-separated fields to sort by in ascending order
@@ -517,7 +517,7 @@ export interface AccountUsersApiInterface {
      * Bulk import users to the master member directory in a BIM 360 account. (50 users maximum can be included in each call.)
      * @summary Bulk import users
      * @param {string} accountId The account ID of the users. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {Array<UserPayload>} [userPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -531,7 +531,7 @@ export interface AccountUsersApiInterface {
      * @summary Update User
      * @param {string} accountId The account ID of the user.
      * @param {string} userId User ID
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {UserPatchPayload} [userPatchPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -544,7 +544,7 @@ export interface AccountUsersApiInterface {
      * Search users in the master member directory of a specific BIM 360 account by specified fields.
      * @summary Search Users
      * @param {string} accountId The account ID of the users.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {string} [name] User name to match Max length: 255
      * @param {string} [email] User email to match Max length: 255
      * @param {string} [companyName] User company to match Max length: 255
@@ -575,7 +575,7 @@ export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface
      * Create a new user in the BIM 360 member directory.
      * @summary Create User
      * @param {string} accountId The account ID of the users. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {UserPayload} [userPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -607,7 +607,7 @@ export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface
      * @summary Get the details of a user
      * @param {string} accountId The account ID of the user.
      * @param {string} userId User ID
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -637,7 +637,7 @@ export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface
      * Query all the users in a specific BIM 360 account.
      * @summary Get account users
      * @param {string} accountId The account ID of the users. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {number} [limit] Response array’s size Default value: 10 Max limit: 100
      * @param {number} [offset] Offset of response array Default value: 0
      * @param {string} [sort] Comma-separated fields to sort by in ascending order
@@ -671,7 +671,7 @@ export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface
      * Bulk import users to the master member directory in a BIM 360 account. (50 users maximum can be included in each call.)
      * @summary Bulk import users
      * @param {string} accountId The account ID of the users. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {Array<UserPayload>} [userPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -703,7 +703,7 @@ export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface
      * @summary Update User
      * @param {string} accountId The account ID of the user.
      * @param {string} userId User ID
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {UserPatchPayload} [userPatchPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -734,7 +734,7 @@ export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface
      * Search users in the master member directory of a specific BIM 360 account by specified fields.
      * @summary Search Users
      * @param {string} accountId The account ID of the users.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {string} [name] User name to match Max length: 255
      * @param {string} [email] User email to match Max length: 255
      * @param {string} [companyName] User company to match Max length: 255
