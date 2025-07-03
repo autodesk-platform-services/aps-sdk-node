@@ -1,5 +1,19 @@
 # Changelog
 
+## [v3.2.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v3.2.0) (2025-07-03)
+
+[Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v3.1.0...v3.2.0)
+
+**Implemented enhancements:**
+
+- \[DAS 349\] - Add support for UK plus four other regions [\#131](https://github.com/autodesk-platform-services/aps-sdk-node/pull/131) ([Arrotech](https://github.com/Arrotech))
+- \[DAS-350\] - Added support for UK+4 for Issues [\#130](https://github.com/autodesk-platform-services/aps-sdk-node/pull/130) ([srivastavarahull](https://github.com/srivastavarahull))
+
+**Merged pull requests:**
+
+- \[AUTO\]: Update CHANGELOG [\#129](https://github.com/autodesk-platform-services/aps-sdk-node/pull/129) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Keep main branch updated with release 3.1.0 [\#128](https://github.com/autodesk-platform-services/aps-sdk-node/pull/128) ([sajith-subramanian](https://github.com/sajith-subramanian))
+
 ## [v3.1.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v3.1.0) (2025-07-01)
 
 [Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v3.0.0...v3.1.0)
