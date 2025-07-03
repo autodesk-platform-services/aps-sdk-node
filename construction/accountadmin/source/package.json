@@ -1,6 +1,6 @@
 {
   "name": "@aps_sdk/construction-account-admin",
-  "version": "2.0.0-beta.0",
+  "version": "2.1.0-beta.0",
   "description": "Client sdk for Construction Account Admin API",
   "license": "Apache-2.0",
   "author": "Autodesk Platform Services",
