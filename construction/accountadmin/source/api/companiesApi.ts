@@ -26,7 +26,7 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
          * Create a new partner company. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
          * @summary Create a new partner company
          * @param {string} accountId The account ID of the company. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {CompanyPayload} [companyPayload] 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
@@ -77,7 +77,7 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
          * Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
          * @summary Get account companies
          * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b." prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-         * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA. For a complete list of supported regions, see the Regions page.
+         * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. For a complete list of supported regions, see the Regions page.
          * @param {string} [userId] The ID of a user on whose behalf your request is acting. Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).  Note that this header is required for Account Admin POST, PATCH, and DELETE endpoints if you want to use a 2-legged authentication context. This header is optional for Account Admin GET endpoints.
          * @param {string} [filterName] Filter companies by name. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
          * @param {string} [filterTrade] Filter companies by trade. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
@@ -181,7 +181,7 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
          * Query all the partner companies in a specific BIM 360 account. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
          * @summary Get all companies in an account
          * @param {string} accountId The account ID of the company. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {number} [limit] Response array’s size Default value: 10 Max limit: 100
          * @param {number} [offset] Offset of response array Default value: 0
          * @param {string} [sort] Comma-separated fields to sort by in ascending order  Prepending a field with - sorts in descending order Invalid fields and whitespaces will be ignored
@@ -246,7 +246,7 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
          * @summary Get details of a company
          * @param {string} companyId Company ID
          * @param {string} accountId The account ID of the company.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -294,7 +294,7 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
          * @summary Get all companies in a project
          * @param {string} accountId The account ID of the company.
          * @param {string} projectId The ID of the project. 
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {number} [limit] Response array’s size Default value: 10 Max limit: 100
          * @param {number} [offset] Offset of response array Default value: 0
          * @param {string} [sort] Comma-separated fields to sort by in ascending order
@@ -361,7 +361,7 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
          * Bulk import partner companies to the company directory in a specific BIM 360 account. (50 companies maximum can be included in each call.) Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
          * @summary Bulk import partner companies
          * @param {string} accountId The account ID of the company. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {Array<CompanyPayload>} [companyPayload] 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
@@ -409,7 +409,7 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
          * @summary Update the properties of company
          * @param {string} companyId Company ID
          * @param {string} accountId The account ID of the company.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {CompanyPatchPayload} [companyPatchPayload] 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
@@ -461,7 +461,7 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
          * @param {string} companyId Company ID
          * @param {string} accountId The account ID of the company.
          * @param {File} body The file to be uploaded as HTTP multipart (chunk) data. Supported MIME types are image/png, image/jpeg, image/jpg, image/bmp, and image/gif.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -518,7 +518,7 @@ export const CompaniesApiAxiosParamCreator = function (apsConfiguration?: IApsCo
          * Search partner companies in a specific BIM 360 account by name. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
          * @summary Search companies in account by name
          * @param {string} accountId The account ID of the company.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {string} [name] Company name to match Max length: 255
          * @param {string} [trade] Company trade to match Max length: 255
          * @param {string} [operator] Boolean operator to use: OR (default) or AND
@@ -612,7 +612,7 @@ export const CompaniesApiFp = function(sdkManager?: SdkManager) {
          * Create a new partner company. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
          * @summary Create a new partner company
          * @param {string} accountId The account ID of the company. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {CompanyPayload} [companyPayload] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -629,7 +629,7 @@ export const CompaniesApiFp = function(sdkManager?: SdkManager) {
          * Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
          * @summary Get account companies
          * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b." prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-         * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA. For a complete list of supported regions, see the Regions page.
+         * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. For a complete list of supported regions, see the Regions page.
          * @param {string} [userId] The ID of a user on whose behalf your request is acting. Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).  Note that this header is required for Account Admin POST, PATCH, and DELETE endpoints if you want to use a 2-legged authentication context. This header is optional for Account Admin GET endpoints.
          * @param {string} [filterName] Filter companies by name. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
          * @param {string} [filterTrade] Filter companies by trade. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
@@ -653,7 +653,7 @@ export const CompaniesApiFp = function(sdkManager?: SdkManager) {
          * Query all the partner companies in a specific BIM 360 account. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
          * @summary Get all companies in an account
          * @param {string} accountId The account ID of the company. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {number} [limit] Response array’s size Default value: 10 Max limit: 100
          * @param {number} [offset] Offset of response array Default value: 0
          * @param {string} [sort] Comma-separated fields to sort by in ascending order  Prepending a field with - sorts in descending order Invalid fields and whitespaces will be ignored
@@ -670,7 +670,7 @@ export const CompaniesApiFp = function(sdkManager?: SdkManager) {
          * @summary Get details of a company
          * @param {string} companyId Company ID
          * @param {string} accountId The account ID of the company.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -683,7 +683,7 @@ export const CompaniesApiFp = function(sdkManager?: SdkManager) {
          * @summary Get all companies in a project
          * @param {string} accountId The account ID of the company.
          * @param {string} projectId The ID of the project. 
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {number} [limit] Response array’s size Default value: 10 Max limit: 100
          * @param {number} [offset] Offset of response array Default value: 0
          * @param {string} [sort] Comma-separated fields to sort by in ascending order
@@ -699,7 +699,7 @@ export const CompaniesApiFp = function(sdkManager?: SdkManager) {
          * Bulk import partner companies to the company directory in a specific BIM 360 account. (50 companies maximum can be included in each call.) Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
          * @summary Bulk import partner companies
          * @param {string} accountId The account ID of the company. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {Array<CompanyPayload>} [companyPayload] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -713,7 +713,7 @@ export const CompaniesApiFp = function(sdkManager?: SdkManager) {
          * @summary Update the properties of company
          * @param {string} companyId Company ID
          * @param {string} accountId The account ID of the company.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {CompanyPatchPayload} [companyPatchPayload] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -728,7 +728,7 @@ export const CompaniesApiFp = function(sdkManager?: SdkManager) {
          * @param {string} companyId Company ID
          * @param {string} accountId The account ID of the company.
          * @param {File} body The file to be uploaded as HTTP multipart (chunk) data. Supported MIME types are image/png, image/jpeg, image/jpg, image/bmp, and image/gif.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -740,7 +740,7 @@ export const CompaniesApiFp = function(sdkManager?: SdkManager) {
          * Search partner companies in a specific BIM 360 account by name. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
          * @summary Search companies in account by name
          * @param {string} accountId The account ID of the company.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {string} [name] Company name to match Max length: 255
          * @param {string} [trade] Company trade to match Max length: 255
          * @param {string} [operator] Boolean operator to use: OR (default) or AND
@@ -769,7 +769,7 @@ export interface CompaniesApiInterface {
      * Create a new partner company. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
      * @summary Create a new partner company
      * @param {string} accountId The account ID of the company. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {CompanyPayload} [companyPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -786,7 +786,7 @@ export interface CompaniesApiInterface {
      * Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
      * @summary Get account companies
      * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b." prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA. For a complete list of supported regions, see the Regions page.
+     * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. For a complete list of supported regions, see the Regions page.
      * @param {string} [userId] The ID of a user on whose behalf your request is acting. Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).  Note that this header is required for Account Admin POST, PATCH, and DELETE endpoints if you want to use a 2-legged authentication context. This header is optional for Account Admin GET endpoints.
      * @param {string} [filterName] Filter companies by name. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
      * @param {string} [filterTrade] Filter companies by trade. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
@@ -810,7 +810,7 @@ export interface CompaniesApiInterface {
      * Query all the partner companies in a specific BIM 360 account. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
      * @summary Get all companies in an account
      * @param {string} accountId The account ID of the company. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {number} [limit] Response array’s size Default value: 10 Max limit: 100
      * @param {number} [offset] Offset of response array Default value: 0
      * @param {string} [sort] Comma-separated fields to sort by in ascending order  Prepending a field with - sorts in descending order Invalid fields and whitespaces will be ignored
@@ -827,7 +827,7 @@ export interface CompaniesApiInterface {
      * @summary Get details of a company
      * @param {string} companyId Company ID
      * @param {string} accountId The account ID of the company.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -840,7 +840,7 @@ export interface CompaniesApiInterface {
      * @summary Get all companies in a project
      * @param {string} accountId The account ID of the company.
      * @param {string} projectId The ID of the project. 
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {number} [limit] Response array’s size Default value: 10 Max limit: 100
      * @param {number} [offset] Offset of response array Default value: 0
      * @param {string} [sort] Comma-separated fields to sort by in ascending order
@@ -856,7 +856,7 @@ export interface CompaniesApiInterface {
      * Bulk import partner companies to the company directory in a specific BIM 360 account. (50 companies maximum can be included in each call.) Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
      * @summary Bulk import partner companies
      * @param {string} accountId The account ID of the company. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {Array<CompanyPayload>} [companyPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -870,7 +870,7 @@ export interface CompaniesApiInterface {
      * @summary Update the properties of company
      * @param {string} companyId Company ID
      * @param {string} accountId The account ID of the company.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {CompanyPatchPayload} [companyPatchPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -885,7 +885,7 @@ export interface CompaniesApiInterface {
      * @param {string} companyId Company ID
      * @param {string} accountId The account ID of the company.
      * @param {File} body The file to be uploaded as HTTP multipart (chunk) data. Supported MIME types are image/png, image/jpeg, image/jpg, image/bmp, and image/gif.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -897,7 +897,7 @@ export interface CompaniesApiInterface {
      * Search partner companies in a specific BIM 360 account by name. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
      * @summary Search companies in account by name
      * @param {string} accountId The account ID of the company.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {string} [name] Company name to match Max length: 255
      * @param {string} [trade] Company trade to match Max length: 255
      * @param {string} [operator] Boolean operator to use: OR (default) or AND
@@ -927,7 +927,7 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
      * Create a new partner company. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
      * @summary Create a new partner company
      * @param {string} accountId The account ID of the company. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {CompanyPayload} [companyPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -962,7 +962,7 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
      * Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
      * @summary Get account companies
      * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b." prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA. For a complete list of supported regions, see the Regions page.
+     * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. For a complete list of supported regions, see the Regions page.
      * @param {string} [userId] The ID of a user on whose behalf your request is acting. Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).  Note that this header is required for Account Admin POST, PATCH, and DELETE endpoints if you want to use a 2-legged authentication context. This header is optional for Account Admin GET endpoints.
      * @param {string} [filterName] Filter companies by name. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
      * @param {string} [filterTrade] Filter companies by trade. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
@@ -1005,7 +1005,7 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
      * Query all the partner companies in a specific BIM 360 account. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
      * @summary Get all companies in an account
      * @param {string} accountId The account ID of the company. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {number} [limit] Response array’s size Default value: 10 Max limit: 100
      * @param {number} [offset] Offset of response array Default value: 0
      * @param {string} [sort] Comma-separated fields to sort by in ascending order  Prepending a field with - sorts in descending order Invalid fields and whitespaces will be ignored
@@ -1040,7 +1040,7 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
      * @summary Get details of a company
      * @param {string} companyId Company ID
      * @param {string} accountId The account ID of the company.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1071,7 +1071,7 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
      * @summary Get all companies in a project
      * @param {string} accountId The account ID of the company.
      * @param {string} projectId The ID of the project. 
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {number} [limit] Response array’s size Default value: 10 Max limit: 100
      * @param {number} [offset] Offset of response array Default value: 0
      * @param {string} [sort] Comma-separated fields to sort by in ascending order
@@ -1105,7 +1105,7 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
      * Bulk import partner companies to the company directory in a specific BIM 360 account. (50 companies maximum can be included in each call.) Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
      * @summary Bulk import partner companies
      * @param {string} accountId The account ID of the company. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {Array<CompanyPayload>} [companyPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -1137,7 +1137,7 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
      * @summary Update the properties of company
      * @param {string} companyId Company ID
      * @param {string} accountId The account ID of the company.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {CompanyPatchPayload} [companyPatchPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -1170,7 +1170,7 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
      * @param {string} companyId Company ID
      * @param {string} accountId The account ID of the company.
      * @param {File} body The file to be uploaded as HTTP multipart (chunk) data. Supported MIME types are image/png, image/jpeg, image/jpg, image/bmp, and image/gif.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1200,7 +1200,7 @@ export class CompaniesApi extends BaseApi implements CompaniesApiInterface {
      * Search partner companies in a specific BIM 360 account by name. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
      * @summary Search companies in account by name
      * @param {string} accountId The account ID of the company.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {string} [name] Company name to match Max length: 255
      * @param {string} [trade] Company trade to match Max length: 255
      * @param {string} [operator] Boolean operator to use: OR (default) or AND
