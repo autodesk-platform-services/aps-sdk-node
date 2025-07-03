@@ -28,7 +28,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
          * @summary Create new Project
          * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
          * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
-         * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+         * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
          * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
          * @param {ProjectPayload} [projectPayload] 
          * @param accessToken bearer access token
@@ -86,7 +86,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
          * @param {string} projectId The account ID of the project. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
          * @param {string} accountId The ID of the project. This corresponds to project ID in the Data Management API. To convert a project ID in the Data Management API into a project ID in the BIM 360 API you need to remove the “b.” prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
          * @param {File} body The file to be uploaded as HTTP multipart (chunk) data. Supported MIME types are image/png, image/jpeg, image/jpg, image/bmp, and image/gif.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -144,7 +144,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
          * @summary Get a project by ID
          * @param {string} projectId 
          * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
-         * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+         * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
          * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
          * @param {Array<Fields>} [fields] A comma-separated list of the project fields to include in the response. Default value: all fields.
          * @param accessToken bearer access token
@@ -203,7 +203,7 @@ export const ProjectsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
          * @summary Get Project in account
          * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
          * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
-         * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+         * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
          * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
          * @param {Array<Fields>} [fields] A comma-separated list of the project fields to include in the response. Default value: all fields.
          * @param {Array<Classification>} [filterClassification] A list of the classifications of projects to include in the response. Possible values: production, template, component, sample.
@@ -337,7 +337,7 @@ export const ProjectsApiFp = function(sdkManager?: SdkManager) {
          * @summary Create new Project
          * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
          * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
-         * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+         * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
          * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
          * @param {ProjectPayload} [projectPayload] 
          * @param {*} [options] Override http request option.
@@ -353,7 +353,7 @@ export const ProjectsApiFp = function(sdkManager?: SdkManager) {
          * @param {string} projectId The account ID of the project. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
          * @param {string} accountId The ID of the project. This corresponds to project ID in the Data Management API. To convert a project ID in the Data Management API into a project ID in the BIM 360 API you need to remove the “b.” prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
          * @param {File} body The file to be uploaded as HTTP multipart (chunk) data. Supported MIME types are image/png, image/jpeg, image/jpg, image/bmp, and image/gif.
-         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+         * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -366,7 +366,7 @@ export const ProjectsApiFp = function(sdkManager?: SdkManager) {
          * @summary Get a project by ID
          * @param {string} projectId 
          * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
-         * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+         * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
          * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
          * @param {Array<Fields>} [fields] A comma-separated list of the project fields to include in the response. Default value: all fields.
          * @param {*} [options] Override http request option.
@@ -381,7 +381,7 @@ export const ProjectsApiFp = function(sdkManager?: SdkManager) {
          * @summary Get Project in account
          * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
          * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
-         * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+         * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
          * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
          * @param {Array<Fields>} [fields] A comma-separated list of the project fields to include in the response. Default value: all fields.
          * @param {Array<Classification>} [filterClassification] A list of the classifications of projects to include in the response. Possible values: production, template, component, sample.
@@ -418,7 +418,7 @@ export interface ProjectsApiInterface {
      * @summary Create new Project
      * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
      * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
-     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
      * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {ProjectPayload} [projectPayload] 
      * @param accessToken bearer access token
@@ -434,7 +434,7 @@ export interface ProjectsApiInterface {
      * @param {string} projectId The account ID of the project. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
      * @param {string} accountId The ID of the project. This corresponds to project ID in the Data Management API. To convert a project ID in the Data Management API into a project ID in the BIM 360 API you need to remove the “b.” prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
      * @param {File} body The file to be uploaded as HTTP multipart (chunk) data. Supported MIME types are image/png, image/jpeg, image/jpg, image/bmp, and image/gif.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -447,7 +447,7 @@ export interface ProjectsApiInterface {
      * @summary Get a project by ID
      * @param {string} projectId 
      * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
-     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
      * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {Array<Fields>} [fields] A comma-separated list of the project fields to include in the response. Default value: all fields.
      * @param accessToken bearer access token
@@ -462,7 +462,7 @@ export interface ProjectsApiInterface {
      * @summary Get Project in account
      * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
      * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
-     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
      * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {Array<Fields>} [fields] A comma-separated list of the project fields to include in the response. Default value: all fields.
      * @param {Array<Classification>} [filterClassification] A list of the classifications of projects to include in the response. Possible values: production, template, component, sample.
@@ -500,7 +500,7 @@ export class ProjectsApi extends BaseApi implements ProjectsApiInterface {
      * @summary Create new Project
      * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
      * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
-     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
      * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {ProjectPayload} [projectPayload] 
      * @param accessToken bearer access token
@@ -534,7 +534,7 @@ export class ProjectsApi extends BaseApi implements ProjectsApiInterface {
      * @param {string} projectId The account ID of the project. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
      * @param {string} accountId The ID of the project. This corresponds to project ID in the Data Management API. To convert a project ID in the Data Management API into a project ID in the BIM 360 API you need to remove the “b.” prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
      * @param {File} body The file to be uploaded as HTTP multipart (chunk) data. Supported MIME types are image/png, image/jpeg, image/jpg, image/bmp, and image/gif.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -565,7 +565,7 @@ export class ProjectsApi extends BaseApi implements ProjectsApiInterface {
      * @summary Get a project by ID
      * @param {string} projectId 
      * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
-     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
      * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {Array<Fields>} [fields] A comma-separated list of the project fields to include in the response. Default value: all fields.
      * @param accessToken bearer access token
@@ -598,7 +598,7 @@ export class ProjectsApi extends BaseApi implements ProjectsApiInterface {
      * @summary Get Project in account
      * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
      * @param {string} [acceptLanguage] This header is not currently supported in the Account Admin API.
-     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
      * @param {string} [userId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {Array<Fields>} [fields] A comma-separated list of the project fields to include in the response. Default value: all fields.
      * @param {Array<Classification>} [filterClassification] A list of the classifications of projects to include in the response. Possible values: production, template, component, sample.

@@ -29,7 +29,7 @@ export class AdminClient extends BaseClient {
      * Retrieves a project specified by project ID.
      * @summary Get a project by ID
      * @param {string} projectId 
-     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
      * @param {Array<Fields>} [fields] A comma-separated list of the project fields to include in the response. Default value: all fields.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -51,7 +51,7 @@ export class AdminClient extends BaseClient {
      * Retrieves a list of the projects in the specified account.
      * @summary Get Project in account
      * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
      * @param {Array<Fields>} [fields] A comma-separated list of the project fields to include in the response. Default value: all fields.
      * @param {Array<Classification>} [filterClassification] A list of the classifications of projects to include in the response. Possible values: production, template, component, sample.
      * @param {Array<Platform>} [filterPlatform] Filter resource by platform. Possible values: acc and bim360.
@@ -86,7 +86,7 @@ export class AdminClient extends BaseClient {
      * Creates a new project in the specified account. You can create the project directly, or clone the project from a project template.
      * @summary Create new Project
      * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
      * @param {string} [adminUserId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {ProjectPayload} [projectPayload] 
      * @param accessToken bearer access token
@@ -111,7 +111,7 @@ export class AdminClient extends BaseClient {
      * @param {string} projectId The account ID of the project. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
      * @param {string} accountId The ID of the project. This corresponds to project ID in the Data Management API. To convert a project ID in the Data Management API into a project ID in the BIM 360 API you need to remove the “b.” prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
      * @param {File} body The file to be uploaded as HTTP multipart (chunk) data. Supported MIME types are image/png, image/jpeg, image/jpg, image/bmp, and image/gif.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -136,7 +136,7 @@ export class AdminClient extends BaseClient {
      * Search partner companies in a specific BIM 360 account by name. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
      * @summary Search companies in account by name
      * @param {string} accountId The account ID of the company.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {string} [name] Company name to match Max length: 255
      * @param {string} [trade] Company trade to match Max length: 255
      * @param {string} [operator] Boolean operator to use: OR (default) or AND
@@ -167,7 +167,7 @@ export class AdminClient extends BaseClient {
      * @param {string} companyId Company ID
      * @param {string} accountId The account ID of the company.
      * @param {File} body The file to be uploaded as HTTP multipart (chunk) data. Supported MIME types are image/png, image/jpeg, image/jpg, image/bmp, and image/gif.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -189,7 +189,7 @@ export class AdminClient extends BaseClient {
      * @summary Update the properties of company
      * @param {string} companyId Company ID
      * @param {string} accountId The account ID of the company.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {CompanyPatchPayload} [companyPatchPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -211,7 +211,7 @@ export class AdminClient extends BaseClient {
      * Bulk import partner companies to the company directory in a specific BIM 360 account. (50 companies maximum can be included in each call.) Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
      * @summary Bulk import partner companies
      * @param {string} accountId The account ID of the company. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {Array<CompanyPayload>} [companyPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -234,7 +234,7 @@ export class AdminClient extends BaseClient {
      * @summary Get all companies in a project
      * @param {string} accountId The account ID of the company.
      * @param {string} projectId The ID of the project. 
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {number} [limit] Response array’s size Default value: 10 Max limit: 100
      * @param {number} [offset] Offset of response array Default value: 0
      * @param {string} [sort] Comma-separated fields to sort by in ascending order
@@ -260,7 +260,7 @@ export class AdminClient extends BaseClient {
      * @summary Get details of a company
      * @param {string} companyId Company ID
      * @param {string} accountId The account ID of the company.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -281,7 +281,7 @@ export class AdminClient extends BaseClient {
      * Query all the partner companies in a specific BIM 360 account. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
      * @summary Get all companies in an account
      * @param {string} accountId The account ID of the company. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {number} [limit] Response array’s size Default value: 10 Max limit: 100
      * @param {number} [offset] Offset of response array Default value: 0
      * @param {string} [sort] Comma-separated fields to sort by in ascending order  Prepending a field with - sorts in descending order Invalid fields and whitespaces will be ignored
@@ -310,7 +310,7 @@ export class AdminClient extends BaseClient {
      * Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
      * @summary Get account companies
      * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b." prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA. For a complete list of supported regions, see the Regions page.
+     * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. For a complete list of supported regions, see the Regions page.
      * @param {string} [userId] The ID of a user on whose behalf your request is acting. Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).  Note that this header is required for Account Admin POST, PATCH, and DELETE endpoints if you want to use a 2-legged authentication context. This header is optional for Account Admin GET endpoints.
      * @param {string} [filterName] Filter companies by name. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
      * @param {string} [filterTrade] Filter companies by trade. Can be a partial match based on the value of filterTextMatch provided. Max length: 255
@@ -342,7 +342,7 @@ export class AdminClient extends BaseClient {
      * Create a new partner company. Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
      * @summary Create a new partner company
      * @param {string} accountId The account ID of the company. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {CompanyPayload} [companyPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -369,7 +369,7 @@ export class AdminClient extends BaseClient {
      * @summary Get project user
      * @param {string} projectId The ID of the project. This corresponds to project ID in the Data Management API. To convert a project ID in the Data Management API into a project ID in the ACC API you need to remove the “b.” prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
      * @param {string} userId The ID of the user. You can use either the ACC ID (id) or the Autodesk ID (autodeskId).
-     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
      * @param {Array<UserFields>} [fields] A comma-separated list of the project fields to include in the response. Default value: all fields.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -391,7 +391,7 @@ export class AdminClient extends BaseClient {
      * Assigns a user to the specified project.
      * @summary Assigns a user to the specified project
      * @param {string} projectId The ID of the project. This corresponds to project ID in the Data Management API. To convert a project ID in the Data Management API into a project ID in the ACC API you need to remove the “b.” prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
-     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
      * @param {string} [adminUserId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {ProjectUserPayload} [projectUserPayload] 
      * @param accessToken bearer access token
@@ -414,7 +414,7 @@ export class AdminClient extends BaseClient {
      * Retrieves information about a filtered subset of users in the specified project.  There are two primary reasons to do this:  To verify that all users assigned to the project have been activated as members of the project. To check other information about users, such as their project user ID, roles, and products. Note that if you want to retrieve information about users associated with a particular Autodesk account, call the GET users endpoint.
      * @summary Get project users
      * @param {string} projectId The ID of the project. This corresponds to project ID in the Data Management API. To convert a project ID in the Data Management API into a project ID in the ACC API you need to remove the “b.” prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
-     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
      * @param {Array<Products>} [filterProducts] A comma-separated list of the products that the returned projects must use. Only projects that use one or more of the listed products are returned.
      * @param {string} [filterName] A user name or name pattern to filter users by. Can be a partial match based on the value of filterTextMatch that you provide; for example: filter[name]&#x3D;ABCco filterTextMatch&#x3D;startsWith.  Max length: 255
      * @param {string} [filterEmail] A user email address or address pattern that the returned users must have. This can be a partial match based on the value of filterTextMatch that you provide. For example:  filter[email]&#x3D;sample filterTextMatch&#x3D;startsWith  Max length: 255
@@ -452,7 +452,7 @@ export class AdminClient extends BaseClient {
      * Assigns multiple users to a project at once. This endpoint can assign up to 200 users per request.
      * @summary Assigns multiple users to a project
      * @param {string} projectId The ID of the project. This corresponds to project ID in the Data Management API. To convert a project ID in the Data Management API into a project ID in the ACC API you need to remove the “b.” prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
-     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
      * @param {string} [adminUserId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {ProjectUsersImportPayload} [projectUsersImportPayload] 
      * @param accessToken bearer access token
@@ -476,7 +476,7 @@ export class AdminClient extends BaseClient {
      * @summary Remove Project User
      * @param {string} projectId The ID of the project. This corresponds to project ID in the Data Management API. To convert a project ID in the Data Management API into a project ID in the ACC API you need to remove the “b.” prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
      * @param {string} userId The ID of the user. You can use either the ACC ID (id) or the Autodesk ID (autodeskId).
-     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
      * @param {string} [adminUserId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -499,7 +499,7 @@ export class AdminClient extends BaseClient {
      * @summary Update user in project
      * @param {string} projectId The ID of the project. This corresponds to project ID in the Data Management API. To convert a project ID in the Data Management API into a project ID in the ACC API you need to remove the “b.” prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
      * @param {string} userId The ID of the user. You can use either the ACC ID (id) or the Autodesk ID (autodeskId).
-     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS.
+     * @param {Region} [region] The region where the bucket resides. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR.
      * @param {string} [adminUserId] Note that this header is not relevant for Account Admin GET endpoints. The ID of a user on whose behalf your API request is acting. Required if you’re using a 2-legged authentication context, which must be 2-legged OAuth2 security with user impersonation.  Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).
      * @param {ProjectUsersUpdatePayload} [projectUsersUpdatePayload] 
      * @param accessToken bearer access token
@@ -526,7 +526,7 @@ export class AdminClient extends BaseClient {
      * Create a new user in the BIM 360 member directory.
      * @summary Create User
      * @param {string} accountId The account ID of the users. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {UserPayload} [userPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -549,7 +549,7 @@ export class AdminClient extends BaseClient {
      * @summary Get the details of a user
      * @param {string} accountId The account ID of the user.
      * @param {string} userId User ID
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -570,7 +570,7 @@ export class AdminClient extends BaseClient {
      * Query all the users in a specific BIM 360 account.
      * @summary Get account users
      * @param {string} accountId The account ID of the users. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {number} [limit] Response array’s size Default value: 10 Max limit: 100
      * @param {number} [offset] Offset of response array Default value: 0
      * @param {string} [sort] Comma-separated fields to sort by in ascending order
@@ -595,7 +595,7 @@ export class AdminClient extends BaseClient {
      * Bulk import users to the master member directory in a BIM 360 account. (50 users maximum can be included in each call.)
      * @summary Bulk import users
      * @param {string} accountId The account ID of the users. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {Array<UserPayload>} [userPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -618,7 +618,7 @@ export class AdminClient extends BaseClient {
      * @summary Update User
      * @param {string} accountId The account ID of the user.
      * @param {string} userId User ID
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {UserPatchPayload} [userPatchPayload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -640,7 +640,7 @@ export class AdminClient extends BaseClient {
      * Search users in the master member directory of a specific BIM 360 account by specified fields.
      * @summary Search Users
      * @param {string} accountId The account ID of the users.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {string} [name] User name to match Max length: 255
      * @param {string} [email] User email to match Max length: 255
      * @param {string} [companyName] User company to match Max length: 255
@@ -674,7 +674,7 @@ export class AdminClient extends BaseClient {
      * Query all the business units in a specific BIM 360 account.
      * @summary Get Business Units
      * @param {string} accountId The account ID of the business unit. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -695,7 +695,7 @@ export class AdminClient extends BaseClient {
      * Query all the business units in a specific BIM 360 account.
      * @summary Create Business Units
      * @param {string} accountId The account ID of the business unit. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
-     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS. By default, it is set to US.
+     * @param {Region} [region] The geographic area where the data is stored. Acceptable values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. By default, it is set to US.
      * @param {BusinessUnitsRequestPyload} [businessUnitsRequestPyload] 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
@@ -718,7 +718,7 @@ export class AdminClient extends BaseClient {
      * @summary Get user projects
      * @param {string} accountId The ID of the ACC account that contains the project being created or the projects being retrieved. This corresponds to the hub ID in the Data Management API. To convert a hub ID into an account ID, remove the “b." prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
      * @param {string} userId The ID of the user. You can use either the ACC ID (id) or the Autodesk ID (autodeskId).
-     * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA. For a complete list of supported regions, see the Regions page.
+     * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA, AUS, CAN, DEU, IND, JPN, GBR. For a complete list of supported regions, see the Regions page.
      * @param {string} [adminUserId] The ID of a user on whose behalf your request is acting. Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).  Note that this header is required for Account Admin POST, PATCH, and DELETE endpoints if you want to use a 2-legged authentication context. This header is optional for Account Admin GET endpoints.
      * @param {Array<string>} [filterId] A list of project IDs to filter by.
      * @param {Array<UserProjectFields>} [fields] A comma-separated list of user project fields to include in the response. If not specified, all available fields are included by default. Possible values: accessLevels, accountId, addressLine1, addressLine2, city, constructionType, country, createdAt, classification, deliveryMethod, endDate, imageUrl, jobNumber, latitude, longitude, name, platform, postalCode, projectValue, sheetCount, startDate, stateOrProvince, status, thumbnailImageUrl, timezone, type, updatedAt, contractType and currentPhase.
