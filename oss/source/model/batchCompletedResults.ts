@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import { BatchCompletedResultsParts } from './batchCompletedResultsParts';
 
@@ -10,7 +8,8 @@ import { BatchCompletedResultsParts } from './batchCompletedResultsParts';
  */
 export interface BatchCompletedResults {
     /**
-     * If this attribute is not returned, completion has succeeded. If the value of this attribute is \"error\", completion failed.\' 
+     * If this attribute is not returned, completion has succeeded. If the value of this attribute is "error", completion failed.'
+ * 
      * @type {string}
      * @memberof BatchCompletedResults
      */

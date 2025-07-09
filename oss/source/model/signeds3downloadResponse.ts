@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import { DownloadStatus } from './downloadStatus';
 
@@ -28,7 +26,12 @@ export interface Signeds3downloadResponse {
      */
     'urls'?: object;
     /**
-     * The values that were requested for the following parameters when requesting the S3 signed URL.  - ``Content-Type`` - ``Content-Disposition`` - ``Cache-Control``. 
+     * The values that were requested for the following parameters when requesting the S3 signed URL.
+ * 
+ * - ``Content-Type``
+ * - ``Content-Disposition``
+ * - ``Cache-Control``.
+ * 
      * @type {object}
      * @memberof Signeds3downloadResponse
      */

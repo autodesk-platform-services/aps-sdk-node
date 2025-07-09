@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import { BucketsItems } from './bucketsItems';
 

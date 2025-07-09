@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import { Permission } from './permission';
 import { PolicyKey } from './policyKey';

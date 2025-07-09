@@ -305,7 +305,7 @@ export class OssClient extends BaseClient {
 
     /**
      * Use this endpoint to create a bucket. Buckets are arbitrary spaces created and owned by applications. Bucket keys are globally unique across all regions, regardless of where they were created, and they cannot be changed. The application creating the bucket is the owner of the bucket. 
-     * @param {Region} xAdsRegion Specifies where the bucket containing the object is stored. Possible values are:
+     * @param {Region} region Specifies where the bucket containing the object is stored. Possible values are:
      * 
      * - ``US`` : (Default) Data center for the US region.
      * - ``EMEA`` : Data center for the European Union, Middle East, and Africa.
@@ -323,14 +323,14 @@ export class OssClient extends BaseClient {
      * @throws {RequiredError}
      * @memberof OSSApiInterface
      */
-    public async createBucket(xAdsRegion: Region, bucketPayload: CreateBucketsPayload, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Bucket> {
+    public async createBucket(region: Region, bucketPayload: CreateBucketsPayload, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Bucket> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
         else if (!optionalArgs?.accessToken) {
             (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
         }
-        const response = await this.bucketApi.createBucket(optionalArgs?.accessToken, bucketPayload, xAdsRegion, optionalArgs?.options);
+        const response = await this.bucketApi.createBucket(optionalArgs?.accessToken, bucketPayload, region, optionalArgs?.options);
         return response.content;
     }
 
