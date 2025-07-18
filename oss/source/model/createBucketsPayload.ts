@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import { CreateBucketsPayloadAllow } from './createBucketsPayloadAllow';
 import { PolicyKey } from './policyKey';
@@ -11,7 +9,10 @@ import { PolicyKey } from './policyKey';
  */
 export interface CreateBucketsPayload {
     /**
-     * Bucket key: A unique name you assign to a bucket. Bucket keys must be globally unique across all applications and regions. They must consist of only lower case characters, numbers 0-9, and underscores (_).  **Note:** You cannot change a bucket key once the bucket is created. 
+     * Bucket key: A unique name you assign to a bucket. Bucket keys must be globally unique across all applications and regions. They must consist of only lower case characters, numbers 0-9, and underscores (_).
+ * 
+ * **Note:** You cannot change a bucket key once the bucket is created.
+ * 
      * @type {string}
      * @memberof CreateBucketsPayload
      */

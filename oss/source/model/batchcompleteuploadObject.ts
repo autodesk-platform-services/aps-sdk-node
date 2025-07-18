@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import { BatchcompleteuploadObjectRequests } from './batchcompleteuploadObjectRequests';
 

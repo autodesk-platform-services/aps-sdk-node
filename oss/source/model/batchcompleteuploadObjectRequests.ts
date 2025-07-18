@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 
 /**
@@ -57,7 +55,7 @@ export interface BatchcompleteuploadObjectRequests {
      */
     'x-ads-meta-Cache-Control'?: string;
     /**
-     * Custom metadata to be stored with the object, which can be retrieved later on download or when retrieving object details. Must be a JSON object that is less than 100 bytes. 
+     * Custom metadata to be stored with the object, which can be retrieved later on download or when retrieving object details. Must be a JSON object that is less than 100 bytes.
      * @type {string}
      * @memberof BatchcompleteuploadObjectRequests
      */

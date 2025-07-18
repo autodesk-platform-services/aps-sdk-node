@@ -1,6 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
-
 import type { AxiosPromise, AxiosInstance } from 'axios';
 import globalAxios, {AxiosError} from 'axios';
 import {ApsServiceRequestConfig, ISdkError, SdkManager} from "@aps_sdk/autodesk-sdkmanager";

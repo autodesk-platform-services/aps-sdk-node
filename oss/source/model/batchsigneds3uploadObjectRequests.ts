@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 
 /**
@@ -21,7 +19,7 @@ export interface Batchsigneds3uploadObjectRequests {
      */
     'firstPart'?: number;
     /**
-     * The number of parts you intend to chunk the object for uploading. OSS will return that many signed URLs, one URL for each chunk. If you do not specify a value you\'ll get only one URL to upload the entire object.
+     * The number of parts you intend to chunk the object for uploading. OSS will return that many signed URLs, one URL for each chunk. If you do not specify a value you'll get only one URL to upload the entire object.
      * @type {number}
      * @memberof Batchsigneds3uploadObjectRequests
      */
