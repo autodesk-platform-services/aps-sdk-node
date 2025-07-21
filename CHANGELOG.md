@@ -1,5 +1,13 @@
 # Changelog
 
+## [v3.2.1](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v3.2.1) (2025-07-21)
+
+[Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v3.2.0...v3.2.1)
+
+**Fixed bugs:**
+
+- \[DAS 351\] - Oss region fix in create bucket [\#134](https://github.com/autodesk-platform-services/aps-sdk-node/pull/134) ([nishchhaldagar](https://github.com/nishchhaldagar))
+
 ## [v3.2.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v3.2.0) (2025-07-03)
 
 [Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v3.1.0...v3.2.0)
