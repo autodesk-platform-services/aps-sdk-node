@@ -1,6 +1,6 @@
 {
   "name": "@aps_sdk/oss",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Client sdk for Data Management Oss API",
   "license": "Apache-2.0",
   "author": "Autodesk Platform Services",

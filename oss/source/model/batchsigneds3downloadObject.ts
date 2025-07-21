@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import { Batchsigneds3downloadObjectRequests } from './batchsigneds3downloadObjectRequests';
 

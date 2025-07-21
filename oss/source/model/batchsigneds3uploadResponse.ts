@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import { Batchsigneds3uploadResponseResultsValue } from './batchsigneds3uploadResponseResultsValue';
 

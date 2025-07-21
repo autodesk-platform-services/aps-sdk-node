@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import { Status } from './status';
 

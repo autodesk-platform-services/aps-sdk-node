@@ -1,10 +1,11 @@
-/* tslint:disable */
-/* eslint-disable */
 
 import { DownloadStatus } from './downloadStatus';
 
 /**
- * An object that represents the response to a Batch Generate Signed S3 Download URLs operation.   **Note**: ``objectKeyN`` is a placeholder for the first object key for which the client requested a download signed URL. The attributes within contain the success data / error information for the request for that object. `results` will contain one such attribute for each requested object in the batch. 
+ * An object that represents the response to a Batch Generate Signed S3 Download URLs operation. 
+ * 
+ * **Note**: ``objectKeyN`` is a placeholder for the first object key for which the client requested a download signed URL. The attributes within contain the success data / error information for the request for that object. `results` will contain one such attribute for each requested object in the batch.
+ * 
  * @export
  * @interface DownloadResults
  */
@@ -28,7 +29,12 @@ export interface DownloadResults {
      */
     'urls'?: object;
     /**
-     * The values that were requested for the following parameters when requesting the S3 signed URL.  - ``Content-Type`` - ``Content-Disposition`` - ``Cache-Control``. 
+     * The values that were requested for the following parameters when requesting the S3 signed URL.
+ * 
+ * - ``Content-Type``
+ * - ``Content-Disposition``
+ * - ``Cache-Control``.
+ * 
      * @type {object}
      * @memberof DownloadResults
      */

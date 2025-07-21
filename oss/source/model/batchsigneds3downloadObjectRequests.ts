@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 
 /**
@@ -33,7 +31,7 @@ export interface Batchsigneds3downloadObjectRequests {
      */
     'response-cache-control'?: string;
     /**
-     * The last known ETag value of the object. OSS returns the signed URL only if the ``If-None-Match`` header differs from the ETag value of the object on S3. If not, it returns a 304 \"Not Modified\" HTTP status.
+     * The last known ETag value of the object. OSS returns the signed URL only if the ``If-None-Match`` header differs from the ETag value of the object on S3. If not, it returns a 304 "Not Modified" HTTP status.
      * @type {string}
      * @memberof Batchsigneds3downloadObjectRequests
      */
