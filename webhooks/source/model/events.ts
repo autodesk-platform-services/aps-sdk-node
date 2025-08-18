@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 
 /**
@@ -82,7 +80,12 @@ export const Events = {
     ScheduleOfValueDeleted10: 'scheduleOfValue.deleted-1.0',
     ScoCreated10: 'sco.created-1.0',
     ScoUpdated10: 'sco.updated-1.0',
-    ScoDeleted10: 'sco.deleted-1.0'
+    ScoDeleted10: 'sco.deleted-1.0',
+    IssueCreated10: 'issue.created-1.0',
+    IssueUpdated10: 'issue.updated-1.0',
+    IssueDeleted10: 'issue.deleted-1.0',
+    IssueRestored10: 'issue.restored-1.0',
+    IssueUnlinked10: 'issue.unlinked-1.0'
 } as const;
 
 export type Events = typeof Events[keyof typeof Events];

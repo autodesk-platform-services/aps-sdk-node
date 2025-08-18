@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 
 
 /**
@@ -13,7 +11,8 @@ export const Systems = {
     Derivative: 'derivative',
     AdskC4r: 'adsk.c4r',
     AdskFlcProduction: 'adsk.flc.production',
-    AutodeskConstructionCost: 'autodesk.construction.cost'
+    AutodeskConstructionCost: 'autodesk.construction.cost',
+    AutodeskConstructionIssues: 'autodesk.construction.issues'
 } as const;
 
 export type Systems = typeof Systems[keyof typeof Systems];
