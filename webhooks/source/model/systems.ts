@@ -12,6 +12,7 @@ export const Systems = {
     AdskC4r: 'adsk.c4r',
     AdskFlcProduction: 'adsk.flc.production',
     AutodeskConstructionCost: 'autodesk.construction.cost',
+    AutodeskConstructionBc: 'autodesk.construction.bc',
     AutodeskConstructionIssues: 'autodesk.construction.issues'
 } as const;
 
