@@ -1,5 +1,24 @@
 # Changelog
 
+## [v4.0.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v4.0.0) (2025-09-08)
+
+[Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v3.2.1...v4.0.0)
+
+**Breaking changes:**
+
+- \[DAS 356\] - Fix custom attributes filtering in GetIssues endpoint [\#138](https://github.com/autodesk-platform-services/aps-sdk-node/pull/138) ([srivastavarahull](https://github.com/srivastavarahull))
+
+**Implemented enhancements:**
+
+- \[DAS 355\] - Added enums for events and system to Acc support issues webhooks [\#137](https://github.com/autodesk-platform-services/aps-sdk-node/pull/137) ([srivastavarahull](https://github.com/srivastavarahull))
+
+**Merged pull requests:**
+
+- \[AUTO\]: Update CHANGELOG [\#136](https://github.com/autodesk-platform-services/aps-sdk-node/pull/136) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Keep Main branch updated with Dev [\#135](https://github.com/autodesk-platform-services/aps-sdk-node/pull/135) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- \[AUTO\]: Update CHANGELOG [\#133](https://github.com/autodesk-platform-services/aps-sdk-node/pull/133) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Keep Main updated with Development [\#132](https://github.com/autodesk-platform-services/aps-sdk-node/pull/132) ([sajith-subramanian](https://github.com/sajith-subramanian))
+
 ## [v3.2.1](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v3.2.1) (2025-07-21)
 
 [Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v3.2.0...v3.2.1)
