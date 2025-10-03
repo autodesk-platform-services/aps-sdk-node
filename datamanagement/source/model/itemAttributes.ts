@@ -87,5 +87,11 @@ export interface ItemAttributes {
      * @memberof ItemAttributes
      */
     'extension': ItemExtensionWithSchemaLink;
+    /**
+     * The relative path of the item starting from project’s root folder.
+     * @type {string}
+     * @memberof ItemAttributes
+     */
+    'pathInProject'?: string;
 }
 
