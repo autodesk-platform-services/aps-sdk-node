@@ -1,5 +1,5 @@
 import { ApiResponse, SdkManager, SdkManagerBuilder, StaticAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager"
-import { BaseAttributesExtensionObjectWithoutSchemaLink, BaseAttributesExtensionObjectWithSchemaLink, BaseAttributesExtensionObjectWithSchemaLinkSchema, CreatedVersion, CreatedVersionData, DataManagementClient, DownloadFormats, DownloadFormatsData, Downloads, FilterType, FilterTypeVersion, Folder, FolderContents, FolderContentsData, FolderData, FolderPayload, FolderPayloadData, FolderPayloadDataAttributes, FolderPayloadDataAttributesExtension, FolderPayloadDataRelationships, FolderPayloadDataRelationshipsParent, FolderPayloadDataRelationshipsParentData, FolderRefs, Hub, HubData, HubDataAttributes, Hubs, Item, ItemData, ItemPayload, ItemPayloadData, ItemPayloadDataAttributes, ItemPayloadDataAttributesExtension, ItemPayloadDataRelationships, ItemTip, JsonApiVersion, JsonApiVersionValue, ModifyFolderPayload, ModifyFolderPayloadData, ModifyFolderPayloadDataAttributes, ModifyVersionPayload, ModifyVersionPayloadData, ModifyVersionPayloadDataAttributes, Refs, Region, RelationshipLinks, RelationshipRefs, RelationshipRefsPayload, RelationshipRefsPayloadData, RelationshipRefsPayloadDataMeta, Search, TypeEntity, TypeFolder, TypeItem, TypeObject, TypeVersion, Version, VersionData, VersionPayload, VersionPayloadData, VersionPayloadDataAttributes, VersionPayloadDataAttributesExtension, VersionPayloadDataRelationships, VersionPayloadDataRelationshipsItem, VersionPayloadDataRelationshipsItemData, VersionPayloadDataRelationshipsStorage, VersionPayloadDataRelationshipsStorageData, Versions } from "@aps_sdk/data-management";
+import { BaseAttributesExtensionObjectWithoutSchemaLink, BaseAttributesExtensionObjectWithSchemaLink, BaseAttributesExtensionObjectWithSchemaLinkSchema, CommandsApi, ComparisonTypes, CreatedVersion, CreatedVersionData, DataManagementClient, DownloadFormats, DownloadFormatsData, Downloads, FilterType, FilterTypeVersion, Folder, FolderContents, FolderContentsData, FolderData, FolderPayload, FolderPayloadData, FolderPayloadDataAttributes, FolderPayloadDataAttributesExtension, FolderPayloadDataRelationships, FolderPayloadDataRelationshipsParent, FolderPayloadDataRelationshipsParentData, FolderRefs, Hub, HubData, HubDataAttributes, Hubs, Item, ItemData, ItemPayload, ItemPayloadData, ItemPayloadDataAttributes, ItemPayloadDataAttributesExtension, ItemPayloadDataRelationships, ItemTip, JsonApiVersion, JsonApiVersionValue, ModifyFolderPayload, ModifyFolderPayloadData, ModifyFolderPayloadDataAttributes, ModifyVersionPayload, ModifyVersionPayloadData, ModifyVersionPayloadDataAttributes, Refs, Region, RelationshipLinks, RelationshipRefs, RelationshipRefsPayload, RelationshipRefsPayloadData, RelationshipRefsPayloadDataMeta, Search, TypeEntity, TypeFolder, TypeItem, TypeObject, TypeVersion, Version, VersionData, VersionPayload, VersionPayloadData, VersionPayloadDataAttributes, VersionPayloadDataAttributesExtension, VersionPayloadDataRelationships, VersionPayloadDataRelationshipsItem, VersionPayloadDataRelationshipsItemData, VersionPayloadDataRelationshipsStorage, VersionPayloadDataRelationshipsStorageData, Versions } from "@aps_sdk/data-management";
 import 'dotenv/config';
 import { Project, Projects, ProjectDataAttributes, TopFolders, StoragePayload, TypeFolderItemsForStorage, DownloadPayload, TypeDownloads, CreatedDownload, Job, Download } from "@aps_sdk/data-management";
 import { CheckPermission, CheckPermissionPayload, CheckPermissionPayloadAttributes, CheckPermissionPayloadAttributesExtension, CheckPermissionPayloadAttributesExtensionData, CheckPermissionPayloadRelationships, CheckPermissionPayloadRelationshipsResources, CreatedItem, FilterDirection, FilterRefType, ItemPayloadDataRelationshipsParent, ItemPayloadDataRelationshipsParentData, ItemPayloadDataRelationshipsTip, ItemPayloadDataRelationshipsTipData, ItemPayloadIncludedAttributes, ItemPayloadIncludedAttributesExtension, ListItems, ListItemsPayload, ListItemsPayloadAttributes, ListItemsPayloadAttributesExtension, ListItemsPayloadAttributesExtensionData, ListItemsPayloadRelationships, ListItemsPayloadRelationshipsResources, ListRefs, ListRefsPayload, ListRefsPayloadAttributes, ListRefsPayloadAttributesExtension, ListRefsPayloadRelationships, ListRefsPayloadRelationshipsResources, ModifyItemPayload, ModifyItemPayloadData, ModifyItemPayloadDataAttributes, PublishModel, PublishModelJobPayload, PublishModelJobPayloadAttributes, PublishModelJobPayloadAttributesExtension, PublishModelJobPayloadRelationships, PublishModelJobPayloadRelationshipsResources, PublishModelPayload, PublishModelPayloadAttributes, PublishModelPayloadAttributesExtension, PublishModelPayloadRelationships, PublishModelPayloadRelationshipsResources, PublishWithoutLinks, PublishWithoutLinksPayload, PublishWithoutLinksPayloadAttributes, PublishWithoutLinksPayloadAttributesExtension, TypeCommands, TypeCommandtypeCheckPermission, TypeCommandtypeGetPublishModelJob, TypeCommandtypeListItems, TypeCommandtypeListRefs, TypeCommandtypePublishmodel, TypeCommandtypePublishWithoutLinks } from "@aps_sdk/data-management";
@@ -18,7 +18,7 @@ const sdkmanager: SdkManager = SdkManagerBuilder
   .create()
   .build();
 
-const staticAuthenticationProvider = new StaticAuthenticationProvider(process.env.accessToken);
+const staticAuthenticationProvider = new StaticAuthenticationProvider(token);
 
 let dataManagementClient: DataManagementClient = new DataManagementClient({ sdkManager: sdkmanager, authenticationProvider: staticAuthenticationProvider });
 
@@ -220,16 +220,27 @@ async function getFolderSearch() {
       project_id,
       folder_id,
       {
-        filterFieldName: "displayName",
-        filterValue: ["filter1", "filter2"]
+        filters: [
+          // {field: "attributes.displayName", operator: ComparisonTypes.EqualTo, value: "racadvancedsampleprojecttwo.rvt"},
+          // { field: "id", operator: ComparisonTypes.EqualTo, value: "urn:adsk.wipprod:fs.file:vf.-LZeF3RbSOq-8TrrAF8tbQ?version=2" },
+          // { field: "attributes.extension.type", value: "versions:autodesk.core:Deleted" },
+          // { field: "attributes.extension.type", operator: ComparisonTypes.EqualTo, value: "versions:autodesk.core:Deleted" },
+          // { field: "attributes.extension.schema.href", operator: ComparisonTypes.EqualTo, value: "https://developer.api.autodesk.com/schema/v1/versions/versions:autodesk.core:Deleted-1.0" },
+          // { field: "attributes.createUserName", value: "Harun Gitundu" },
+          { field: "attributes.displayName", value: "dc8c73c4-d412-40e4-9a7e-e78d6d6b3892" },
+        ],
+        pageNumber: 0
       }
     );
-    console.log(search);
     search.data.forEach((current) => {
       const folderId: string = current.id;
       const folderType: string = current.type;
 
-      console.log(current.attributes);
+      console.log(current.attributes.extension.type);
+      console.log(current.attributes.extension.schema.href);
+      console.log(current.attributes.createUserName);
+      console.log(current.attributes.displayName);
+      console.log(folderId);
       console.log(folderType);
     });
   } catch (err) {
@@ -342,7 +353,7 @@ async function patchFolder() {
 // getFolderRefs();
 // getFolderRelationshipsLinks();
 // getFolderRelationshipsRefs();
-// getFolderSearch();
+getFolderSearch();
 // createFolder();
 // createFolderRelationshipsRef(); 
 // patchFolder();
@@ -1047,19 +1058,19 @@ async function topFolderDetail() {
 
   const projectTopFolders: TopFolders = await dataManagementClient.getProjectTopFolders(hub_id, project_id, { excludeDeleted: true });
 
-  projectTopFolders.data.forEach( current => {
+  projectTopFolders.data.forEach(current => {
     const attributes = current.attributes;
 
     // The extensions property is deprecated. Use extension instead
     const extensions = attributes.extensions;
-    
+
     const extension = attributes.extension;
     console.log(extensions);
     console.log(extension);
   })
 }
 
-topFolderDetail();
+// topFolderDetail();
 
 async function getHubProjects() {
 
