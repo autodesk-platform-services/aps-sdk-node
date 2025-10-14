@@ -5,7 +5,16 @@ import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, ConstructionAccountAdminApiError } from '../base';
+import { FilterProductField } from '../model';
+import { FilterProductKey } from '../model';
+import { FilterProductSort } from '../model';
+import { FilterRoleField } from '../model';
+import { FilterRoleSort } from '../model';
+import { FilterRoleStatus } from '../model';
+import { FilterTextMatch } from '../model';
+import { ProductsPage } from '../model';
 import { Region } from '../model';
+import { RolesPage } from '../model';
 import { User } from '../model';
 import { UserImport } from '../model';
 import { UserPatchPayload } from '../model';
@@ -104,6 +113,190 @@ export const AccountUsersApiAxiosParamCreator = function (apsConfiguration?: IAp
             localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns a list of ACC products the user is associated with in their assigned projects.
+ * 
+ * Only account administrators can call this endpoint.
+ * 
+ * Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
+         * @summary Get user products
+         * @param {string} accountId 
+         * @param {string} userId 
+         * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA. For a complete list of supported regions, see the Regions page.
+         * @param {string} [userId2] The ID of a user on whose behalf your request is acting. Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).  Note that this header is required for Account Admin POST, PATCH, and DELETE endpoints if you want to use a 2-legged authentication context. This header is optional for Account Admin GET endpoints.
+         * @param {Array<string>} [filterProjectId] A list of project IDs. Only results where the user is associated with one or more of the specified projects are returned.
+         * @param {Array<FilterProductKey>} [filterKey] Filters the list of products by product key — a machine-readable identifier for an ACC product (such as docs, build, or cost). You can specify one or more keys to return only those products the user is associated with.  Example: filter[key]=docs,build  Possible values: accountAdministration, autoSpecs, build, buildingConnected, capitalPlanning, cloudWorksharing, cost, designCollaboration, docs, financials, insight, modelCoordination, projectAdministration, takeoff, and workshopxr.
+         * @param {Array<FilterProductField>} [fields] List of fields to return in the response. Defaults to all fields. Possible values: projectIds, name and icon.
+         * @param {Array<FilterProductSort>} [sort] The list of fields to sort by. Each property can be followed by a direction modifier of either asc (ascending) or desc (descending). The default is asc.  Possible values: name.  Default is the order in database.
+         * @param {number} [limit] The maximum number of records to return in the response. Default: 20  Minimum: 1  Maximum: 200 (If a larger value is provided, only 200 records are returned)
+         * @param {number} [offset] The index of the first record to return. Used for pagination in combination with the limit parameter.  Example: limit=20 and offset=40 returns records 41–60.
+         * @param accessToken bearer access token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserProducts: async (accessToken: string, accountId: string, userId: string, region?: Region, userId2?: string, filterProjectId?: Array<string>, filterKey?: Array<FilterProductKey>, fields?: Array<FilterProductField>, sort?: Array<FilterProductSort>, limit?: number, offset?: number,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'accountId' is not null or undefined
+            assertParamExists('getUserProducts', 'accountId', accountId)
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('getUserProducts', 'userId', userId)
+            const localVarPath = `/construction/admin/v1/accounts/{accountId}/users/{userId}/products`
+                .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)))
+                .replace(`{${"userId"}}`, encodeURIComponent(String(userId)));
+            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
+            let baseOptions;
+            if (apsConfiguration) {
+                baseOptions = apsConfiguration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            await setBearerAuthToObject(localVarHeaderParameter, accessToken)
+
+            if (filterProjectId) {
+                localVarQueryParameter['filter[projectId]'] = filterProjectId;
+            }
+
+            if (filterKey) {
+                localVarQueryParameter['filter[key]'] = filterKey;
+            }
+
+            if (fields) {
+                localVarQueryParameter['fields'] = fields;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (region != null) {
+                localVarHeaderParameter['Region'] = typeof region === 'string'
+                    ? region
+                    : JSON.stringify(region);
+            }
+
+            if (userId2 != null) {
+                localVarHeaderParameter['User-Id'] = String(userId2);
+            }
+
+
+    
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the roles assigned to a specific user across the projects they belong to.
+ * 
+ * Only users with account admin permissions can call this endpoint. To verify a user’s permissions, call GET users.
+ * 
+ * Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
+         * @summary Get user roles
+         * @param {string} accountId 
+         * @param {string} userId 
+         * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA. For a complete list of supported regions, see the Regions page.
+         * @param {string} [userId2] The ID of a user on whose behalf your request is acting. Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).  Note that this header is required for Account Admin POST, PATCH, and DELETE endpoints if you want to use a 2-legged authentication context. This header is optional for Account Admin GET endpoints.
+         * @param {Array<string>} [filterProjectId] A list of project IDs. Only results where the user is associated with one or more of the specified projects are returned.
+         * @param {Array<FilterRoleStatus>} [filterStatus] Filters roles by their status. Accepts one or more of the following values: active – The role is currently in use.  inactive – The role has been removed or is no longer in use.
+         * @param {string} [filterName] filter[name]
+         * @param {FilterTextMatch} [filterTextMatch] Specifies how text-based filters should match values in supported fields. This parameter can be used in any endpoint that supports text-based filtering (e.g., filter[name], filter[jobNumber], filter[companyName], etc.).  Possible values:  contains (default) – Matches if the field contains the specified text anywhere  startsWith – Matches if the field starts with the specified text  endsWith – Matches if the field ends with the specified text  equals – Matches only if the field exactly matches the specified text  Matching is case-insensitive.  Wildcards and regular expressions are not supported.
+         * @param {Array<FilterRoleField>} [fields]  comma-separated list of response fields to include. Defaults to all fields if not specified. Use this parameter to reduce the response size by retrieving only the fields you need.  Possible values:  projectIds – Projects where the user holds this role  name – Role name  status – Role status (active or inactive)  key – Internal key used to translate the role name  createdAt – Timestamp when the role was created  updatedAt – Timestamp when the role was last updated
+         * @param {Array<FilterRoleSort>} [sort] Sorts the results by one or more fields. Each field can be followed by a direction modifier:  asc – Ascending order (default)  desc – Descending order  Possible values: name, createdAt, updatedAt.  Default sort: name asc  Example: sort=name,updatedAt desc
+         * @param {number} [limit] The maximum number of records to return in the response. Default: 20  Minimum: 1  Maximum: 200 (If a larger value is provided, only 200 records are returned)
+         * @param {number} [offset] The index of the first record to return. Used for pagination in combination with the limit parameter.  Example: limit=20 and offset=40 returns records 41–60.
+         * @param accessToken bearer access token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserRoles: async (accessToken: string, accountId: string, userId: string, region?: Region, userId2?: string, filterProjectId?: Array<string>, filterStatus?: Array<FilterRoleStatus>, filterName?: string, filterTextMatch?: FilterTextMatch, fields?: Array<FilterRoleField>, sort?: Array<FilterRoleSort>, limit?: number, offset?: number,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'accountId' is not null or undefined
+            assertParamExists('getUserRoles', 'accountId', accountId)
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('getUserRoles', 'userId', userId)
+            const localVarPath = `/construction/admin/v1/accounts/{accountId}/users/{userId}/roles`
+                .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)))
+                .replace(`{${"userId"}}`, encodeURIComponent(String(userId)));
+            const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
+            let baseOptions;
+            if (apsConfiguration) {
+                baseOptions = apsConfiguration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            await setBearerAuthToObject(localVarHeaderParameter, accessToken)
+
+            if (filterProjectId) {
+                localVarQueryParameter['filter[projectId]'] = filterProjectId;
+            }
+
+            if (filterStatus) {
+                localVarQueryParameter['filter[status]'] = filterStatus;
+            }
+
+            if (filterName !== undefined) {
+                localVarQueryParameter['filter[name]'] = filterName;
+            }
+
+            if (filterTextMatch !== undefined) {
+                localVarQueryParameter['filterTextMatch'] = filterTextMatch;
+            }
+
+            if (fields) {
+                localVarQueryParameter['fields'] = fields;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (region != null) {
+                localVarHeaderParameter['Region'] = typeof region === 'string'
+                    ? region
+                    : JSON.stringify(region);
+            }
+
+            if (userId2 != null) {
+                localVarHeaderParameter['User-Id'] = String(userId2);
+            }
+
+
+    
+            localVarHeaderParameter['User-Agent'] = 'APS SDK/CONSTRUCTION-ACCOUNT-ADMIN/TypeScript/1.0.0';
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
@@ -399,6 +592,56 @@ export const AccountUsersApiFp = function(sdkManager?: SdkManager) {
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
+         * Returns a list of ACC products the user is associated with in their assigned projects.
+ * 
+ * Only account administrators can call this endpoint.
+ * 
+ * Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
+         * @summary Get user products
+         * @param {string} accountId 
+         * @param {string} userId 
+         * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA. For a complete list of supported regions, see the Regions page.
+         * @param {string} [userId2] The ID of a user on whose behalf your request is acting. Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).  Note that this header is required for Account Admin POST, PATCH, and DELETE endpoints if you want to use a 2-legged authentication context. This header is optional for Account Admin GET endpoints.
+         * @param {Array<string>} [filterProjectId] A list of project IDs. Only results where the user is associated with one or more of the specified projects are returned.
+         * @param {Array<FilterProductKey>} [filterKey] Filters the list of products by product key — a machine-readable identifier for an ACC product (such as docs, build, or cost). You can specify one or more keys to return only those products the user is associated with.  Example: filter[key]=docs,build  Possible values: accountAdministration, autoSpecs, build, buildingConnected, capitalPlanning, cloudWorksharing, cost, designCollaboration, docs, financials, insight, modelCoordination, projectAdministration, takeoff, and workshopxr.
+         * @param {Array<FilterProductField>} [fields] List of fields to return in the response. Defaults to all fields. Possible values: projectIds, name and icon.
+         * @param {Array<FilterProductSort>} [sort] The list of fields to sort by. Each property can be followed by a direction modifier of either asc (ascending) or desc (descending). The default is asc.  Possible values: name.  Default is the order in database.
+         * @param {number} [limit] The maximum number of records to return in the response. Default: 20  Minimum: 1  Maximum: 200 (If a larger value is provided, only 200 records are returned)
+         * @param {number} [offset] The index of the first record to return. Used for pagination in combination with the limit parameter.  Example: limit=20 and offset=40 returns records 41–60.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUserProducts(accessToken: string, accountId: string, userId: string, region?: Region, userId2?: string, filterProjectId?: Array<string>, filterKey?: Array<FilterProductKey>, fields?: Array<FilterProductField>, sort?: Array<FilterProductSort>, limit?: number, offset?: number, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProductsPage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserProducts(accessToken, accountId, userId, region, userId2, filterProjectId, filterKey, fields, sort, limit, offset,  options);
+            return createRequestFunction(localVarAxiosArgs, sdkManager);
+        },
+        /**
+         * Returns the roles assigned to a specific user across the projects they belong to.
+ * 
+ * Only users with account admin permissions can call this endpoint. To verify a user’s permissions, call GET users.
+ * 
+ * Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
+         * @summary Get user roles
+         * @param {string} accountId 
+         * @param {string} userId 
+         * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA. For a complete list of supported regions, see the Regions page.
+         * @param {string} [userId2] The ID of a user on whose behalf your request is acting. Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).  Note that this header is required for Account Admin POST, PATCH, and DELETE endpoints if you want to use a 2-legged authentication context. This header is optional for Account Admin GET endpoints.
+         * @param {Array<string>} [filterProjectId] A list of project IDs. Only results where the user is associated with one or more of the specified projects are returned.
+         * @param {Array<FilterRoleStatus>} [filterStatus] Filters roles by their status. Accepts one or more of the following values: active – The role is currently in use.  inactive – The role has been removed or is no longer in use.
+         * @param {string} [filterName] filter[name]
+         * @param {FilterTextMatch} [filterTextMatch] Specifies how text-based filters should match values in supported fields. This parameter can be used in any endpoint that supports text-based filtering (e.g., filter[name], filter[jobNumber], filter[companyName], etc.).  Possible values:  contains (default) – Matches if the field contains the specified text anywhere  startsWith – Matches if the field starts with the specified text  endsWith – Matches if the field ends with the specified text  equals – Matches only if the field exactly matches the specified text  Matching is case-insensitive.  Wildcards and regular expressions are not supported.
+         * @param {Array<FilterRoleField>} [fields]  comma-separated list of response fields to include. Defaults to all fields if not specified. Use this parameter to reduce the response size by retrieving only the fields you need.  Possible values:  projectIds – Projects where the user holds this role  name – Role name  status – Role status (active or inactive)  key – Internal key used to translate the role name  createdAt – Timestamp when the role was created  updatedAt – Timestamp when the role was last updated
+         * @param {Array<FilterRoleSort>} [sort] Sorts the results by one or more fields. Each field can be followed by a direction modifier:  asc – Ascending order (default)  desc – Descending order  Possible values: name, createdAt, updatedAt.  Default sort: name asc  Example: sort=name,updatedAt desc
+         * @param {number} [limit] The maximum number of records to return in the response. Default: 20  Minimum: 1  Maximum: 200 (If a larger value is provided, only 200 records are returned)
+         * @param {number} [offset] The index of the first record to return. Used for pagination in combination with the limit parameter.  Example: limit=20 and offset=40 returns records 41–60.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUserRoles(accessToken: string, accountId: string, userId: string, region?: Region, userId2?: string, filterProjectId?: Array<string>, filterStatus?: Array<FilterRoleStatus>, filterName?: string, filterTextMatch?: FilterTextMatch, fields?: Array<FilterRoleField>, sort?: Array<FilterRoleSort>, limit?: number, offset?: number, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RolesPage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserRoles(accessToken, accountId, userId, region, userId2, filterProjectId, filterStatus, filterName, filterTextMatch, fields, sort, limit, offset,  options);
+            return createRequestFunction(localVarAxiosArgs, sdkManager);
+        },
+        /**
          * Query all the users in a specific BIM 360 account.
          * @summary Get account users
          * @param {string} accountId The account ID of the users. This corresponds to hub ID in the Data Management API. To convert a hub ID into an account ID you need to remove the “b.” prefix. For example, a hub ID of b.c8b0c73d-3ae9 translates to an account ID of c8b0c73d-3ae9.
@@ -496,6 +739,56 @@ export interface AccountUsersApiInterface {
      * @memberof AccountUsersApiInterface
      */
     getUser(accessToken: string,accountId: string, userId: string, region?: Region,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+
+    /**
+     * Returns a list of ACC products the user is associated with in their assigned projects.
+ * 
+ * Only account administrators can call this endpoint.
+ * 
+ * Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
+     * @summary Get user products
+     * @param {string} accountId 
+     * @param {string} userId 
+     * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA. For a complete list of supported regions, see the Regions page.
+     * @param {string} [userId2] The ID of a user on whose behalf your request is acting. Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).  Note that this header is required for Account Admin POST, PATCH, and DELETE endpoints if you want to use a 2-legged authentication context. This header is optional for Account Admin GET endpoints.
+     * @param {Array<string>} [filterProjectId] A list of project IDs. Only results where the user is associated with one or more of the specified projects are returned.
+     * @param {Array<FilterProductKey>} [filterKey] Filters the list of products by product key — a machine-readable identifier for an ACC product (such as docs, build, or cost). You can specify one or more keys to return only those products the user is associated with.  Example: filter[key]=docs,build  Possible values: accountAdministration, autoSpecs, build, buildingConnected, capitalPlanning, cloudWorksharing, cost, designCollaboration, docs, financials, insight, modelCoordination, projectAdministration, takeoff, and workshopxr.
+     * @param {Array<FilterProductField>} [fields] List of fields to return in the response. Defaults to all fields. Possible values: projectIds, name and icon.
+     * @param {Array<FilterProductSort>} [sort] The list of fields to sort by. Each property can be followed by a direction modifier of either asc (ascending) or desc (descending). The default is asc.  Possible values: name.  Default is the order in database.
+     * @param {number} [limit] The maximum number of records to return in the response. Default: 20  Minimum: 1  Maximum: 200 (If a larger value is provided, only 200 records are returned)
+     * @param {number} [offset] The index of the first record to return. Used for pagination in combination with the limit parameter.  Example: limit=20 and offset=40 returns records 41–60.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AccountUsersApiInterface
+     */
+    getUserProducts(accessToken: string,accountId: string, userId: string, region?: Region, userId2?: string, filterProjectId?: Array<string>, filterKey?: Array<FilterProductKey>, fields?: Array<FilterProductField>, sort?: Array<FilterProductSort>, limit?: number, offset?: number,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+
+    /**
+     * Returns the roles assigned to a specific user across the projects they belong to.
+ * 
+ * Only users with account admin permissions can call this endpoint. To verify a user’s permissions, call GET users.
+ * 
+ * Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
+     * @summary Get user roles
+     * @param {string} accountId 
+     * @param {string} userId 
+     * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA. For a complete list of supported regions, see the Regions page.
+     * @param {string} [userId2] The ID of a user on whose behalf your request is acting. Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).  Note that this header is required for Account Admin POST, PATCH, and DELETE endpoints if you want to use a 2-legged authentication context. This header is optional for Account Admin GET endpoints.
+     * @param {Array<string>} [filterProjectId] A list of project IDs. Only results where the user is associated with one or more of the specified projects are returned.
+     * @param {Array<FilterRoleStatus>} [filterStatus] Filters roles by their status. Accepts one or more of the following values: active – The role is currently in use.  inactive – The role has been removed or is no longer in use.
+     * @param {string} [filterName] filter[name]
+     * @param {FilterTextMatch} [filterTextMatch] Specifies how text-based filters should match values in supported fields. This parameter can be used in any endpoint that supports text-based filtering (e.g., filter[name], filter[jobNumber], filter[companyName], etc.).  Possible values:  contains (default) – Matches if the field contains the specified text anywhere  startsWith – Matches if the field starts with the specified text  endsWith – Matches if the field ends with the specified text  equals – Matches only if the field exactly matches the specified text  Matching is case-insensitive.  Wildcards and regular expressions are not supported.
+     * @param {Array<FilterRoleField>} [fields]  comma-separated list of response fields to include. Defaults to all fields if not specified. Use this parameter to reduce the response size by retrieving only the fields you need.  Possible values:  projectIds – Projects where the user holds this role  name – Role name  status – Role status (active or inactive)  key – Internal key used to translate the role name  createdAt – Timestamp when the role was created  updatedAt – Timestamp when the role was last updated
+     * @param {Array<FilterRoleSort>} [sort] Sorts the results by one or more fields. Each field can be followed by a direction modifier:  asc – Ascending order (default)  desc – Descending order  Possible values: name, createdAt, updatedAt.  Default sort: name asc  Example: sort=name,updatedAt desc
+     * @param {number} [limit] The maximum number of records to return in the response. Default: 20  Minimum: 1  Maximum: 200 (If a larger value is provided, only 200 records are returned)
+     * @param {number} [offset] The index of the first record to return. Used for pagination in combination with the limit parameter.  Example: limit=20 and offset=40 returns records 41–60.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AccountUsersApiInterface
+     */
+    getUserRoles(accessToken: string,accountId: string, userId: string, region?: Region, userId2?: string, filterProjectId?: Array<string>, filterStatus?: Array<FilterRoleStatus>, filterName?: string, filterTextMatch?: FilterTextMatch, fields?: Array<FilterRoleField>, sort?: Array<FilterRoleSort>, limit?: number, offset?: number,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Query all the users in a specific BIM 360 account.
@@ -628,6 +921,94 @@ export class AccountUsersApi extends BaseApi implements AccountUsersApiInterface
         } else if (error.request) {
             this.logger.logError(`getUser Request failed with no response received: ${error.request}`);
             throw new ConstructionAccountAdminApiError(`getUser Request failed with no response received: ${error.request}`, error);
+        }
+        throw error;
+      }
+    }
+
+      /**
+     * Returns a list of ACC products the user is associated with in their assigned projects.
+ * 
+ * Only account administrators can call this endpoint.
+ * 
+ * Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
+     * @summary Get user products
+     * @param {string} accountId 
+     * @param {string} userId 
+     * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA. For a complete list of supported regions, see the Regions page.
+     * @param {string} [userId2] The ID of a user on whose behalf your request is acting. Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).  Note that this header is required for Account Admin POST, PATCH, and DELETE endpoints if you want to use a 2-legged authentication context. This header is optional for Account Admin GET endpoints.
+     * @param {Array<string>} [filterProjectId] A list of project IDs. Only results where the user is associated with one or more of the specified projects are returned.
+     * @param {Array<FilterProductKey>} [filterKey] Filters the list of products by product key — a machine-readable identifier for an ACC product (such as docs, build, or cost). You can specify one or more keys to return only those products the user is associated with.  Example: filter[key]=docs,build  Possible values: accountAdministration, autoSpecs, build, buildingConnected, capitalPlanning, cloudWorksharing, cost, designCollaboration, docs, financials, insight, modelCoordination, projectAdministration, takeoff, and workshopxr.
+     * @param {Array<FilterProductField>} [fields] List of fields to return in the response. Defaults to all fields. Possible values: projectIds, name and icon.
+     * @param {Array<FilterProductSort>} [sort] The list of fields to sort by. Each property can be followed by a direction modifier of either asc (ascending) or desc (descending). The default is asc.  Possible values: name.  Default is the order in database.
+     * @param {number} [limit] The maximum number of records to return in the response. Default: 20  Minimum: 1  Maximum: 200 (If a larger value is provided, only 200 records are returned)
+     * @param {number} [offset] The index of the first record to return. Used for pagination in combination with the limit parameter.  Example: limit=20 and offset=40 returns records 41–60.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AccountUsersApi
+     */
+    public async getUserProducts(accessToken: string, accountId: string, userId: string, region?: Region, userId2?: string, filterProjectId?: Array<string>, filterKey?: Array<FilterProductKey>, fields?: Array<FilterProductField>, sort?: Array<FilterProductSort>, limit?: number, offset?: number, options?: ApsServiceRequestConfig) {
+      this.logger.logInfo("Entered into getUserProducts ");
+      try {
+        const request =  await AccountUsersApiFp(this.sdkManager).getUserProducts(accessToken, accountId, userId, region, userId2, filterProjectId, filterKey, fields, sort, limit, offset,  options);
+        const response = await request(this.axios);
+        this.logger.logInfo(`getUserProducts Request completed successfully with status code: ${response.status}`);
+        return new ApiResponse(response,response.data);
+      } catch (error) {
+        if (error.response) {
+            const responseData = error.response.data;
+            const errorMessage = responseData.developerMessage || responseData.reason || responseData.message || error.message;
+            this.logger.logError(`getUserProducts Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`getUserProducts Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
+        } else if (error.request) {
+            this.logger.logError(`getUserProducts Request failed with no response received: ${error.request}`);
+            throw new ConstructionAccountAdminApiError(`getUserProducts Request failed with no response received: ${error.request}`, error);
+        }
+        throw error;
+      }
+    }
+
+    /**
+     * Returns the roles assigned to a specific user across the projects they belong to.
+ * 
+ * Only users with account admin permissions can call this endpoint. To verify a user’s permissions, call GET users.
+ * 
+ * Note that this endpoint is compatible with both BIM 360 and Autodesk Construction Cloud (ACC) projects.
+     * @summary Get user roles
+     * @param {string} accountId 
+     * @param {string} userId 
+     * @param {Region} [region] Specifies the region where your request should be routed. If not set, the request is routed automatically, which may result in a slight increase in latency. Possible values: US, EMEA. For a complete list of supported regions, see the Regions page.
+     * @param {string} [userId2] The ID of a user on whose behalf your request is acting. Your app has access to all users specified by the administrator in the SaaS integrations UI. Provide this header value to identify the user to be affected by the request.  You can use either the user’s ACC ID (id), or their Autodesk ID (autodeskId).  Note that this header is required for Account Admin POST, PATCH, and DELETE endpoints if you want to use a 2-legged authentication context. This header is optional for Account Admin GET endpoints.
+     * @param {Array<string>} [filterProjectId] A list of project IDs. Only results where the user is associated with one or more of the specified projects are returned.
+     * @param {Array<FilterRoleStatus>} [filterStatus] Filters roles by their status. Accepts one or more of the following values: active – The role is currently in use.  inactive – The role has been removed or is no longer in use.
+     * @param {string} [filterName] filter[name]
+     * @param {FilterTextMatch} [filterTextMatch] Specifies how text-based filters should match values in supported fields. This parameter can be used in any endpoint that supports text-based filtering (e.g., filter[name], filter[jobNumber], filter[companyName], etc.).  Possible values:  contains (default) – Matches if the field contains the specified text anywhere  startsWith – Matches if the field starts with the specified text  endsWith – Matches if the field ends with the specified text  equals – Matches only if the field exactly matches the specified text  Matching is case-insensitive.  Wildcards and regular expressions are not supported.
+     * @param {Array<FilterRoleField>} [fields]  comma-separated list of response fields to include. Defaults to all fields if not specified. Use this parameter to reduce the response size by retrieving only the fields you need.  Possible values:  projectIds – Projects where the user holds this role  name – Role name  status – Role status (active or inactive)  key – Internal key used to translate the role name  createdAt – Timestamp when the role was created  updatedAt – Timestamp when the role was last updated
+     * @param {Array<FilterRoleSort>} [sort] Sorts the results by one or more fields. Each field can be followed by a direction modifier:  asc – Ascending order (default)  desc – Descending order  Possible values: name, createdAt, updatedAt.  Default sort: name asc  Example: sort=name,updatedAt desc
+     * @param {number} [limit] The maximum number of records to return in the response. Default: 20  Minimum: 1  Maximum: 200 (If a larger value is provided, only 200 records are returned)
+     * @param {number} [offset] The index of the first record to return. Used for pagination in combination with the limit parameter.  Example: limit=20 and offset=40 returns records 41–60.
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AccountUsersApi
+     */
+    public async getUserRoles(accessToken: string, accountId: string, userId: string, region?: Region, userId2?: string, filterProjectId?: Array<string>, filterStatus?: Array<FilterRoleStatus>, filterName?: string, filterTextMatch?: FilterTextMatch, fields?: Array<FilterRoleField>, sort?: Array<FilterRoleSort>, limit?: number, offset?: number, options?: ApsServiceRequestConfig) {
+      this.logger.logInfo("Entered into getUserRoles ");
+      try {
+        const request =  await AccountUsersApiFp(this.sdkManager).getUserRoles(accessToken, accountId, userId, region, userId2, filterProjectId, filterStatus, filterName, filterTextMatch, fields, sort, limit, offset,  options);
+        const response = await request(this.axios);
+        this.logger.logInfo(`getUserRoles Request completed successfully with status code: ${response.status}`);
+        return new ApiResponse(response,response.data);
+      } catch (error) {
+        if (error.response) {
+            const responseData = error.response.data;
+            const errorMessage = responseData.developerMessage || responseData.reason || responseData.message || error.message;
+            this.logger.logError(`getUserRoles Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new ConstructionAccountAdminApiError(`getUserRoles Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
+        } else if (error.request) {
+            this.logger.logError(`getUserRoles Request failed with no response received: ${error.request}`);
+            throw new ConstructionAccountAdminApiError(`getUserRoles Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
