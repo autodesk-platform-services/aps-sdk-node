@@ -37,3 +37,7 @@ export * from './user';
 export * from './userIssues';
 export * from './userIssuesFilter';
 export * from './userIssuesNew';
+export * from './attachment';
+export * from './attachmentObject';
+export * from './attachmentsPayload';
+export * from './attachments';
