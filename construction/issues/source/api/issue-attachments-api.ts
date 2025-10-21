@@ -12,19 +12,19 @@ export const IssueAttachmentsApiAxiosParamCreator = function (apsConfiguration?:
     return {
         /**
          * Adds attachments to an existing issue.
- * 
- * Links one or more files in Autodesk Docs (uploaded via the Data Management OSS API) to the specified issue.
- * 
- * Note that an issue can have up to 100 attachments. Files can include images, PDFs, or other supported formats.
- * 
- * For more information about uploading attachments, see the Upload Issue Attachment tutorial.
+         * 
+         * Links one or more files in Autodesk Docs (uploaded via the Data Management OSS API) to the specified issue.
+         * 
+         * Note that an issue can have up to 100 attachments. Files can include images, PDFs, or other supported formats.
+         * 
+         * For more information about uploading attachments, see the Upload Issue Attachment tutorial.
          * @summary Your POST endpoint
          * @param {string} projectId The ID of the project.
          * @param {AttachmentsPayload} attachmentsPayload 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
-         */
+        */
         addAttachments: async (accessToken: string, projectId: string, attachmentsPayload: AttachmentsPayload, options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('addAttachments', 'projectId', projectId)
@@ -104,18 +104,18 @@ export const IssueAttachmentsApiAxiosParamCreator = function (apsConfiguration?:
             };
         },
         /**
-         * Retrieves all attachments for a specific issue in a project.
- * 
- * For details about retrieving metadata for a specific attachment, see the Retrieve Issue Attachment tutorial.
- * 
- * For details about downloading an attachment, see the Download Issue Attachment tutorial.
-         * @summary Your GET endpoint
-         * @param {string} projectId The ID of the project. Use the Data Management API to retrieve the project ID. For more information, see the Retrieve a Project ID tutorial. You need to convert the project ID into a project ID for the ACC API by removing the “b." prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
-         * @param {string} issueId The unique identifier of the issue. To find the ID, call GET issues.
-         * @param accessToken bearer access token
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
+        * Retrieves all attachments for a specific issue in a project.
+        * 
+        * For details about retrieving metadata for a specific attachment, see the Retrieve Issue Attachment tutorial.
+        * 
+        * For details about downloading an attachment, see the Download Issue Attachment tutorial.
+        * @summary Your GET endpoint
+        * @param {string} projectId The ID of the project. Use the Data Management API to retrieve the project ID. For more information, see the Retrieve a Project ID tutorial. You need to convert the project ID into a project ID for the ACC API by removing the “b." prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
+        * @param {string} issueId The unique identifier of the issue. To find the ID, call GET issues.
+        * @param accessToken bearer access token
+        * @param {*} [options] Override http request option.
+        * @throws {RequiredError}
+        */
         getAttachments: async (accessToken: string, projectId: string, issueId: string, options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getAttachments', 'projectId', projectId)
@@ -159,48 +159,46 @@ export const IssueAttachmentsApiFp = function (sdkManager?: SdkManager) {
     const localVarAxiosParamCreator = IssueAttachmentsApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
-         * Adds attachments to an existing issue.
- * 
- * Links one or more files in Autodesk Docs (uploaded via the Data Management OSS API) to the specified issue.
- * 
- * Note that an issue can have up to 100 attachments. Files can include images, PDFs, or other supported formats.
- * 
- * For more information about uploading attachments, see the Upload Issue Attachment tutorial.
-         * @summary Your POST endpoint
-         * @param {string} projectId The ID of the project.
-         * @param {AttachmentsPayload} attachmentsPayload 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
+        * Adds attachments to an existing issue.
+        * 
+        * Links one or more files in Autodesk Docs (uploaded via the Data Management OSS API) to the specified issue.
+        * 
+        * Note that an issue can have up to 100 attachments. Files can include images, PDFs, or other supported formats.
+        * 
+        * For more information about uploading attachments, see the Upload Issue Attachment tutorial.
+        * @summary Your POST endpoint
+        * @param {string} projectId The ID of the project.
+        * @param {AttachmentsPayload} attachmentsPayload 
+        * @param {*} [options] Override http request option.
+        * @throws {RequiredError}
+        */
         async addAttachments(accessToken: string, projectId: string, attachmentsPayload: AttachmentsPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Attachments>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.addAttachments(accessToken, projectId, attachmentsPayload, options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
-         * Deletes a specific attachment from an issue in a project.
-         * @summary Your DELETE endpoint
-         * @param {string} projectId The ID of the project. Use the Data Management API to retrieve the project ID. For more information, see the Retrieve a Project ID tutorial. You need to convert the project ID into a project ID for the ACC API by removing the “b." prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
-         * @param {string} issueId The unique identifier of the issue. To find the ID, call GET issues.
-         * @param {string} attachmentId The unique identifier of the attachment. To find the ID, call GET attachments.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
+        * Deletes a specific attachment from an issue in a project.
+        * @summary Your DELETE endpoint
+        * @param {string} projectId The ID of the project. Use the Data Management API to retrieve the project ID. For more information, see the Retrieve a Project ID tutorial. You need to convert the project ID into a project ID for the ACC API by removing the “b." prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
+        * @param {string} issueId The unique identifier of the issue. To find the ID, call GET issues.
+        * @param {string} attachmentId The unique identifier of the attachment. To find the ID, call GET attachments.
+        * @param {*} [options] Override http request option.
+        * @throws {RequiredError}
+        */
         async deleteAttachment(accessToken: string, projectId: string, issueId: string, attachmentId: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAttachment(accessToken, projectId, issueId, attachmentId, options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
-         * Retrieves all attachments for a specific issue in a project.
- * 
- * For details about retrieving metadata for a specific attachment, see the Retrieve Issue Attachment tutorial.
- * 
- * For details about downloading an attachment, see the Download Issue Attachment tutorial.
-         * @summary Your GET endpoint
-         * @param {string} projectId The ID of the project. Use the Data Management API to retrieve the project ID. For more information, see the Retrieve a Project ID tutorial. You need to convert the project ID into a project ID for the ACC API by removing the “b." prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
-         * @param {string} issueId The unique identifier of the issue. To find the ID, call GET issues.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
+        * Retrieves all attachments for a specific issue in a project.
+        * For details about retrieving metadata for a specific attachment, see the Retrieve Issue Attachment tutorial.
+        * For details about downloading an attachment, see the Download Issue Attachment tutorial.
+        * @summary Your GET endpoint
+        * @param {string} projectId The ID of the project. Use the Data Management API to retrieve the project ID. For more information, see the Retrieve a Project ID tutorial. You need to convert the project ID into a project ID for the ACC API by removing the “b." prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
+        * @param {string} issueId The unique identifier of the issue. To find the ID, call GET issues.
+        * @param {*} [options] Override http request option.
+        * @throws {RequiredError}
+        */
         async getAttachments(accessToken: string, projectId: string, issueId: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Attachments>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAttachments(accessToken, projectId, issueId, options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);

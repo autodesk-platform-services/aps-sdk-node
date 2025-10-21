@@ -1,9 +1,11 @@
-import { SdkManager, ApiResponse, ApsServiceRequestConfig, BaseClient, IAuthenticationProvider, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
-import { Region, DataType, AttrDefinitionPage, Fields, IssuePayload, SortBy, User, Issue, IssuesPage, TypesPage, RootCauseCategoriesPage, AttrMappingPage, CommentsPayload, Comments, CommentsPage } from "../model";
+import { ApiResponse, ApsServiceRequestConfig, BaseClient, IAuthenticationProvider, SdkManager, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
 import { IssueAttributeDefinitionsApi, IssueAttributeMappingsApi, IssueCommentsApi, IssueRootCauseCategoriesApi, IssueTypesApi, IssuesApi, IssuesProfileApi } from "../api";
+import { Attachments, AttachmentsPayload, AttrDefinitionPage, AttrMappingPage, Comments, CommentsPage, CommentsPayload, DataType, Fields, Issue, IssuePayload, IssuesPage, Region, RootCauseCategoriesPage, SortBy, TypesPage, User } from "../model";
+import { IssueAttachmentsApi } from "../api/issue-attachments-api";
 
 export class IssuesClient extends BaseClient {
 
+  public issueAttachmentsApi: IssueAttachmentsApi;
   public issueattributedefinitionsapi: IssueAttributeDefinitionsApi;
   public issueAttributemappingsapi: IssueAttributeMappingsApi;
   public issuecommentsapi: IssueCommentsApi;
@@ -16,6 +18,7 @@ export class IssuesClient extends BaseClient {
     if (!optionalArgs?.sdkManager) {
       (optionalArgs ??= {}).sdkManager = SdkManagerBuilder.create().build();
     }
+    this.issueAttachmentsApi = new IssueAttachmentsApi(optionalArgs.sdkManager);
     this.issueattributedefinitionsapi = new IssueAttributeDefinitionsApi(optionalArgs.sdkManager);
     this.issueAttributemappingsapi = new IssueAttributeMappingsApi(optionalArgs.sdkManager);
     this.issuecommentsapi = new IssueCommentsApi(optionalArgs.sdkManager);
@@ -24,6 +27,71 @@ export class IssuesClient extends BaseClient {
     this.issuesapi = new IssuesApi(optionalArgs.sdkManager);
     this.issuesprofileapi = new IssuesProfileApi(optionalArgs.sdkManager);
   }
+  /**
+         * Adds attachments to an existing issue.
+         * 
+         * Links one or more files in Autodesk Docs (uploaded via the Data Management OSS API) to the specified issue.
+         *
+         * Note that an issue can have up to 100 attachments. Files can include images,
+         * PDFs, or other supported formats.
+         *
+         * For more information about uploading attachments, see the Upload Issue Attachment tutorial.
+         * @summary Your POST endpoint
+         * @param {string} projectId The ID of the project.
+         * @param {AttachmentsPayload} attachmentsPayload 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+  public async addAttachments(projectId: string, attachmentsPayload: AttachmentsPayload, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Attachments> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+      (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    }
+    const response = await this.issueAttachmentsApi.addAttachments(optionalArgs?.accessToken, projectId, attachmentsPayload, optionalArgs?.options);
+    return response.content;
+  }
+  /**
+   * Deletes a specific attachment from an issue in a project.
+   * @summary Your DELETE endpoint
+   * @param {string} projectId The ID of the project. Use the Data Management API to retrieve the project ID. For more information, see the Retrieve a Project ID tutorial. You need to convert the project ID into a project ID for the ACC API by removing the “b." prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
+   * @param {string} issueId The unique identifier of the issue. To find the ID, call GET issues.
+   * @param {string} attachmentId The unique identifier of the attachment. To find the ID, call GET attachments.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+  */
+  public async deleteAttachment(projectId: string, issueId: string, attachmentId: string, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ApiResponse> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+      (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    }
+    const response = await this.issueAttachmentsApi.deleteAttachment(optionalArgs?.accessToken, projectId, issueId, attachmentId, optionalArgs?.options);
+    return response;
+  }
+  /**
+  * Retrieves all attachments for a specific issue in a project.
+  * For details about retrieving metadata for a specific attachment, see the Retrieve Issue Attachment tutorial.
+  * For details about downloading an attachment, see the Download Issue Attachment tutorial.
+  * @summary Your GET endpoint
+  * @param {string} projectId The ID of the project. Use the Data Management API to retrieve the project ID. For more information, see the Retrieve a Project ID tutorial. You need to convert the project ID into a project ID for the ACC API by removing the “b." prefix. For example, a project ID of b.a4be0c34a-4ab7 translates to a project ID of a4be0c34a-4ab7.
+  * @param {string} issueId The unique identifier of the issue. To find the ID, call GET issues.
+  * @param {*} [options] Override http request option.
+  * @throws {RequiredError}
+  */
+  public async getAttachments(projectId: string, issueId: string, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Attachments> {
+    if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+      throw new Error("Please provide a valid access token or an authentication provider");
+    }
+    else if (!optionalArgs?.accessToken) {
+      (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+    }
+    const response = await this.issueAttachmentsApi.getAttachments(optionalArgs?.accessToken, projectId, issueId, optionalArgs?.options);
+    return response.content;
+  }
+
   /**
    * Retrieves information about issue custom attributes (custom fields) for a project, including the custom attribute title, description and type.
    * @summary Your GET endpoint
