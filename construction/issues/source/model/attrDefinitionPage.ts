@@ -1,5 +1,5 @@
 
-import { AttrDefinitionPageResults } from './attrDefinitionPageResults';
+import { AttrDefinition } from './attrDefinition';
 import { Pagination } from './pagination';
 
 /**
@@ -15,10 +15,10 @@ export interface AttrDefinitionPage {
      */
     'pagination'?: Pagination;
     /**
-     * A list of issue attribute mappings.
-     * @type {Array<AttrDefinitionPageResults>}
+     * A list of issue attribute definition.
+     * @type {Array<AttrDefinition>}
      * @memberof AttrDefinitionPage
      */
-    'results'?: Array<AttrDefinitionPageResults>;
+    'results'?: Array<AttrDefinition>;
 }
 

@@ -1,5 +1,5 @@
 
-import { AttrMappingPageResults } from './attrMappingPageResults';
+import { AttrMapping } from './attrMapping';
 import { Pagination } from './pagination';
 
 /**
@@ -16,9 +16,9 @@ export interface AttrMappingPage {
     'pagination'?: Pagination;
     /**
      * A list of issue attribute mappings.
-     * @type {Array<AttrMappingPageResults>}
+     * @type {Array<AttrMapping>}
      * @memberof AttrMappingPage
      */
-    'results'?: Array<AttrMappingPageResults>;
+    'results'?: Array<AttrMapping>;
 }
 

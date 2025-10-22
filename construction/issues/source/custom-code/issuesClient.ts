@@ -1,6 +1,6 @@
 import { ApiResponse, ApsServiceRequestConfig, BaseClient, IAuthenticationProvider, SdkManager, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
 import { IssueAttributeDefinitionsApi, IssueAttributeMappingsApi, IssueCommentsApi, IssueRootCauseCategoriesApi, IssueTypesApi, IssuesApi, IssuesProfileApi } from "../api";
-import { Attachments, AttachmentsPayload, AttrDefinitionPage, AttrMappingPage, Comments, CommentsPage, CommentsPayload, DataType, Fields, Issue, IssuePayload, IssuesPage, Region, RootCauseCategoriesPage, SortBy, TypesPage, User } from "../model";
+import { Attachments, AttachmentsPayload, AttrDefinitionPage, AttrMappingPage, Comment, CommentsPage, CommentsPayload, DataType, Fields, Issue, IssuePayload, IssuesPage, Region, RootCauseCategoriesPage, SortBy, TypesPage, User } from "../model";
 import { IssueAttachmentsApi } from "../api/issue-attachments-api";
 
 export class IssuesClient extends BaseClient {
@@ -189,7 +189,7 @@ export class IssuesClient extends BaseClient {
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    */
-  public async createComments(projectId: string, issueId: string, commentsPayload: CommentsPayload, optionalArgs?: { xAdsRegion?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Comments> {
+  public async createComments(projectId: string, issueId: string, commentsPayload: CommentsPayload, optionalArgs?: { xAdsRegion?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<Comment> {
     if (!optionalArgs?.accessToken && !this.authenticationProvider) {
       throw new Error("Please provide a valid access token or an authentication provider");
     }

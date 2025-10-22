@@ -1,6 +1,6 @@
 
+import { IssueType } from './issueType';
 import { Pagination } from './pagination';
-import { TypesPageResults } from './typesPageResults';
 
 /**
  * 
@@ -16,9 +16,9 @@ export interface TypesPage {
     'pagination'?: Pagination;
     /**
      * A list of issue type categories.
-     * @type {Array<TypesPageResults>}
+     * @type {Array<IssueType>}
      * @memberof TypesPage
      */
-    'results'?: Array<TypesPageResults>;
+    'results'?: Array<IssueType>;
 }
 
