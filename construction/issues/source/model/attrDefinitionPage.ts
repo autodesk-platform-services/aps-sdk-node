@@ -15,7 +15,7 @@ export interface AttrDefinitionPage {
      */
     'pagination'?: Pagination;
     /**
-     * A list of issue attribute definition.
+     * A list of issue attribute definitions.
      * @type {Array<AttrDefinition>}
      * @memberof AttrDefinitionPage
      */
