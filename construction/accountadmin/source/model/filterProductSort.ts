@@ -12,8 +12,8 @@
  */
 
 export const FilterProductSort = {
-    Asc: 'name asc',
-    Desc: 'name desc'
+    NameAsc: 'name asc',
+    NameDesc: 'name desc'
 } as const;
 
 export type FilterProductSort = typeof FilterProductSort[keyof typeof FilterProductSort];

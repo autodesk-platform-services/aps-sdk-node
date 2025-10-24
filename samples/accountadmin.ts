@@ -379,7 +379,7 @@ async function getUserProducts() {
             filterProjectId: ["1574261a-4095-400c-8a88-d4aeab1a1fa4"],
             filterKey: [FilterProductKey.Docs, FilterProductKey.Build],
             fields: [FilterProductField.Name, FilterProductField.Icon],
-            sort: [FilterProductSort.Desc],
+            sort: [FilterProductSort.NameDesc],
             limit: 2,
             offset: 2
         });
@@ -417,8 +417,8 @@ async function getUserRoles() {
 // createUser()
 // importUser()
 // updateUser()
-// getUserProducts()
-getUserRoles()
+getUserProducts()
+// getUserRoles()
 
 
 //---------------------------------- Project User -------------------------------------\\
