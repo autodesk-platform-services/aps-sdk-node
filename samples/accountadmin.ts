@@ -1,4 +1,4 @@
-import { AdminClient, BusinessUnitsPayload, BusinessUnits, Classification, Company, CompanyImport, CompanyPatchPayload, CompanyPayload, Currency, FilterTextMatch, Platform, ProductAccess, ProductKeys, Products, Project, ProjectPatch, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserDetails, ProjectUsersPage, ProjectUsersImportPayload, ProjectUsersImport, ProjectUsersUpdatePayload, ProjectsPage, Region, SortBy, Status, Timezone, Trade, User, UserImport, UserPatchPayload, UserPayload, UserProjectsPage, UserProjectFields, UserProjectSortBy, FilterUserProjectsAccessLevels, CompaniesPage, CompanyOrFilters, FilterCompanySort, FilterCompanyFields } from '@aps_sdk/construction-account-admin';
+import { AdminClient, BusinessUnitsPayload, BusinessUnits, Classification, Company, CompanyImport, CompanyPatchPayload, CompanyPayload, Currency, FilterTextMatch, Platform, ProductAccess, ProductKeys, Products, Project, ProjectPatch, ProjectPayload, ProjectUser, ProjectUserPayload, ProjectUserDetails, ProjectUsersPage, ProjectUsersImportPayload, ProjectUsersImport, ProjectUsersUpdatePayload, ProjectsPage, Region, SortBy, Status, Timezone, Trade, User, UserImport, UserPatchPayload, UserPayload, UserProjectsPage, UserProjectFields, UserProjectSortBy, FilterUserProjectsAccessLevels, CompaniesPage, CompanyOrFilters, FilterCompanySort, FilterCompanyFields, ProductsPage, RolesPage, FilterProductKey, FilterProductField, FilterProductSort, FilterRoleStatus, FilterRoleField, FilterRoleSort } from '@aps_sdk/construction-account-admin';
 import { Logger, LogLevel, SdkManager, SdkManagerBuilder, StaticAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager"
 import * as fs from "fs";
 import 'dotenv/config';
@@ -264,7 +264,7 @@ async function updateCompanyImage() {
 }
 
 // getCompanies()
-getCompaniesWithPagination()
+// getCompaniesWithPagination()
 // getCompany()
 // searchCompanies()
 // getProjectCompany()
@@ -371,11 +371,54 @@ async function updateUser() {
 }
 
 
+// Get user products
+async function getUserProducts() {
+    try {
+        const response: ProductsPage = await _adminApi.getUserProducts(accountId, accountUserId, {
+            region: Region.Us,
+            filterProjectId: ["1574261a-4095-400c-8a88-d4aeab1a1fa4"],
+            filterKey: [FilterProductKey.Docs, FilterProductKey.Build],
+            fields: [FilterProductField.Name, FilterProductField.Icon],
+            sort: [FilterProductSort.NameDesc],
+            limit: 2,
+            offset: 2
+        });
+        console.log(response);
+    }
+    catch (err) {
+        console.error(err.message);
+    }
+}
+
+// Get user roles
+async function getUserRoles() {
+    try {
+        const response: RolesPage = await _adminApi.getUserRoles(accountId, accountUserId, {
+            region: Region.Us,
+            filterProjectId: ["6cbd9e21-e4b5-425c-a448-c29fea20ca5e"],
+            filterStatus: [FilterRoleStatus.Active],
+            filterName: "Document Manager",
+            filterTextMatch: FilterTextMatch.Equals,
+            fields: [FilterRoleField.Name, FilterRoleField.Status],
+            sort: [FilterRoleSort.NameDesc],
+            limit: 2,
+            offset: 2
+        });
+        console.log(response);
+    }
+    catch (err) {
+        console.error(err.message);
+    }
+}
+
+
 // listUsers()
 // getUser()
 // createUser()
 // importUser()
 // updateUser()
+getUserProducts()
+// getUserRoles()
 
 
 //---------------------------------- Project User -------------------------------------\\
