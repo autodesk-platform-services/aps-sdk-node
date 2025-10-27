@@ -4,7 +4,7 @@
 
 [Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v4.0.0...v4.1.0)
 
-**Merged pull requests:**
+**Implemented enhancements:**
 
 - \[DAS 360\] - Add new acc admin endpoints [\#144](https://github.com/autodesk-platform-services/aps-sdk-node/pull/144) ([Arrotech](https://github.com/Arrotech))
 
