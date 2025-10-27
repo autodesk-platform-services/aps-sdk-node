@@ -5,19 +5,19 @@ import { Pagination } from './pagination';
 /**
  * 
  * @export
- * @interface TypesPage
+ * @interface IssueTypesPage
  */
-export interface TypesPage {
+export interface IssueTypesPage {
     /**
      * 
      * @type {Pagination}
-     * @memberof TypesPage
+     * @memberof IssueTypesPage
      */
     'pagination'?: Pagination;
     /**
      * A list of issue type categories.
      * @type {Array<IssueType>}
-     * @memberof TypesPage
+     * @memberof IssueTypesPage
      */
     'results'?: Array<IssueType>;
 }

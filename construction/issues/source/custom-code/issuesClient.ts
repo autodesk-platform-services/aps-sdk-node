@@ -1,6 +1,6 @@
 import { ApiResponse, ApsServiceRequestConfig, BaseClient, IAuthenticationProvider, SdkManager, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
 import { IssueAttributeDefinitionsApi, IssueAttributeMappingsApi, IssueCommentsApi, IssueRootCauseCategoriesApi, IssueTypesApi, IssuesApi, IssuesProfileApi } from "../api";
-import { Attachments, AttachmentsPayload, AttrDefinitionPage, AttrMappingPage, Comment, CommentsPage, CommentsPayload, DataType, Fields, Issue, IssuePayload, IssuesPage, Region, RootCauseCategoriesPage, SortBy, TypesPage, User } from "../model";
+import { Attachments, AttachmentsPayload, AttrDefinitionPage, AttrMappingPage, Comment, CommentsPage, CommentsPayload, DataType, Fields, Issue, IssuePayload, IssuesPage, Region, RootCauseCategoriesPage, SortBy, IssueTypesPage, User } from "../model";
 import { IssueAttachmentsApi } from "../api/issue-attachments-api";
 
 export class IssuesClient extends BaseClient {
@@ -293,7 +293,7 @@ export class IssuesClient extends BaseClient {
   * @throws {RequiredError}
   * @memberof IssueTypesApiInterface
   */
-  public async getIssuesTypes(projectId: string, optionalArgs?: { include?: string, limit?: number, offset?: number, filterUpdatedAt?: string, filterIsActive?: boolean, xAdsRegion?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<TypesPage> {
+  public async getIssuesTypes(projectId: string, optionalArgs?: { include?: string, limit?: number, offset?: number, filterUpdatedAt?: string, filterIsActive?: boolean, xAdsRegion?: Region, accessToken?: string, options?: ApsServiceRequestConfig }): Promise<IssueTypesPage> {
     if (!optionalArgs?.accessToken && !this.authenticationProvider) {
       throw new Error("Please provide a valid access token or an authentication provider");
     }

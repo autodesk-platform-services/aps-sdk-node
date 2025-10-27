@@ -36,7 +36,7 @@ export * from './rootCauseCategory';
 export * from './rootCauseCategoryRootCauses';
 export * from './sortBy';
 export * from './status';
-export * from './typesPage';
+export * from './issueTypesPage';
 export * from './user';
 export * from './userIssues';
 export * from './userIssuesFilter';
