@@ -1,5 +1,5 @@
 
-import { Comments } from './comments';
+import { Comment } from './comment';
 import { Pagination } from './pagination';
 
 /**
@@ -16,9 +16,9 @@ export interface CommentsPage {
     'pagination'?: Pagination;
     /**
      * 
-     * @type {Comments}
+     * @type {Array<Comment>}
      * @memberof CommentsPage
      */
-    'results'?: Comments;
+    'results'?: Array<Comment>;
 }
 

@@ -1,99 +1,100 @@
 
+import { IssueTypeSubtypes } from './issueTypeSubtypes';
 
 /**
  * 
  * @export
- * @interface TypesPageResultsSubtypes
+ * @interface IssueType
  */
-export interface TypesPageResultsSubtypes {
+export interface IssueType {
     /**
-     * The ID of the issue subtype.
+     * The ID of the issue type.
      * @type {string}
-     * @memberof TypesPageResultsSubtypes
+     * @memberof IssueType
      */
     'id'?: string;
     /**
-     * The ID of the parent issue type.
+     * Not relevant
      * @type {string}
-     * @memberof TypesPageResultsSubtypes
+     * @memberof IssueType
      */
-    'issueTypeId'?: string;
+    'containerId'?: string;
     /**
      * Max length: 250
      * @type {string}
-     * @memberof TypesPageResultsSubtypes
+     * @memberof IssueType
      */
     'title'?: string;
     /**
-     * 3 chars pin label.
-     * @type {string}
-     * @memberof TypesPageResultsSubtypes
-     */
-    'code'?: string;
-    /**
      * States whether the issue type is active.
      * @type {boolean}
-     * @memberof TypesPageResultsSubtypes
+     * @memberof IssueType
      */
     'isActive'?: boolean;
     /**
      * Not relevant
      * @type {number}
-     * @memberof TypesPageResultsSubtypes
+     * @memberof IssueType
      */
     'orderIndex'?: number;
     /**
      * Not relevant
-     * @type {boolean}
-     * @memberof TypesPageResultsSubtypes
-     */
-    'isReadOnly'?: boolean;
-    /**
-     * Not relevant
      * @type {Array<string>}
-     * @memberof TypesPageResultsSubtypes
+     * @memberof IssueType
      */
     'permittedActions'?: Array<string>;
     /**
      * Not relevant
      * @type {Array<string>}
-     * @memberof TypesPageResultsSubtypes
+     * @memberof IssueType
      */
     'permittedAttributes'?: Array<string>;
     /**
+     * A list of subtypes of the specific issue type.
+     * @type {Array<IssueTypeSubtypes>}
+     * @memberof IssueType
+     */
+    'subtypes'?: Array<IssueTypeSubtypes>;
+    /**
+     * Not relevant
+     * @type {string}
+     * @memberof IssueType
+     */
+    'statusSet'?: string;
+    /**
      * The unique identifier of the user who created the issue type.
      * @type {string}
-     * @memberof TypesPageResultsSubtypes
+     * @memberof IssueType
      */
     'createdBy'?: string;
     /**
      * The date and time the issue was created, in ISO8601 format.
      * @type {string}
-     * @memberof TypesPageResultsSubtypes
+     * @memberof IssueType
      */
     'createdAt'?: string;
     /**
      * The unique identifier of the user who updated the issue type.
      * @type {string}
-     * @memberof TypesPageResultsSubtypes
+     * @memberof IssueType
      */
     'updatedBy'?: string;
     /**
      * The date and time the issue type was updated, in ISO8601 format.
      * @type {string}
-     * @memberof TypesPageResultsSubtypes
+     * @memberof IssueType
      */
     'updatedAt'?: string;
     /**
      * The unique identifier of the user who deleted the issue type.
      * @type {string}
-     * @memberof TypesPageResultsSubtypes
+     * @memberof IssueType
      */
     'deletedBy'?: string;
     /**
      * The date and time the issue type was deleted, in ISO8601 format.
      * @type {string}
-     * @memberof TypesPageResultsSubtypes
+     * @memberof IssueType
      */
     'deletedAt'?: string;
 }

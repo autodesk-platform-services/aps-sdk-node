@@ -3,7 +3,7 @@ import type { AxiosPromise, AxiosInstance } from 'axios';
 import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, ConstructionIssuesApiError } from '../base';
-import { TypesPage } from '../model';
+import { IssueTypesPage } from '../model';
 import { Region } from '../model';
 /**
  * IssueTypesApi - axios parameter creator
@@ -103,7 +103,7 @@ export const IssueTypesApiFp = function(sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getIssuesTypes(accessToken: string, projectId: string, include?: string, limit?: number, offset?: number, filterUpdatedAt?: string, filterIsActive?: boolean, xAdsRegion?: Region, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TypesPage>> {
+        async getIssuesTypes(accessToken: string, projectId: string, include?: string, limit?: number, offset?: number, filterUpdatedAt?: string, filterIsActive?: boolean, xAdsRegion?: Region, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<IssueTypesPage>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getIssuesTypes(accessToken, projectId, include, limit, offset, filterUpdatedAt, filterIsActive, xAdsRegion,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
