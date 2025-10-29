@@ -1,10 +1,19 @@
 # Changelog
 
+## [v4.2.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v4.2.0) (2025-10-29)
+
+[Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v4.1.0...v4.2.0)
+
+**Implemented enhancements:**
+
+- \[DAS 363\] - Fixed Issues SDK Model Naming [\#146](https://github.com/autodesk-platform-services/aps-sdk-node/pull/146) ([srivastavarahull](https://github.com/srivastavarahull))
+- \[DAS 362\] - Added new endpoints to Acc Issues SDK [\#145](https://github.com/autodesk-platform-services/aps-sdk-node/pull/145) ([srivastavarahull](https://github.com/srivastavarahull))
+
 ## [v4.1.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v4.1.0) (2025-10-27)
 
 [Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v4.0.0...v4.1.0)
 
-**Implemented enhancements:**
+**Merged pull requests:**
 
 - \[DAS 360\] - Add new acc admin endpoints [\#144](https://github.com/autodesk-platform-services/aps-sdk-node/pull/144) ([Arrotech](https://github.com/Arrotech))
 
