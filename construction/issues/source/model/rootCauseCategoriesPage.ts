@@ -1,6 +1,6 @@
 
 import { Pagination } from './pagination';
-import { RootCauseCategoriesPageResults } from './rootCauseCategoriesPageResults';
+import { RootCauseCategory } from './rootCauseCategory';
 
 /**
  * The pagination object.
@@ -16,9 +16,9 @@ export interface RootCauseCategoriesPage {
     'pagination'?: Pagination;
     /**
      * A list of issue root cause categories.
-     * @type {Array<RootCauseCategoriesPageResults>}
+     * @type {Array<RootCauseCategory>}
      * @memberof RootCauseCategoriesPage
      */
-    'results'?: Array<RootCauseCategoriesPageResults>;
+    'results'?: Array<RootCauseCategory>;
 }
 

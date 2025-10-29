@@ -3,68 +3,68 @@
 /**
  * 
  * @export
- * @interface Comments
+ * @interface Comment
  */
-export interface Comments {
+export interface Comment {
     /**
      * The comment ID.
      * @type {string}
-     * @memberof Comments
+     * @memberof Comment
      */
     'id'?: string;
     /**
      * The comment content. A \n indicates a new line, e.g.: Hey\nAharon will be a 2 lines comment.
  * Max length: 10000
      * @type {string}
-     * @memberof Comments
+     * @memberof Comment
      */
     'body'?: string;
     /**
      * The date and time the custom attribute was created, in the following format: YYYY-MM-DDThh:mm:ss.sz.
      * @type {string}
-     * @memberof Comments
+     * @memberof Comment
      */
     'createdAt'?: string;
     /**
      * The Autodesk ID of the user who created the comment.
      * @type {string}
-     * @memberof Comments
+     * @memberof Comment
      */
     'createdBy'?: string;
     /**
      * Not relevant
      * @type {string}
-     * @memberof Comments
+     * @memberof Comment
      */
     'updatedAt'?: string;
     /**
      * Not relevant
      * @type {string}
-     * @memberof Comments
+     * @memberof Comment
      */
     'deletedAt'?: string;
     /**
      * Not relevant
      * @type {string}
-     * @memberof Comments
+     * @memberof Comment
      */
     'clientCreatedAt'?: string;
     /**
      * Not relevant
      * @type {string}
-     * @memberof Comments
+     * @memberof Comment
      */
     'clientUpdatedAt'?: string;
     /**
      * Not relevant
      * @type {Array<string>}
-     * @memberof Comments
+     * @memberof Comment
      */
     'permittedActions'?: Array<string>;
     /**
      * Not relevant
      * @type {Array<string>}
-     * @memberof Comments
+     * @memberof Comment
      */
     'permittedAttributes'?: Array<string>;
 }
