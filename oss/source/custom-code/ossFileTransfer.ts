@@ -52,7 +52,7 @@ export class OSSFileTransfer implements IOSSFileTransfer {
     }
   }
 
-  public async upload(bucketKey: string, objectKey: string, sourceToUpload: Buffer, accessToken: string, cancellationToken: AbortController,requestIdPrefix: string = '', onProgress?: (percentCompleted: number) => void): Promise<ApiResponse> {
+  public async upload(bucketKey: string, objectKey: string, sourceToUpload: Buffer, accessToken: string, cancellationToken: AbortController,requestIdPrefix: string = '', xAdsMetaContentType?: string, xAdsMetaContentDisposition?: string, xAdsMetaContentEncoding?: string, xAdsMetaCacheControl?: string, xAdsUserDefinedMetadata?: string, onProgress?: (percentCompleted: number) => void): Promise<ApiResponse> {
     const requestId: any = await this.handleRequestId(requestIdPrefix, bucketKey, objectKey);
     const retryCount: number = this.configuration.getRetryCount();
     this.logger.logDebug(`${requestId} Config retry setting was: ${retryCount}`);
@@ -121,7 +121,13 @@ export class OSSFileTransfer implements IOSSFileTransfer {
       "application/json",
       {
         uploadKey: uploadKey
-      } as Completes3uploadBody);
+      } as Completes3uploadBody,
+      xAdsMetaContentType,
+      xAdsMetaContentDisposition,
+      xAdsMetaContentEncoding,
+      xAdsMetaCacheControl,
+      xAdsUserDefinedMetadata
+  );
     onProgress?.(100);
     return completeResponse;
   }
