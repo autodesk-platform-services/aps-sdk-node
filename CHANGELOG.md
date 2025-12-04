@@ -1,5 +1,22 @@
 # Changelog
 
+## [v4.3.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v4.3.0) (2025-12-04)
+
+[Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v4.2.0...v4.3.0)
+
+**Implemented enhancements:**
+
+- \[DAS 358\] - Added optional parameters to upload function [\#141](https://github.com/autodesk-platform-services/aps-sdk-node/pull/141) ([srivastavarahull](https://github.com/srivastavarahull))
+
+**Fixed bugs:**
+
+- Add 'PathInProject' property to 'ItemAttributes' class. [\#142](https://github.com/autodesk-platform-services/aps-sdk-node/pull/142) ([tylerwarner33](https://github.com/tylerwarner33))
+
+**Merged pull requests:**
+
+- \[AUTO\]: Update CHANGELOG [\#140](https://github.com/autodesk-platform-services/aps-sdk-node/pull/140) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Update Main branch with changes to ACC Issues and WebHooks. [\#139](https://github.com/autodesk-platform-services/aps-sdk-node/pull/139) ([sajith-subramanian](https://github.com/sajith-subramanian))
+
 ## [v4.2.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v4.2.0) (2025-10-29)
 
 [Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v4.1.0...v4.2.0)
@@ -7,6 +24,9 @@
 **Implemented enhancements:**
 
 - \[DAS 363\] - Fixed Issues SDK Model Naming [\#146](https://github.com/autodesk-platform-services/aps-sdk-node/pull/146) ([srivastavarahull](https://github.com/srivastavarahull))
+
+**Merged pull requests:**
+
 - \[DAS 362\] - Added new endpoints to Acc Issues SDK [\#145](https://github.com/autodesk-platform-services/aps-sdk-node/pull/145) ([srivastavarahull](https://github.com/srivastavarahull))
 
 ## [v4.1.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v4.1.0) (2025-10-27)
