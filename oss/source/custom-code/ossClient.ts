@@ -146,7 +146,7 @@ export class OssClient extends BaseClient {
      /**
     * @deprecated Use the `uploadObject` method instead.
     */
-    public async uploadObjectAsync(bucketKey: string, objectKey: string, sourceToUpload: Buffer | string, optionalArgs?: { cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<ObjectDetails> {
+    public async uploadObjectAsync(bucketKey: string, objectKey: string, sourceToUpload: Buffer | string, optionalArgs?: { cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string,xAdsMetaContentType?: string, xAdsMetaContentDisposition?: string, xAdsMetaContentEncoding?: string, xAdsMetaCacheControl?: string, xAdsUserDefinedMetadata?: string, onProgress?: (percentCompleted: number) => void }): Promise<ObjectDetails> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
@@ -156,10 +156,10 @@ export class OssClient extends BaseClient {
         var response;
         if (typeof sourceToUpload === 'string') {
             var buffer = await fs.readFile(sourceToUpload);
-            response = await this.ossFileTransfer.upload(bucketKey, objectKey, buffer, optionalArgs?.accessToken, optionalArgs?.cancellationToken || new AbortController, optionalArgs?.requestIdPrefix, optionalArgs?.onProgress);
+            response = await this.ossFileTransfer.upload(bucketKey, objectKey, buffer, optionalArgs?.accessToken, optionalArgs?.cancellationToken || new AbortController, optionalArgs?.requestIdPrefix, optionalArgs?.xAdsMetaContentType, optionalArgs?.xAdsMetaContentDisposition, optionalArgs?.xAdsMetaContentEncoding, optionalArgs?.xAdsMetaCacheControl, optionalArgs?.xAdsUserDefinedMetadata, optionalArgs?.onProgress);
         }
         else {
-            response = await this.ossFileTransfer.upload(bucketKey, objectKey, sourceToUpload, optionalArgs?.accessToken, optionalArgs?.cancellationToken || new AbortController, optionalArgs?.requestIdPrefix, optionalArgs?.onProgress);
+            response = await this.ossFileTransfer.upload(bucketKey, objectKey, sourceToUpload, optionalArgs?.accessToken, optionalArgs?.cancellationToken || new AbortController, optionalArgs?.requestIdPrefix, optionalArgs?.xAdsMetaContentType, optionalArgs?.xAdsMetaContentDisposition, optionalArgs?.xAdsMetaContentEncoding, optionalArgs?.xAdsMetaCacheControl, optionalArgs?.xAdsUserDefinedMetadata, optionalArgs?.onProgress);
         }
         return response.content;
     }
@@ -177,7 +177,7 @@ export class OssClient extends BaseClient {
      * @throws {RequiredError}
      * @memberof OSSApiInterface
      */
-    public async uploadObject(bucketKey: string, objectKey: string, sourceToUpload: Buffer | string, optionalArgs?: { cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string, onProgress?: (percentCompleted: number) => void }): Promise<ObjectDetails> {
+    public async uploadObject(bucketKey: string, objectKey: string, sourceToUpload: Buffer | string, optionalArgs?: { cancellationToken?: AbortController, requestIdPrefix?: string, accessToken?: string,  xAdsMetaContentType?: string, xAdsMetaContentDisposition?: string, xAdsMetaContentEncoding?: string, xAdsMetaCacheControl?: string, xAdsUserDefinedMetadata?: string, onProgress?: (percentCompleted: number) => void }): Promise<ObjectDetails> {
         if (!optionalArgs?.accessToken && !this.authenticationProvider) {
             throw new Error("Please provide a valid access token or an authentication provider");
         }
@@ -187,10 +187,10 @@ export class OssClient extends BaseClient {
         var response;
         if (typeof sourceToUpload === 'string') {
             var buffer = await fs.readFile(sourceToUpload);
-            response = await this.ossFileTransfer.upload(bucketKey, objectKey, buffer, optionalArgs?.accessToken, optionalArgs?.cancellationToken || new AbortController, optionalArgs?.requestIdPrefix, optionalArgs?.onProgress);
+            response = await this.ossFileTransfer.upload(bucketKey, objectKey, buffer, optionalArgs?.accessToken, optionalArgs?.cancellationToken || new AbortController, optionalArgs?.requestIdPrefix, optionalArgs?.xAdsMetaContentType, optionalArgs?.xAdsMetaContentDisposition, optionalArgs?.xAdsMetaContentEncoding, optionalArgs?.xAdsMetaCacheControl, optionalArgs?.xAdsUserDefinedMetadata, optionalArgs?.onProgress);
         }
         else {
-            response = await this.ossFileTransfer.upload(bucketKey, objectKey, sourceToUpload, optionalArgs?.accessToken, optionalArgs?.cancellationToken || new AbortController, optionalArgs?.requestIdPrefix, optionalArgs?.onProgress);
+            response = await this.ossFileTransfer.upload(bucketKey, objectKey, sourceToUpload, optionalArgs?.accessToken, optionalArgs?.cancellationToken || new AbortController, optionalArgs?.requestIdPrefix, optionalArgs?.xAdsMetaContentType, optionalArgs?.xAdsMetaContentDisposition, optionalArgs?.xAdsMetaContentEncoding, optionalArgs?.xAdsMetaCacheControl, optionalArgs?.xAdsUserDefinedMetadata, optionalArgs?.onProgress);
         }
         return response.content;
     }
