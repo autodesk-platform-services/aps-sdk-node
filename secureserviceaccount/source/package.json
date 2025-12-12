@@ -1,0 +1,37 @@
+{
+  "name": "@aps_sdk/secure-service-account",
+  "version": "1.0.0",
+  "description": "Client sdk for secure-service-account API",
+  "license": "MIT",
+  "keywords": [
+    "axios",
+    "typescript",
+    "secure-service-account"
+  ],
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "module": "./dist/esm/index.js",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc && tsc -p tsconfig.esm.json",
+    "lint": "npx eslint .",
+    "prettier-format": "prettier --config .prettierrc \"./**/*.ts\" --write",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "@aps_sdk/autodesk-sdkmanager": "^1.0.0",
+    "axios": "^1.6.2",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.7.0",
+    "@types/eslint__js": "^8.42.3",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/node": "^20.3.2",
+    "eslint": "^8.57.0",
+    "eslint-plugin-unicorn": "^54.0.0",
+    "prettier": "^2.8.8",
+    "typescript": "^5.1.5",
+    "typescript-eslint": "^7.16.1"
+  }
+}
