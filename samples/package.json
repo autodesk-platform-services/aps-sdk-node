@@ -11,7 +11,7 @@
   "dependencies": {
     "@aps_sdk/authentication": "^1.0.0",
     "@aps_sdk/autodesk-sdkmanager": "^1.0.0",
-    "@aps_sdk/construction-account-admin": "^2.1.0-beta.1",
+    "@aps_sdk/construction-account-admin": "^1.2.1",
     "@aps_sdk/construction-issues": "^3.0.0-beta.1",
     "@aps_sdk/data-management": "^1.1.3",
     "@aps_sdk/model-derivative": "^1.2.0",
