@@ -53,7 +53,7 @@ The Developer Portal has everything APS:
 
 [![npm package](https://img.shields.io/badge/npm-@aps__sdk/webhooks-blue.svg)](https://www.npmjs.com/package/@aps_sdk/webhooks)
 [![npm version](https://img.shields.io/npm/v/@aps_sdk/webhooks.svg?label=Release&color=brightgreen)](https://www.npmjs.com/package/@aps_sdk/webhooks)
-[![npm beta version](https://img.shields.io/npm/v/@aps_sdk/webhooks.svg?label=Latest)](https://www.npmjs.com/package/@aps_sdk/autodesk-sdkmanager?activeTab=versions)
+[![npm beta version](https://img.shields.io/npm/v/@aps_sdk/webhooks.svg?label=Latest)](https://www.npmjs.com/package/@aps_sdk/webhooks?activeTab=versions)
 
 ## Contributions
 
