@@ -1,12 +1,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { AxiosPromise, AxiosInstance } from 'axios';
-import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
-import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { COLLECTION_FORMATS, RequestArgs, BaseApi, RequiredError, DataManagementApiError } from '../base';
-import { Command } from '../model';
-import { CommandPayload } from '../model';
+import { ApiResponse, ApsServiceRequestConfig, IApsConfiguration, SdkManager } from "@aps_sdk/autodesk-sdkmanager";
+import type { AxiosInstance, AxiosPromise } from 'axios';
+import { BaseApi, DataManagementApiError, RequestArgs, RequiredError } from '../base';
+import { assertParamExists, createRequestFunction, serializeDataIfNeeded, setBearerAuthToObject, setSearchParams, toPathString } from '../common';
+import { Command, CommandPayload } from '../model';
 /**
  * CommandsApi - axios parameter creator
  * @export
@@ -14,11 +13,23 @@ import { CommandPayload } from '../model';
 export const CommandsApiAxiosParamCreator = function (apsConfiguration?: IApsConfiguration) {
     return {
         /**
-         * Executes the command that you specify in the request body. Commands enable you to perform general operations on multiple resources.  For example, you can check whether a user has permission to delete a collection of versions, items, and folders.  The command as well as the input data for the command are specified using the ``data`` object of the request body.   For more information about commands see the [Commands](/en/docs/data/v2/overview/commands/) section in the Developer\'s Guide. 
+         * Executes the command that you specify in the request body. Commands enable you to perform general operations on multiple resources.
+	 * 
+	 * For example, you can check whether a user has permission to delete a collection of versions, items, and folders.
+	 * 
+	 * The command as well as the input data for the command are specified using the ``data`` object of the request body. 
+	 * 
+	 * For more information about commands see the [Commands](/en/docs/data/v2/overview/commands/) section in the Developer's Guide.
+	 * 
          * @summary Execute a Command
-         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
+         * @param {string} projectId The unique identifier of a project. 
+	 * 
+	 * For BIM 360 Docs, a Data Management Hub ID corresponds to an Account ID. For Forma, a Data Management Hub ID corresponds to a Forma Hub ID. To convert either to a Data Management Hub ID, prefix the ID with ``b.`` For example, a BIM 360 Account ID or Forma Hub ID of ``c8b0c73d-3ae9`` translates to a Data Management Hub ID of ``b.c8b0c73d-3ae9``.
+	 * 
+	 * Similarly, to convert BIM 360 or Forma Project IDs to Data Management Project IDs, prefix them with ``b.`` For example, a Project ID of ``c8b0c73d-3ae9`` becomes ``b.c8b0c73d-3ae9``.
+	 * 
+         * @param {CommandPayload} commandPayload 
          * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-         * @param {CommandPayload} [commandPayload] The request body\&#39;s &#x60;&#x60;data&#x60;&#x60; object defines the command to execute and contains any required input data.
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -49,7 +60,7 @@ export const CommandsApiAxiosParamCreator = function (apsConfiguration?: IApsCon
             localVarHeaderParameter['Content-Type'] = 'application/vnd.api+json';
             localVarHeaderParameter['User-Agent'] = 'APS SDK/DATA-MANAGEMENT/TypeScript/1.0.0';
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(commandPayload, localVarRequestOptions, apsConfiguration)
 
@@ -69,11 +80,23 @@ export const CommandsApiFp = function(sdkManager?: SdkManager) {
     const localVarAxiosParamCreator = CommandsApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**
-         * Executes the command that you specify in the request body. Commands enable you to perform general operations on multiple resources.  For example, you can check whether a user has permission to delete a collection of versions, items, and folders.  The command as well as the input data for the command are specified using the ``data`` object of the request body.   For more information about commands see the [Commands](/en/docs/data/v2/overview/commands/) section in the Developer\'s Guide. 
+         * Executes the command that you specify in the request body. Commands enable you to perform general operations on multiple resources.
+	 * 
+	 * For example, you can check whether a user has permission to delete a collection of versions, items, and folders.
+	 * 
+	 * The command as well as the input data for the command are specified using the ``data`` object of the request body. 
+	 * 
+	 * For more information about commands see the [Commands](/en/docs/data/v2/overview/commands/) section in the Developer's Guide.
+	 * 
          * @summary Execute a Command
-         * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
+         * @param {string} projectId The unique identifier of a project. 
+	 * 
+	 * For BIM 360 Docs, a Data Management Hub ID corresponds to an Account ID. For Forma, a Data Management Hub ID corresponds to a Forma Hub ID. To convert either to a Data Management Hub ID, prefix the ID with ``b.`` For example, a BIM 360 Account ID or Forma Hub ID of ``c8b0c73d-3ae9`` translates to a Data Management Hub ID of ``b.c8b0c73d-3ae9``.
+	 * 
+	 * Similarly, to convert BIM 360 or Forma Project IDs to Data Management Project IDs, prefix them with ``b.`` For example, a Project ID of ``c8b0c73d-3ae9`` becomes ``b.c8b0c73d-3ae9``.
+	 * 
+         * @param {CommandPayload} commandPayload 
          * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-         * @param {CommandPayload} [commandPayload] The request body\&#39;s &#x60;&#x60;data&#x60;&#x60; object defines the command to execute and contains any required input data.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -91,11 +114,23 @@ export const CommandsApiFp = function(sdkManager?: SdkManager) {
  */
 export interface CommandsApiInterface {
     /**
-     * Executes the command that you specify in the request body. Commands enable you to perform general operations on multiple resources.  For example, you can check whether a user has permission to delete a collection of versions, items, and folders.  The command as well as the input data for the command are specified using the ``data`` object of the request body.   For more information about commands see the [Commands](/en/docs/data/v2/overview/commands/) section in the Developer\'s Guide. 
+     * Executes the command that you specify in the request body. Commands enable you to perform general operations on multiple resources.
+	 * 
+	 * For example, you can check whether a user has permission to delete a collection of versions, items, and folders.
+	 * 
+	 * The command as well as the input data for the command are specified using the ``data`` object of the request body. 
+	 * 
+	 * For more information about commands see the [Commands](/en/docs/data/v2/overview/commands/) section in the Developer's Guide.
+	 * 
      * @summary Execute a Command
-     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
+     * @param {string} projectId The unique identifier of a project. 
+	 * 
+	 * For BIM 360 Docs, a Data Management Hub ID corresponds to an Account ID. For Forma, a Data Management Hub ID corresponds to a Forma Hub ID. To convert either to a Data Management Hub ID, prefix the ID with ``b.`` For example, a BIM 360 Account ID or Forma Hub ID of ``c8b0c73d-3ae9`` translates to a Data Management Hub ID of ``b.c8b0c73d-3ae9``.
+	 * 
+	 * Similarly, to convert BIM 360 or Forma Project IDs to Data Management Project IDs, prefix them with ``b.`` For example, a Project ID of ``c8b0c73d-3ae9`` becomes ``b.c8b0c73d-3ae9``.
+	 * 
+     * @param {CommandPayload} commandPayload 
      * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-     * @param {CommandPayload} [commandPayload] The request body\&#39;s &#x60;&#x60;data&#x60;&#x60; object defines the command to execute and contains any required input data.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -114,11 +149,23 @@ export interface CommandsApiInterface {
 export class CommandsApi extends BaseApi implements CommandsApiInterface {
     private logger = this.sdkManager.logger;
     /**
-     * Executes the command that you specify in the request body. Commands enable you to perform general operations on multiple resources.  For example, you can check whether a user has permission to delete a collection of versions, items, and folders.  The command as well as the input data for the command are specified using the ``data`` object of the request body.   For more information about commands see the [Commands](/en/docs/data/v2/overview/commands/) section in the Developer\'s Guide. 
+     * Executes the command that you specify in the request body. Commands enable you to perform general operations on multiple resources.
+	 * 
+	 * For example, you can check whether a user has permission to delete a collection of versions, items, and folders.
+	 * 
+	 * The command as well as the input data for the command are specified using the ``data`` object of the request body. 
+	 * 
+	 * For more information about commands see the [Commands](/en/docs/data/v2/overview/commands/) section in the Developer's Guide.
+	 * 
      * @summary Execute a Command
-     * @param {string} projectId The unique identifier of a project.   For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with &#x60;&#x60;b.&#x60;&#x60;. For example, an Account ID of &#x60;&#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60;&#x60; translates to a hub ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;.  Similarly, to convert an ACC or BIM 360 project ID to a Data Management project ID prefix the ACC or BIM 360 project ID with &#x60;&#x60;b.&#x60;&#x60;. For example, a project ID of &#x60;&#x60;c8b0c73d-3ae9&#x60;&#x60; translates to a project ID of &#x60;&#x60;b.c8b0c73d-3ae9&#x60;&#x60;. 
+     * @param {string} projectId The unique identifier of a project. 
+	 * 
+	 * For BIM 360 Docs, a Data Management Hub ID corresponds to an Account ID. For Forma, a Data Management Hub ID corresponds to a Forma Hub ID. To convert either to a Data Management Hub ID, prefix the ID with ``b.`` For example, a BIM 360 Account ID or Forma Hub ID of ``c8b0c73d-3ae9`` translates to a Data Management Hub ID of ``b.c8b0c73d-3ae9``.
+	 * 
+	 * Similarly, to convert BIM 360 or Forma Project IDs to Data Management Project IDs, prefix them with ``b.`` For example, a Project ID of ``c8b0c73d-3ae9`` becomes ``b.c8b0c73d-3ae9``.
+	 * 
+     * @param {CommandPayload} commandPayload 
      * @param {string} [xUserId] In a two-legged authentication context, an app has access to all users specified by the administrator in the SaaS integrations UI. By providing this header, the API call will be limited to act only on behalf of the specified user.
-     * @param {CommandPayload} [commandPayload] The request body\&#39;s &#x60;&#x60;data&#x60;&#x60; object defines the command to execute and contains any required input data.
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
