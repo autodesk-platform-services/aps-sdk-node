@@ -1,6 +1,6 @@
-import { Systems, Events, HookPayload, Hook, Hooks, HookDetails, ModifyHookPayload, TokenPayload, Token, Region, StatusFilter, Sort } from '../model'; 
-import { SdkManager, ApsServiceRequestConfig, SdkManagerBuilder, IAuthenticationProvider, BaseClient } from '@aps_sdk/autodesk-sdkmanager';
-import { HooksApi, TokensApi } from '../api'; 
+import { ApsServiceRequestConfig, BaseClient, IAuthenticationProvider, SdkManager, SdkManagerBuilder } from '@aps_sdk/autodesk-sdkmanager';
+import { HooksApi, TokensApi } from '../api';
+import { Events, Hook, HookDetails, HookPayload, Hooks, ModifyHookPayload, Region, Sort, StatusFilter, Systems, Token, TokenPayload } from '../model';
 
 
 
@@ -29,17 +29,12 @@ export class WebhooksClient extends BaseClient {
       * 
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
-      * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``AUS`` - Data center dedicated to serve the Australia region.
       * - ``CAN`` - Data center dedicated to serve the Canada region.
       * - ``DEU`` - Data center dedicated to serve the Germany region.
       * - ``IND`` - Data center dedicated to serve the India region.
       * - ``JPN`` - Data center dedicated to serve the Japan region.
       * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
-      * 
-      * **Note:** 
-      * 
-      * 1. Beta features are subject to change. Please avoid using them in production environments.
-      * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
       * 
       * @param {*} [optionalArgs.options] Override http request option.
       * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
@@ -65,17 +60,12 @@ export class WebhooksClient extends BaseClient {
       * 
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
-      * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``AUS`` - Data center dedicated to serve the Australia region.
       * - ``CAN`` - Data center dedicated to serve the Canada region.
       * - ``DEU`` - Data center dedicated to serve the Germany region.
       * - ``IND`` - Data center dedicated to serve the India region.
       * - ``JPN`` - Data center dedicated to serve the Japan region.
       * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
-      * 
-      * **Note:** 
-      * 
-      * 1. Beta features are subject to change. Please avoid using them in production environments.
-      * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
       * 
       * @param {*} [optionalArgs.options] Override http request option.
       * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
@@ -102,17 +92,12 @@ export class WebhooksClient extends BaseClient {
       * 
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
-      * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``AUS`` - Data center dedicated to serve the Australia region.
       * - ``CAN`` - Data center dedicated to serve the Canada region.
       * - ``DEU`` - Data center dedicated to serve the Germany region.
       * - ``IND`` - Data center dedicated to serve the India region.
       * - ``JPN`` - Data center dedicated to serve the Japan region.
       * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
-      * 
-      * **Note:** 
-      * 
-      * 1. Beta features are subject to change. Please avoid using them in production environments.
-      * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
       * 
       * @param {*} [optionalArgs.options] Override http request option.
       * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
@@ -152,19 +137,14 @@ export class WebhooksClient extends BaseClient {
       * 
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
-      * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``AUS`` - Data center dedicated to serve the Australia region.
       * - ``CAN`` - Data center dedicated to serve the Canada region.
       * - ``DEU`` - Data center dedicated to serve the Germany region.
       * - ``IND`` - Data center dedicated to serve the India region.
       * - ``JPN`` - Data center dedicated to serve the Japan region.
       * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
       * 
-      * **Note:** 
-      * 
-      * 1. Beta features are subject to change. Please avoid using them in production environments.
-      * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
-      * 
-      * @param {*} [optionalArgs.options] Override http request option.
+       * @param {*} [optionalArgs.options] Override http request option.
       * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
       * @throws {@link WebhooksApiError}
       */
@@ -189,17 +169,12 @@ export class WebhooksClient extends BaseClient {
       * 
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
-      * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``AUS`` - Data center dedicated to serve the Australia region.
       * - ``CAN`` - Data center dedicated to serve the Canada region.
       * - ``DEU`` - Data center dedicated to serve the Germany region.
       * - ``IND`` - Data center dedicated to serve the India region.
       * - ``JPN`` - Data center dedicated to serve the Japan region.
       * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
-      * 
-      * **Note:** 
-      * 
-      * 1. Beta features are subject to change. Please avoid using them in production environments.
-      * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
       * 
       * @param {*} [optionalArgs.options] Override http request option.
       * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
@@ -232,16 +207,13 @@ export class WebhooksClient extends BaseClient {
       * 
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
-      * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``AUS`` - Data center dedicated to serve the Australia region.
       * - ``CAN`` - Data center dedicated to serve the Canada region.
       * - ``DEU`` - Data center dedicated to serve the Germany region.
       * - ``IND`` - Data center dedicated to serve the India region.
       * - ``JPN`` - Data center dedicated to serve the Japan region.
       * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
       * 
-      * **Note:** 
-      * 
-      * 1. Beta features are subject to change. Please avoid using them in production environments.
       * @param {*} [optionalArgs.options] Override http request option.
       * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
       * @throws {@link WebhooksApiError}
@@ -268,17 +240,12 @@ export class WebhooksClient extends BaseClient {
       * 
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
-      * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``AUS`` - Data center dedicated to serve the Australia region.
       * - ``CAN`` - Data center dedicated to serve the Canada region.
       * - ``DEU`` - Data center dedicated to serve the Germany region.
       * - ``IND`` - Data center dedicated to serve the India region.
       * - ``JPN`` - Data center dedicated to serve the Japan region.
       * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
-      * 
-      * **Note:** 
-      * 
-      * 1. Beta features are subject to change. Please avoid using them in production environments.
-      * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
       * 
       * @param {string} [optionalArgs.scopeName] Filters retrieved webhooks by the scope name used to create hook. For example : ``folder``.  If this parameter is not specified, the filter is not applied.
       * @param {string} [optionalArgs.pageState] Base64 encoded string to fetch the next page of the list of webhooks. If you do not provide this parameter, the first page of results is returned. Use the ``next`` value from the previous response to fetch subsequent pages.
@@ -322,17 +289,12 @@ export class WebhooksClient extends BaseClient {
       * 
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
-      * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``AUS`` - Data center dedicated to serve the Australia region.
       * - ``CAN`` - Data center dedicated to serve the Canada region.
       * - ``DEU`` - Data center dedicated to serve the Germany region.
       * - ``IND`` - Data center dedicated to serve the India region.
       * - ``JPN`` - Data center dedicated to serve the Japan region.
       * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
-      * 
-      * **Note:** 
-      * 
-      * 1. Beta features are subject to change. Please avoid using them in production environments.
-      * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
       * 
       * @param {*} [optionalArgs.options] Override http request option.
       * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
@@ -370,17 +332,12 @@ export class WebhooksClient extends BaseClient {
       * 
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
-      * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``AUS`` - Data center dedicated to serve the Australia region.
       * - ``CAN`` - Data center dedicated to serve the Canada region.
       * - ``DEU`` - Data center dedicated to serve the Germany region.
       * - ``IND`` - Data center dedicated to serve the India region.
       * - ``JPN`` - Data center dedicated to serve the Japan region.
       * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
-      * 
-      * **Note:** 
-      * 
-      * 1. Beta features are subject to change. Please avoid using them in production environments.
-      * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
       * 
       * @param {*} [optionalArgs.options] Override http request option.
       * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
@@ -395,7 +352,7 @@ export class WebhooksClient extends BaseClient {
         const response = await this.hooksApi.patchSystemEventHook(optionalArgs?.accessToken, system, event, hookId, optionalArgs?.region, null, modifyHookPayload, optionalArgs?.options);
         return response.content;
     }
-    
+
     //#region TokenApi
     /**
       * Sets a secret token to verify the authenticity of webhook payloads. 
@@ -416,17 +373,12 @@ export class WebhooksClient extends BaseClient {
       * 
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
-      * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``AUS`` - Data center dedicated to serve the Australia region.
       * - ``CAN`` - Data center dedicated to serve the Canada region.
       * - ``DEU`` - Data center dedicated to serve the Germany region.
       * - ``IND`` - Data center dedicated to serve the India region.
       * - ``JPN`` - Data center dedicated to serve the Japan region.
       * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
-      * 
-      * **Note:** 
-      * 
-      * 1. Beta features are subject to change. Please avoid using them in production environments.
-      * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
       * 
       * @param {*} [optionalArgs.options] Override http request option.
       * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
@@ -453,17 +405,12 @@ export class WebhooksClient extends BaseClient {
       * 
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
-      * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``AUS`` - Data center dedicated to serve the Australia region.
       * - ``CAN`` - Data center dedicated to serve the Canada region.
       * - ``DEU`` - Data center dedicated to serve the Germany region.
       * - ``IND`` - Data center dedicated to serve the India region.
       * - ``JPN`` - Data center dedicated to serve the Japan region.
       * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
-      * 
-      * **Note:** 
-      * 
-      * 1. Beta features are subject to change. Please avoid using them in production environments.
-      * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
       * 
       * @param {*} [optionalArgs.options] Override http request option.
       * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
@@ -499,17 +446,12 @@ export class WebhooksClient extends BaseClient {
       * 
       * - ``US`` - (Default) Data center dedicated to serve the United States region.
       * - ``EMEA`` - Data center dedicated to serve the European Union, Middle East, and Africa regions.
-      * - ``AUS`` - (Beta) Data center dedicated to serve the Australia region.
+      * - ``AUS`` - Data center dedicated to serve the Australia region.
       * - ``CAN`` - Data center dedicated to serve the Canada region.
       * - ``DEU`` - Data center dedicated to serve the Germany region.
       * - ``IND`` - Data center dedicated to serve the India region.
       * - ``JPN`` - Data center dedicated to serve the Japan region.
       * - ``GBR`` - Data center dedicated to serve the United Kingdom region.
-      * 
-      * **Note:** 
-      * 
-      * 1. Beta features are subject to change. Please avoid using them in production environments.
-      * 2. You can also use the ``x-ads-region`` header to specify the region. If you specify the ``region`` query string parameter as well as the ``x-ads-region`` header, the ``x-ads-region`` header takes precedence.
       * 
       * @param {*} [optionalArgs.options] Override http request option.
       * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().

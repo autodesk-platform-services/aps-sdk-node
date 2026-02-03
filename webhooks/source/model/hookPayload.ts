@@ -45,13 +45,13 @@ export interface HookPayload {
      */
     'filter'?: string;
     /**
-     * The ID of the hub that contains the entity that you want to monitor. Specify this attribute if the user calling this operation is a member of a large number of projects.  For BIM 360 Docs and ACC Docs, a hub ID corresponds to an Account ID. To convert a BIM 360 or ACC Account ID to a hub ID, prefix the Account ID with ``b.``. For example, an Account ID of ```c8b0c73d-3ae9``` translates to a hub ID of ``b.c8b0c73d-3ae9``.
+     * The ID of the hub that contains the entity that you want to monitor. Specify this attribute if the user calling this operation is a member of a large number of projects. For BIM 360 a Data Management Hub ID corresponds to an Account ID. For Forma, a Data Management Hub ID corresponds to a Forma Hub ID. To convert either to a Data Management Hub ID, prefix the ID with `b.`. For example, a BIM 360 Account ID or Forma Hub ID of ``c8b0c73d-3ae9`` translates to a Data Management Hub ID of `b.c8b0c73d-3ae9`.
      * @type {string}
      * @memberof HookPayload
      */
     'hubId'?: string;
     /**
-     * The ID of the project that contains the entity that you want to monitor Specify this attribute if the user calling this operation is a member of a large number of projects.  BIM 360 and ACC project IDs are different to Data Management project IDs. To convert a BIM 360 and ACC project IDs to  Data Management project IDs, prefix the BIM 360 or ACC Project ID with ``b.``. For example, a project ID of ``c8b0c73d-3ae9`` translates to a project ID of ``b.c8b0c73d-3ae9``.
+     * The ID of the project that contains the entity that you want to monitor Specify this attribute if the user calling this operation is a member of a large number of projects. BIM 360 and Forma project IDs are different from Data Management Project IDs. To convert BIM 360 or Forma Project IDs to Data Management Project IDs, prefix them with `b.`. For example, a Project ID of `c8b0c73d-3ae9` becomes `b.c8b0c73d-3ae9`.
      * @type {string}
      * @memberof HookPayload
      */

@@ -5,7 +5,7 @@
  *     
  * - ``US`` - Data center for the US region.
  * - ``EMEA`` - Data center for the European Union, Middle East, and Africa. 
- * - ``AUS`` - (Beta) Data center for the Australia region.
+ * - ``AUS`` - Data center for the Australia region.
  * - ``CAN`` - Data center for the Canada region.
  * - ``DEU`` - Data center for the Germany region.
  * - ``IND`` - Data center for the India region.
