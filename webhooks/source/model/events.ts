@@ -91,7 +91,11 @@ export const Events = {
     IssueUpdated10: 'issue.updated-1.0',
     IssueDeleted10: 'issue.deleted-1.0',
     IssueRestored10: 'issue.restored-1.0',
-    IssueUnlinked10: 'issue.unlinked-1.0'
+    IssueUnlinked10: 'issue.unlinked-1.0',
+    DtApplyTemplate: 'dt.applyTemplate',
+    DtRemoveTemplate: 'dt.removeTemplate',
+    DtMutation: 'dt.mutation',
+    DtAlert: '"dt.alert'
 } as const;
 
 export type Events = typeof Events[keyof typeof Events];
