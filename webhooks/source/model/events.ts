@@ -95,7 +95,7 @@ export const Events = {
     DtApplyTemplate: 'dt.applyTemplate',
     DtRemoveTemplate: 'dt.removeTemplate',
     DtMutation: 'dt.mutation',
-    DtAlert: '"dt.alert'
+    DtAlert: 'dt.alert'
 } as const;
 
 export type Events = typeof Events[keyof typeof Events];
