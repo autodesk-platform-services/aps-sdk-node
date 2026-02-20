@@ -224,5 +224,11 @@ export interface Project {
      * @memberof Project
      */
     'memberCount'?: number;
+    /**
+     * The ID of the project that was used as a template to create this project.
+     * @type {string}
+     * @memberof Project
+     */
+    'templateId'?: string;
 }
 
