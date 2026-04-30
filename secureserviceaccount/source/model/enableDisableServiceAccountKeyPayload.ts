@@ -4,13 +4,13 @@ import { Status } from './status';
 /**
  * The request body for enable or disable service account key
  * @export
- * @interface EnableServiceAccountKeyPayload
+ * @interface EnableDisableServiceAccountKeyPayload
  */
-export interface EnableServiceAccountKeyPayload {
+export interface EnableDisableServiceAccountKeyPayload {
     /**
      * 
      * @type {Status}
-     * @memberof EnableServiceAccountKeyPayload
+     * @memberof EnableDisableServiceAccountKeyPayload
      */
     'status': Status;
 }

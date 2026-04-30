@@ -4,7 +4,7 @@ import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} fro
 import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 import { CollectionFormats, RequestArgs, BaseApi, RequiredError, SecureServiceAccountApiError } from '../base';
 import { CreateServiceAccountPayload } from '../model';
-import { EnableServiceAccountPayload } from '../model';
+import { EnableDisableServiceAccountPayload } from '../model';
 import { ServiceAccount } from '../model';
 import { ServiceAccountDetails } from '../model';
 import { ServiceAccounts } from '../model';
@@ -102,16 +102,16 @@ export const AccountManagementApiAxiosParamCreator = function (apsConfiguration?
  * This operation allows enabling a service account that is in a deactivated state.
          * @summary Enable or Disable Service Account
          * @param {string} serviceAccountId The Autodesk ID of the service account
-         * @param {EnableServiceAccountPayload} enableServiceAccountPayload 
+         * @param {EnableDisableServiceAccountPayload} enableDisableServiceAccountPayload 
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        enableServiceAccount: async (accessToken: string, serviceAccountId: string, enableServiceAccountPayload: EnableServiceAccountPayload,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        enableDisableServiceAccount: async (accessToken: string, serviceAccountId: string, enableDisableServiceAccountPayload: EnableDisableServiceAccountPayload,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'serviceAccountId' is not null or undefined
-            assertParamExists('enableServiceAccount', 'serviceAccountId', serviceAccountId)
-            // verify required parameter 'enableServiceAccountPayload' is not null or undefined
-            assertParamExists('enableServiceAccount', 'enableServiceAccountPayload', enableServiceAccountPayload)
+            assertParamExists('enableDisableServiceAccount', 'serviceAccountId', serviceAccountId)
+            // verify required parameter 'enableDisableServiceAccountPayload' is not null or undefined
+            assertParamExists('enableDisableServiceAccount', 'enableDisableServiceAccountPayload', enableDisableServiceAccountPayload)
             const localVarPath = `/authentication/v2/service-accounts/{serviceAccountId}`
                 .replace(`{${"serviceAccountId"}}`, encodeURIComponent(String(serviceAccountId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
@@ -133,7 +133,7 @@ export const AccountManagementApiAxiosParamCreator = function (apsConfiguration?
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             const headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(enableServiceAccountPayload, localVarRequestOptions, apsConfiguration)
+            localVarRequestOptions.data = serializeDataIfNeeded(enableDisableServiceAccountPayload, localVarRequestOptions, apsConfiguration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -141,18 +141,14 @@ export const AccountManagementApiAxiosParamCreator = function (apsConfiguration?
             };
         },
         /**
-         * Retrieves the details for a service account.
-         * @summary Get Service Account
-         * @param {string} serviceAccountId The Autodesk ID of the service account
+         * Retrieves all service accounts associated with an application.
+         * @summary Get All Service Accounts
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getServiceAccount: async (accessToken: string, serviceAccountId: string,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'serviceAccountId' is not null or undefined
-            assertParamExists('getServiceAccount', 'serviceAccountId', serviceAccountId)
-            const localVarPath = `/authentication/v2/service-accounts/{serviceAccountId}`
-                .replace(`{${"serviceAccountId"}}`, encodeURIComponent(String(serviceAccountId)));
+        getAllServiceAccounts: async (accessToken: string,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/authentication/v2/service-accounts`;
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
             if (apsConfiguration) {
@@ -178,14 +174,18 @@ export const AccountManagementApiAxiosParamCreator = function (apsConfiguration?
             };
         },
         /**
-         * Retrieves all service accounts associated with an application.
-         * @summary Get All Service Accounts
+         * Retrieves the details for a service account.
+         * @summary Get Service Account
+         * @param {string} serviceAccountId The Autodesk ID of the service account
          * @param accessToken bearer access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getServiceAccounts: async (accessToken: string,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/authentication/v2/service-accounts`;
+        getServiceAccount: async (accessToken: string, serviceAccountId: string,  options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'serviceAccountId' is not null or undefined
+            assertParamExists('getServiceAccount', 'serviceAccountId', serviceAccountId)
+            const localVarPath = `/authentication/v2/service-accounts/{serviceAccountId}`
+                .replace(`{${"serviceAccountId"}}`, encodeURIComponent(String(serviceAccountId)));
             const localVarUrlObj = new URL(localVarPath, apsConfiguration.baseAddress);
             let baseOptions;
             if (apsConfiguration) {
@@ -255,12 +255,22 @@ export const AccountManagementApiFp = function(sdkManager?: SdkManager) {
  * This operation allows enabling a service account that is in a deactivated state.
          * @summary Enable or Disable Service Account
          * @param {string} serviceAccountId The Autodesk ID of the service account
-         * @param {EnableServiceAccountPayload} enableServiceAccountPayload 
+         * @param {EnableDisableServiceAccountPayload} enableDisableServiceAccountPayload 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async enableServiceAccount(accessToken: string, serviceAccountId: string, enableServiceAccountPayload: EnableServiceAccountPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ServiceAccountDetails>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.enableServiceAccount(accessToken, serviceAccountId, enableServiceAccountPayload,  options);
+        async enableDisableServiceAccount(accessToken: string, serviceAccountId: string, enableDisableServiceAccountPayload: EnableDisableServiceAccountPayload, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ServiceAccountDetails>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.enableDisableServiceAccount(accessToken, serviceAccountId, enableDisableServiceAccountPayload,  options);
+            return createRequestFunction(localVarAxiosArgs, sdkManager);
+        },
+        /**
+         * Retrieves all service accounts associated with an application.
+         * @summary Get All Service Accounts
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllServiceAccounts(accessToken: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ServiceAccounts>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllServiceAccounts(accessToken,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
         /**
@@ -272,16 +282,6 @@ export const AccountManagementApiFp = function(sdkManager?: SdkManager) {
          */
         async getServiceAccount(accessToken: string, serviceAccountId: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ServiceAccountDetails>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getServiceAccount(accessToken, serviceAccountId,  options);
-            return createRequestFunction(localVarAxiosArgs, sdkManager);
-        },
-        /**
-         * Retrieves all service accounts associated with an application.
-         * @summary Get All Service Accounts
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getServiceAccounts(accessToken: string, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ServiceAccounts>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getServiceAccounts(accessToken,  options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
     }
@@ -328,13 +328,23 @@ export interface AccountManagementApiInterface {
  * This operation allows enabling a service account that is in a deactivated state.
      * @summary Enable or Disable Service Account
      * @param {string} serviceAccountId The Autodesk ID of the service account
-     * @param {EnableServiceAccountPayload} enableServiceAccountPayload 
+     * @param {EnableDisableServiceAccountPayload} enableDisableServiceAccountPayload 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AccountManagementApiInterface
      */
-    enableServiceAccount(accessToken: string,serviceAccountId: string, enableServiceAccountPayload: EnableServiceAccountPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    enableDisableServiceAccount(accessToken: string,serviceAccountId: string, enableDisableServiceAccountPayload: EnableDisableServiceAccountPayload,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+
+    /**
+     * Retrieves all service accounts associated with an application.
+     * @summary Get All Service Accounts
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AccountManagementApiInterface
+     */
+    getAllServiceAccounts(accessToken: string, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
     /**
      * Retrieves the details for a service account.
@@ -346,16 +356,6 @@ export interface AccountManagementApiInterface {
      * @memberof AccountManagementApiInterface
      */
     getServiceAccount(accessToken: string,serviceAccountId: string,  options?: ApsServiceRequestConfig): Promise<ApiResponse>;
-
-    /**
-     * Retrieves all service accounts associated with an application.
-     * @summary Get All Service Accounts
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AccountManagementApiInterface
-     */
-    getServiceAccounts(accessToken: string, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
 }
 
@@ -440,28 +440,57 @@ export class AccountManagementApi extends BaseApi implements AccountManagementAp
  * This operation allows enabling a service account that is in a deactivated state.
      * @summary Enable or Disable Service Account
      * @param {string} serviceAccountId The Autodesk ID of the service account
-     * @param {EnableServiceAccountPayload} enableServiceAccountPayload 
+     * @param {EnableDisableServiceAccountPayload} enableDisableServiceAccountPayload 
      * @param accessToken bearer access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AccountManagementApi
      */
-    public async enableServiceAccount(accessToken: string, serviceAccountId: string, enableServiceAccountPayload: EnableServiceAccountPayload, options?: ApsServiceRequestConfig) {
-      this.logger.logInfo("Entered into enableServiceAccount ");
+    public async enableDisableServiceAccount(accessToken: string, serviceAccountId: string, enableDisableServiceAccountPayload: EnableDisableServiceAccountPayload, options?: ApsServiceRequestConfig) {
+      this.logger.logInfo("Entered into enableDisableServiceAccount ");
       try {
-        const request =  await AccountManagementApiFp(this.sdkManager).enableServiceAccount(accessToken, serviceAccountId, enableServiceAccountPayload,  options);
+        const request =  await AccountManagementApiFp(this.sdkManager).enableDisableServiceAccount(accessToken, serviceAccountId, enableDisableServiceAccountPayload,  options);
         const response = await request(this.axios);
-        this.logger.logInfo(`enableServiceAccount Request completed successfully with status code: ${response.status}`);
+        this.logger.logInfo(`enableDisableServiceAccount Request completed successfully with status code: ${response.status}`);
         return new ApiResponse(response,response.data);
       } catch (error) {
         if (error.response) {
             const responseData = error.response.data;
             const errorMessage = responseData.developerMessage || responseData.reason || responseData.message || error.message;
-            this.logger.logError(`enableServiceAccount Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
-            throw new SecureServiceAccountApiError(`enableServiceAccount Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
+            this.logger.logError(`enableDisableServiceAccount Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new SecureServiceAccountApiError(`enableDisableServiceAccount Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
         } else if (error.request) {
-            this.logger.logError(`enableServiceAccount Request failed with no response received: ${error.request}`);
-            throw new SecureServiceAccountApiError(`enableServiceAccount Request failed with no response received: ${error.request}`, error);
+            this.logger.logError(`enableDisableServiceAccount Request failed with no response received: ${error.request}`);
+            throw new SecureServiceAccountApiError(`enableDisableServiceAccount Request failed with no response received: ${error.request}`, error);
+        }
+        throw error;
+      }
+    }
+
+    /**
+     * Retrieves all service accounts associated with an application.
+     * @summary Get All Service Accounts
+     * @param accessToken bearer access token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AccountManagementApi
+     */
+    public async getAllServiceAccounts(accessToken: string, options?: ApsServiceRequestConfig) {
+      this.logger.logInfo("Entered into getAllServiceAccounts ");
+      try {
+        const request =  await AccountManagementApiFp(this.sdkManager).getAllServiceAccounts(accessToken,  options);
+        const response = await request(this.axios);
+        this.logger.logInfo(`getAllServiceAccounts Request completed successfully with status code: ${response.status}`);
+        return new ApiResponse(response,response.data);
+      } catch (error) {
+        if (error.response) {
+            const responseData = error.response.data;
+            const errorMessage = responseData.developerMessage || responseData.reason || responseData.message || error.message;
+            this.logger.logError(`getAllServiceAccounts Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
+            throw new SecureServiceAccountApiError(`getAllServiceAccounts Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
+        } else if (error.request) {
+            this.logger.logError(`getAllServiceAccounts Request failed with no response received: ${error.request}`);
+            throw new SecureServiceAccountApiError(`getAllServiceAccounts Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }
@@ -492,35 +521,6 @@ export class AccountManagementApi extends BaseApi implements AccountManagementAp
         } else if (error.request) {
             this.logger.logError(`getServiceAccount Request failed with no response received: ${error.request}`);
             throw new SecureServiceAccountApiError(`getServiceAccount Request failed with no response received: ${error.request}`, error);
-        }
-        throw error;
-      }
-    }
-
-    /**
-     * Retrieves all service accounts associated with an application.
-     * @summary Get All Service Accounts
-     * @param accessToken bearer access token
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AccountManagementApi
-     */
-    public async getServiceAccounts(accessToken: string, options?: ApsServiceRequestConfig) {
-      this.logger.logInfo("Entered into getServiceAccounts ");
-      try {
-        const request =  await AccountManagementApiFp(this.sdkManager).getServiceAccounts(accessToken,  options);
-        const response = await request(this.axios);
-        this.logger.logInfo(`getServiceAccounts Request completed successfully with status code: ${response.status}`);
-        return new ApiResponse(response,response.data);
-      } catch (error) {
-        if (error.response) {
-            const responseData = error.response.data;
-            const errorMessage = responseData.developerMessage || responseData.reason || responseData.message || error.message;
-            this.logger.logError(`getServiceAccounts Request failed with status : ${error.response.status} and statusText : ${error.response.statusText} and error message: ${errorMessage}`);
-            throw new SecureServiceAccountApiError(`getServiceAccounts Request failed with status : ${error.response.status} and error message: ${errorMessage}`, error);
-        } else if (error.request) {
-            this.logger.logError(`getServiceAccounts Request failed with no response received: ${error.request}`);
-            throw new SecureServiceAccountApiError(`getServiceAccounts Request failed with no response received: ${error.request}`, error);
         }
         throw error;
       }

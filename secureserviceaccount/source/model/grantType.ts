@@ -7,7 +7,7 @@
  */
 
 export const GrantType = {
-    UrnietfparamsoauthgrantTypejwtBearer: 'urn:ietf:params:oauth:grant-type:jwt-bearer'
+    UrnIetfParamsOauthGrantTypeJwtBearer: 'urn:ietf:params:oauth:grant-type:jwt-bearer'
 } as const;
 
 export type GrantType = typeof GrantType[keyof typeof GrantType];

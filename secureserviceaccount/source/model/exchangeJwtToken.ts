@@ -24,6 +24,12 @@ export interface ExchangeJwtToken {
      * @memberof ExchangeJwtToken
      */
     'expires_in'?: number;
+    /**
+     * Access token expiration time (in milliseconds).
+     * @type {number}
+     * @memberof ExchangeJwtToken
+     */
+    'expires_at'?: number;
 }
 
 export const ExchangeJwtTokenTokenTypeEnum = {

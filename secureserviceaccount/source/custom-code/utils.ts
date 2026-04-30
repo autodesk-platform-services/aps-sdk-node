@@ -1,11 +1,11 @@
 import * as crypto from 'crypto';
 import * as jwt from 'jsonwebtoken';
-import { Scope } from '../model';
+import { Scopes } from '../model';
 
 /**
  * Utility class for JWT operations related to Secure Service Account
  */
-export class JwtUtils {
+export class Utils {
     /**
      * Generate a signed JWT assertion for service account authentication
      * @param clientId - The client ID that owns the service account
@@ -21,7 +21,7 @@ export class JwtUtils {
         serviceAccountId: string,
         privateKey: string,
         keyId: string,
-        scopes: Array<Scope>,
+        scopes: Array<Scopes>,
         lifetimeSeconds: number = 300
     ): string {
         if (!clientId) {

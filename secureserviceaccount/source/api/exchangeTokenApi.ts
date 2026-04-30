@@ -3,7 +3,7 @@ import { ApiResponse, ApsServiceRequestConfig, IApsConfiguration, SdkManager } f
 import type { AxiosInstance, AxiosPromise } from 'axios';
 import { BaseApi, RequestArgs, RequiredError, SecureServiceAccountApiError } from '../base';
 import { assertParamExists, createRequestFunction, setSearchParams, toPathString } from '../common';
-import { ExchangeJwtToken, GrantType, Scope } from '../model';
+import { ExchangeJwtToken, GrantType, Scopes } from '../model';
 /**
  * ExchangeTokenApi - axios parameter creator
  * @export
@@ -24,7 +24,7 @@ export const ExchangeTokenApiAxiosParamCreator = function (apsConfiguration?: IA
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        exchangeJwtAssertion: async (grantType: GrantType, assertion: string, authorization?: string, clientId?: string, clientSecret?: string, scope?: Array<Scope>, options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
+        exchangeJwtAssertion: async (grantType: GrantType, assertion: string, authorization?: string, clientId?: string, clientSecret?: string, scope?: Array<Scopes>, options: ApsServiceRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'grantType' is not null or undefined
             assertParamExists('exchangeJwtAssertion', 'grantType', grantType)
             // verify required parameter 'assertion' is not null or undefined
@@ -105,7 +105,7 @@ export const ExchangeTokenApiFp = function (sdkManager?: SdkManager) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async exchangeJwtAssertion(grantType: GrantType, assertion: string, authorization?: string, clientId?: string, clientSecret?: string, scope?: Array<Scope>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExchangeJwtToken>> {
+        async exchangeJwtAssertion(grantType: GrantType, assertion: string, authorization?: string, clientId?: string, clientSecret?: string, scope?: Array<Scopes>, options?: ApsServiceRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExchangeJwtToken>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.exchangeJwtAssertion(grantType, assertion, authorization, clientId, clientSecret, scope, options);
             return createRequestFunction(localVarAxiosArgs, sdkManager);
         },
@@ -133,7 +133,7 @@ export interface ExchangeTokenApiInterface {
      * @throws {RequiredError}
      * @memberof ExchangeTokenApiInterface
      */
-    exchangeJwtAssertion(grantType: GrantType, assertion: string, authorization?: string, clientId?: string, clientSecret?: string, scope?: Array<Scope>, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
+    exchangeJwtAssertion(grantType: GrantType, assertion: string, authorization?: string, clientId?: string, clientSecret?: string, scope?: Array<Scopes>, options?: ApsServiceRequestConfig): Promise<ApiResponse>;
 
 }
 
@@ -160,12 +160,13 @@ export class ExchangeTokenApi extends BaseApi implements ExchangeTokenApiInterfa
      * @throws {RequiredError}
      * @memberof ExchangeTokenApi
      */
-    public async exchangeJwtAssertion(grantType: GrantType, assertion: string, authorization?: string, clientId?: string, clientSecret?: string, scope?: Array<Scope>, options?: ApsServiceRequestConfig) {
+    public async exchangeJwtAssertion(grantType: GrantType, assertion: string, authorization?: string, clientId?: string, clientSecret?: string, scope?: Array<Scopes>, options?: ApsServiceRequestConfig) {
         this.logger.logInfo("Entered into exchangeJwtAssertion ");
         try {
             const request = await ExchangeTokenApiFp(this.sdkManager).exchangeJwtAssertion(grantType, assertion, authorization, clientId, clientSecret, scope, options);
             const response = await request(this.axios);
             this.logger.logInfo(`exchangeJwtAssertion Request completed successfully with status code: ${response.status}`);
+            response.data.expires_at = Date.now() + response.data.expires_in * 1000;
             return new ApiResponse(response, response.data);
         } catch (error) {
             if (error.response) {
