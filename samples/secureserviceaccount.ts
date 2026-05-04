@@ -138,7 +138,7 @@ async function createServiceAccountKey() {
         const privateKey = await ssaClient.createServiceAccountKey(serviceAccountId, { accessToken });
         console.log("Service account key created:");
         console.log(`Key ID: ${privateKey.kid}`);
-        console.log(`Private Key: ${privateKey.privateKey}`);
+        console.log("Private key generated successfully.");
         console.log("⚠️ IMPORTANT: Store the private key securely. It won't be shown again!");
 
         // Store the key ID for future operations
@@ -285,9 +285,9 @@ async function exchangeJwtForToken(privateKeyPem?: string) {
 
         const tokenResponse: ExchangeJwtToken = await ssaClient.exchangeJwtAssertion(
             jwtAssertion,
+            clientId,
+            clientSecret,
             {
-                clientId: clientId,
-                clientSecret: clientSecret,
                 scope: [Scopes.DataRead, Scopes.DataWrite]
             }
         );

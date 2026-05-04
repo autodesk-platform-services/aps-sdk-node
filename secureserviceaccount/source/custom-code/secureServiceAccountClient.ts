@@ -34,10 +34,10 @@ export class SecureServiceAccountClient extends BaseClient {
     //#region AccountManagementApi
     /**
      * Creates a service account. Only a server-to-server application can own service accounts.
-* 
-* An application can have up to 10 service accounts at any given time.
-* 
-* Upon a successful response, the operation returns the service account ID and email address.
+     * 
+     * An application can have up to 10 service accounts at any given time.
+     * 
+     * Upon a successful response, the operation returns the service account ID and email address.
      * @remarks Create Service Account
      * @param {CreateServiceAccountPayload} createServiceAccountPayload 
      * @param {*} [optionalArgs.options] Override http request option.
@@ -59,12 +59,12 @@ export class SecureServiceAccountClient extends BaseClient {
     //#region KeyManagementApi
     /**
      * Creates a service account key. 
-* 
-* A service account key is a public-private key pair, generated using RSA with a key length of 2048 bits by the Identity Authorization Service (AuthZ).
-* 
-* The private key is returned once during its creation. AuthZ only stores the public key.
-* 
-* A service account can have up to 3 keys at any given time.
+     * 
+     * A service account key is a public-private key pair, generated using RSA with a key length of 2048 bits by the Identity Authorization Service (AuthZ).
+     * 
+     * The private key is returned once during its creation. AuthZ only stores the public key.
+     * 
+     * A service account can have up to 3 keys at any given time.
      * @remarks Create Keys
      * @param {string} serviceAccountId The Autodesk ID of the service account
      * @param {*} [optionalArgs.options] Override http request option.
@@ -190,9 +190,9 @@ export class SecureServiceAccountClient extends BaseClient {
 
     /**
      * Disables a service account.
-*
-* When a service account is in a disabled state, it loses its capability to manage its service account key.
-* Assertions signed by the key will be treated as invalid.
+     *
+     * When a service account is in a disabled state, it loses its capability to manage its service account key.
+     * Assertions signed by the key will be treated as invalid.
      * @remarks Disable Service Account
      * @param {string} serviceAccountId The Autodesk ID of the service account
      * @param {*} [optionalArgs.options] Override http request option.
@@ -214,19 +214,19 @@ export class SecureServiceAccountClient extends BaseClient {
     //#region ExchangeTokenApi
     /**
      * Returns a three-legged access token for the JWT assertion you provide in the request body. See the Developer's Guide topic JWT Assertions for information on how to generate a JWT assertion for this operation.
-* 
-* This operation is only for confidential clients. It requires Basic Authorization (client_id, client_secret). Authentication information (client_id, client_secret) can be included either in the header or the body, but not both simultaneously.
+     * 
+     * This operation is only for confidential clients. It requires Basic Authorization (client_id, client_secret). Authentication information (client_id, client_secret) can be included either in the header or the body, but not both simultaneously.
      * @remarks Exchanging JWT assertion for token
      * @param {string} assertion The value of the JWT assertion.
-     * @param {string} [optionalArgs.authorization] Must be Basic <credentials>, where <credentials> is a base64 encoded string of client_id:client_secret. This parameter is required only if client_id and client_secret are not provided in the request body.
-     * @param {string} [optionalArgs.clientId] This attribute is optional; it serves as an additional option where the client can either use the authorization header or opt to send this information in the body.
-     * @param {string} [optionalArgs.clientSecret] This attribute is optional; it serves as an additional option where the client can either use the authorization header or opt to send this information in the body.
-     * @param {Array<Scope>} [optionalArgs.scope] This is a space-delimited list of scopes. The scope in the token endpoint request body should be a subset of or the same as the scope specified in the assertion. If the scope is not present, then the returned access token will have the same scope as the assertion.
+     * @param {string} clientId The client ID of the application.
+     * @param {string} clientSecret The client secret of the application.
+     * @param {string} [optionalArgs.authorization] Must be Basic <credentials>, where <credentials> is a base64 encoded string of client_id:client_secret. This parameter is required only if clientId and clientSecret are not provided as parameters.
+     * @param {Array<Scopes>} [optionalArgs.scope] A space-delimited list of scopes. Must be a subset of or equal to the scope in the assertion. If omitted, the returned token inherits the assertion's scope.
      * @param {*} [optionalArgs.options] Override http request option.
      * @throws {@link SecureServiceAccountApiError}
      */
-    public async exchangeJwtAssertion(assertion: string, optionalArgs?: { authorization?: string, clientId?: string, clientSecret?: string, scope?: Array<Scopes>, options?: ApsServiceRequestConfig }): Promise<ExchangeJwtToken> {
-        const response = await this.exchangeTokenApi.exchangeJwtAssertion(GrantType.UrnIetfParamsOauthGrantTypeJwtBearer, assertion, optionalArgs?.authorization, optionalArgs?.clientId, optionalArgs?.clientSecret, optionalArgs?.scope, optionalArgs?.options);
+    public async exchangeJwtAssertion(assertion: string, clientId: string, clientSecret: string, optionalArgs?: { authorization?: string, scope?: Array<Scopes>, options?: ApsServiceRequestConfig }): Promise<ExchangeJwtToken> {
+        const response = await this.exchangeTokenApi.exchangeJwtAssertion(GrantType.UrnIetfParamsOauthGrantTypeJwtBearer, assertion, optionalArgs?.authorization, clientId, clientSecret, optionalArgs?.scope, optionalArgs?.options);
         return response.content;
     }
 
