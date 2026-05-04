@@ -1,5 +1,32 @@
 # Changelog
 
+## [v4.4.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v4.4.0) (2026-02-25)
+
+[Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v4.3.0...v4.4.0)
+
+**Implemented enhancements:**
+
+- Add Tandem webhook enums. [\#168](https://github.com/autodesk-platform-services/aps-sdk-node/pull/168) ([tylerwarner33](https://github.com/tylerwarner33))
+- \[DAS 373\] - Added templateId to project model [\#154](https://github.com/autodesk-platform-services/aps-sdk-node/pull/154) ([srivastavarahull](https://github.com/srivastavarahull))
+
+**Merged pull requests:**
+
+- \[DAS 382\] - Fix Dependency Security Issues [\#169](https://github.com/autodesk-platform-services/aps-sdk-node/pull/169) ([nishchhaldagar](https://github.com/nishchhaldagar))
+- \[Snyk\] Security upgrade axios from 1.12.2 to 1.13.5 [\#167](https://github.com/autodesk-platform-services/aps-sdk-node/pull/167) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- \[Snyk\] Security upgrade axios from 1.7.9 to 1.13.5 [\#166](https://github.com/autodesk-platform-services/aps-sdk-node/pull/166) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- \[Snyk\] Security upgrade axios from 1.13.2 to 1.13.5 [\#165](https://github.com/autodesk-platform-services/aps-sdk-node/pull/165) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- \[Snyk\] Security upgrade axios from 1.11.0 to 1.13.5 [\#164](https://github.com/autodesk-platform-services/aps-sdk-node/pull/164) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- \[Snyk\] Upgrade dotenv from 16.4.7 to 16.6.1 [\#163](https://github.com/autodesk-platform-services/aps-sdk-node/pull/163) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- \[Snyk\] Upgrade @aps\_sdk/webhooks from 1.0.0 to 1.3.0 [\#162](https://github.com/autodesk-platform-services/aps-sdk-node/pull/162) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Update README.md [\#160](https://github.com/autodesk-platform-services/aps-sdk-node/pull/160) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- \[AUTO\]: Update CHANGELOG [\#153](https://github.com/autodesk-platform-services/aps-sdk-node/pull/153) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Keep Main branch updated with changes to OSS and DM [\#152](https://github.com/autodesk-platform-services/aps-sdk-node/pull/152) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Add `project.templateId` property to ACC Project. [\#151](https://github.com/autodesk-platform-services/aps-sdk-node/pull/151) ([tylerwarner33](https://github.com/tylerwarner33))
+- Update changelog with ACC Issues changes [\#150](https://github.com/autodesk-platform-services/aps-sdk-node/pull/150) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Keep Main branch updated with changes to development [\#149](https://github.com/autodesk-platform-services/aps-sdk-node/pull/149) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Update ChangeLog with ACC Admin changes [\#148](https://github.com/autodesk-platform-services/aps-sdk-node/pull/148) ([sajith-subramanian](https://github.com/sajith-subramanian))
+- Keep Main branch updated with Development [\#147](https://github.com/autodesk-platform-services/aps-sdk-node/pull/147) ([sajith-subramanian](https://github.com/sajith-subramanian))
+
 ## [v4.3.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v4.3.0) (2025-12-04)
 
 [Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v4.2.0...v4.3.0)

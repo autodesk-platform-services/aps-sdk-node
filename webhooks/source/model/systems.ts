@@ -13,7 +13,8 @@ export const Systems = {
     AdskFlcProduction: 'adsk.flc.production',
     AutodeskConstructionCost: 'autodesk.construction.cost',
     AutodeskConstructionBc: 'autodesk.construction.bc',
-    AutodeskConstructionIssues: 'autodesk.construction.issues'
+    AutodeskConstructionIssues: 'autodesk.construction.issues',
+    AdskTandem: 'adsk.tandem'
 } as const;
 
 export type Systems = typeof Systems[keyof typeof Systems];
