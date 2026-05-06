@@ -55,6 +55,10 @@ The Developer Portal has everything APS:
 [![npm version](https://img.shields.io/npm/v/@aps_sdk/webhooks.svg?label=Release&color=brightgreen)](https://www.npmjs.com/package/@aps_sdk/webhooks)
 [![npm beta version](https://img.shields.io/npm/v/@aps_sdk/webhooks.svg?label=Latest)](https://www.npmjs.com/package/@aps_sdk/webhooks?activeTab=versions)
 
+[![npm package](https://img.shields.io/badge/npm-@aps__sdk/secure--service--account-blue.svg)](https://www.npmjs.com/package/@aps_sdk/secure-service-account)
+[![npm version](https://img.shields.io/npm/v/@aps_sdk/secure-service-account.svg?label=Release&color=orange)](https://www.npmjs.com/package/@aps_sdk/secure-service-account)
+[![npm beta version](https://img.shields.io/npm/v/@aps_sdk/secure-service-account.svg?label=Latest&color=orange)](https://www.npmjs.com/package/@aps_sdk/secure-service-account)
+
 ## Contributions
 
  Contributions are welcome! Please make sure to read the [contribution guidelines](CONTRIBUTING.md).
