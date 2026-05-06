@@ -1,7 +1,6 @@
 import { ApsServiceRequestConfig, BaseClient, IAuthenticationProvider, SdkManager, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
 import { AccountManagementApi, ExchangeTokenApi, KeyManagementApi } from '../api';
 import { CreateServiceAccountPayload, ExchangeJwtToken, GrantType, Scopes, ServiceAccount, ServiceAccountDetails, ServiceAccountKeys, ServiceAccountPrivateKey, ServiceAccounts, Status } from '../model';
-import { Utils } from './utils';
 
 
 
@@ -225,8 +224,8 @@ export class SecureServiceAccountClient extends BaseClient {
      * @param {*} [optionalArgs.options] Override http request option.
      * @throws {@link SecureServiceAccountApiError}
      */
-    public async exchangeJwtAssertion(assertion: string, clientId: string, clientSecret: string, optionalArgs?: { authorization?: string, scope?: Array<Scopes>, options?: ApsServiceRequestConfig }): Promise<ExchangeJwtToken> {
-        const response = await this.exchangeTokenApi.exchangeJwtAssertion(GrantType.UrnIetfParamsOauthGrantTypeJwtBearer, assertion, optionalArgs?.authorization, clientId, clientSecret, optionalArgs?.scope, optionalArgs?.options);
+    public async exchangeJwtAssertion(assertion: string, clientId: string, clientSecret: string, optionalArgs?: { scope?: Array<Scopes>, options?: ApsServiceRequestConfig }): Promise<ExchangeJwtToken> {
+        const response = await this.exchangeTokenApi.exchangeJwtAssertion(GrantType.UrnIetfParamsOauthGrantTypeJwtBearer, assertion, null, clientId, clientSecret, optionalArgs?.scope, optionalArgs?.options);
         return response.content;
     }
 
@@ -292,34 +291,5 @@ export class SecureServiceAccountClient extends BaseClient {
         return response.content;
     }
 
-
-
-    /**
-     * Generate a signed JWT assertion for service account authentication
-     * @param clientId - The client ID that owns the service account
-     * @param serviceAccountId - The service account ID
-     * @param privateKey - The private key in PEM format
-     * @param keyId - The key ID (kid)
-     * @param scopes - Array of scopes to request
-     * @param lifetimeSeconds - Token lifetime in seconds (max 300 = 5 minutes)
-     * @returns Signed JWT assertion
-     */
-    public generateJwtAssertion(
-        clientId: string,
-        serviceAccountId: string,
-        privateKey: string,
-        keyId: string,
-        scopes: Array<Scopes>,
-        lifetimeSeconds: number = 300
-    ): string {
-        return Utils.generateJwtAssertion(
-            clientId,
-            serviceAccountId,
-            privateKey,
-            keyId,
-            scopes,
-            lifetimeSeconds
-        );
-    }
 
 }

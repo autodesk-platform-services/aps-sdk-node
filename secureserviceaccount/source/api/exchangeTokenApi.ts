@@ -88,7 +88,7 @@ export const ExchangeTokenApiAxiosParamCreator = function (apsConfiguration?: IA
  * ExchangeTokenApi - functional programming interface
  * @export
  */
-export const ExchangeTokenApiFp = function (sdkManager?: SdkManager) {
+export const ExchangeTokenApiFp = function (sdkManager: SdkManager) {
     const localVarAxiosParamCreator = ExchangeTokenApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**

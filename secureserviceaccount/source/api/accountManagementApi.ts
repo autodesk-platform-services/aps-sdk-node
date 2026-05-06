@@ -1,13 +1,9 @@
 
-import type { AxiosPromise, AxiosInstance } from 'axios';
-import {ApsServiceRequestConfig, IApsConfiguration, SdkManager, ApiResponse} from "@aps_sdk/autodesk-sdkmanager";
-import { assertParamExists, setBearerAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
-import { CollectionFormats, RequestArgs, BaseApi, RequiredError, SecureServiceAccountApiError } from '../base';
-import { CreateServiceAccountPayload } from '../model';
-import { EnableDisableServiceAccountPayload } from '../model';
-import { ServiceAccount } from '../model';
-import { ServiceAccountDetails } from '../model';
-import { ServiceAccounts } from '../model';
+import { ApiResponse, ApsServiceRequestConfig, IApsConfiguration, SdkManager } from "@aps_sdk/autodesk-sdkmanager";
+import type { AxiosInstance, AxiosPromise } from 'axios';
+import { BaseApi, RequestArgs, RequiredError, SecureServiceAccountApiError } from '../base';
+import { assertParamExists, createRequestFunction, serializeDataIfNeeded, setBearerAuthToObject, setSearchParams, toPathString } from '../common';
+import { CreateServiceAccountPayload, EnableDisableServiceAccountPayload, ServiceAccount, ServiceAccountDetails, ServiceAccounts } from '../model';
 /**
  * AccountManagementApi - axios parameter creator
  * @export
@@ -217,7 +213,7 @@ export const AccountManagementApiAxiosParamCreator = function (apsConfiguration?
  * AccountManagementApi - functional programming interface
  * @export
  */
-export const AccountManagementApiFp = function(sdkManager?: SdkManager) {
+export const AccountManagementApiFp = function(sdkManager: SdkManager) {
     const localVarAxiosParamCreator = AccountManagementApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**

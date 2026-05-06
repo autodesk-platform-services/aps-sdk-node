@@ -184,7 +184,7 @@ export const KeyManagementApiAxiosParamCreator = function (apsConfiguration?: IA
  * KeyManagementApi - functional programming interface
  * @export
  */
-export const KeyManagementApiFp = function(sdkManager?: SdkManager) {
+export const KeyManagementApiFp = function(sdkManager: SdkManager) {
     const localVarAxiosParamCreator = KeyManagementApiAxiosParamCreator(sdkManager.apsConfiguration)
     return {
         /**

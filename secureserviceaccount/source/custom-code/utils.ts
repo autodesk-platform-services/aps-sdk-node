@@ -10,7 +10,7 @@ export class Utils {
      * Generate a signed JWT assertion for service account authentication
      * @param clientId - The client ID that owns the service account
      * @param serviceAccountId - The service account ID
-     * @param privateKey - The private key in PEM format
+     * @param privateKey - The private key in PEM format as a string or Buffer
      * @param keyId - The key ID (kid)
      * @param scopes - Array of scopes to request
      * @param lifetimeSeconds - Token lifetime in seconds (max 300 = 5 minutes)
@@ -19,7 +19,7 @@ export class Utils {
     public static generateJwtAssertion(
         clientId: string,
         serviceAccountId: string,
-        privateKey: string,
+        privateKey: string | Buffer,
         keyId: string,
         scopes: Array<Scopes>,
         lifetimeSeconds: number = 300
@@ -45,19 +45,17 @@ export class Utils {
 
         const jwtId = crypto.randomBytes(16).toString('hex');
 
-        // JWT payload
         const payload = {
-            iss: clientId,                    // Issuer: Client ID
-            sub: serviceAccountId,            // Subject: Service Account ID
-            aud: "https://developer.api.autodesk.com/authentication/v2/token", // Audience
-            exp: expirationTime,              // Expiration time
-            iat: currentTime,                 // Issued at
-            nbf: currentTime,                 // Not before
-            jti: jwtId,                       // JWT ID (unique identifier)
-            scope: scopes                     // Requested scopes
+            iss: clientId,
+            sub: serviceAccountId,
+            aud: "https://developer.api.autodesk.com/authentication/v2/token",
+            exp: expirationTime,
+            iat: currentTime,
+            nbf: currentTime,
+            jti: jwtId,
+            scope: scopes
         };
 
-        // JWT header
         const header = {
             kid: keyId,
             alg: 'RS256' as const,
@@ -69,5 +67,4 @@ export class Utils {
             header: header
         });
     }
-
 }

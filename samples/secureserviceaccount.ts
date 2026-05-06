@@ -1,5 +1,5 @@
 import { SdkManager, SdkManagerBuilder, StaticAuthenticationProvider } from "@aps_sdk/autodesk-sdkmanager";
-import { CreateServiceAccountPayload, ExchangeJwtToken, Scopes, SecureServiceAccountClient, ServiceAccount, ServiceAccountDetails, ServiceAccounts } from "@aps_sdk/secure-service-account";
+import { CreateServiceAccountPayload, ExchangeJwtToken, Scopes, SecureServiceAccountClient, ServiceAccount, ServiceAccountDetails, ServiceAccounts, Utils } from "@aps_sdk/secure-service-account";
 import 'dotenv/config';
 
 const accessToken: string = process.env.accessToken!;
@@ -217,7 +217,7 @@ function generateJwtAssertion(
     scopes: Array<Scopes>,
     lifetimeSeconds: number = 300
 ): string {
-    return ssaClient.generateJwtAssertion(
+    return Utils.generateJwtAssertion(
         clientId,
         serviceAccountId,
         privateKey,
