@@ -1,5 +1,13 @@
 # Changelog
 
+## [v4.5.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v4.5.0) (2026-05-06)
+
+[Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v4.4.0...v4.5.0)
+
+**Newly added services:**
+
+- \[DAS 376\] - SSA SDK [\#172](https://github.com/autodesk-platform-services/aps-sdk-node/pull/172) ([nishchhaldagar](https://github.com/nishchhaldagar))
+
 ## [v4.4.0](https://github.com/autodesk-platform-services/aps-sdk-node/tree/v4.4.0) (2026-02-25)
 
 [Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v4.3.0...v4.4.0)
