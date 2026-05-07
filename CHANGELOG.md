@@ -4,7 +4,7 @@
 
 [Full Changelog](https://github.com/autodesk-platform-services/aps-sdk-node/compare/v4.4.0...v4.5.0)
 
-**Merged pull requests:**
+**Newly added services:**
 
 - \[DAS 376\] - SSA SDK [\#172](https://github.com/autodesk-platform-services/aps-sdk-node/pull/172) ([nishchhaldagar](https://github.com/nishchhaldagar))
 
