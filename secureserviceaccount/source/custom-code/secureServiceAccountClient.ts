@@ -1,0 +1,295 @@
+import { ApsServiceRequestConfig, BaseClient, IAuthenticationProvider, SdkManager, SdkManagerBuilder } from "@aps_sdk/autodesk-sdkmanager";
+import { AccountManagementApi, ExchangeTokenApi, KeyManagementApi } from '../api';
+import { CreateServiceAccountPayload, ExchangeJwtToken, GrantType, Scopes, ServiceAccount, ServiceAccountDetails, ServiceAccountKeys, ServiceAccountPrivateKey, ServiceAccounts, Status } from '../model';
+
+
+
+/**
+ * @remarks Represents a collection of functions to interact with the SecureServiceAccount API endpoints.
+ */
+
+export class SecureServiceAccountClient extends BaseClient {
+    public exchangeTokenApi: ExchangeTokenApi;
+    public keyManagementApi: KeyManagementApi;
+    public accountManagementApi: AccountManagementApi;
+
+    constructor(optionalArgs?: { sdkManager?: SdkManager, authenticationProvider?: IAuthenticationProvider }) {
+        super(optionalArgs?.authenticationProvider);
+        if (!optionalArgs?.sdkManager) {
+            (optionalArgs ??= {}).sdkManager = SdkManagerBuilder.create().build();
+        }
+        this.exchangeTokenApi = new ExchangeTokenApi(optionalArgs.sdkManager);
+        this.keyManagementApi = new KeyManagementApi(optionalArgs.sdkManager);
+        this.accountManagementApi = new AccountManagementApi(optionalArgs.sdkManager);
+    }
+
+
+
+
+
+
+
+
+    //#region AccountManagementApi
+    /**
+     * Creates a service account. Only a server-to-server application can own service accounts.
+     * 
+     * An application can have up to 10 service accounts at any given time.
+     * 
+     * Upon a successful response, the operation returns the service account ID and email address.
+     * @remarks Create Service Account
+     * @param {CreateServiceAccountPayload} createServiceAccountPayload 
+     * @param {*} [optionalArgs.options] Override http request option.
+     * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
+     * @throws {@link SecureServiceAccountApiError}
+     */
+    public async createServiceAccount(createServiceAccountPayload: CreateServiceAccountPayload, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ServiceAccount> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.accountManagementApi.createServiceAccount(optionalArgs?.accessToken, createServiceAccountPayload, optionalArgs?.options);
+        return response.content;
+    }
+
+
+    //#region KeyManagementApi
+    /**
+     * Creates a service account key. 
+     * 
+     * A service account key is a public-private key pair, generated using RSA with a key length of 2048 bits by the Identity Authorization Service (AuthZ).
+     * 
+     * The private key is returned once during its creation. AuthZ only stores the public key.
+     * 
+     * A service account can have up to 3 keys at any given time.
+     * @remarks Create Keys
+     * @param {string} serviceAccountId The Autodesk ID of the service account
+     * @param {*} [optionalArgs.options] Override http request option.
+     * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
+     * @throws {@link SecureServiceAccountApiError}
+     */
+    public async createServiceAccountKey(serviceAccountId: string, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ServiceAccountPrivateKey> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.keyManagementApi.createServiceAccountKey(optionalArgs?.accessToken, serviceAccountId, optionalArgs?.options);
+        return response.content;
+    }
+
+
+    //#region KeyManagementApi
+    /**
+     * Deletes an existing key.
+     * @remarks Delete key
+     * @param {string} serviceAccountId The Autodesk ID of the service account
+     * @param {string} keyId The ID of the private key
+     * @param {*} [optionalArgs.options] Override http request option.
+     * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
+     * @throws {@link SecureServiceAccountApiError}
+     */
+    public async deleteServiceAccountKey(serviceAccountId: string, keyId: string, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<void> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.keyManagementApi.deleteServiceAccountKey(optionalArgs?.accessToken, serviceAccountId, keyId, optionalArgs?.options);
+        return response.content;
+    }
+
+
+    //#region AccountManagementApi
+    /**
+     * Deletes an existing service account. When a service account is deleted, all associated keys will also be deleted.
+     * @remarks Delete Service Account
+     * @param {string} serviceAccountId The Autodesk ID of the service account
+     * @param {*} [optionalArgs.options] Override http request option.
+     * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
+     * @throws {@link SecureServiceAccountApiError}
+     */
+    public async deleteServiceAccount(serviceAccountId: string, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<void> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.accountManagementApi.deleteServiceAccount(optionalArgs?.accessToken, serviceAccountId, optionalArgs?.options);
+        return response.content;
+    }
+
+
+    //#region KeyManagementApi
+    /**
+     * Enables a service account key.
+     * @remarks Enable Key
+     * @param {string} serviceAccountId The Autodesk ID of the service account
+     * @param {string} keyId The ID of the private key
+     * @param {*} [optionalArgs.options] Override http request option.
+     * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
+     * @throws {@link SecureServiceAccountApiError}
+     */
+    public async enableServiceAccountKey(serviceAccountId: string, keyId: string, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<void> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.keyManagementApi.enableDisableServiceAccountKey(optionalArgs?.accessToken, serviceAccountId, keyId, { status: Status.Enabled }, optionalArgs?.options);
+        return response.content;
+    }
+
+    /**
+     * Disables a service account key.
+     * @remarks Disable Key
+     * @param {string} serviceAccountId The Autodesk ID of the service account
+     * @param {string} keyId The ID of the private key
+     * @param {*} [optionalArgs.options] Override http request option.
+     * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
+     * @throws {@link SecureServiceAccountApiError}
+     */
+    public async disableServiceAccountKey(serviceAccountId: string, keyId: string, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<void> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.keyManagementApi.enableDisableServiceAccountKey(optionalArgs?.accessToken, serviceAccountId, keyId, { status: Status.Disabled }, optionalArgs?.options);
+        return response.content;
+    }
+
+
+    //#region AccountManagementApi
+    /**
+     * Enables a service account.
+     * @remarks Enable Service Account
+     * @param {string} serviceAccountId The Autodesk ID of the service account
+     * @param {*} [optionalArgs.options] Override http request option.
+     * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
+     * @throws {@link SecureServiceAccountApiError}
+     */
+    public async enableServiceAccount(serviceAccountId: string, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ServiceAccountDetails> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.accountManagementApi.enableDisableServiceAccount(optionalArgs?.accessToken, serviceAccountId, { status: Status.Enabled }, optionalArgs?.options);
+        return response.content;
+    }
+
+    /**
+     * Disables a service account.
+     *
+     * When a service account is in a disabled state, it loses its capability to manage its service account key.
+     * Assertions signed by the key will be treated as invalid.
+     * @remarks Disable Service Account
+     * @param {string} serviceAccountId The Autodesk ID of the service account
+     * @param {*} [optionalArgs.options] Override http request option.
+     * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
+     * @throws {@link SecureServiceAccountApiError}
+     */
+    public async disableServiceAccount(serviceAccountId: string, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ServiceAccountDetails> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.accountManagementApi.enableDisableServiceAccount(optionalArgs?.accessToken, serviceAccountId, { status: Status.Disabled }, optionalArgs?.options);
+        return response.content;
+    }
+
+
+    //#region ExchangeTokenApi
+    /**
+     * Returns a three-legged access token for the JWT assertion you provide in the request body. See the Developer's Guide topic JWT Assertions for information on how to generate a JWT assertion for this operation.
+     * 
+     * This operation is only for confidential clients. It requires Basic Authorization (client_id, client_secret). Authentication information (client_id, client_secret) can be included either in the header or the body, but not both simultaneously.
+     * @remarks Exchanging JWT assertion for token
+     * @param {string} assertion The value of the JWT assertion.
+     * @param {string} clientId The client ID of the application.
+     * @param {string} clientSecret The client secret of the application.
+     * @param {string} [optionalArgs.authorization] Must be Basic <credentials>, where <credentials> is a base64 encoded string of client_id:client_secret. This parameter is required only if clientId and clientSecret are not provided as parameters.
+     * @param {Array<Scopes>} [optionalArgs.scope] A space-delimited list of scopes. Must be a subset of or equal to the scope in the assertion. If omitted, the returned token inherits the assertion's scope.
+     * @param {*} [optionalArgs.options] Override http request option.
+     * @throws {@link SecureServiceAccountApiError}
+     */
+    public async exchangeJwtAssertion(assertion: string, clientId: string, clientSecret: string, optionalArgs?: { scope?: Array<Scopes>, options?: ApsServiceRequestConfig }): Promise<ExchangeJwtToken> {
+        const response = await this.exchangeTokenApi.exchangeJwtAssertion(GrantType.UrnIetfParamsOauthGrantTypeJwtBearer, assertion, null, clientId, clientSecret, optionalArgs?.scope, optionalArgs?.options);
+        return response.content;
+    }
+
+
+    //#region AccountManagementApi
+    /**
+     * Retrieves the details for a service account.
+     * @remarks Get Service Account
+     * @param {string} serviceAccountId The Autodesk ID of the service account
+     * @param {*} [optionalArgs.options] Override http request option.
+     * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
+     * @throws {@link SecureServiceAccountApiError}
+     */
+    public async getServiceAccount(serviceAccountId: string, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ServiceAccountDetails> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.accountManagementApi.getServiceAccount(optionalArgs?.accessToken, serviceAccountId, optionalArgs?.options);
+        return response.content;
+    }
+
+
+    //#region KeyManagementApi
+    /**
+     * Lists all keys associated with the service account. This operation will only return key metadata, not the private or public key.
+     * @remarks Get All Keys
+     * @param {string} serviceAccountId The Autodesk ID of the service account
+     * @param {*} [optionalArgs.options] Override http request option.
+     * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
+     * @throws {@link SecureServiceAccountApiError}
+     */
+    public async getAllServiceAccountKeys(serviceAccountId: string, optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ServiceAccountKeys> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.keyManagementApi.getAllServiceAccountKeys(optionalArgs?.accessToken, serviceAccountId, optionalArgs?.options);
+        return response.content;
+    }
+
+
+    //#region AccountManagementApi
+    /**
+     * Retrieves all service accounts associated with an application.
+     * @remarks Get All Service Accounts
+     * @param {*} [optionalArgs.options] Override http request option.
+     * @param {string} [optionalArgs.accessToken] An access token obtained by a call to GetThreeLeggedTokenAsync() or GetTwoLeggedTokenAsync().
+     * @throws {@link SecureServiceAccountApiError}
+     */
+    public async getServiceAccounts(optionalArgs?: { accessToken?: string, options?: ApsServiceRequestConfig }): Promise<ServiceAccounts> {
+        if (!optionalArgs?.accessToken && !this.authenticationProvider) {
+            throw new Error("Please provide a valid access token or an authentication provider");
+        }
+        else if (!optionalArgs?.accessToken) {
+            (optionalArgs ??= {}).accessToken = await this.authenticationProvider.getAccessToken();
+        }
+        const response = await this.accountManagementApi.getAllServiceAccounts(optionalArgs?.accessToken, optionalArgs?.options);
+        return response.content;
+    }
+
+
+}
